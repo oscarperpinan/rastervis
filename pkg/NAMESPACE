@@ -1,3 +1,14 @@
+import(zoo)
+import(lattice)
+import(latticeExtra)
+importFrom(mgcv, in.out)
+import(RColorBrewer)
+import(raster)
+import(sp)
+import(grid)
+import(hexbin)
+import(methods)
+
 export(
        'chooseRegion',
        'xyLayer',

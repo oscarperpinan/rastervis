@@ -61,7 +61,7 @@ setMethod('horizonplot', signature='RasterStackBrick',##signature='RasterTime',
           )
 
 ##xyplot for directions created with xyLayer
-setGeneric('xyplot')
+##setGeneric('xyplot')
 
 setMethod('xyplot', signature='RasterStackBrick',#Time',
           definition=function(x, data=NULL, dirXY=y, xlab='Time', ylab='', digits=0, ...){
