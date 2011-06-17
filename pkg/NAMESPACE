@@ -1,0 +1,18 @@
+export(
+       'chooseRegion',
+       'xyLayer',
+       'rasterTheme',
+       'xscale.raster',
+       'yscale.raster'
+       )
+exportMethods(
+    "bwplot",
+    "densityplot",
+    "histogram",
+    "horizonplot",
+    "hovmoller",
+    "identifyRaster",
+    "levelplot",
+    "splom",
+    "xyplot" 
+)
