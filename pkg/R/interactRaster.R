@@ -1,6 +1,3 @@
-## library(grid)
-## library(mgcv)
-
 setGeneric('identifyRaster', function(object, ...){standardGeneric('identifyRaster')})
 
 setMethod('identifyRaster', signature=(object='Raster'),
