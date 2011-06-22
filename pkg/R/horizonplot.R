@@ -1,6 +1,4 @@
-##http://www.perceptualedge.com/articles/visual_business_intelligence/time_on_the_horizon.pdf
 setGeneric('horizonplot')
-
 setMethod('horizonplot', signature='RasterStackBrick',##signature='RasterTime',
           definition=function(x, data=NULL, dirXY=y, xlab='Time', ylab='direction', digits=0, ...){
             idx=getZ(x)

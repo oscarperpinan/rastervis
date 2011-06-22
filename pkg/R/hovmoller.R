@@ -13,12 +13,13 @@ xyLayer <- function(object, dirXY=y){
 setGeneric('hovmoller', function(object, ...){standardGeneric('hovmoller')})
 
 setMethod('hovmoller', signature='RasterStackBrick',##signature='RasterTime',
-          definition=function(object, dirXY=y, digits=2,
+          definition=function(object, dirXY=y,
+            FUN=mean, digits=2,
             xlab='Direction', ylab='Time', 
             add.contour=TRUE, ...){
             idx=getZ(object)
             dirLayer <- xyLayer(object, dirXY=substitute(dirXY))
-            z <- zonal(object, dirLayer, mean, digits=digits)
+            z <- zonal(object, dirLayer, FUN, digits=digits)
             dat <- expand.grid(x=z[,1], y=idx)
             dat$z <- as.vector(as.numeric(z[,-1]))
 

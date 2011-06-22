@@ -2,7 +2,7 @@ setGeneric('splom')
 
 setMethod('splom',
           signature=c(x='RasterStackBrick', data='missing'),
-          definition=function(x, maxpixels=1e5, plot.loess=FALSE, varname.cex=0.6,...){
+          definition=function(x, maxpixels=1e5, plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...){
             nms <- layerNames(x)
             dat <- sampleRandom(x, maxpixels)
             colnames(dat) <- nms
@@ -18,7 +18,7 @@ setMethod('splom',
               if (plot.loess) panel.loess(x, y, ..., col = 'red')
             }
             splom(~dat,
-                  colramp=BTC,
+                  colramp=colramp,
                   varname.cex=varname.cex, 
                   plot.loess=plot.loess,
                   panel=panel.hexbinplot,

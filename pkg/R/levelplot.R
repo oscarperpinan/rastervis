@@ -4,9 +4,11 @@ setMethod('levelplot',
           signature='Raster',
           definition=function(x, layer,
             margin=TRUE, FUN.margin=mean,
+            maxpixels=1e5,
             par.settings=rasterTheme,
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
+            xlab='', ylab='', main='',
             scales=list(draw=TRUE),
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
@@ -17,7 +19,7 @@ setMethod('levelplot',
               object <- subset(x, layer)
             } else {object <- x}
   
-            dat <- sampleRegular(object, size=1e5, asRaster=TRUE)
+            dat <- sampleRegular(object, size=maxpixels, asRaster=TRUE)
             nms <- layerNames(dat)
             x <- xFromCell(dat, 1:ncell(dat))
             y <- yFromCell(dat, 1:ncell(dat))
@@ -45,7 +47,7 @@ setMethod('levelplot',
             } else aspect='iso'
           
             ##formula
-            form <- as.formula(paste(paste(nms, collapse='+'), 'x*y', sep='~'))
+            form <- as.formula(paste(paste(names(df)[-c(1,2)], collapse='+'), 'x*y', sep='~'))
 
             if (nlayers(object)==1 && margin) {
               if ((is.logical(colorkey) && colorkey) || is.list(colorkey)){

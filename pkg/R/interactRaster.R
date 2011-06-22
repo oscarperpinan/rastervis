@@ -25,7 +25,7 @@ setMethod('identifyRaster', signature=(object='Raster'),
 
 
 
-chooseRegion <- function(sp=TRUE, proj=CRS('+proj=latlon +ellps=WGS84'),...){
+chooseRegion <- function(sp=TRUE, proj=CRS('+proj=latlon +ellps=WGS84')){
   trellis.focus('panel', 1, 1)
   x <- trellis.panelArgs()$x
   y <- trellis.panelArgs()$y

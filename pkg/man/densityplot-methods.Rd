@@ -1,23 +1,61 @@
 \name{densityplot-methods}
 \docType{methods}
 \alias{densityplot-methods}
-\alias{densityplot,ANY,ANY-method}
 \alias{densityplot,RasterLayer,missing-method}
 \alias{densityplot,RasterStackBrick,missing-method}
-\title{ ~~ Methods for Function \code{densityplot}  ~~}
-\description{
- ~~ Methods for function \code{densityplot}  ~~
-}
-\section{Methods}{
-\describe{
-
-\item{\code{signature(x = "RasterLayer", data = "missing")}}{
-%%  ~~describe this method here~~
+\title{Density plots for Raster objects.}
+\description{Draw kernel density plots (with \code{lattice}) of Raster objects.
 }
 
-\item{\code{signature(x = "RasterStackBrick", data = "missing")}}{
-%%  ~~describe this method here~~
+\usage{
+\S4method{densityplot}{RasterLayer,missing}(x, maxpixels = 1e+05,
+            xlab='', ylab='', main='', col='black', ...)
+
+\S4method{densityplot}{RasterStackBrick,missing}(x, layer, FUN,
+            maxpixels = 1e+05,
+            xlab='', ylab='', main='',
+            par.settings=rasterTheme,
+            ...)
 }
-}}
+\arguments{
+  \item{x}{A \code{Raster*} object.}
+  \item{layer}{A numeric or character which should indicate the layers
+    to be displayed.}
+  \item{FUN}{A function to applied to the \code{z} slot of a
+            \code{RasterStackBrick} object. The result of this function
+            is used as the grouping variable of the plot.}
+  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
+  \item{xlab, ylab, main, col, par.settings}{Arguments for \code{\link{densityplot}}.}
+  \item{\dots}{Additional arguments for \code{\link{densityplot}}}
+}
+\author{Oscar Perpiñán Lamigueiro}
+\seealso{\code{\link[lattice]{densityplot}},\code{\link{xscale.raster}},
+            \code{\link{yscale.raster}}, \code{\link{rasterTheme}}}
+
+\examples{
+\dontrun{
+##Solar irradiation data from CMSAF
+##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+
+old <- getwd()
+##change to your folder...
+setwd('CMSAF')
+listFich <- dir(pattern='2008')
+listNC <- lapply(listFich, raster)
+stackSIS <- do.call(stack, listNC)
+stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+setwd(old)
+
+idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+
+SISmm <- setZ(stackSIS, idx)
+layerNames(SISmm) <- as.character(idx)
+
+densityplot(SISmm)
+densityplot(SISmm, FUN=as.yearqtr)##FUN applies to z if not NULL
+}
+}
+
 \keyword{methods}
-\keyword{ ~~ other possible keyword(s) ~~ }
+
+
