@@ -6,7 +6,7 @@
 \description{Level plots of Raster objects with \code{lattice} methods
   and marginal plots with \code{grid} objects.
 }
-\usage{\S4method{levelplot}{Raster,ANY}(x, layer,
+\usage{\S4method{levelplot}{Raster,ANY}(x, data=NULL, layers,
             margin=TRUE, FUN.margin=mean,
             maxpixels=1e5,
             par.settings=rasterTheme,
@@ -22,7 +22,8 @@
 
 \arguments{
   \item{x}{A Raster object.}
-  \item{layer}{A numeric or character which should indicate the layers
+  \item{data}{Not used.}
+  \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
   \item{margin}{logical, if TRUE a marginal plot of the
     \code{FUN.margin} function to each coordinate will be displayed.}
@@ -64,6 +65,6 @@ layerNames(SISmm) <- as.character(idx)
 
 levelplot(SISmm)
 
-levelplot(SISmm, layer=1, FUN.margin=median, contour=TRUE)
+levelplot(SISmm, layers=1, FUN.margin=median, contour=TRUE)
 }}
 \keyword{methods}

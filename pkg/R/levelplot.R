@@ -2,7 +2,7 @@ setGeneric('levelplot')
 
 setMethod('levelplot',
           signature='Raster',
-          definition=function(x, layer,
+          definition=function(x, data=NULL, layers,
             margin=TRUE, FUN.margin=mean,
             maxpixels=1e5,
             par.settings=rasterTheme,
@@ -15,12 +15,12 @@ setMethod('levelplot',
             colorkey=list(space='right'),
             ...) {
             
-            if (!missing(layer)) {
-              object <- subset(x, layer)
+            if (!missing(layers)) {
+              object <- subset(x, subset=layers)
             } else {object <- x}
   
             dat <- sampleRegular(object, size=maxpixels, asRaster=TRUE)
-            nms <- layerNames(dat)
+            nms <- make.names(layerNames(dat))
             x <- xFromCell(dat, 1:ncell(dat))
             y <- yFromCell(dat, 1:ncell(dat))
             dat <- as.data.frame(getValues(dat))
