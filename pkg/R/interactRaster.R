@@ -52,10 +52,12 @@ chooseRegion <- function(sp=TRUE, proj=CRS('+proj=latlon +ellps=WGS84')){
   trellis.unfocus()  
 
   inside <- in.out(border, pointsData)
-  pointsInside <- SpatialPoints(coords=data.frame(xin=x[inside], yin=y[inside]), proj4string=proj)
+  pointsInside <- data.frame(xin=x[inside], yin=y[inside])
+  spPoints <- SpatialPoints(coords=pointsInside, proj4string=proj)
 
-  spPoints <- list('sp.points', pointsInside, cex=0.5)
-  print(update(trellis.last.object(), sp.layout=spPoints))
-  
-  if (sp) return(pointsInside) else return(inside)
+  ## spPoints <- list('sp.points', pointsInside, cex=0.5)
+  ## print(update(trellis.last.object(), sp.layout=spPoints))
+
+  print(trellis.last.object() + layer(lpoints(xin, yin), data=pointsInside))
+  if (sp) return(spPoints) else return(pointsInside)
 }

@@ -15,7 +15,8 @@ setGeneric('hovmoller', function(object, ...){standardGeneric('hovmoller')})
 setMethod('hovmoller', signature='RasterStackBrick',##signature='RasterTime',
           definition=function(object, dirXY=y,
             FUN=mean, digits=2,
-            xlab='Direction', ylab='Time', 
+            xlab='Direction', ylab='Time',
+            par.settings=rasterTheme,
             add.contour=TRUE, ...){
             idx=getZ(object)
             dirLayer <- xyLayer(object, dirXY=substitute(dirXY))
@@ -27,9 +28,11 @@ setMethod('hovmoller', signature='RasterStackBrick',##signature='RasterTime',
               p <- contourplot(z~x*y, data=dat,
                                xlab=xlab, ylab=ylab,
                                labels=list(cex=0.7),
+                               par.settings=par.settings,
                                region=TRUE, ...)
             } else {
               p <- levelplot(z~x*y, data=dat,
+                             par.settings,
                              xlab=xlab, ylab=ylab,
                              ...)
               }

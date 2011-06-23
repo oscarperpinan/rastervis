@@ -17,6 +17,8 @@ digits=2, xlab='Direction', ylab='Time', add.contour=TRUE, ...)
     \code{dirXY} and \code{zonal}.}
   \item{digits}{An integer, number of digits for \code{\link{zonal}}.}
   \item{xlab, ylab}{Labels of the axis.}
+  \item{par.settings}{Customization of lattice. See \code{\link{xyplot}}
+  for details.}
   \item{add.contour}{Logical, if TRUE a contourplot with filled regions
     is drawn.}
   \item{\dots}{Additional arguments for the \code{\link{contourplot}}
