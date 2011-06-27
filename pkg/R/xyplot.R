@@ -2,7 +2,9 @@
 setGeneric('xyplot')
 
 setMethod('xyplot', signature='RasterStackBrick',#Time',
-          definition=function(x, data=NULL, dirXY=y, xlab='Time', ylab='', digits=0, par.settings=rasterTheme,...){
+          definition=function(x, data=NULL, dirXY=y,
+            xlab='Time', ylab='', digits=0,
+            par.settings=rasterTheme,...){
             idx=getZ(x)
             dirLayer <- xyLayer(x, dirXY=substitute(dirXY))
             z <- zonal(x, dirLayer, mean, digits=digits)
@@ -10,7 +12,39 @@ setMethod('xyplot', signature='RasterStackBrick',#Time',
             zz <- as.data.frame(t(z[,-1]), row.names='')
             names(zz) <- z[,1]
             zz <- zoo(zz, order.by=idx)
-            p <- xyplot(zz, xlab=xlab, ylab=ylab, superpose=TRUE, auto.key=FALSE, par.settings=par.settings, ...)
+            p <- xyplot(zz, xlab=xlab, ylab=ylab,
+                        superpose=TRUE, auto.key=FALSE, par.settings=par.settings, ...)
             p + glayer(panel.text(x[1], y[1], group.value, cex=0.7))
+          }
+          )
+
+
+setMethod('xyplot', signature=c(x='formula', data='Raster'),
+          definition=function(x, data, dirXY, maxpixels=1e5,
+            xlab='', ylab='', alpha=0.5,
+            par.settings=rasterTheme,...){
+            idx=getZ(x)
+            nms <- layerNames(data)
+            nl <- nlayers(data)
+            xLayer <- getValues(init(data, v='x'))
+            yLayer <- getValues(init(data, v='y'))
+
+            ## data <- sampleRandom(data, maxpixels)
+            df <- getValues(data)
+            df <- as.data.frame(df)
+            names(df) <- make.names(nms)
+
+            df <- cbind(data.frame(x=xLayer, y=yLayer), df)
+
+            if (!missing(dirXY)) {
+              dirXY <- getValues(xyLayer(data, dirXY=substitute(dirXY)))
+              df <- cbind(df, dirXY)
+              }
+
+            p <- xyplot(x, df,
+                        xlab=xlab, ylab=ylab,
+                        alpha=alpha,
+                        par.settings=par.settings, ...)
+            p
           }
           )
