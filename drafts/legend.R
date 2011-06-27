@@ -89,52 +89,19 @@ legendX <- function(p, FUN=max, ...){
   lim <- p$x.limits
   ag <- aggregate(z~x, FUN=FUN)
   rngAg <- range(ag$z)
-  linesGrob(x = ag$x, y=ag$z,
-            gp =
-            gpar(col = "black",
-                 fill = "grey"),
+  minZ <- min(ag$z)
+  lenX <- length(ag$x)
+  polygonGrob(x = c(ag$x[1], ag$x, ag$x[lenX]), y = c(minZ, ag$z, minZ),
+            gp = gpar(col = "black", fill = 'grey'),
             default.units = "native",
             vp=viewport(clip='on',
-              yscale=rngAg,
+              yscale=lattice:::extend.limits(rngAg),
+              just='bottom',
               width=unit(1, 'npc'),
-              height=unit(10, 'mm'),
-              xscale=lim ##lattice:::extend.limits(range(x))
+              height=unit(8, 'native'),
+              xscale=lim 
               ))
 }
-  
-
-legendY <- function(p, FUN=max, ...){
-  x <- p$panel.args.common$x
-  y <- p$panel.args.common$y
-  z <- p$panel.args.common$z
-  lim <- p$y.limits
-  ag <- aggregate(z~y, FUN=FUN)
-  rngAg <- range(ag$z)
-  linesGrob(x = ag$z, y=ag$y,
-            gp =
-            gpar(col = "black",
-                 fill = "grey"),
-            default.units = "native",
-            vp=viewport(clip='on',
-              xscale=rngAg,
-              height=unit(1, 'npc'),
-              width=unit(0.1, 'npc'),
-              yscale=lim ##lattice:::extend.limits(range(x))
-              ))
-  
-}
-
-
-obj <- raster(SISmm, 1)
-p <- spplot(obj, colorkey=FALSE)
-
-update(p, legend=list(
-            right=list(
-              fun=legendY, args=list(p, sd)),
-            top=list(
-              fun=legendX, args=list(p, mean))
-            )
-       )
 
 
 legendY <- function(p, FUN=max, ...){
@@ -144,20 +111,56 @@ legendY <- function(p, FUN=max, ...){
   lim <- p$y.limits
   ag <- aggregate(z~y, FUN=FUN)
   rngAg <- range(ag$z)
-    lg <- linesGrob(x = ag$z, y=ag$y,
-            gp =
-            gpar(col = "black",
-                 fill = "grey"),
-            default.units = "native")
-rg <- rectGrob(gp=gpar(col='grey', fill='transparent'))
-  fg <- frameGrob(layout=grid.layout(1, 1),
-                  vp=viewport(clip='on',
-              xscale=rngAg,
+  minZ <- min(ag$z)
+  lenY <- length(ag$y)
+  polygonGrob(y = c(ag$y[1], ag$y, ag$y[lenY]), x = c(minZ, ag$z, minZ),
+            gp = gpar(col = "black", fill = 'grey'),
+             default.units = "native",
+            vp=viewport(clip='off',
+              xscale=lattice:::extend.limits(rngAg),
+              just='left',
               height=unit(1, 'npc'),
-              width=unit(0.1, 'npc'),
-              yscale=lim ##lattice:::extend.limits(range(x))
+              width=unit(8, 'native'),
+              yscale=lim 
               ))
-  fg <- placeGrob(fg, lg, 1, 1)
-  fg <- placeGrob(fg, rg, 1, 1)
-  fg
 }
+
+## legendX <- function(p, FUN=max, ...){
+##   x <- p$panel.args.common$x
+##   y <- p$panel.args.common$y
+##   z <- p$panel.args.common$z
+##   lim <- p$x.limits
+##   ag <- aggregate(z~x, FUN=FUN)
+##   rngAg <- range(ag$z)
+  
+##   vp=viewport(clip='off',
+##     yscale=rngAg, xscale=lattice:::extend.limits(lim),
+##     width=unit(1.02, 'npc'),
+##     height=unit(15, 'mm')
+##     )
+
+##   fg <- frameGrob(vp=vp)
+
+##   lg <- linesGrob(x=ag$x, y=ag$z, vp=vp, default.units='native')
+##   axis <- yaxisGrob(vp=vp, main=FALSE)
+
+##   fg <- packGrob(fg, lg)
+##   fg <- packGrob(fg, axis)
+  
+## }
+
+
+## vp<-viewport(clip='on',
+##     yscale=rngAg, xscale=lim,
+##     width=unit(0.5, 'npc'),
+##     height=unit(150, 'mm'),
+##               name="view")
+
+## yAxis <- yaxisGrob(name = "axis2")
+
+## lg <- linesGrob(x=ag$x, y=ag$z,
+##                      default.units='native',
+##                      name="dataLines")
+## tree <- gTree(name="Tree", vp=vp,
+##               children=gList(yAxis, lg))
+## grid.draw(tree)
