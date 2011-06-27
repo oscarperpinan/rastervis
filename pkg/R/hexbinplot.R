@@ -2,9 +2,11 @@
 setGeneric('hexbinplot')
 
 setMethod('hexbinplot', signature=c(x='formula', data='Raster'),
-          definition=function(x, data, dirXY, maxpixels=1e5,
-            xlab='', ylab='', 
-            par.settings=rasterTheme,...){
+          definition=function(x, data, dirXY,
+            par.settings=rasterTheme,
+            xscale.components=xscale.raster,
+            yscale.components=yscale.raster,
+            ...){
             idx=getZ(x)
             nms <- layerNames(data)
             nl <- nlayers(data)
@@ -21,11 +23,12 @@ setMethod('hexbinplot', signature=c(x='formula', data='Raster'),
             if (!missing(dirXY)) {
               dirXY <- getValues(xyLayer(data, dirXY=substitute(dirXY)))
               df <- cbind(df, dirXY)
-              }
+            }
 
             p <- hexbinplot(x, df,
-                        xlab=xlab, ylab=ylab,
-                        par.settings=par.settings, ...)
+                            xscale.components=xscale.components,
+                            yscale.components=yscale.components,                            
+                            par.settings=par.settings, ...)
             p
           }
           )

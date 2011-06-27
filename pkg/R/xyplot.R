@@ -21,29 +21,33 @@ setMethod('xyplot', signature='RasterStackBrick',#Time',
 
 setMethod('xyplot', signature=c(x='formula', data='Raster'),
           definition=function(x, data, dirXY, maxpixels=1e5,
-            xlab='', ylab='', alpha=0.5,
+            alpha=0.05,
+            xscale.components=xscale.raster,
+            yscale.components=yscale.raster,
             par.settings=rasterTheme,...){
-            idx=getZ(x)
+
             nms <- layerNames(data)
             nl <- nlayers(data)
-            xLayer <- getValues(init(data, v='x'))
-            yLayer <- getValues(init(data, v='y'))
 
-            ## data <- sampleRandom(data, maxpixels)
+            data <- sampleRegular(data, maxpixels, asRaster=TRUE)
             df <- getValues(data)
             df <- as.data.frame(df)
             names(df) <- make.names(nms)
+
+            xLayer <- getValues(init(data, v='x'))
+            yLayer <- getValues(init(data, v='y'))
 
             df <- cbind(data.frame(x=xLayer, y=yLayer), df)
 
             if (!missing(dirXY)) {
               dirXY <- getValues(xyLayer(data, dirXY=substitute(dirXY)))
               df <- cbind(df, dirXY)
-              }
+            }
 
-            p <- xyplot(x, df,
-                        xlab=xlab, ylab=ylab,
+            p <- xyplot(x=x, data=df,
                         alpha=alpha,
+                        xscale.components=xscale.components,
+                        yscale.components=yscale.components,                            
                         par.settings=par.settings, ...)
             p
           }

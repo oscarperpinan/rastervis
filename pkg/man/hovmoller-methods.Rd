@@ -7,7 +7,7 @@
 \description{
 Hovmoller plots of Raster objects.}
 \usage{\S4method{hovmoller}{RasterStackBrick}(object, dirXY=y, FUN=mean, 
-digits=2, xlab='Direction', ylab='Time', add.contour=TRUE, ...)
+digits=2, xlab='Direction', ylab='Time', par.settings=rasterTheme, add.contour=TRUE, ...)
 }
 \arguments{
   \item{object}{A RasterStackBrick with a non-empty \code{z} slot.}

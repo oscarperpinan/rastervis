@@ -45,6 +45,10 @@
 \author{Oscar Perpiñán Lamigueiro}
 \seealso{\code{\link{spplot}}, \code{\link[lattice]{levelplot}}}
 \examples{
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+levelplot(r)
+
 \dontrun{
 ##Solar irradiation data from CMSAF
 ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
