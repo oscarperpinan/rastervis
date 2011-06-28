@@ -11,6 +11,7 @@
             xscale.components=xscale.raster, yscale.components=yscale.raster,
             par.settings=rasterTheme,...)
 \S4method{hexbinplot}{formula,Raster}(x, data, dirXY,
+            xscale.components=xscale.raster, yscale.components=yscale.raster,
             par.settings=rasterTheme,...)
 
 }

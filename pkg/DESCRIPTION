@@ -7,6 +7,7 @@ Encoding: UTF-8
 Author: Oscar Perpiñán Lamigueiro and Robert Hijmans
 Maintainer: Oscar Perpiñán Lamigueiro <oscar.perpinan@upm.es>
 Description: The raster package defines classes and methods for spatial raster data access and manipulation. The rasterVis package complements raster providing a set of methods for enhanced visualization and interaction.
+URL: http://rastervis.r-forge.r-project.org/
 License: GPL-3
 LazyLoad: yes
 Depends: methods, sp, raster, grid, lattice, latticeExtra, RColorBrewer, zoo, mgcv, hexbin

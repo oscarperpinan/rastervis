@@ -3,9 +3,9 @@ setGeneric('hexbinplot')
 
 setMethod('hexbinplot', signature=c(x='formula', data='Raster'),
           definition=function(x, data, dirXY,
-            par.settings=rasterTheme,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
+            par.settings=rasterTheme,
             ...){
             idx=getZ(x)
             nms <- layerNames(data)

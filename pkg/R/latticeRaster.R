@@ -24,7 +24,9 @@ raster2dat <- function(x, FUN, maxpixels){
   nl <- nlayers(x)
   dat <- sampleRandom(x, maxpixels)
   dat <- as.data.frame(dat)
-  names(dat) <- 1:nl
+  ##http://r.789695.n4.nabble.com/Column-order-in-stacking-unstacking-td3349953.html
+  idx <- sprintf("%s%03d", "X", 1:nl) 
+  names(dat) <- idx
   dat <- stack(dat)
   z <- getZ(x)
   if (!missing(FUN) & !is.null(z)){
