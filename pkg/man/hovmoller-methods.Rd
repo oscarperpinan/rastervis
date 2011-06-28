@@ -62,7 +62,7 @@ setwd(old)
 idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 
 SISmm <- setZ(stackSIS, idx)
-layerNames(SISmm) <- as.character(idx)
+layerNames(SISmm) <- month.abb
 
 hovmoller(SISmm, dirXY=y, xlab='Latitude')##latitude
 hovmoller(SISmm, dirXY=sqrt(x^2+y^2))##a function of coordinates...

@@ -61,7 +61,7 @@ setwd(old)
 idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 
 SISmm <- setZ(stackSIS, idx)
-layerNames(SISmm) <- as.character(idx)
+layerNames(SISmm) <- month.abb
 
 histogram(SISmm)
 histogram(SISmm, FUN=as.yearqtr)
