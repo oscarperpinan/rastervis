@@ -1,0 +1,190 @@
+#+POSTID: 756
+#+DATE: [2011-06-28 mar 07:59]
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil f:nil
+#+CATEGORY: Palabras de otros
+#+TAGS: 
+#+DESCRIPTION: 
+#+TITLE: rasterVis
+
+The [[http://cran.r-project.org/web/packages/raster/index.html][raster]] package defines classes and methods for spatial raster data
+access and manipulation. The new [[http://rastervis.r-forge.r-project.org/][rasterVis]] package complements raster
+providing a set of methods for enhanced visualization and interaction.
+
+I will show some of its functionalities with some examples, using data
+from the [[http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet][CMSAF]] project as described [[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]] ([[http://www.box.net/shared/rl51y1t9sldxk54ogd44][download data]]).
+
+#+begin_src r
+library(raster)
+library(rasterVis)
+
+old <- getwd()
+##change to your folder...
+setwd('CMSAF')
+listFich <- dir(pattern='2008')
+listNC <- lapply(listFich, raster)
+stackSIS <- do.call(stack, listNC)
+stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+setwd(old)
+
+idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+
+SISmm <- setZ(stackSIS, idx)
+layerNames(SISmm) <- month.abb
+#+end_src
+
+** Level plots
+The first step is to display the content with a =levelplot=:
+#+begin_src r
+levelplot(SISmm)
+#+end_src
+
+#+ATTR_HTML: width="640"
+[[file:levelplot.png]]
+
+If only one layer is chosen, this method displays a marginal plot
+of a function across each coordinate:
+#+begin_src r
+levelplot(SISmm, layers=1, FUN.margin=median, contour=TRUE)
+#+end_src
+
+#+ATTR_HTML: width="640"
+[[file:levelplot_layer1.png]]
+
+The result of this call is a =trellis= object. The [[http://latticeextra.r-forge.r-project.org/][latticeExtra]] package
+provides the =layer= function to add contents. For example, let's add the administrative borders. 
+This information is available [[http://biogeo.ucdavis.edu/data/diva/adm/ESP_adm.zip][here]]:
+#+begin_src r
+library(maptools)
+proj <- CRS('+proj=latlon +ellps=WGS84')
+##Change to your folder
+mapaSHP <- readShapeLines('ESP_adm/ESP_adm2.shp', proj4string=proj)
+
+p <- levelplot(SISmm, layers=1, FUN.margin=median)
+p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
+#+end_src
+
+#+ATTR_HTML: width="640"
+[[file:levelplot_layer_borders.png]]
+
+
+** Scatterplots and histograms
+There are methods to show scatter plots and hexbin plots of the layers
+and coordinates of a =Raster= object:
+#+begin_src r
+##Relation between the January & February versus July radiation for four
+##differents longitude regions.
+xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space='right'))
+##Faster with hexbinplot
+hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
+#+end_src
+#+ATTR_HTML: width="640"
+[[file:xyplot_formula.png]]
+
+#+ATTR_HTML: width="640"
+[[file:hexbinplot_formula.png]]
+
+...a method for scatter plot matrices:
+#+begin_src r
+splom(SISmm)
+#+end_src
+
+#+ATTR_HTML: width="640"
+[[file:splom.png]]
+
+..and methods for histograms, [[http://procomun.wordpress.com/2011/04/02/violin-plot/][box-and-whisker and violin]] plots or density estimates:
+#+begin_src r
+histogram(SISmm)
+densityplot(SISmm)
+bwplot(SISmm)
+#+end_src
+
+#+ATTR_HTML: width="640"
+[[file:histogram.png]]
+
+#+ATTR_HTML: width="640"
+[[file:density.png]]
+
+#+ATTR_HTML: width="640"
+[[file:bwplot.png]]
+
+
+These methods accept a =FUN= argument to be applied to the =z= slot of
+the =Raster= object. The result of this function is used as the grouping
+variable of the plot:
+
+#+begin_src r
+histogram(SISmm, FUN=as.yearqtr)
+#+end_src
+
+
+** Space-time plots
+The =z= slot of this =Raster= object stores a time index. This 3D
+space-time =Raster= object can be displayed with a [[http://en.wikipedia.org/wiki/Hovmoller_diagram][hovmoller diagram]].
+
+The =hovmoller= method uses the function =xyLayer=, which creates a
+=RasterLayer= from a function of the coordinates.
+
+#+begin_src r
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+dirXY <-xyLayer(r, sqrt(x^2 + y^2))
+dirXY
+#+end_src
+
+For example, the next code builds a hovmoller diagram showing the time
+evolution of the mean value along the latitude:
+#+begin_src r
+hovmoller(SISmm, dirXY=y, xlab='Latitude')
+#+end_src
+
+#+ATTR_HTML: width="640"
+[[file:hovmoller.png]]
+
+The =horizonplot= and =xyplot= methods also are useful for the space-time =Raster= objects:
+#+begin_src r
+xyplot(SISmm)
+horizonplot(SISmm)
+#+end_src
+#+ATTR_HTML: width="640"
+[[file:horizon.png]]
+
+** Interaction
+This package includes two functions to interact with the =trellis= objects. 
+
+The =identifyRaster= method labels and returns points of a trellis graphic
+according to mouse clicks. It is commonly used after =levelplot=,
+although it can be also used after =xyplot=, =hexbinplot= or even =splom=:
+
+#+begin_src r
+levelplot(SISmm)
+
+##Do not close the last graphical window.  Use the left button of the
+##mouse to identify points and the right button to finish
+
+chosen <- identifyRaster(SISmm, layer=3, values=TRUE)
+chosen
+#+end_src
+
+The =chooseRegion= function provides a set of points (in the form of a
+=SpatialPoints= object) inside a region defined by several mouse clicks:
+
+#+begin_src r
+##Use the left button of the mouse to build a border with points, and
+##the right button to finish.  The points enclosed by the border will
+##be highlighted and returned as a SpatialPoints object.
+reg <- chooseRegion()
+summary(reg)
+#+end_src
+
+
+#+levelplot.png http://procomun.files.wordpress.com/2011/06/wpid-levelplot1.png
+#+levelplot_layer1.png http://procomun.files.wordpress.com/2011/06/wpid-levelplot_layer11.png
+#+levelplot_layer_borders.png http://procomun.files.wordpress.com/2011/06/wpid-levelplot_layer_borders1.png
+#+xyplot_formula.png http://procomun.files.wordpress.com/2011/06/wpid-xyplot_formula.png
+#+hexbinplot_formula.png http://procomun.files.wordpress.com/2011/06/wpid-hexbinplot_formula1.png
+#+splom.png http://procomun.files.wordpress.com/2011/06/wpid-splom.png
+#+histogram.png http://procomun.files.wordpress.com/2011/06/wpid-histogram.png
+#+density.png http://procomun.files.wordpress.com/2011/06/wpid-density.png
+#+bwplot.png http://procomun.files.wordpress.com/2011/06/wpid-bwplot.png
+#+hovmoller.png http://procomun.files.wordpress.com/2011/06/wpid-hovmoller.png
+#+horizon.png http://procomun.files.wordpress.com/2011/06/wpid-horizon.png

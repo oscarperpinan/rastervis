@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>rasterVis</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="[2011-06-28 mar 07:59]"/>
+<meta name="author" content="Oscar Perpinan Lamigueiro"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">rasterVis</h1>
+<p>The <a href="http://cran.r-project.org/web/packages/raster/index.html">raster</a> package defines classes and methods for spatial raster data
+access and manipulation. The new <a href="http://https://r-forge.r-project.org/R/?group_id=1129">rasterVis</a> package complements raster
+providing a set of methods for enhanced visualization and interaction.
+</p>
+<p>
+I will show some of its functionalities with some examples, using data
+from the <a href="http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet">CMSAF</a> project as described <a href="http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/">here</a> (<a href="http://www.box.net/shared/rl51y1t9sldxk54ogd44">download data</a>).
+</p>
+
+
+
+<pre class="src src-r"><span style="color: #008b8b;">library</span>(raster)
+<span style="color: #008b8b;">library</span>(rasterVis)
+
+old <span style="color: #008b8b;">&lt;-</span> getwd()
+<span style="color: #b22222;">##</span><span style="color: #b22222;">change to your folder...
+</span>setwd(<span style="color: #8b2252;">'CMSAF'</span>)
+listFich <span style="color: #008b8b;">&lt;-</span> dir(pattern=<span style="color: #8b2252;">'2008'</span>)
+listNC <span style="color: #008b8b;">&lt;-</span> lapply(listFich, raster)
+stackSIS <span style="color: #008b8b;">&lt;-</span> do.call(stack, listNC)
+stackSIS <span style="color: #008b8b;">&lt;-</span> stackSIS*24 <span style="color: #b22222;">##</span><span style="color: #b22222;">from irradiance (W/m2) to irradiation Wh/m2
+</span>setwd(old)
+
+idx <span style="color: #008b8b;">&lt;-</span> seq(as.Date(<span style="color: #8b2252;">'2008-01-15'</span>), as.Date(<span style="color: #8b2252;">'2008-12-15'</span>), <span style="color: #8b2252;">'month'</span>)
+
+SISmm <span style="color: #008b8b;">&lt;-</span> setZ(stackSIS, idx)
+layerNames(SISmm) <span style="color: #008b8b;">&lt;-</span> month.abb
+</pre>
+
+
+
+
+<div id="outline-container-1" class="outline-3">
+<h3 id="sec-1">Level plots</h3>
+<div class="outline-text-3" id="text-1">
+
+<p>The first step is to display the content with a <code>levelplot</code>:
+</p>
+
+
+<pre class="src src-r">levelplot(SISmm)
+</pre>
+
+
+
+<p>
+<img src="levelplot.png" width="640" alt="levelplot.png" />
+</p>
+<p>
+If only one layer is chosen, this method displays a marginal plot
+of a function across each coordinate:
+</p>
+
+
+<pre class="src src-r">levelplot(SISmm, layers=1, FUN.margin=median, contour=<span style="color: #228b22;">TRUE</span>)
+</pre>
+
+
+
+<p>
+<img src="levelplot_layer1.png" width="640" alt="levelplot_layer1.png" />
+</p>
+<p>
+The result of this call is a <code>trellis</code> object. The <a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a> package
+provides the <code>layer</code> function to add contents. For example, let's add the administrative borders. 
+This information is available <a href="http://biogeo.ucdavis.edu/data/diva/adm/ESP_adm.zip">here</a>:
+</p>
+
+
+<pre class="src src-r"><span style="color: #008b8b;">library</span>(maptools)
+proj <span style="color: #008b8b;">&lt;-</span> CRS(<span style="color: #8b2252;">'+proj=latlon +ellps=WGS84'</span>)
+<span style="color: #b22222;">##</span><span style="color: #b22222;">Change to your folder
+</span>mapaSHP <span style="color: #008b8b;">&lt;-</span> readShapeLines(<span style="color: #8b2252;">'ESP_adm/ESP_adm2.shp'</span>, proj4string=proj)
+
+p <span style="color: #008b8b;">&lt;-</span> levelplot(SISmm, layers=1, FUN.margin=median)
+p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span style="color: #8b2252;">'darkgray'</span>))
+</pre>
+
+
+
+<p>
+<img src="levelplot_layer_borders.png" width="640" alt="levelplot_layer_borders.png" />
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-3">
+<h3 id="sec-2">Scatterplots and histograms</h3>
+<div class="outline-text-3" id="text-2">
+
+<p>There are methods to show scatter plots and hexbin plots of the layers
+and coordinates of a <code>Raster</code> object:
+</p>
+
+
+<pre class="src src-r"><span style="color: #b22222;">##</span><span style="color: #b22222;">Relation between the January &amp; February versus July radiation for four
+</span><span style="color: #b22222;">##</span><span style="color: #b22222;">differents longitude regions.
+</span>xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space=<span style="color: #8b2252;">'right'</span>))
+<span style="color: #b22222;">##</span><span style="color: #b22222;">Faster with hexbinplot
+</span>hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
+</pre>
+
+
+<p>
+<img src="xyplot_formula.png" width="640" alt="xyplot_formula.png" />
+</p>
+<p>
+<img src="hexbinplot_formula.png" width="640" alt="hexbinplot_formula.png" />
+</p>
+<p>
+&hellip;a method for scatter plot matrices:
+</p>
+
+
+<pre class="src src-r">splom(SISmm)
+</pre>
+
+
+
+<p>
+<img src="splom.png" width="640" alt="splom.png" />
+</p>
+<p>
+..and methods for histograms, <a href="http://procomun.wordpress.com/2011/04/02/violin-plot/">box-and-whisker and violin</a> plots or density estimates:
+</p>
+
+
+<pre class="src src-r">histogram(SISmm)
+densityplot(SISmm)
+bwplot(SISmm)
+</pre>
+
+
+
+<p>
+<img src="histogram.png" width="640" alt="histogram.png" />
+</p>
+<p>
+<img src="density.png" width="640" alt="density.png" />
+</p>
+<p>
+<img src="bwplot.png" width="640" alt="bwplot.png" />
+</p>
+
+<p>
+These methods accept a <code>FUN</code> argument to be applied to the <code>z</code> slot of
+the <code>Raster</code> object. The result of this function is used as the grouping
+variable of the plot:
+</p>
+
+
+
+<pre class="src src-r">histogram(SISmm, FUN=as.yearqtr)
+</pre>
+
+
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-3">
+<h3 id="sec-3">Space-time plots</h3>
+<div class="outline-text-3" id="text-3">
+
+<p>The <code>z</code> slot of this <code>Raster</code> object stores a time index. This 3D
+space-time <code>Raster</code> object can be displayed with a <a href="http://en.wikipedia.org/wiki/Hovmoller_diagram">hovmoller diagram</a>.
+</p>
+<p>
+The <code>hovmoller</code> method uses the function <code>xyLayer</code>, which creates a
+<code>RasterLayer</code> from a function of the coordinates.
+</p>
+
+
+
+<pre class="src src-r">f <span style="color: #008b8b;">&lt;-</span> system.file(<span style="color: #8b2252;">"external/test.grd"</span>, package=<span style="color: #8b2252;">"raster"</span>)
+r <span style="color: #008b8b;">&lt;-</span> raster(f)
+dirXY <span style="color: #008b8b;">&lt;-</span>xyLayer(r, sqrt(x^2 + y^2))
+dirXY
+</pre>
+
+
+
+<p>
+For example, the next code builds a hovmoller diagram showing the time
+evolution of the mean value along the latitude:
+</p>
+
+
+<pre class="src src-r">hovmoller(SISmm, dirXY=y, xlab=<span style="color: #8b2252;">'Latitude'</span>)
+</pre>
+
+
+
+<p>
+<img src="hovmoller.png" width="640" alt="hovmoller.png" />
+</p>
+<p>
+The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for the space-time <code>Raster</code> objects:
+</p>
+
+
+<pre class="src src-r">xyplot(SISmm)
+horizonplot(SISmm)
+</pre>
+
+
+<p>
+<img src="horizon.png" width="640" alt="horizon.png" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-3">
+<h3 id="sec-4">Interaction</h3>
+<div class="outline-text-3" id="text-4">
+
+<p>This package includes two functions to interact with the <code>trellis</code> objects. 
+</p>
+<p>
+The <code>identifyRaster</code> method labels and returns points of a trellis graphic
+according to mouse clicks. It is commonly used after <code>levelplot</code>,
+although it can be also used after <code>xyplot</code>, <code>hexbinplot</code> or even <code>splom</code>:
+</p>
+
+
+
+<pre class="src src-r">levelplot(SISmm)
+
+<span style="color: #b22222;">##</span><span style="color: #b22222;">Do not close the last graphical window.  Use the left button of the
+</span><span style="color: #b22222;">##</span><span style="color: #b22222;">mouse to identify points and the right button to finish
+</span>
+chosen <span style="color: #008b8b;">&lt;-</span> identifyRaster(SISmm, layer=3, values=<span style="color: #228b22;">TRUE</span>)
+chosen
+</pre>
+
+
+
+<p>
+The <code>chooseRegion</code> function provides a set of points (in the form of a
+<code>SpatialPoints</code> object) inside a region defined by several mouse clicks:
+</p>
+
+
+
+<pre class="src src-r"><span style="color: #b22222;">##</span><span style="color: #b22222;">Use the left button of the mouse to build a border with points, and
+</span><span style="color: #b22222;">##</span><span style="color: #b22222;">the right button to finish.  The points enclosed by the border will
+</span><span style="color: #b22222;">##</span><span style="color: #b22222;">be highlighted and returned as a SpatialPoints object.
+</span>reg <span style="color: #008b8b;">&lt;-</span> chooseRegion()
+summary(reg)
+</pre>
+
+
+
+
+</div>
+</div>
+<div id="postamble">
+<p class="author">Author: Oscar Perpinan Lamigueiro</p>
+<p class="creator">Org version 7.5 with Emacs version 23</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+</div>
+</div>
+</body>
+</html>
