@@ -26,8 +26,8 @@ Oscar Perpiñán Lamigueiro.
 \code{init}, \code{substitute}, \code{eval}
 }
 \examples{
-     f <- system.file("external/test.grd", package="raster")
-     r <- raster(f)
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
 dirX <- xyLayer(r, x)
 dirXY <-xyLayer(r, sqrt(x^2 + y^2))
 levelplot(dirXY, margin=FALSE)

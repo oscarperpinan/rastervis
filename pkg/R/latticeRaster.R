@@ -10,6 +10,10 @@ rasterTheme <- function(pch=19, cex=0.7, region=rev(brewer.pal(9, 'YlOrRd')), ..
   theme$strip.shingle$col='transparent'
   theme$strip.border$col='transparent'
 
+  ## highlight.gpar=lattice.getOption('highlight.gpar')
+  ## highlight.gpar$col <- 'black'
+  ## theme$highlight.gpar <- highlight.gpar
+
   theme
 
 }

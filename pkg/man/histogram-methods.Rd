@@ -63,19 +63,6 @@ idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 SISmm <- setZ(stackSIS, idx)
 layerNames(SISmm) <- as.character(idx)
 
-levelplot(SISmm)
-
-##Do not close the last graphical window
-##Interaction
-##Use the left button of the mouse to identify points and the right button to finish
-chosen <- identifyRaster(SISmm, layer=3, values=TRUE)
-chosen
-##Use the left button of the mouse to build a border with points, and the right button to finish.
-##The points enclosed by the border will be highlighted and returned as a SpatialPoints object.
-reg <- chooseRegion()
-summary(reg)
-
-
 histogram(SISmm)
 histogram(SISmm, FUN=as.yearqtr)
 }

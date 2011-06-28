@@ -2,6 +2,7 @@ setGeneric('identifyRaster', function(object, ...){standardGeneric('identifyRast
 
 setMethod('identifyRaster', signature=(object='Raster'),
           definition=function(object, layer=1, values=FALSE, pch=13, cex=0.6, col='black',...){
+
             lay <- layer[1]
             if (is.character(lay)) lay <- which(lay==layerNames(object))
             if (length(lay)<1 || lay > nlayers(object)) stop('Incorrect value of layer.')
@@ -26,6 +27,7 @@ setMethod('identifyRaster', signature=(object='Raster'),
 
 
 chooseRegion <- function(sp=TRUE, proj=CRS('+proj=latlon +ellps=WGS84')){
+
   trellis.focus('panel', 1, 1)
   x <- trellis.panelArgs()$x
   y <- trellis.panelArgs()$y

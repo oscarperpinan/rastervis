@@ -25,5 +25,6 @@ exportMethods(
     "identifyRaster",
     "levelplot",
     "splom",
-    "xyplot" 
+    "xyplot",
+    "hexbinplot"              
 )

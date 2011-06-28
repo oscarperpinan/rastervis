@@ -48,5 +48,35 @@ Oscar Perpiñán Lamigueiro
 \seealso{
 \code{panel.identify},\code{panel.link.splom}, \code{trellis.focus}, \code{grid.locator}
 }
+\examples{
+\dontrun{
+##Solar irradiation data from CMSAF
+##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
 
+old <- getwd()
+##change to your folder...
+setwd('CMSAF')
+listFich <- dir(pattern='2008')
+listNC <- lapply(listFich, raster)
+stackSIS <- do.call(stack, listNC)
+stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+setwd(old)
+
+idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+
+SISmm <- setZ(stackSIS, idx)
+layerNames(SISmm) <- as.character(idx)
+
+
+##Do not close the last graphical window
+##Interaction
+##Use the left button of the mouse to identify points and the right button to finish
+chosen <- identifyRaster(SISmm, layer=3, values=TRUE)
+chosen
+##Use the left button of the mouse to build a border with points, and the right button to finish.
+##The points enclosed by the border will be highlighted and returned as a SpatialPoints object.
+reg <- chooseRegion()
+summary(reg)
+}
+}
 \keyword{methods}
