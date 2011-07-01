@@ -3,22 +3,27 @@ xscale.raster <- function(...){ans <- xscale.components.default(...); ans$top=FA
 yscale.raster <- function(...){ans <- yscale.components.default(...); ans$right=FALSE; ans}
 
 rasterTheme <- function(pch=19, cex=0.7, region=rev(brewer.pal(9, 'YlOrRd')), ...) {
-
   theme <- custom.theme.2(pch=pch, cex=cex, region=region, ...)
-
-  theme$strip.background$col='transparent' ##'lightgray'
+  theme$strip.background$col='transparent'
   theme$strip.shingle$col='transparent'
   theme$strip.border$col='transparent'
-
-  ## highlight.gpar=lattice.getOption('highlight.gpar')
-  ## highlight.gpar$col <- 'black'
-  ## theme$highlight.gpar <- highlight.gpar
-
   theme
-
 }
 
-  ##Auxiliary function for densityplot, histogram and bwplot
+RdBuTheme <- function(region=brewer.pal(9, 'RdBu'), ...) {
+  theme <- rasterTheme(region=region, ...)
+}
+
+GrTheme <- function(region=rev(brewer.pal(9, 'Greys')), ...) {
+  theme <- rasterTheme(region=region, ...)
+}
+
+BTCTheme <- function(region=BTC(n=9), ...) {
+  theme <- rasterTheme(region=region, ...)
+}
+
+
+##Auxiliary function for densityplot, histogram and bwplot
 
 raster2dat <- function(x, FUN, maxpixels){
   nl <- nlayers(x)
