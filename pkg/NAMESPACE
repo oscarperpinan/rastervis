@@ -13,6 +13,9 @@ export(
        'chooseRegion',
        'xyLayer',
        'rasterTheme',
+       'BTCTheme',
+       'GrTheme',
+       'RdBuTheme',
        'xscale.raster',
        'yscale.raster'
        )
