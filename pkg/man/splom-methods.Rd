@@ -5,9 +5,10 @@
 \title{Scatter plot matrices of Raster objects.}
 \description{
 Draw conditional scatter plot matrices with hexagonally binning.}
-\usage{\S4method{splom}{RasterStackBrick,missing}(x, maxpixels=1e5, plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...)}
+\usage{\S4method{splom}{RasterStackBrick,missing}(x, data=NULL,maxpixels=1e5, plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...)}
 \arguments{
-  \item{x}{A \code{RasterStackBrick,missing} object.}
+  \item{x}{A \code{RasterStackBrick} object.}
+  \item{data}{Not used.}
   \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
   \item{plot.loess}{Logical, should a loess fit be drawn?.}
   \item{colramp}{A function accepting an integer \code{n} as argument

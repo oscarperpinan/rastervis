@@ -2,12 +2,13 @@
 \docType{methods}
 \alias{horizonplot-methods}
 \alias{horizonplot,RasterStackBrick-method}
+\alias{horizonplot,RasterStackBrick,missing-method}
 \title{Horizon plots of Raster objects.}
 \description{This method draws horizon graphs for each zone as
   calculated with \code{zonal} from the directions defined by
   \code{xyLayer}}
 
-\usage{\S4method{horizonplot}{RasterStackBrick}(x, data=NULL, dirXY=y, xlab='Time', ylab='direction', digits=0, ...)
+\usage{\S4method{horizonplot}{RasterStackBrick,missing}(x, data=NULL, dirXY=y, xlab='Time', ylab='direction', digits=0, ...)
 }
 \arguments{
 \item{x}{A \code{RasterStackBrick} object.}

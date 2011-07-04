@@ -6,7 +6,7 @@
 setGeneric('levelplot')
 
 setMethod('levelplot',
-          signature='Raster',
+          signature(x='Raster', data='missing'),
           definition=function(x, data=NULL, layers,
             margin=TRUE, FUN.margin=mean,
             maxpixels=1e5,

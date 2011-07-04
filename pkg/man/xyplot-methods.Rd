@@ -1,12 +1,12 @@
 \name{xyplot-methods}
 \docType{methods}
 \alias{xyplot-methods}
-\alias{xyplot,RasterStackBrick,ANY-method}
+\alias{xyplot,RasterStackBrick,missing-method}
 \title{xyplot for Raster objects}
 \description{Scatter plots of Raster objects for directions defined by \code{xyLayer}
 }
 \usage{
-\S4method{xyplot}{RasterStackBrick,ANY}(x, data=NULL, dirXY=y, xlab='Time',
+\S4method{xyplot}{RasterStackBrick,missing}(x, data=NULL, dirXY=y, xlab='Time',
 ylab='', digits=0, par.settings=rasterTheme,...)
 }
 

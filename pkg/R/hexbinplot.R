@@ -6,7 +6,7 @@
 ##xyplot for directions created with xyLayer
 setGeneric('hexbinplot')
 
-setMethod('hexbinplot', signature=c(x='formula', data='Raster'),
+setMethod('hexbinplot', signature(x='formula', data='Raster'),
           definition=function(x, data, dirXY,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,

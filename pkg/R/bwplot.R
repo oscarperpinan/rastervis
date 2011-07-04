@@ -3,11 +3,13 @@
 # Version 0.10
 # Licence GPL v3
 
-setGeneric('bwplot')
+setGeneric("bwplot", function(x, data, ...)
+           standardGeneric("bwplot"))
+
 
 setMethod('bwplot',
-          signature=c(x='RasterStackBrick', data='missing'),
-          definition=function(x, layer, FUN,
+          signature(x='RasterStackBrick', data='missing'),
+          definition=function(x, data=NULL, layer, FUN,
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
             violin=TRUE,

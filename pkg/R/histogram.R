@@ -6,8 +6,8 @@
 
 setGeneric('histogram')
 setMethod('histogram',
-          signature=c(x='RasterLayer', data='missing'),
-          definition=function (x, maxpixels = 1e+05, breaks=100,
+          signature(x='RasterLayer', data='missing'),
+          definition=function (x, data=NULL, maxpixels = 1e+05, breaks=100,
             xlab='', ylab='', main='', col='gray',...){
             dat <- sampleRandom(x, maxpixels)
             p <- histogram(dat,
@@ -20,8 +20,8 @@ setMethod('histogram',
 
 
 setMethod('histogram',
-          signature=c(x='RasterStackBrick', data='missing'),
-          definition=function (x, layer, FUN,
+          signature(x='RasterStackBrick', data='missing'),
+          definition=function (x, data=NULL,layer, FUN,
             maxpixels = 1e+05, breaks=100,
             xlab='', ylab='', main='', col='gray',
             between=list(x=0.5, y=0.2),

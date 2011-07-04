@@ -5,7 +5,7 @@
 
 setGeneric('identifyRaster', function(object, ...){standardGeneric('identifyRaster')})
 
-setMethod('identifyRaster', signature=(object='Raster'),
+setMethod('identifyRaster', signature(object='Raster'),
           definition=function(object, layer=1, values=FALSE, pch=13, cex=0.6, col='black',...){
 
             lay <- layer[1]

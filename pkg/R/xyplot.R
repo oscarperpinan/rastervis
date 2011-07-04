@@ -6,7 +6,8 @@
 ##xyplot for directions created with xyLayer
 setGeneric('xyplot')
 
-setMethod('xyplot', signature='RasterStackBrick',
+setMethod('xyplot',
+          signature(x='RasterStackBrick', data='missing'),
           definition=function(x, data=NULL, dirXY=y,
             xlab='Time', ylab='', digits=0,
             par.settings=rasterTheme,...){
@@ -24,7 +25,7 @@ setMethod('xyplot', signature='RasterStackBrick',
           )
 
 
-setMethod('xyplot', signature=c(x='formula', data='Raster'),
+setMethod('xyplot', signature(x='formula', data='Raster'),
           definition=function(x, data, dirXY, maxpixels=1e5,
             alpha=0.05,
             xscale.components=xscale.raster,

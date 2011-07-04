@@ -1,12 +1,12 @@
 \name{levelplot-methods}
 \docType{methods}
 \alias{levelplot-methods}
-\alias{levelplot,Raster,ANY-method}
+\alias{levelplot,Raster,missing-method}
 \title{Level plots of Raster objects.}
 \description{Level plots of Raster objects with \code{lattice} methods
   and marginal plots with \code{grid} objects.
 }
-\usage{\S4method{levelplot}{Raster,ANY}(x, data=NULL, layers,
+\usage{\S4method{levelplot}{Raster,missing}(x, data=NULL, layers,
             margin=TRUE, FUN.margin=mean,
             maxpixels=1e5,
             par.settings=rasterTheme,

@@ -5,8 +5,8 @@
 
 setGeneric('densityplot')
 setMethod('densityplot',
-          signature=c(x='RasterLayer', data='missing'),
-          definition=function (x, maxpixels = 1e+05,
+          signature(x='RasterLayer', data='missing'),
+          definition=function (x, data=NULL, maxpixels = 1e+05,
             xlab='', ylab='', main='', col='black',...){
             dat <- sampleRandom(x, maxpixels)
             densityplot(dat,
@@ -18,8 +18,8 @@ setMethod('densityplot',
 
   
 setMethod('densityplot',
-          signature=c(x='RasterStackBrick', data='missing'),
-          definition=function (x, layer, FUN,
+          signature(x='RasterStackBrick', data='missing'),
+          definition=function (x, data=NULL, layer, FUN,
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
             par.settings=rasterTheme,...){

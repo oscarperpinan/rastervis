@@ -4,7 +4,8 @@
 # Licence GPL v3
 
 setGeneric('horizonplot')
-setMethod('horizonplot', signature='RasterStackBrick',
+setMethod('horizonplot',
+          signature(x='RasterStackBrick', data='missing'),
           definition=function(x, data=NULL, dirXY=y, xlab='Time', ylab='direction', digits=0, ...){
             idx=getZ(x)
             dirLayer <- xyLayer(x, dirXY=substitute(dirXY))

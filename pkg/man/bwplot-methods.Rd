@@ -8,7 +8,7 @@ A method for \code{bwplot} and \code{RasterStackBrick} objects. It uses
 a combination of \code{\link{panel.violin}} and
 \code{\link{panel.bwplot}} to compose the graphic.
 }
-\usage{\S4method{bwplot}{RasterStackBrick,missing}(x, layer, FUN,
+\usage{\S4method{bwplot}{RasterStackBrick,missing}(x, data=NULL, layer, FUN,
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
             violin=TRUE,
@@ -17,6 +17,7 @@ a combination of \code{\link{panel.violin}} and
 }
 \arguments{
   \item{x}{A \code{RasterStackBrick} object.}
+  \item{data}{Not used.}
   \item{layer}{A numeric or character which should indicate the layers
     to be displayed.}
   \item{FUN}{A function to applied to the \code{z} slot of a

@@ -8,10 +8,10 @@
 }
 
 \usage{
-\S4method{densityplot}{RasterLayer,missing}(x, maxpixels = 1e+05,
+\S4method{densityplot}{RasterLayer,missing}(x, data=NULL, maxpixels = 1e+05,
             xlab='', ylab='', main='', col='black', ...)
 
-\S4method{densityplot}{RasterStackBrick,missing}(x, layer, FUN,
+\S4method{densityplot}{RasterStackBrick,missing}(x, data=NULL, layer, FUN,
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
             par.settings=rasterTheme,
@@ -19,6 +19,7 @@
 }
 \arguments{
   \item{x}{A \code{Raster*} object.}
+  \item{data}{Not used.}
   \item{layer}{A numeric or character which should indicate the layers
     to be displayed.}
   \item{FUN}{A function to applied to the \code{z} slot of a

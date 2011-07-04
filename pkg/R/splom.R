@@ -6,8 +6,9 @@
 setGeneric('splom')
 
 setMethod('splom',
-          signature=c(x='RasterStackBrick', data='missing'),
-          definition=function(x, maxpixels=1e5, plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...){
+          signature(x='RasterStackBrick', data='missing'),
+          definition=function(x, data=NULL, maxpixels=1e5,
+            plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...){
             nms <- layerNames(x)
             dat <- sampleRandom(x, maxpixels)
             colnames(dat) <- nms
