@@ -25,7 +25,7 @@ digits=2, xlab='Direction', ylab='Time', par.settings=rasterTheme, add.contour=T
     and \code{\link{levelplot}} functions.}
 }
 
-\details{Extracted from the wikipedia: "A Hovmöller diagram is a
+\details{Extracted from wikipedia: "A Hovmöller diagram is a
 commonly used way of plotting meteorological data to highlight the role
 of waves. The axes of a Hovmöller diagram are typically longitude or
 latitude (abscissa or x-axis) and time (ordinate or y-axis) with the

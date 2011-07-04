@@ -3,6 +3,7 @@ Type: Package
 Title: Visualization methods for the raster package.
 Version: 0.10
 Date: 2011-06-17
+Suggests: rgl, ggplot2
 Encoding: UTF-8
 Author: Oscar Perpiñán Lamigueiro and Robert Hijmans
 Maintainer: Oscar Perpiñán Lamigueiro <oscar.perpinan@upm.es>
