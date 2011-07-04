@@ -1,7 +1,12 @@
+# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
+# Date :  June 2011
+# Version 0.10
+# Licence GPL v3
+
 ##xyplot for directions created with xyLayer
 setGeneric('xyplot')
 
-setMethod('xyplot', signature='RasterStackBrick',#Time',
+setMethod('xyplot', signature='RasterStackBrick',
           definition=function(x, data=NULL, dirXY=y,
             xlab='Time', ylab='', digits=0,
             par.settings=rasterTheme,...){

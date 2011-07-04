@@ -47,3 +47,4 @@ splom(SISmm)
 }}
 
 \keyword{methods}
+\keyword{spatial}

@@ -38,7 +38,10 @@ object, otherwise it is a logical vector as returned by \code{\link{in.out}}}
   
 \details{When called, these functions wait for the user to identify points (in the panel being drawn) via
      mouse clicks.  Clicks other than left-clicks close the region
-     (for \code{chooseRegion}) and the procedure (for \code{identifyRaster}).
+     (for \code{chooseRegion}) and the procedure (for
+     \code{identifyRaster}).
+   }
+\note{\code{chooseRegion} needs the package \code{mgcv} to be installed.
 }
 
 \author{
@@ -67,6 +70,7 @@ idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 SISmm <- setZ(stackSIS, idx)
 layerNames(SISmm) <- month.abb
 
+levelplot(SISmm)
 
 ##Do not close the last graphical window
 ##Interaction
@@ -80,3 +84,4 @@ summary(reg)
 }
 }
 \keyword{methods}
+\keyword{spatial}

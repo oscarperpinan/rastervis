@@ -1,3 +1,8 @@
+# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
+# Date :  June 2011
+# Version 0.10
+# Licence GPL v3
+
 setGeneric('identifyRaster', function(object, ...){standardGeneric('identifyRaster')})
 
 setMethod('identifyRaster', signature=(object='Raster'),
@@ -27,7 +32,7 @@ setMethod('identifyRaster', signature=(object='Raster'),
 
 
 chooseRegion <- function(sp=TRUE, proj=CRS('+proj=latlon +ellps=WGS84')){
-
+  if (require(mgcv)){
   trellis.focus('panel', 1, 1)
   x <- trellis.panelArgs()$x
   y <- trellis.panelArgs()$y
@@ -62,4 +67,7 @@ chooseRegion <- function(sp=TRUE, proj=CRS('+proj=latlon +ellps=WGS84')){
 
   print(trellis.last.object() + layer(lpoints(xin, yin), data=pointsInside))
   if (sp) return(spPoints) else return(pointsInside)
+  } else {
+    stop("to use chooseRegion you need to install the 'mgcv' package")
+  }
 }

@@ -72,3 +72,4 @@ levelplot(SISmm)
 levelplot(SISmm, layers=1, FUN.margin=median, contour=TRUE)
 }}
 \keyword{methods}
+\keyword{spatial}

@@ -68,4 +68,5 @@ histogram(SISmm, FUN=as.yearqtr)
 }
 }
 \keyword{methods}
+\keyword{spatial}
 

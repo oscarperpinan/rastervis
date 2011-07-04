@@ -1,3 +1,8 @@
+# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
+# Date :  June 2011
+# Version 0.10
+# Licence GPL v3
+
 ##Create a Layer from a custom function of the coordinates
 xyLayer <- function(object, dirXY=y){
   y <- init(object, v='y')
@@ -12,7 +17,7 @@ xyLayer <- function(object, dirXY=y){
 
 setGeneric('hovmoller', function(object, ...){standardGeneric('hovmoller')})
 
-setMethod('hovmoller', signature='RasterStackBrick',##signature='RasterTime',
+setMethod('hovmoller', signature='RasterStackBrick',
           definition=function(object, dirXY=y,
             FUN=mean, digits=2,
             xlab='Direction', ylab='Time',

@@ -54,4 +54,5 @@ horizonplot(SISmm)
 }
 }
 \keyword{methods}
+\keyword{spatial}
 

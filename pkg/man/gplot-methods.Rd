@@ -13,12 +13,13 @@ A wrapper function around \link[ggplot2]{ggplot} (ggplot2 package). Note that th
 }
 
 \usage{
-\S4method{gplot}{Raster}(x, ...) 
+\S4method{gplot}{Raster}(x, maxpixels=50000,...) 
 }
 
 \arguments{
   \item{x}{A Raster* object}
-  \item{...}{Additional arguments. See under Details}  
+  \item{maxpixels}{Maximum number of pixels to use}
+  \item{...}{Additional arguments for ggplot}%. See under Details}  
 }
 
 

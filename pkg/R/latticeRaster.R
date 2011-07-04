@@ -1,3 +1,8 @@
+# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
+# Date :  June 2011
+# Version 0.10
+# Licence GPL v3
+
 ##Customization of lattice
 xscale.raster <- function(...){ans <- xscale.components.default(...); ans$top=FALSE; ans}
 yscale.raster <- function(...){ans <- yscale.components.default(...); ans$right=FALSE; ans}
@@ -12,14 +17,17 @@ rasterTheme <- function(pch=19, cex=0.7, region=rev(brewer.pal(9, 'YlOrRd')), ..
 
 RdBuTheme <- function(region=brewer.pal(9, 'RdBu'), ...) {
   theme <- rasterTheme(region=region, ...)
+  theme
 }
 
 GrTheme <- function(region=rev(brewer.pal(9, 'Greys')), ...) {
   theme <- rasterTheme(region=region, ...)
+  theme
 }
 
 BTCTheme <- function(region=BTC(n=9), ...) {
   theme <- rasterTheme(region=region, ...)
+  theme
 }
 
 

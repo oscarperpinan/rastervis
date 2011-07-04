@@ -29,4 +29,6 @@ Maintainer: Oscar Perpiñán Lamigueiro <oscar.perpinan@upm.es>
 % ~~ Optionally other standard keywords, one per line, from file KEYWORDS in ~~
 % ~~ the R documentation directory ~~
 \keyword{ package }
+\keyword{spatial}
+
 %\examples{}

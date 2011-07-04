@@ -1,5 +1,10 @@
+# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
+# Date :  June 2011
+# Version 0.10
+# Licence GPL v3
+
 setGeneric('horizonplot')
-setMethod('horizonplot', signature='RasterStackBrick',##signature='RasterTime',
+setMethod('horizonplot', signature='RasterStackBrick',
           definition=function(x, data=NULL, dirXY=y, xlab='Time', ylab='direction', digits=0, ...){
             idx=getZ(x)
             dirLayer <- xyLayer(x, dirXY=substitute(dirXY))

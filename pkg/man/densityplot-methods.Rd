@@ -57,5 +57,6 @@ densityplot(SISmm, FUN=as.yearqtr)##FUN applies to z if not NULL
 }
 
 \keyword{methods}
+\keyword{spatial}
 
 

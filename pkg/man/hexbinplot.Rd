@@ -66,3 +66,4 @@ hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 }
 }
 \keyword{methods}
+\keyword{spatial}

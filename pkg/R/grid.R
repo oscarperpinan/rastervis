@@ -1,3 +1,8 @@
+# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
+# Date :  June 2011
+# Version 0.10
+# Licence GPL v3
+
 legendX <- function(p, FUN=max, ...){
   x <- p$panel.args.common$x
   y <- p$panel.args.common$y

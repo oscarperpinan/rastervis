@@ -47,3 +47,4 @@ xyplot(SISmm)
 }
 }
 \keyword{methods}
+\keyword{spatial}

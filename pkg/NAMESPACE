@@ -1,13 +1,42 @@
-import(zoo)
-import(lattice)
-import(latticeExtra)
-importFrom(mgcv, in.out)
-import(RColorBrewer)
-import(raster)
-import(sp)
-import(grid)
-import(hexbin)
 import(methods)
+
+
+importFrom(grid,
+           gpar,
+           viewport,
+           polygonGrob,
+           grid.locator,
+           convertX, convertY,
+           unit)
+
+import(lattice)
+
+## importFrom(RColorBrewer,
+##            brewer.pal)
+
+importFrom(latticeExtra,
+           horizonplot,
+           layer, glayer,
+           custom.theme,
+           custom.theme.2
+           )
+
+importFrom(hexbin,
+           BTC,
+           panel.hexbinplot,
+           hexbinplot)
+
+importClassesFrom(sp, SpatialPoints)
+importFrom(sp, SpatialPoints)
+
+importFrom(zoo,
+           zoo)##,
+           ##xyplot)
+
+import(raster)
+
+##importFrom(mgcv, in.out)
+
 
 export(
        'chooseRegion',
@@ -19,15 +48,18 @@ export(
        'xscale.raster',
        'yscale.raster'
        )
+
 exportMethods(
-    "bwplot",
-    "densityplot",
-    "histogram",
-    "horizonplot",
-    "hovmoller",
-    "identifyRaster",
-    "levelplot",
-    "splom",
-    "xyplot",
-    "hexbinplot"              
-)
+              "bwplot",
+              "densityplot",
+              "histogram",
+              "horizonplot",
+              "hovmoller",
+              "identifyRaster",
+              "levelplot",
+              "splom",
+              "xyplot",
+              "hexbinplot",
+              "plot3D",
+              "gplot"
+              )

@@ -68,3 +68,5 @@ hovmoller(SISmm, dirXY=y, xlab='Latitude')##latitude
 hovmoller(SISmm, dirXY=sqrt(x^2+y^2))##a function of coordinates...
 }
 }
+\keyword{spatial}
+\keyword{methods}

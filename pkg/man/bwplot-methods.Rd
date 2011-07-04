@@ -11,6 +11,7 @@ a combination of \code{\link{panel.violin}} and
 \usage{\S4method{bwplot}{RasterStackBrick,missing}(x, layer, FUN,
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
+            violin=TRUE,
             par.settings=rasterTheme,
             ...)
 }
@@ -23,6 +24,8 @@ a combination of \code{\link{panel.violin}} and
             is used as the grouping variable of the plot.}
   \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
   \item{xlab, ylab, main}{Characters, for \code{\link{bwplot}}.}
+  \item{violin}{Logical, if TRUE the panel is built with
+    \code{panel.violin} and \code{panel.bwplot}.}
   \item{par.settings}{See \code{\link{xyplot}} for details.}
   \item{\dots}{Additional arguments for \code{\link{bwplot}}}
 
@@ -56,3 +59,4 @@ bwplot(SISmm, FUN=as.yearqtr)##FUN applies to z if not NULL
 }
 }
 \keyword{methods}
+\keyword{spatial}
