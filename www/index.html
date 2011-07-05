@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 lang="en" xml:lang="en">
 <head>
 <title>rasterVis</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
 <meta name="generated" content="[2011-06-28 mar 07:59]"/>
 <meta name="author" content="Oscar Perpinan Lamigueiro"/>
@@ -83,7 +83,7 @@ lang="en" xml:lang="en">
 
 <h1 class="title">rasterVis</h1>
 <p>The <a href="http://cran.r-project.org/web/packages/raster/index.html">raster</a> package defines classes and methods for spatial raster data
-access and manipulation. The new <a href="https://r-forge.r-project.org/R/?group_id=1129">rasterVis</a> package complements raster
+access and manipulation. The new <a href="http://rastervis.r-forge.r-project.org/">rasterVis</a> package complements raster
 providing a set of methods for enhanced visualization and interaction.
 </p>
 <p>
@@ -165,14 +165,60 @@ p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span style="color: #8b2252;">'darkgray
 <p>
 <img src="levelplot_layer_borders.png" width="640" alt="levelplot_layer_borders.png" />
 </p>
-
 </div>
 
 </div>
 
 <div id="outline-container-2" class="outline-3">
-<h3 id="sec-2">Scatterplots and histograms</h3>
+<h3 id="sec-2">Themes</h3>
 <div class="outline-text-3" id="text-2">
+
+
+<p>
+The previous plots used the default theme of rasterVis,
+<code>rasterTheme</code>. This theme defines a sequential palette with yellow,
+orange and red. There are three more themes in <code>rasterVis</code>: <code>GrTheme</code>
+(with a grey palette), <code>BTCTheme</code> (defined with the <code>BTC</code> palette of
+the <code>hexbin</code> package) and <code>RdBuTheme</code> (with a diverging palette with
+red and blue). 
+</p>
+<p>
+The irradiation of August is:
+</p>
+
+
+<pre class="src src-r">Aug <span style="color: #008b8b;">&lt;-</span> raster(SISmm, 8)
+</pre>
+
+
+<p>
+and its overall mean is calculated with cellStats:
+</p>
+
+
+<pre class="src src-r">meanAug <span style="color: #008b8b;">&lt;-</span> cellStats(Aug, mean)
+</pre>
+
+
+<p>
+The diverging palette is specially well suited to this data:
+</p>
+
+
+<pre class="src src-r">levelplot(Aug-meanAug, par.settings=RdBuTheme)
+</pre>
+
+
+<p>
+<img src="levelplotAug.png" width="640" alt="levelplotAug.png" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-3">
+<h3 id="sec-3">Scatterplots and histograms</h3>
+<div class="outline-text-3" id="text-3">
 
 <p>There are methods to show scatter plots and hexbin plots of the layers
 and coordinates of a <code>Raster</code> object:
@@ -246,9 +292,9 @@ variable of the plot:
 
 </div>
 
-<div id="outline-container-3" class="outline-3">
-<h3 id="sec-3">Space-time plots</h3>
-<div class="outline-text-3" id="text-3">
+<div id="outline-container-4" class="outline-3">
+<h3 id="sec-4">Space-time plots</h3>
+<div class="outline-text-3" id="text-4">
 
 <p>The <code>z</code> slot of this <code>Raster</code> object stores a time index. This 3D
 space-time <code>Raster</code> object can be displayed with a <a href="http://en.wikipedia.org/wiki/Hovmoller_diagram">hovmoller diagram</a>.
@@ -299,9 +345,9 @@ horizonplot(SISmm)
 
 </div>
 
-<div id="outline-container-4" class="outline-3">
-<h3 id="sec-4">Interaction</h3>
-<div class="outline-text-3" id="text-4">
+<div id="outline-container-5" class="outline-3">
+<h3 id="sec-5">Interaction</h3>
+<div class="outline-text-3" id="text-5">
 
 <p>This package includes two functions to interact with the <code>trellis</code> objects. 
 </p>

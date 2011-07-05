@@ -66,6 +66,29 @@ p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
 #+ATTR_HTML: width="640"
 [[file:levelplot_layer_borders.png]]
 
+** Themes
+
+The previous plots used the default theme of rasterVis,
+=rasterTheme=. This theme defines a sequential palette with yellow,
+orange and red. There are three more themes in =rasterVis=: =GrTheme=
+(with a grey palette), =BTCTheme= (defined with the =BTC= palette of
+the =hexbin= package) and =RdBuTheme= (with a diverging palette with
+red and blue). 
+
+The irradiation of August is:
+#+begin_src r
+Aug <- raster(SISmm, 8)
+#+end_src
+and its overall mean is calculated with cellStats:
+#+begin_src r
+meanAug <- cellStats(Aug, mean)
+#+end_src
+The diverging palette is specially well suited to this data:
+#+begin_src r
+levelplot(Aug-meanAug, par.settings=RdBuTheme)
+#+end_src
+#+ATTR_HTML: width="640"
+[[file:levelplotAug.png]]
 
 ** Scatterplots and histograms
 There are methods to show scatter plots and hexbin plots of the layers
