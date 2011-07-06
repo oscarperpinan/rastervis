@@ -7,7 +7,7 @@
 #+TITLE: rasterVis
 
 The [[http://cran.r-project.org/web/packages/raster/index.html][raster]] package defines classes and methods for spatial raster data
-access and manipulation. The new [[http://rastervis.r-forge.r-project.org/][rasterVis]] package complements raster
+access and manipulation. The new [[http://cran.r-project.org/web/packages/rasterVis/][rasterVis]] package complements raster
 providing a set of methods for enhanced visualization and interaction.
 
 I will show some of its functionalities with some examples, using data
