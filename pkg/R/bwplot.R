@@ -9,13 +9,13 @@ setGeneric("bwplot", function(x, data, ...)
 
 setMethod('bwplot',
           signature(x='RasterStackBrick', data='missing'),
-          definition=function(x, data=NULL, layer, FUN,
+          definition=function(x, data=NULL, layers, FUN,
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
             violin=TRUE,
             par.settings=rasterTheme,
             ...) {
-            if (!missing(layer)) x <- subset(x, layer)
+            if (!missing(layers)) x <- subset(x, layers)
             nl=nlayers(x)
             if (nl > 1) {
               dat <- raster2dat(x, FUN, maxpixels)
@@ -33,7 +33,9 @@ setMethod('bwplot',
                        plot.symbol = list(pch='.', cex = 0.1)),
                      scales=list(x=list(rot=45, cex=0.5))
                      )
-            }
+            } else {
+              stop('bwplot is defined only for Raster objects with two or more layers.')
+              }
           }
           )
 
