@@ -1,8 +1,8 @@
 Package: rasterVis
 Type: Package
-Title: Visualization methods for the raster package.
-Version: 0.10-2
-Date: 2011-07-04
+Title: Visualization methods for the raster package
+Version: 0.10-3
+Date: 2011-07-08
 Encoding: UTF-8
 Author: Oscar Perpiñán Lamigueiro and Robert Hijmans
 Maintainer: Oscar Perpiñán Lamigueiro <oscar.perpinan@upm.es>
@@ -10,6 +10,6 @@ Description: The raster package defines classes and methods for spatial raster d
 URL: http://rastervis.r-forge.r-project.org/
 License: GPL-3
 LazyLoad: yes
-Depends: methods, raster(>= 1.8-34), lattice, latticeExtra, hexbin, RColorBrewer
-Imports: grid, sp, lattice, latticeExtra, zoo, hexbin
-Suggests: mgcv, rgl, ggplot2
+Depends: methods, raster(>= 1.8-34), lattice, latticeExtra, hexbin
+Imports: grid, grDevices, sp, zoo, RColorBrewer
+Suggests: mgcv, rgl, ggplot2, colorspace, dichromat

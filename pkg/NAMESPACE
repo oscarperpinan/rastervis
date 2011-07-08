@@ -1,5 +1,7 @@
 import(methods)
 
+import(grDevices)##needed by RColorBrewer
+importFrom(RColorBrewer, brewer.pal)
 
 importFrom(grid,
            gpar,
@@ -11,8 +13,7 @@ importFrom(grid,
 
 import(lattice)
 
-## importFrom(RColorBrewer,
-##            brewer.pal)
+
 
 importFrom(latticeExtra,
            horizonplot,
@@ -25,6 +26,7 @@ importFrom(hexbin,
            BTC,
            panel.hexbinplot,
            hexbinplot)
+
 
 importClassesFrom(sp, SpatialPoints)
 importFrom(sp, SpatialPoints)
