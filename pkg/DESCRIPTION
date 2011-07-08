@@ -10,6 +10,6 @@ Description: The raster package defines classes and methods for spatial raster d
 URL: http://rastervis.r-forge.r-project.org/
 License: GPL-3
 LazyLoad: yes
-Depends: methods, raster(>= 1.8-34), RColorBrewer
+Depends: methods, raster(>= 1.8-34), lattice, latticeExtra, hexbin, RColorBrewer
 Imports: grid, sp, lattice, latticeExtra, zoo, hexbin
 Suggests: mgcv, rgl, ggplot2
