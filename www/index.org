@@ -6,12 +6,22 @@
 #+DESCRIPTION: 
 #+TITLE: rasterVis
 
-The [[http://cran.r-project.org/web/packages/raster/index.html][raster]] package defines classes and methods for spatial raster data
-access and manipulation. The new [[http://cran.r-project.org/web/packages/rasterVis/][rasterVis]] package complements raster
-providing a set of methods for enhanced visualization and interaction.
+The
+[[http://cran.r-project.org/web/packages/raster/index.html][raster]]
+package defines classes and methods for spatial raster data access and
+manipulation. The new =rasterVis= package complements raster providing
+a set of methods for enhanced visualization and interaction. The
+stable release of =rasterVis= can be found at
+[[http://cran.r-project.org/web/packages/rasterVis/][CRAN]]. The
+development version is at
+[[https://r-forge.r-project.org/R/?group_id%3D1129][R-Forge]].
 
-I will show some of its functionalities with some examples, using data
-from the [[http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet][CMSAF]] project as described [[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]] ([[http://www.box.net/shared/rl51y1t9sldxk54ogd44][download data]]).
+Let's show some of its functionalities with some examples, using data
+from the
+[[http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet][CMSAF]]
+project as described
+[[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]]
+([[http://www.box.net/shared/rl51y1t9sldxk54ogd44][download data]]).
 
 #+begin_src r
 library(raster)
@@ -38,7 +48,7 @@ The first step is to display the content with a =levelplot=:
 levelplot(SISmm)
 #+end_src
 
-#+ATTR_HTML: width="640"
+#+ATTR_HTML: width="480"
 [[file:levelplot.png]]
 
 If only one layer is chosen, this method displays a marginal plot
@@ -47,7 +57,7 @@ of a function across each coordinate:
 levelplot(SISmm, layers=1, FUN.margin=median, contour=TRUE)
 #+end_src
 
-#+ATTR_HTML: width="640"
+#+ATTR_HTML: width="480"
 [[file:levelplot_layer1.png]]
 
 The result of this call is a =trellis= object. The [[http://latticeextra.r-forge.r-project.org/][latticeExtra]] package
@@ -63,7 +73,7 @@ p <- levelplot(SISmm, layers=1, FUN.margin=median)
 p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
 #+end_src
 
-#+ATTR_HTML: width="640"
+#+ATTR_HTML: width="480"
 [[file:levelplot_layer_borders.png]]
 
 ** Themes
@@ -87,8 +97,29 @@ The diverging palette is specially well suited to this data:
 #+begin_src r
 levelplot(Aug-meanAug, par.settings=RdBuTheme)
 #+end_src
-#+ATTR_HTML: width="640"
+#+ATTR_HTML: width="480"
 [[file:levelplotAug.png]]
+
+Besides, it is easy to define a new theme with a different
+palette. For example, using a sequential palette from
+[[http://cran.r-project.org/web/packages/colorspace][colorspace]]:
+#+begin_src r
+library(colorspace)
+myTheme=rasterTheme(region=sequential_hcl(10, power=2.2))
+levelplot(Aug, par.settings=myTheme, contour=TRUE)
+#+end_src
+[[file:levelplot_colorspace.png]]
+
+or with the colour-blindness corrections from the
+[[http://cran.r-project.org/web/packages/dichromat/][dichromat]]
+package:
+#+begin_src r
+library(dichromat)
+myTheme <- rasterTheme(region=dichromat(terrain.colors(15)))
+levelplot(Aug, par.settings=myTheme)
+#+end_src
+[[file:levelplot_dichromat.png]]
+
 
 ** Scatterplots and histograms
 There are methods to show scatter plots and hexbin plots of the layers
@@ -100,10 +131,10 @@ xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space='right'))
 ##Faster with hexbinplot
 hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 #+end_src
-#+ATTR_HTML: width="640"
+#+ATTR_HTML: width="480"
 [[file:xyplot_formula.png]]
 
-#+ATTR_HTML: width="640"
+#+ATTR_HTML: width="480"
 [[file:hexbinplot_formula.png]]
 
 ...a method for scatter plot matrices:
@@ -111,7 +142,7 @@ hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 splom(SISmm)
 #+end_src
 
-#+ATTR_HTML: width="640"
+#+ATTR_HTML: width="480"
 [[file:splom.png]]
 
 ..and methods for histograms, [[http://procomun.wordpress.com/2011/04/02/violin-plot/][box-and-whisker and violin]] plots or density estimates:
@@ -121,13 +152,13 @@ densityplot(SISmm)
 bwplot(SISmm)
 #+end_src
 
-#+ATTR_HTML: width="640"
+#+ATTR_HTML: width="480"
 [[file:histogram.png]]
 
-#+ATTR_HTML: width="640"
+#+ATTR_HTML: width="480"
 [[file:density.png]]
 
-#+ATTR_HTML: width="640"
+#+ATTR_HTML: width="480"
 [[file:bwplot.png]]
 
 
@@ -160,7 +191,7 @@ evolution of the mean value along the latitude:
 hovmoller(SISmm, dirXY=y, xlab='Latitude')
 #+end_src
 
-#+ATTR_HTML: width="640"
+#+ATTR_HTML: width="480"
 [[file:hovmoller.png]]
 
 The =horizonplot= and =xyplot= methods also are useful for the space-time =Raster= objects:
@@ -168,7 +199,7 @@ The =horizonplot= and =xyplot= methods also are useful for the space-time =Raste
 xyplot(SISmm)
 horizonplot(SISmm)
 #+end_src
-#+ATTR_HTML: width="640"
+#+ATTR_HTML: width="480"
 [[file:horizon.png]]
 
 ** Interaction

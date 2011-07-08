@@ -82,13 +82,23 @@ lang="en" xml:lang="en">
 <div id="content">
 
 <h1 class="title">rasterVis</h1>
-<p>The <a href="http://cran.r-project.org/web/packages/raster/index.html">raster</a> package defines classes and methods for spatial raster data
-access and manipulation. The new <a href="http://cran.r-project.org/web/packages/rasterVis/">rasterVis</a> package complements raster
-providing a set of methods for enhanced visualization and interaction.
+<p>The
+<a href="http://cran.r-project.org/web/packages/raster/index.html">raster</a>
+package defines classes and methods for spatial raster data access and
+manipulation. The new <code>rasterVis</code> package complements raster providing
+a set of methods for enhanced visualization and interaction. The
+stable release of <code>rasterVis</code> can be found at
+<a href="http://cran.r-project.org/web/packages/rasterVis/">CRAN</a>. The
+development version is at
+<a href="https://r-forge.r-project.org/R/?group_id=1129">R-Forge</a>.
 </p>
 <p>
-I will show some of its functionalities with some examples, using data
-from the <a href="http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet">CMSAF</a> project as described <a href="http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/">here</a> (<a href="http://www.box.net/shared/rl51y1t9sldxk54ogd44">download data</a>).
+Let's show some of its functionalities with some examples, using data
+from the
+<a href="http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet">CMSAF</a>
+project as described
+<a href="http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/">here</a>
+(<a href="http://www.box.net/shared/rl51y1t9sldxk54ogd44">download data</a>).
 </p>
 
 
@@ -128,7 +138,7 @@ layerNames(SISmm) <span style="color: #008b8b;">&lt;-</span> month.abb
 
 
 <p>
-<img src="levelplot.png" width="640" alt="levelplot.png" />
+<img src="levelplot.png" width="480" alt="levelplot.png" />
 </p>
 <p>
 If only one layer is chosen, this method displays a marginal plot
@@ -142,7 +152,7 @@ of a function across each coordinate:
 
 
 <p>
-<img src="levelplot_layer1.png" width="640" alt="levelplot_layer1.png" />
+<img src="levelplot_layer1.png" width="480" alt="levelplot_layer1.png" />
 </p>
 <p>
 The result of this call is a <code>trellis</code> object. The <a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a> package
@@ -163,7 +173,7 @@ p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span style="color: #8b2252;">'darkgray
 
 
 <p>
-<img src="levelplot_layer_borders.png" width="640" alt="levelplot_layer_borders.png" />
+<img src="levelplot_layer_borders.png" width="480" alt="levelplot_layer_borders.png" />
 </p>
 </div>
 
@@ -210,8 +220,41 @@ The diverging palette is specially well suited to this data:
 
 
 <p>
-<img src="levelplotAug.png" width="640" alt="levelplotAug.png" />
+<img src="levelplotAug.png" width="480" alt="levelplotAug.png" />
 </p>
+<p>
+Besides, it is easy to define a new theme with a different
+palette. For example, using a sequential palette from
+<a href="http://cran.r-project.org/web/packages/colorspace">colorspace</a>:
+</p>
+
+
+<pre class="src src-r"><span style="color: #008b8b;">library</span>(colorspace)
+myTheme=rasterTheme(region=sequential_hcl(10, power=2.2))
+levelplot(Aug, par.settings=myTheme, contour=<span style="color: #228b22;">TRUE</span>)
+</pre>
+
+
+<p>
+<img src="levelplot_colorspace.png"  alt="levelplot_colorspace.png" />
+</p>
+<p>
+or with the colour-blindness corrections from the
+<a href="http://cran.r-project.org/web/packages/dichromat/">dichromat</a>
+package:
+</p>
+
+
+<pre class="src src-r"><span style="color: #008b8b;">library</span>(dichromat)
+myTheme <span style="color: #008b8b;">&lt;-</span> rasterTheme(region=dichromat(terrain.colors(15)))
+levelplot(Aug, par.settings=myTheme)
+</pre>
+
+
+<p>
+<img src="levelplot_dichromat.png"  alt="levelplot_dichromat.png" />
+</p>
+
 </div>
 
 </div>
@@ -234,10 +277,10 @@ and coordinates of a <code>Raster</code> object:
 
 
 <p>
-<img src="xyplot_formula.png" width="640" alt="xyplot_formula.png" />
+<img src="xyplot_formula.png" width="480" alt="xyplot_formula.png" />
 </p>
 <p>
-<img src="hexbinplot_formula.png" width="640" alt="hexbinplot_formula.png" />
+<img src="hexbinplot_formula.png" width="480" alt="hexbinplot_formula.png" />
 </p>
 <p>
 &hellip;a method for scatter plot matrices:
@@ -250,7 +293,7 @@ and coordinates of a <code>Raster</code> object:
 
 
 <p>
-<img src="splom.png" width="640" alt="splom.png" />
+<img src="splom.png" width="480" alt="splom.png" />
 </p>
 <p>
 ..and methods for histograms, <a href="http://procomun.wordpress.com/2011/04/02/violin-plot/">box-and-whisker and violin</a> plots or density estimates:
@@ -265,13 +308,13 @@ bwplot(SISmm)
 
 
 <p>
-<img src="histogram.png" width="640" alt="histogram.png" />
+<img src="histogram.png" width="480" alt="histogram.png" />
 </p>
 <p>
-<img src="density.png" width="640" alt="density.png" />
+<img src="density.png" width="480" alt="density.png" />
 </p>
 <p>
-<img src="bwplot.png" width="640" alt="bwplot.png" />
+<img src="bwplot.png" width="480" alt="bwplot.png" />
 </p>
 
 <p>
@@ -326,7 +369,7 @@ evolution of the mean value along the latitude:
 
 
 <p>
-<img src="hovmoller.png" width="640" alt="hovmoller.png" />
+<img src="hovmoller.png" width="480" alt="hovmoller.png" />
 </p>
 <p>
 The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for the space-time <code>Raster</code> objects:
@@ -339,7 +382,7 @@ horizonplot(SISmm)
 
 
 <p>
-<img src="horizon.png" width="640" alt="horizon.png" />
+<img src="horizon.png" width="480" alt="horizon.png" />
 </p>
 </div>
 
