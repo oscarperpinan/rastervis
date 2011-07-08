@@ -1,7 +1,7 @@
 \name{hovmoller-methods}
 \docType{methods}
 \alias{hovmoller}
-\alias{hovmoller-methods}
+%\alias{hovmoller-methods}
 \alias{hovmoller,RasterStackBrick-method}
 \title{Hovmoller plots}
 \description{

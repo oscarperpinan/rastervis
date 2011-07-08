@@ -2,7 +2,7 @@
 \docType{methods}
 \alias{identifyRaster}
 \alias{chooseRegion}
-\alias{identifyRaster-methods}
+\alias{identifyRaster}
 \alias{identifyRaster,Raster-method}
 
 \title{
@@ -52,6 +52,27 @@ Oscar Perpiñán Lamigueiro
 \code{panel.identify},\code{panel.link.splom}, \code{trellis.focus}, \code{grid.locator}
 }
 \examples{
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+levelplot(r)
+##Do not close the last graphical window
+##Use the left button of the mouse to identify points and the right button to finish
+chosen_r <- identifyRaster(r, values=TRUE)
+chosen_r
+s <- stack(r, r-500, r+500)
+levelplot(s)
+chosen_s <- identifyRaster(s, values=TRUE)
+chosen_s
+
+\dontrun{
+##The package mgcv is needed for the next example
+##Use the left button of the mouse to build a border with points, and the right button to finish.
+##The points enclosed by the border will be highlighted and returned as a SpatialPoints object.
+levelplot(s)
+reg <- chooseRegion()
+summary(reg)
+}
+
 \dontrun{
 ##Solar irradiation data from CMSAF
 ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44

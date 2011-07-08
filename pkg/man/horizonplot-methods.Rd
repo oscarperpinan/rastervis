@@ -1,6 +1,6 @@
 \name{horizonplot-methods}
 \docType{methods}
-\alias{horizonplot-methods}
+\alias{horizonplot}
 \alias{horizonplot,RasterStackBrick-method}
 \alias{horizonplot,RasterStackBrick,missing-method}
 \title{Horizon plots of Raster objects.}

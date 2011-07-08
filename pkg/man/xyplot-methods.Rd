@@ -1,6 +1,6 @@
 \name{xyplot-methods}
 \docType{methods}
-\alias{xyplot-methods}
+\alias{xyplot}
 \alias{xyplot,RasterStackBrick,missing-method}
 \title{xyplot for Raster objects}
 \description{Scatter plots of Raster objects for directions defined by \code{xyLayer}

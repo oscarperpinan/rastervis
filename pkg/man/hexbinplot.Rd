@@ -1,5 +1,5 @@
 \name{Formula methods}
-\alias{hexbinplot-methods}
+\alias{hexbinplot}
 \alias{hexbinplot,formula,Raster-method}
 \alias{xyplot,formula,Raster-method}
 \title{Formula methods}

@@ -1,6 +1,6 @@
 \name{splom-methods}
 \docType{methods}
-\alias{splom-methods}
+\alias{splom}
 \alias{splom,RasterStackBrick,missing-method}
 \title{Scatter plot matrices of Raster objects.}
 \description{

@@ -8,7 +8,7 @@ setMethod('densityplot',
           signature(x='RasterLayer', data='missing'),
           definition=function (x, data=NULL, maxpixels = 1e+05,
             xlab='', ylab='', main='', col='black',...){
-            dat <- sampleRandom(x, maxpixels)
+            dat <- raster2dat(x, maxpixels=maxpixels)
             densityplot(dat,
                         data=NULL,
                         pch='.', col=col,
@@ -19,11 +19,11 @@ setMethod('densityplot',
   
 setMethod('densityplot',
           signature(x='RasterStackBrick', data='missing'),
-          definition=function (x, data=NULL, layer, FUN,
+          definition=function (x, data=NULL, layers, FUN,
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
             par.settings=rasterTheme,...){
-            if (!missing(layer)) x <- subset(x, layer)
+            if (!missing(layers)) x <- subset(x, layers)
             nl=nlayers(x)
             if (nl > 1) {
               dat <- raster2dat(x, FUN, maxpixels)
@@ -36,7 +36,7 @@ setMethod('densityplot',
                                panel=panel.superpose,
                                panel.groups=function(x, group.value, col.line,...){
                                  panel.densityplot(x, col.line=col.line, plot.points=FALSE,...)
-                                 d <- density(x)
+                                 d <- density(x, na.rm=1)
                                  i <- which.max(d$y)
                                  ltext(d$x[i],d$y[i],group.value,adj=c(0.3,0),col=col.line, cex=0.7)
                                }

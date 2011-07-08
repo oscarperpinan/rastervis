@@ -7,10 +7,10 @@ setGeneric('identifyRaster', function(object, ...){standardGeneric('identifyRast
 
 setMethod('identifyRaster', signature(object='Raster'),
           definition=function(object, layer=1, values=FALSE, pch=13, cex=0.6, col='black',...){
-
             lay <- layer[1]
+            nl <- nlayers(object)
             if (is.character(lay)) lay <- which(lay==layerNames(object))
-            if (length(lay)<1 || lay > nlayers(object)) stop('Incorrect value of layer.')
+            if (length(lay)<1 || lay > nl) stop('Incorrect value of layer.')
             prefix <- lattice:::lattice.getStatus('current.prefix')
             ll <- lattice:::lattice.getStatus('current.panel.positions', prefix=prefix)
             trellisObject <- trellis.last.object()
@@ -20,7 +20,12 @@ setMethod('identifyRaster', signature(object='Raster'),
             if (trellisType=='splom'){
               idx <- panel.link.splom(pch=pch, cex=cex, col=col,...)
             } else {
-              lbl <- round(getValues(object), 2)[,lay]
+              vals <- round(getValues(object), 2)
+              if (nl==1) {
+                lbl <- vals
+              } else {
+                lbl <- vals[,lay]
+              }
               subs <- seq_len(ncell(object))
               idx <- panel.identify(subscripts=subs, label=lbl, pch=pch, cex=cex, col=col,...)
             }

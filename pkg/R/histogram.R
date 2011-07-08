@@ -9,7 +9,7 @@ setMethod('histogram',
           signature(x='RasterLayer', data='missing'),
           definition=function (x, data=NULL, maxpixels = 1e+05, breaks=100,
             xlab='', ylab='', main='', col='gray',...){
-            dat <- sampleRandom(x, maxpixels)
+            dat <- raster2dat(x, maxpixels=maxpixels)
             p <- histogram(dat,
                            data=NULL,
                            breaks=breaks, col=col,
@@ -21,7 +21,7 @@ setMethod('histogram',
 
 setMethod('histogram',
           signature(x='RasterStackBrick', data='missing'),
-          definition=function (x, data=NULL,layer, FUN,
+          definition=function (x, data=NULL, layers, FUN,
             maxpixels = 1e+05, breaks=100,
             xlab='', ylab='', main='', col='gray',
             between=list(x=0.5, y=0.2),
@@ -30,7 +30,7 @@ setMethod('histogram',
             yscale.components=yscale.raster,
             par.settings=rasterTheme,
             ...) {
-            if (!missing(layer)) x <- subset(x, layer)
+            if (!missing(layers)) x <- subset(x, layers)
             nl=nlayers(x)
             if (nl > 1) {
               dat <- raster2dat(x, FUN, maxpixels)

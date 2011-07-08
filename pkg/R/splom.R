@@ -10,7 +10,11 @@ setMethod('splom',
           definition=function(x, data=NULL, maxpixels=1e5,
             plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...){
             nms <- layerNames(x)
-            dat <- sampleRandom(x, maxpixels)
+            if (maxpixels < ncell(x)) {
+              dat <- sampleRandom(x, maxpixels)
+              } else {
+                dat <- x
+                }
             colnames(dat) <- nms
             diag.panel = function(x,...){
               yrng <- current.panel.limits()$ylim

@@ -1,6 +1,6 @@
 \name{bwplot-methods}
 \docType{methods}
-\alias{bwplot-methods}
+\alias{bwplot}
 \alias{bwplot,RasterStackBrick,missing-method}
 \title{Box and whisker plots of Raster objects.}
 \description{
@@ -8,7 +8,7 @@ A method for \code{bwplot} and \code{RasterStackBrick} objects. It uses
 a combination of \code{\link{panel.violin}} and
 \code{\link{panel.bwplot}} to compose the graphic.
 }
-\usage{\S4method{bwplot}{RasterStackBrick,missing}(x, data=NULL, layer, FUN,
+\usage{\S4method{bwplot}{RasterStackBrick,missing}(x, data=NULL, layers, FUN,
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
             violin=TRUE,
@@ -18,7 +18,7 @@ a combination of \code{\link{panel.violin}} and
 \arguments{
   \item{x}{A \code{RasterStackBrick} object.}
   \item{data}{Not used.}
-  \item{layer}{A numeric or character which should indicate the layers
+  \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
   \item{FUN}{A function to applied to the \code{z} slot of a
             \code{RasterStackBrick} object. The result of this function
@@ -37,6 +37,11 @@ a combination of \code{\link{panel.violin}} and
   \code{\link[raster]{subset}}
 }
 \examples{
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+s <- stack(r, r-500, r+500)
+bwplot(s)
+
 \dontrun{
 ##Solar irradiation data from CMSAF
 ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44

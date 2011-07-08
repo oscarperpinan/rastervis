@@ -35,20 +35,28 @@ BTCTheme <- function(region=BTC(n=9), ...) {
 
 raster2dat <- function(x, FUN, maxpixels){
   nl <- nlayers(x)
-  dat <- sampleRandom(x, maxpixels)
-  dat <- as.data.frame(dat)
-  ##http://r.789695.n4.nabble.com/Column-order-in-stacking-unstacking-td3349953.html
-  idx <- sprintf("%s%03d", "X", 1:nl) 
-  names(dat) <- idx
-  dat <- stack(dat)
-  z <- getZ(x)
-  if (!missing(FUN) & !is.null(z)){
-    FUN <- match.fun(FUN)   
-    dat$ind <- factor(FUN(z))[dat$ind]
+  if (maxpixels < ncell(x)) {
+    dat <- sampleRandom(x, maxpixels)
   } else {
-    nms <- layerNames(x)
-    nms <- reorder(factor(nms), 1:nl)
-    dat$ind <- nms[dat$ind]
+    dat <- getValues(x)
   }
-  dat
+  if (nl>1){
+    dat <- as.data.frame(dat)
+    ##http://r.789695.n4.nabble.com/Column-order-in-stacking-unstacking-td3349953.html
+    idx <- sprintf("%s%03d", "X", 1:nl) 
+    names(dat) <- idx
+    dat <- stack(dat)
+    z <- getZ(x)
+    if (!missing(FUN) & !is.null(z)){
+      FUN <- match.fun(FUN)   
+      dat$ind <- factor(FUN(z))[dat$ind]
+    } else {
+      nms <- layerNames(x)
+      nms <- reorder(factor(nms), 1:nl)
+      dat$ind <- nms[dat$ind]
+    }
+    dat
+  } else {
+    dat ##nl==1 --> raster2dat gives a vector 
+  }
 }

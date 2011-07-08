@@ -1,6 +1,6 @@
 \name{histogram-methods}
 \docType{methods}
-\alias{histogram-methods}
+\alias{histogram}
 \alias{histogram,RasterLayer,missing-method}
 \alias{histogram,RasterStackBrick,missing-method}
 \title{
@@ -13,7 +13,7 @@ Histogram of Raster objects.
 \S4method{histogram}{RasterLayer,missing}(x, data=NULL, maxpixels = 1e+05, breaks=100, 
             xlab='', ylab='', main='', col='gray', ...)
 
-\S4method{histogram}{RasterStackBrick,missing}(x, data=NULL, layer, FUN,
+\S4method{histogram}{RasterStackBrick,missing}(x, data=NULL, layers, FUN,
             maxpixels = 1e+05, breaks=100,
             xlab='', ylab='', main='', col='gray',
             between=list(x=0.5, y=0.2),
@@ -26,7 +26,7 @@ Histogram of Raster objects.
 \arguments{
   \item{x}{A \code{Raster*} object.}
   \item{data}{Not used.}
-  \item{layer}{A numeric or character which should indicate the layers
+  \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
   \item{FUN}{A function to applied to the \code{z} slot of a
             \code{RasterStackBrick} object. The result of this function
@@ -46,6 +46,12 @@ Histogram of Raster objects.
             \code{\link{yscale.raster}}, \code{\link{rasterTheme}}
 }
 \examples{
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+histogram(r)
+s <- stack(r, r+500, r-500)
+histogram(s)
+
 \dontrun{
 ##Solar irradiation data from CMSAF
 ##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
