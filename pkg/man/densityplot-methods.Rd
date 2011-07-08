@@ -1,6 +1,7 @@
 \name{densityplot-methods}
 \docType{methods}
-\alias{densityplot-methods}
+
+\alias{densityplot}
 \alias{densityplot,RasterLayer,missing-method}
 \alias{densityplot,RasterStackBrick,missing-method}
 \title{Density plots for Raster objects.}

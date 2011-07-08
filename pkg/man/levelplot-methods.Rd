@@ -1,6 +1,7 @@
 \name{levelplot-methods}
 \docType{methods}
-\alias{levelplot-methods}
+
+\alias{levelplot}
 \alias{levelplot,Raster,missing-method}
 \title{Level plots of Raster objects.}
 \description{Level plots of Raster objects with \code{lattice} methods
