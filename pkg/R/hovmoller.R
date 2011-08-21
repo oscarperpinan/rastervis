@@ -22,27 +22,59 @@ setMethod('hovmoller', signature='RasterStackBrick',
             FUN=mean, digits=2,
             xlab='Direction', ylab='Time',
             par.settings=rasterTheme,
-            add.contour=TRUE, ...){
+            add.contour=TRUE,
+            labels=list(cex=0.6), region=TRUE, ...){
+            
             idx=getZ(object)
+            if (is.null(idx)) stop('z slot of the object is NULL.')
+
+            ##Calculate the matrix with the zonal function
             dirLayer <- xyLayer(object, dirXY=substitute(dirXY))
             z <- zonal(object, dirLayer, FUN, digits=digits)
             dat <- expand.grid(x=z[,1], y=idx)
             dat$z <- as.vector(as.numeric(z[,-1]))
 
+            ##Labels of x-axis when isLonLat(object)==TRUE
+            scales=list()
+            if (isLonLat(object)){
+              direction=deparse(substitute(dirXY))
+              if (missing(xlab)){
+                if (direction=='x'){
+                  xlab='Longitude'
+                } else {
+                  if (direction=='y'){
+                    xlab='Latitude'
+                  }
+                }
+              }
+              bb <- extent(object)
+              if (direction=='x'){##Longitude
+                scales=list(x=list(at=pretty(c(bb@xmin, bb@xmax))))
+                scales$x$labels=parse(text=sp:::degreeLabelsEW(scales$x$at))
+              } else {
+                if (direction=='y'){##Latitude
+                  scales=list(x=list(at=pretty(c(bb@ymin, bb@ymax))))
+                  scales$x$labels=parse(text=sp:::degreeLabelsNS(scales$x$at))
+                }
+              }
+            }
+
+            ##Create the trellis object
             if (add.contour){
               p <- contourplot(z~x*y, data=dat,
                                xlab=xlab, ylab=ylab,
-                               labels=list(cex=0.7),
+                               labels=labels, scales=scales,
                                par.settings=par.settings,
-                               region=TRUE, ...)
+                               region=region, ...)
             } else {
               p <- levelplot(z~x*y, data=dat,
-                             par.settings,
+                             par.settings=par.settings,
+                             scales=scales,
                              xlab=xlab, ylab=ylab,
                              ...)
-              }
-            p
             }
+            p
+          }
             )
 
 

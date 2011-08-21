@@ -1,8 +1,8 @@
 Package: rasterVis
 Type: Package
 Title: Visualization methods for the raster package
-Version: 0.10-3
-Date: 2011-07-08
+Version: 0.10-4
+Date: 2011-08-20
 Encoding: UTF-8
 Author: Oscar Perpiñán Lamigueiro and Robert Hijmans
 Maintainer: Oscar Perpiñán Lamigueiro <oscar.perpinan@upm.es>

@@ -7,7 +7,8 @@
 \description{
 Hovmoller plots of Raster objects.}
 \usage{\S4method{hovmoller}{RasterStackBrick}(object, dirXY=y, FUN=mean, 
-digits=2, xlab='Direction', ylab='Time', par.settings=rasterTheme, add.contour=TRUE, ...)
+digits=2, xlab='Direction', ylab='Time', par.settings=rasterTheme,
+add.contour=TRUE, labels=list(cex=0.6), region=TRUE, ...)
 }
 \arguments{
   \item{object}{A RasterStackBrick with a non-empty \code{z} slot.}
@@ -17,8 +18,10 @@ digits=2, xlab='Direction', ylab='Time', par.settings=rasterTheme, add.contour=T
     \code{dirXY} and \code{zonal}.}
   \item{digits}{An integer, number of digits for \code{\link{zonal}}.}
   \item{xlab, ylab}{Labels of the axis.}
-  \item{par.settings}{Customization of lattice. See \code{\link{xyplot}}
-  for details.}
+  \item{par.settings}{Customization of lattice. See \code{\link{levelplot}}
+    for details.}
+  \item{labels, region}{Customization of \code{contourplot} when \code{add.contour} is
+  TRUE.}
   \item{add.contour}{Logical, if TRUE a contourplot with filled regions
     is drawn.}
   \item{\dots}{Additional arguments for the \code{\link{contourplot}}
@@ -65,6 +68,9 @@ SISmm <- setZ(stackSIS, idx)
 layerNames(SISmm) <- month.abb
 
 hovmoller(SISmm, dirXY=y, xlab='Latitude')##latitude
+hovmoller(SISmm, dirXY=y, labels=FALSE, xlab='Latitude')##without labels
+hovmoller(SISmm, dirXY=y, add.contour=FALSE, xlab='Latitude')##without contours
+
 hovmoller(SISmm, dirXY=sqrt(x^2+y^2))##a function of coordinates...
 }
 }
