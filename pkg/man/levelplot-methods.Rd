@@ -2,12 +2,15 @@
 \docType{methods}
 
 \alias{levelplot}
+\alias{contourplot}
 \alias{levelplot,Raster,missing-method}
-\title{Level plots of Raster objects.}
-\description{Level plots of Raster objects with \code{lattice} methods
+\alias{contourplot,Raster,missing-method}
+\title{Level and contour plots of Raster objects.}
+\description{Level and contour plots of Raster objects with \code{lattice} methods
   and marginal plots with \code{grid} objects.
 }
-\usage{\S4method{levelplot}{Raster,missing}(x, data=NULL, layers,
+\usage{
+\S4method{levelplot}{Raster,missing}(x, data=NULL, layers,
             margin=TRUE, FUN.margin=mean,
             maxpixels=1e5,
             par.settings=rasterTheme,
@@ -19,6 +22,8 @@
             yscale.components=yscale.raster,
             colorkey=list(space='right'),
             ...)
+
+\S4method{contourplot}{Raster,missing}(x, data=NULL, layers, ...)
 }
 
 \arguments{
@@ -36,11 +41,16 @@
   \item{\dots}{Additional arguments for \code{\link{histogram}}}
 }
 
-\details{The result of this method is similar to the \code{spplot}
-    method for \code{Raster} objects defined in the \code{raster}
-    package. However, this method does not use the \code{spplot} of the
-    \code{sp} package and, therefore, no conversion between classes is
-    needed.
+\details{The result of the \code{levelplot} method is similar to the
+    \code{spplot} method for \code{Raster} objects defined in the
+    \code{raster} package. However, this method does not use the
+    \code{spplot} of the \code{sp} package and, therefore, no conversion
+    between classes is needed.
+
+    The \code{contourplot} method is a wrapper for \code{levelplot} with
+    the next additional default settings: \code{cuts=7}, \code{labels=TRUE},
+    \code{contour}=TRUE, \code{pretty}=TRUE, \code{region=TRUE} and
+    \code{colorkey=TRUE} (see the help of \code{contourplot} for details.)
   }
   
 \author{Oscar Perpiñán Lamigueiro}
@@ -51,11 +61,13 @@ r <- raster(f)
 levelplot(r)
 s <- stack(r, r+500, r-500)
 levelplot(s, contour=TRUE)
+contourplot(s, labels=list(cex=0.6), cuts=12)
 
 ##Add a layer of sampling points
 ##and change the theme
 pts <- sampleRandom(r, size=20, sp=TRUE)
-levelplot(r, par.settings=RdBuTheme) + layer(sp.points(pts, col='black'))
+levelplot(r, par.settings=BTCTheme) + layer(sp.points(pts, col='red'))
+contourplot(r, labels=FALSE) + layer(sp.points(pts, col='red'))
 
 \dontrun{
 ##Solar irradiation data from CMSAF

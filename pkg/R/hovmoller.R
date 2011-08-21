@@ -23,7 +23,7 @@ setMethod('hovmoller', signature='RasterStackBrick',
             xlab='Direction', ylab='Time',
             par.settings=rasterTheme,
             add.contour=TRUE,
-            labels=list(cex=0.6), region=TRUE, ...){
+            labels=FALSE, region=TRUE, ...){
             
             idx=getZ(object)
             if (is.null(idx)) stop('z slot of the object is NULL.')

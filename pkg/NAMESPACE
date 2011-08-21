@@ -59,6 +59,7 @@ exportMethods(
               "hovmoller",
               "identifyRaster",
               "levelplot",
+              "contourplot",
               "splom",
               "xyplot",
               "hexbinplot",
