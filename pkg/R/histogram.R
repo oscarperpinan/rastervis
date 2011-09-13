@@ -13,7 +13,8 @@ setMethod('histogram',
             p <- histogram(dat,
                            data=NULL,
                            breaks=breaks, col=col,
-                           xlab=xlab, ylab=ylab, main=main)
+                           xlab=xlab, ylab=ylab,
+                           main=main, ...)
             p
           }
 )  
@@ -45,7 +46,7 @@ setMethod('histogram',
                                  draw=FALSE)),
                              breaks=breaks, col=col,
                              xlab=xlab, ylab=ylab, main=main,
-                             strip.names=c(TRUE, TRUE))
+                             strip.names=c(TRUE, TRUE), ...)
             } else {
               p <- histogram(x, maxpixels = maxpixels, breaks=breaks,
                              main = main, ylab=ylab, xlab=xlab, col=col,...)

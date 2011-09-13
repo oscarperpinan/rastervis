@@ -12,7 +12,7 @@ setMethod('densityplot',
             densityplot(dat,
                         data=NULL,
                         pch='.', col=col,
-                        xlab=xlab, ylab=ylab) 
+                        xlab=xlab, ylab=ylab, ...) 
           }
           )
 
