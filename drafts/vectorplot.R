@@ -1,3 +1,8 @@
+# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
+# Date :  September 2011
+# Version 0.10
+# Licence GPL v3
+
 vectorplot <- function(object, layers, narrows=2e3, lwd.arrows=0.6, region=TRUE,...){
   if (!missing(layers)) {
     object <- subset(object, subset=layers)
