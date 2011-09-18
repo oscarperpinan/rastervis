@@ -3,7 +3,9 @@
 # Version 0.10
 # Licence GPL v3
 
-vectorplot <- function(object, layers, narrows=2e3, lwd.arrows=0.6, region=TRUE,...){
+vectorplot <- function(object, layers,
+                       narrows=2e3, lwd.arrows=0.6, region=TRUE,
+                       isField=FALSE, unit='radians',...){
   if (!missing(layers)) {
     object <- subset(object, subset=layers)
   } else {}
@@ -13,25 +15,29 @@ vectorplot <- function(object, layers, narrows=2e3, lwd.arrows=0.6, region=TRUE,
   y <- getValues(init(dat, v='y'))
 
 
-  fooSlopeAspect <- function(s){
+  fooSlopeAspect <- function(s, skip, unit){
     aspX <- xres(s)*0.6 ## maybe use a non-constant value...
     aspY <- yres(s)*0.6
 
-    sa <- slopeAspect(s)
-    slope <- getValues(subset(sa, 1))
-    aspect <- getValues(subset(sa, 2))
-
+    if (!skip){s <- slopeAspect(s)} 
+    ##If s is a vector field, the first layer is the magnitude (slope)
+    ##and the second is the angle (aspect)
+    slope <- getValues(subset(s, 1)) 
+    aspect <- getValues(subset(s, 2))
+    if (unit=='degrees') {aspect <- aspect/180*pi}
+    
     slope <- scale(slope, center=FALSE) ##center=FALSE to get only positive values of slope
     dx <- slope*sin(aspect)*aspX ##sin due to the angular definition of aspect
     dy <- slope*cos(aspect)*aspY
 
     data.frame(dx, dy)
   }
-  if (nlayers(object)>1){ ##slopeAspect works only for RasterLayer
-    sa <- lapply(unstack(dat), fooSlopeAspect)
+
+  if (nlayers(object)>1 && !isField){ ##slopeAspect works only for RasterLayer
+    sa <- lapply(unstack(dat), fooSlopeAspect, skip=FALSE, unit=unit)
     sa <- do.call(rbind, sa) 
   } else {
-    sa <- fooSlopeAspect(dat)
+    sa <- fooSlopeAspect(dat, skip=isField, unit=unit)
   }
 
   fooPanel <- function(x, y, z, subscripts, sa, length, lwd.arrows,...) {
@@ -46,8 +52,8 @@ vectorplot <- function(object, layers, narrows=2e3, lwd.arrows=0.6, region=TRUE,
                  length=length,
                  lwd=lwd.arrows)
   }
-
-  levelplot(object, maxpixels=narrows,
+  if (isField) object <- subset(object, 1)##only uses the magnitude for the region
+  levelplot(object, maxpixels=narrows, 
             colorkey=region, 
             sa=sa, length=unit(5e-2, 'npc'), lwd.arrows=lwd.arrows,
             panel=fooPanel, ...)
@@ -74,3 +80,4 @@ projection(r1) <- projection(r2) <- projection(r3) <- CRS("+proj=longlat +datum=
 vectorplot(r1, par.settings=RdBuTheme)
 vectorplot(r2, par.settings=RdBuTheme)
 vectorplot(r3, par.settings=RdBuTheme)
+vectorplot(stack(r1, r2, r3), par.settings=RdBuTheme)
