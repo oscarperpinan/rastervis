@@ -60,6 +60,7 @@ exportMethods(
               "identifyRaster",
               "levelplot",
               "contourplot",
+              "vectorplot",
               "splom",
               "xyplot",
               "hexbinplot",
