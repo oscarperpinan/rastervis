@@ -1,20 +1,16 @@
 #+POSTID: 756
-#+DATE: [2011-06-28 mar 07:59]
+#+DATE: [2011-09-23]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil f:nil
-#+CATEGORY: Palabras de otros
+#+CATEGORY: R
 #+TAGS: 
-#+DESCRIPTION: 
+#+DESCRIPTION: rasterVis
 #+TITLE: rasterVis
 
-The
-[[http://cran.r-project.org/web/packages/raster/index.html][raster]]
-package defines classes and methods for spatial raster data access and
-manipulation. The new =rasterVis= package complements raster providing
-a set of methods for enhanced visualization and interaction. The
-stable release of =rasterVis= can be found at
-[[http://cran.r-project.org/web/packages/rasterVis/][CRAN]]. The
-development version is at
-[[https://r-forge.r-project.org/R/?group_id%3D1129][R-Forge]].
+The [[http://cran.r-project.org/web/packages/raster/index.html][raster]] package defines classes and methods for spatial raster data
+access and manipulation. The new =rasterVis= package complements
+raster providing a set of methods for enhanced visualization and
+interaction. The stable release of =rasterVis= can be found at
+[[http://cran.r-project.org/web/packages/rasterVis/][CRAN]]. The development version is at [[https://r-forge.r-project.org/R/?group_id%3D1129][R-Forge]].
 
 Let's show some of its functionalities with some examples, using data
 from the
@@ -201,6 +197,33 @@ horizonplot(SISmm)
 #+end_src
 #+ATTR_HTML: width="480"
 [[file:horizon.png]]
+
+** Vector field plots
+The function =slopeAspect= from =raster= provides the vector field
+(gradient) from a scalar field stored in a =RasterLayer= object. The
+magnitude (slope) and direction (aspect) of the vector field is
+usually displayed with a set of arrows (e.g. =quiver= in Matlab).
+
+=rasterVis= includes a method, =vectorplot=, to calculate and display
+this vector field. This method is not restricted to the =RasterLayer=
+class. 
+
+
+#+begin_src R
+df <- expand.grid(x=seq(-2, 2, .1), y=seq(-2, 2, .1))
+df$z <- with(df, (3*x^2 + y)*exp(-x^2-y^2))
+
+r <- rasterFromXYZ(df)
+projection(r) <- CRS("+proj=longlat +datum=WGS84")
+
+vectorplot(r, par.settings=RdBuTheme)
+#+end_src
+
+#+ATTR_HTML: width="480"
+[[file:vectorplot.png]]
+
+If the =Raster*= object passed to =vectorplot= is a
+vector field (=isField=TRUE=), the =slopeAspect= calculation is skipped.
 
 ** Interaction
 This package includes two functions to interact with the =trellis= objects. 

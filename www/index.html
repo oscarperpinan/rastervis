@@ -7,9 +7,9 @@ lang="en" xml:lang="en">
 <title>rasterVis</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="[2011-06-28 mar 07:59]"/>
+<meta name="generated" content="[2011-09-23]"/>
 <meta name="author" content="Oscar Perpinan Lamigueiro"/>
-<meta name="description" content=""/>
+<meta name="description" content="rasterVis"/>
 <meta name="keywords" content=""/>
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
@@ -82,15 +82,11 @@ lang="en" xml:lang="en">
 <div id="content">
 
 <h1 class="title">rasterVis</h1>
-<p>The
-<a href="http://cran.r-project.org/web/packages/raster/index.html">raster</a>
-package defines classes and methods for spatial raster data access and
-manipulation. The new <code>rasterVis</code> package complements raster providing
-a set of methods for enhanced visualization and interaction. The
-stable release of <code>rasterVis</code> can be found at
-<a href="http://cran.r-project.org/web/packages/rasterVis/">CRAN</a>. The
-development version is at
-<a href="https://r-forge.r-project.org/R/?group_id=1129">R-Forge</a>.
+<p>The <a href="http://cran.r-project.org/web/packages/raster/index.html">raster</a> package defines classes and methods for spatial raster data
+access and manipulation. The new <code>rasterVis</code> package complements
+raster providing a set of methods for enhanced visualization and
+interaction. The stable release of <code>rasterVis</code> can be found at
+<a href="http://cran.r-project.org/web/packages/rasterVis/">CRAN</a>. The development version is at <a href="https://r-forge.r-project.org/R/?group_id=1129">R-Forge</a>.
 </p>
 <p>
 Let's show some of its functionalities with some examples, using data
@@ -107,19 +103,21 @@ project as described
 <span style="color: #008b8b;">library</span>(rasterVis)
 
 old <span style="color: #008b8b;">&lt;-</span> getwd()
-<span style="color: #b22222;">##</span><span style="color: #b22222;">change to your folder...
-</span>setwd(<span style="color: #8b2252;">'CMSAF'</span>)
+<span style="color: #b22222;">##</span><span style="color: #b22222;">change to your folder...</span>
+setwd(<span style="color: #8b2252;">'CMSAF'</span>)
 listFich <span style="color: #008b8b;">&lt;-</span> dir(pattern=<span style="color: #8b2252;">'2008'</span>)
 listNC <span style="color: #008b8b;">&lt;-</span> lapply(listFich, raster)
 stackSIS <span style="color: #008b8b;">&lt;-</span> do.call(stack, listNC)
-stackSIS <span style="color: #008b8b;">&lt;-</span> stackSIS*24 <span style="color: #b22222;">##</span><span style="color: #b22222;">from irradiance (W/m2) to irradiation Wh/m2
-</span>setwd(old)
+stackSIS <span style="color: #008b8b;">&lt;-</span> stackSIS*24 <span style="color: #b22222;">##</span><span style="color: #b22222;">from irradiance (W/m2) to irradiation Wh/m2</span>
+setwd(old)
 
 idx <span style="color: #008b8b;">&lt;-</span> seq(as.Date(<span style="color: #8b2252;">'2008-01-15'</span>), as.Date(<span style="color: #8b2252;">'2008-12-15'</span>), <span style="color: #8b2252;">'month'</span>)
 
 SISmm <span style="color: #008b8b;">&lt;-</span> setZ(stackSIS, idx)
 layerNames(SISmm) <span style="color: #008b8b;">&lt;-</span> month.abb
+
 </pre>
+
 
 
 
@@ -133,7 +131,9 @@ layerNames(SISmm) <span style="color: #008b8b;">&lt;-</span> month.abb
 
 
 <pre class="src src-r">levelplot(SISmm)
+
 </pre>
+
 
 
 
@@ -147,7 +147,9 @@ of a function across each coordinate:
 
 
 <pre class="src src-r">levelplot(SISmm, layers=1, FUN.margin=median, contour=<span style="color: #228b22;">TRUE</span>)
+
 </pre>
+
 
 
 
@@ -163,12 +165,14 @@ This information is available <a href="http://biogeo.ucdavis.edu/data/diva/adm/E
 
 <pre class="src src-r"><span style="color: #008b8b;">library</span>(maptools)
 proj <span style="color: #008b8b;">&lt;-</span> CRS(<span style="color: #8b2252;">'+proj=latlon +ellps=WGS84'</span>)
-<span style="color: #b22222;">##</span><span style="color: #b22222;">Change to your folder
-</span>mapaSHP <span style="color: #008b8b;">&lt;-</span> readShapeLines(<span style="color: #8b2252;">'ESP_adm/ESP_adm2.shp'</span>, proj4string=proj)
+<span style="color: #b22222;">##</span><span style="color: #b22222;">Change to your folder</span>
+mapaSHP <span style="color: #008b8b;">&lt;-</span> readShapeLines(<span style="color: #8b2252;">'ESP_adm/ESP_adm2.shp'</span>, proj4string=proj)
 
 p <span style="color: #008b8b;">&lt;-</span> levelplot(SISmm, layers=1, FUN.margin=median)
 p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span style="color: #8b2252;">'darkgray'</span>))
+
 </pre>
+
 
 
 
@@ -198,7 +202,9 @@ The irradiation of August is:
 
 
 <pre class="src src-r">Aug <span style="color: #008b8b;">&lt;-</span> raster(SISmm, 8)
+
 </pre>
+
 
 
 <p>
@@ -207,7 +213,9 @@ and its overall mean is calculated with cellStats:
 
 
 <pre class="src src-r">meanAug <span style="color: #008b8b;">&lt;-</span> cellStats(Aug, mean)
+
 </pre>
+
 
 
 <p>
@@ -216,7 +224,9 @@ The diverging palette is specially well suited to this data:
 
 
 <pre class="src src-r">levelplot(Aug-meanAug, par.settings=RdBuTheme)
+
 </pre>
+
 
 
 <p>
@@ -232,7 +242,9 @@ palette. For example, using a sequential palette from
 <pre class="src src-r"><span style="color: #008b8b;">library</span>(colorspace)
 myTheme=rasterTheme(region=sequential_hcl(10, power=2.2))
 levelplot(Aug, par.settings=myTheme, contour=<span style="color: #228b22;">TRUE</span>)
+
 </pre>
+
 
 
 <p>
@@ -248,7 +260,9 @@ package:
 <pre class="src src-r"><span style="color: #008b8b;">library</span>(dichromat)
 myTheme <span style="color: #008b8b;">&lt;-</span> rasterTheme(region=dichromat(terrain.colors(15)))
 levelplot(Aug, par.settings=myTheme)
+
 </pre>
+
 
 
 <p>
@@ -268,12 +282,14 @@ and coordinates of a <code>Raster</code> object:
 </p>
 
 
-<pre class="src src-r"><span style="color: #b22222;">##</span><span style="color: #b22222;">Relation between the January &amp; February versus July radiation for four
-</span><span style="color: #b22222;">##</span><span style="color: #b22222;">differents longitude regions.
-</span>xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space=<span style="color: #8b2252;">'right'</span>))
-<span style="color: #b22222;">##</span><span style="color: #b22222;">Faster with hexbinplot
-</span>hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
+<pre class="src src-r"><span style="color: #b22222;">##</span><span style="color: #b22222;">Relation between the January &amp; February versus July radiation for four</span>
+<span style="color: #b22222;">##</span><span style="color: #b22222;">differents longitude regions.</span>
+xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space=<span style="color: #8b2252;">'right'</span>))
+<span style="color: #b22222;">##</span><span style="color: #b22222;">Faster with hexbinplot</span>
+hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
+
 </pre>
+
 
 
 <p>
@@ -288,7 +304,9 @@ and coordinates of a <code>Raster</code> object:
 
 
 <pre class="src src-r">splom(SISmm)
+
 </pre>
+
 
 
 
@@ -303,7 +321,9 @@ and coordinates of a <code>Raster</code> object:
 <pre class="src src-r">histogram(SISmm)
 densityplot(SISmm)
 bwplot(SISmm)
+
 </pre>
+
 
 
 
@@ -326,7 +346,9 @@ variable of the plot:
 
 
 <pre class="src src-r">histogram(SISmm, FUN=as.yearqtr)
+
 </pre>
+
 
 
 
@@ -353,7 +375,9 @@ The <code>hovmoller</code> method uses the function <code>xyLayer</code>, which 
 r <span style="color: #008b8b;">&lt;-</span> raster(f)
 dirXY <span style="color: #008b8b;">&lt;-</span>xyLayer(r, sqrt(x^2 + y^2))
 dirXY
+
 </pre>
+
 
 
 
@@ -364,7 +388,9 @@ evolution of the mean value along the latitude:
 
 
 <pre class="src src-r">hovmoller(SISmm, dirXY=y, xlab=<span style="color: #8b2252;">'Latitude'</span>)
+
 </pre>
+
 
 
 
@@ -378,7 +404,9 @@ The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for
 
 <pre class="src src-r">xyplot(SISmm)
 horizonplot(SISmm)
+
 </pre>
+
 
 
 <p>
@@ -389,8 +417,50 @@ horizonplot(SISmm)
 </div>
 
 <div id="outline-container-5" class="outline-3">
-<h3 id="sec-5">Interaction</h3>
+<h3 id="sec-5">Vector field plots</h3>
 <div class="outline-text-3" id="text-5">
+
+<p>The function <code>slopeAspect</code> from <code>raster</code> provides the vector field
+(gradient) from a scalar field stored in a <code>RasterLayer</code> object. The
+magnitude (slope) and direction (aspect) of the vector field is
+usually displayed with a set of arrows (e.g. <code>quiver</code> in Matlab).
+</p>
+<p>
+<code>rasterVis</code> includes a method, <code>vectorplot</code>, to calculate and display
+this vector field. This method is not restricted to the <code>RasterLayer</code>
+class. 
+</p>
+
+
+
+
+<pre class="src src-R">df <span style="color: #008b8b;">&lt;-</span> expand.grid(x=seq(-2, 2, .1), y=seq(-2, 2, .1))
+df$z <span style="color: #008b8b;">&lt;-</span> with(df, (3*x^2 + y)*exp(-x^2-y^2))
+
+r <span style="color: #008b8b;">&lt;-</span> rasterFromXYZ(df)
+projection(r) <span style="color: #008b8b;">&lt;-</span> CRS(<span style="color: #8b2252;">"+proj=longlat +datum=WGS84"</span>)
+
+vectorplot(r, par.settings=RdBuTheme)
+
+</pre>
+
+
+
+
+<p>
+<img src="vectorplot.png" width="480" alt="vectorplot.png" />
+</p>
+<p>
+If the <code>Raster*</code> object passed to <code>vectorplot</code> is a
+vector field (<code>isField=TRUE</code>), the <code>slopeAspect</code> calculation is skipped.
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-3">
+<h3 id="sec-6">Interaction</h3>
+<div class="outline-text-3" id="text-6">
 
 <p>This package includes two functions to interact with the <code>trellis</code> objects. 
 </p>
@@ -404,12 +474,14 @@ although it can be also used after <code>xyplot</code>, <code>hexbinplot</code> 
 
 <pre class="src src-r">levelplot(SISmm)
 
-<span style="color: #b22222;">##</span><span style="color: #b22222;">Do not close the last graphical window.  Use the left button of the
-</span><span style="color: #b22222;">##</span><span style="color: #b22222;">mouse to identify points and the right button to finish
-</span>
+<span style="color: #b22222;">##</span><span style="color: #b22222;">Do not close the last graphical window.  Use the left button of the</span>
+<span style="color: #b22222;">##</span><span style="color: #b22222;">mouse to identify points and the right button to finish</span>
+
 chosen <span style="color: #008b8b;">&lt;-</span> identifyRaster(SISmm, layer=3, values=<span style="color: #228b22;">TRUE</span>)
 chosen
+
 </pre>
+
 
 
 
@@ -420,12 +492,14 @@ The <code>chooseRegion</code> function provides a set of points (in the form of 
 
 
 
-<pre class="src src-r"><span style="color: #b22222;">##</span><span style="color: #b22222;">Use the left button of the mouse to build a border with points, and
-</span><span style="color: #b22222;">##</span><span style="color: #b22222;">the right button to finish.  The points enclosed by the border will
-</span><span style="color: #b22222;">##</span><span style="color: #b22222;">be highlighted and returned as a SpatialPoints object.
-</span>reg <span style="color: #008b8b;">&lt;-</span> chooseRegion()
+<pre class="src src-r"><span style="color: #b22222;">##</span><span style="color: #b22222;">Use the left button of the mouse to build a border with points, and</span>
+<span style="color: #b22222;">##</span><span style="color: #b22222;">the right button to finish.  The points enclosed by the border will</span>
+<span style="color: #b22222;">##</span><span style="color: #b22222;">be highlighted and returned as a SpatialPoints object.</span>
+reg <span style="color: #008b8b;">&lt;-</span> chooseRegion()
 summary(reg)
+
 </pre>
+
 
 
 
@@ -433,8 +507,9 @@ summary(reg)
 </div>
 </div>
 <div id="postamble">
+<p class="date">Date: [2011-09-23]</p>
 <p class="author">Author: Oscar Perpinan Lamigueiro</p>
-<p class="creator">Org version 7.5 with Emacs version 23</p>
+<p class="creator">Org version 7.6 with Emacs version 23</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
 </div>
 </div>
