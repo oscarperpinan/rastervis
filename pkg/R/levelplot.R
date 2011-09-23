@@ -78,6 +78,7 @@ setMethod('levelplot',
                            xscale.components=xscale.components,
                            yscale.components=yscale.components,
                            colorkey=colorkey,
+                           strip=strip.custom(factor.levels=layerNames(object)),
                            ...)
             
             if (nlayers(object)==1 && margin) {
