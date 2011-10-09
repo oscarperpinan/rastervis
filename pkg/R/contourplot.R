@@ -24,7 +24,7 @@ setMethod('contourplot',
                              contour = TRUE,
                              pretty = TRUE,
                              region = FALSE,
-                             colorkey=FALSE
+                             colorkey = FALSE
                              )
             call <- modifyList(settings, list(...))
             call$x <- x
