@@ -58,7 +58,7 @@ setMethod('levelplot',
               dat <- log(dat, zlogbase)
             }
             ## Calculate the range (for zscale.components)
-            lim <- range(dat, finite=TRUE)
+            zlim <- lattice:::extend.limits(range(dat, finite=TRUE))
             
             ## Convert to a data.frame for conventional levelplot  
             dat <- as.data.frame(dat)
@@ -92,22 +92,13 @@ setMethod('levelplot',
 
             ## Build the zscale.components and colorkey paying attention to zscaleLog
             if (!is.null(zscaleLog)){
-              zscale <- zscale.components(lim, zlogbase)
+              zscale <- zscale.components(zlim, zlogbase)
               if (has.colorkey){
                 colorkey.default=list(labels=zscale, raster=TRUE, interpolate=TRUE)
                 if (is.logical(colorkey)){
                   colorkey=colorkey.default
                 } else {
                   colorkey=modifyList(colorkey, colorkey.default)
-                }
-              }
-              if (has.contour){
-                ## panel.mixed=function(..., contour, region), at=zscale$at,
-                ##   labels=list(labels=zscale$labels, cex=0.7), lwd=0.5){
-                ##   if (region) panel.levelplot(..., contour=FALSE, labels=FALSE)
-                ##   panel.contourplot(..., at=at, labels=labels, lwd=lwd,
-                ##                     region=FALSE, contour=TRUE)
-                panel.mixed <- function(...){panel.contourplot(...)
                 }
               }
             }
@@ -143,12 +134,31 @@ setMethod('levelplot',
                            xscale.components=xscale.components,
                            yscale.components=yscale.components,
                            colorkey=colorkey,
-                           contour=contour, region=region,
+                           contour=contour, region=region, 
                            strip=strip.custom(factor.levels=layerNames(object)),
-                           panel=if(!is.null(zscaleLog) && has.contour) {
-                             panel.mixed
-                           } else {
-                             panel.levelplot},
+                           panel=if (!is.null(zscaleLog) && has.contour) {
+                             panel=function(...,
+                               contour, region,
+                               at,
+                               contour.at=zscale$at, lwd=c(1, 0.5),
+                               labels=list(labels=zscale$labels, cex=1)
+                               ){
+                               if (region) panel.levelplot(..., at=at, contour=FALSE, labels=FALSE)
+                               mainTicks=(as.character(labels$labels)!=FALSE)
+                               mainLabels <- labels
+                               mainLabels$labels <- labels$labels[mainTicks]
+                               minorTicks=!mainTicks
+                               panel.contourplot(...,
+                                                 at=contour.at[mainTicks], lwd=lwd[1],
+                                                 labels=mainLabels,
+                                                 region=FALSE, contour=TRUE)
+                               if (any(minorTicks)) {
+                                 panel.contourplot(...,
+                                                   at=contour.at[minorTicks], lwd=lwd[2],
+                                                   region=FALSE, contour=TRUE)
+                               }
+                             }} else {
+                               panel.levelplot},
                            ...)
             ## with the margins if needed
             if (nlayers(object)==1 && margin) {
