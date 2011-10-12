@@ -19,7 +19,8 @@ setMethod('levelplot',
             yscale.components=yscale.raster,
             zscaleLog=NULL,
             colorkey=list(space='right'),
-            contour=FALSE, region=TRUE,
+            panel=panel.levelplot,
+            contour=FALSE, region=TRUE, labels=FALSE,
             ...) {
             
             if (!missing(layers)) {
@@ -124,6 +125,34 @@ setMethod('levelplot',
             ## Build the formula for levelplot
             form <- as.formula(paste(paste(names(df)[-c(1,2)], collapse='+'), 'x*y', sep='~'))
 
+            fooPanel <- panel
+
+            panelMixed <- function(...,
+                                   contour, region,
+                                   at, labels, levelFoo=fooPanel,
+                                   lwd=c(1, 0.4)
+                                   ){
+              if (region)levelFoo(..., at=at, contour=FALSE, labels=FALSE)
+
+              mainTicks=(as.character(zscale$labels)!=FALSE)
+              mainLabels <- list(labels=zscale$labels[mainTicks], cex=0.8)
+              minorTicks=!mainTicks
+              ## Contour lines for main divisions (log10Ticks)
+              ## Their width is lwd[1]
+              panel.contourplot(...,
+                                at=zscale$at[mainTicks], lwd=lwd[1],
+                                labels=if (labels) {
+                                  mainLabels
+                                } else {FALSE},
+                                region=FALSE, contour=TRUE)
+              ## Contour lines for minor divisions (log10Ticks)
+              if (any(minorTicks)) {
+                panel.contourplot(...,
+                                  at=zscale$at[minorTicks], lwd=lwd[2],
+                                  region=FALSE, contour=TRUE)
+              }
+            }
+            
             ## And finally, the levelplot call
             p <- levelplot(form, data=df,
                            scales=scales, aspect=aspect,
@@ -133,32 +162,66 @@ setMethod('levelplot',
                            as.table=as.table,
                            xscale.components=xscale.components,
                            yscale.components=yscale.components,
-                           colorkey=colorkey,
-                           contour=contour, region=region, 
+                           colorkey=colorkey, 
+                           contour=contour, region=region, labels=labels,
                            strip=strip.custom(factor.levels=layerNames(object)),
+                           ## The panel depends on zscaleLog and contour
                            panel=if (!is.null(zscaleLog) && has.contour) {
-                             panel=function(...,
-                               contour, region,
-                               at,
-                               contour.at=zscale$at, lwd=c(1, 0.5),
-                               labels=list(labels=zscale$labels, cex=1)
-                               ){
-                               if (region) panel.levelplot(..., at=at, contour=FALSE, labels=FALSE)
-                               mainTicks=(as.character(labels$labels)!=FALSE)
-                               mainLabels <- labels
-                               mainLabels$labels <- labels$labels[mainTicks]
-                               minorTicks=!mainTicks
-                               panel.contourplot(...,
-                                                 at=contour.at[mainTicks], lwd=lwd[1],
-                                                 labels=mainLabels,
-                                                 region=FALSE, contour=TRUE)
-                               if (any(minorTicks)) {
-                                 panel.contourplot(...,
-                                                   at=contour.at[minorTicks], lwd=lwd[2],
-                                                   region=FALSE, contour=TRUE)
-                               }
-                             }} else {
-                               panel.levelplot},
+                             panelMixed
+                             } else {
+                               fooPanel
+                               },
+                             ## panel=function(...,
+                             ##   contour, region,
+                             ##   at,
+                             ##   contour.at=zscale$at, lwd=c(1, 0.5),
+                             ##   labels=list(labels=zscale$labels, cex=1)
+                             ##   ){
+                             ##   if (region) panel.levelplot(..., at=at, contour=FALSE, labels=FALSE)
+                             ##   mainTicks=(as.character(labels$labels)!=FALSE)
+                             ##   mainLabels <- labels
+                             ##   mainLabels$labels <- labels$labels[mainTicks]
+                             ##   minorTicks=!mainTicks
+                             ##   ##Contour lines for main divisions (log10Ticks)
+                             ##   ##Their width is lwd[1]
+                             ##   panel.contourplot(...,
+                             ##                     at=contour.at[mainTicks], lwd=lwd[1],
+                             ##                     labels=mainLabels,
+                             ##                     region=FALSE, contour=TRUE)
+                             ##   ## Contour lines for minor divisions (log10Ticks)
+                             ##   if (any(minorTicks)) {
+                             ##     panel.contourplot(...,
+                             ##                       at=contour.at[minorTicks], lwd=lwd[2],
+                             ##                       region=FALSE, contour=TRUE)
+                             ##   }
+
+                             ## function(...,
+                             ##          contour, region,
+                             ##          at, labels, panel,
+                             ##          lwd=c(1, 0.4)
+                             ##          ){
+                             ##   if (region)=FALSE){
+                             ##            panel.levelplot(..., at=at, contour=FALSE, labels=FALSE)
+                             ##            }
+                             ##   mainTicks=(as.character(zscale$labels)!=FALSE)
+                             ##   mainLabels <- list(labels=zscale$labels[mainTicks], cex=0.8)
+                             ##   minorTicks=!mainTicks
+                             ##   ## Contour lines for main divisions (log10Ticks)
+                             ##   ## Their width is lwd[1]
+                             ##   panel.contourplot(...,
+                             ##                     at=zscale$at[mainTicks], lwd=lwd[1],
+                             ##                     labels=if (labels) {
+                             ##                       mainLabels
+                             ##                       } else {FALSE},
+                             ##                     region=FALSE, contour=TRUE)
+                             ##   ## Contour lines for minor divisions (log10Ticks)
+                             ##   if (any(minorTicks)) {
+                             ##     panel.contourplot(...,
+                             ##                       at=zscale$at[minorTicks], lwd=lwd[2],
+                             ##                       region=FALSE, contour=TRUE)
+                             ##   }
+                             ## }} else {
+                             ##   panel.levelplot},
                            ...)
             ## with the margins if needed
             if (nlayers(object)==1 && margin) {

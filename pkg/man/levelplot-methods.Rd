@@ -20,7 +20,9 @@
             scales=list(draw=TRUE),
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
+            zscaleLog=NULL,
             colorkey=list(space='right'),
+            contour=FALSE, region=TRUE,
             ...)
 
 \S4method{contourplot}{Raster,missing}(x, data=NULL, layers, ...)
@@ -37,7 +39,16 @@
   \item{maxpixels}{A numeric, for \code{\link{sampleRegular}}.}
   \item{xlab, ylab, main}{Arguments for \code{\link{histogram}}.}
   \item{between, as.table, scales, xscale.components, yscale.components,
-            par.settings, colorkey}{Graphical parameters of \code{lattice}. See \code{\link{xyplot}} for details.}
+            par.settings, colorkey, contour, region}{Graphical
+	    parameters of \code{lattice}. See \code{\link{xyplot}} for
+	    details.}
+\item{zscaleLog}{Controls whether the Raster* will be log transformed before being passed to the
+              panel function.  Defaults to ‘NULL’, in which case the
+              Raster* is not transformed.  Other possible values are any
+              number that works as a base for taking logarithm, ‘TRUE’
+              (which is equivalent to 10), and ‘"e"’ (for the natural
+              logarithm).  As a side effect, the colorkey is
+              labeled differently.}
   \item{\dots}{Additional arguments for \code{\link{levelplot}}}
 }
 
@@ -62,6 +73,10 @@ levelplot(r)
 s <- stack(r, r+500, r-500)
 levelplot(s, contour=TRUE)
 contourplot(s, labels=list(cex=0.6), cuts=12)
+
+##Log scale
+levelplot(r, zscaleLog=2, contour=TRUE)
+levelplot(r^2, zscaleLog=TRUE, contour=TRUE)
 
 ##Add a layer of sampling points
 ##and change the theme
