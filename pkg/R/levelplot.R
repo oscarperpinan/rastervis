@@ -125,27 +125,32 @@ setMethod('levelplot',
             ## Build the formula for levelplot
             form <- as.formula(paste(paste(names(df)[-c(1,2)], collapse='+'), 'x*y', sep='~'))
 
-            fooPanel <- panel
+            ## Which panel did the user requested? (panel.levelplot or panel.levelplot.raster)
+            requestedPanel <- panel
 
+
+
+            ## Build a custom panel useful for zscaleLog with contour
             panelMixed <- function(...,
                                    contour, region,
-                                   at, labels, levelFoo=fooPanel,
-                                   lwd=c(1, 0.4)
+                                   at, labels, levelPanel=requestedPanel,
+                                   lwd=c(1, 0.4) # Two line widths, for main and minor contour lines
                                    ){
-              if (region)levelFoo(..., at=at, contour=FALSE, labels=FALSE)
-
+              ##Draw the regions with the panel requested by the user
+              if (region)levelPanel(..., at=at, contour=FALSE, labels=FALSE)
+              has.labels <- (is.logical(labels) && labels) || is.list(labels)
               mainTicks=(as.character(zscale$labels)!=FALSE)
               mainLabels <- list(labels=zscale$labels[mainTicks], cex=0.8)
               minorTicks=!mainTicks
-              ## Contour lines for main divisions (log10Ticks)
+              ## Contour lines for main divisions (log10Ticks or logpower)
               ## Their width is lwd[1]
               panel.contourplot(...,
                                 at=zscale$at[mainTicks], lwd=lwd[1],
-                                labels=if (labels) {
+                                labels=if (has.labels) {
                                   mainLabels
                                 } else {FALSE},
                                 region=FALSE, contour=TRUE)
-              ## Contour lines for minor divisions (log10Ticks)
+              ## Contour lines for minor divisions (only log10Ticks)
               if (any(minorTicks)) {
                 panel.contourplot(...,
                                   at=zscale$at[minorTicks], lwd=lwd[2],
@@ -167,61 +172,10 @@ setMethod('levelplot',
                            strip=strip.custom(factor.levels=layerNames(object)),
                            ## The panel depends on zscaleLog and contour
                            panel=if (!is.null(zscaleLog) && has.contour) {
-                             panelMixed
+                             panelMixed 
                              } else {
-                               fooPanel
+                               requestedPanel 
                                },
-                             ## panel=function(...,
-                             ##   contour, region,
-                             ##   at,
-                             ##   contour.at=zscale$at, lwd=c(1, 0.5),
-                             ##   labels=list(labels=zscale$labels, cex=1)
-                             ##   ){
-                             ##   if (region) panel.levelplot(..., at=at, contour=FALSE, labels=FALSE)
-                             ##   mainTicks=(as.character(labels$labels)!=FALSE)
-                             ##   mainLabels <- labels
-                             ##   mainLabels$labels <- labels$labels[mainTicks]
-                             ##   minorTicks=!mainTicks
-                             ##   ##Contour lines for main divisions (log10Ticks)
-                             ##   ##Their width is lwd[1]
-                             ##   panel.contourplot(...,
-                             ##                     at=contour.at[mainTicks], lwd=lwd[1],
-                             ##                     labels=mainLabels,
-                             ##                     region=FALSE, contour=TRUE)
-                             ##   ## Contour lines for minor divisions (log10Ticks)
-                             ##   if (any(minorTicks)) {
-                             ##     panel.contourplot(...,
-                             ##                       at=contour.at[minorTicks], lwd=lwd[2],
-                             ##                       region=FALSE, contour=TRUE)
-                             ##   }
-
-                             ## function(...,
-                             ##          contour, region,
-                             ##          at, labels, panel,
-                             ##          lwd=c(1, 0.4)
-                             ##          ){
-                             ##   if (region)=FALSE){
-                             ##            panel.levelplot(..., at=at, contour=FALSE, labels=FALSE)
-                             ##            }
-                             ##   mainTicks=(as.character(zscale$labels)!=FALSE)
-                             ##   mainLabels <- list(labels=zscale$labels[mainTicks], cex=0.8)
-                             ##   minorTicks=!mainTicks
-                             ##   ## Contour lines for main divisions (log10Ticks)
-                             ##   ## Their width is lwd[1]
-                             ##   panel.contourplot(...,
-                             ##                     at=zscale$at[mainTicks], lwd=lwd[1],
-                             ##                     labels=if (labels) {
-                             ##                       mainLabels
-                             ##                       } else {FALSE},
-                             ##                     region=FALSE, contour=TRUE)
-                             ##   ## Contour lines for minor divisions (log10Ticks)
-                             ##   if (any(minorTicks)) {
-                             ##     panel.contourplot(...,
-                             ##                       at=zscale$at[minorTicks], lwd=lwd[2],
-                             ##                       region=FALSE, contour=TRUE)
-                             ##   }
-                             ## }} else {
-                             ##   panel.levelplot},
                            ...)
             ## with the margins if needed
             if (nlayers(object)==1 && margin) {

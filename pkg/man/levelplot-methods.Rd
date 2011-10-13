@@ -22,7 +22,8 @@
             yscale.components=yscale.raster,
             zscaleLog=NULL,
             colorkey=list(space='right'),
-            contour=FALSE, region=TRUE,
+            panel=panel.levelplot,
+            contour=FALSE, region=TRUE, labels=FALSE,
             ...)
 
 \S4method{contourplot}{Raster,missing}(x, data=NULL, layers, ...)
@@ -39,7 +40,7 @@
   \item{maxpixels}{A numeric, for \code{\link{sampleRegular}}.}
   \item{xlab, ylab, main}{Arguments for \code{\link{histogram}}.}
   \item{between, as.table, scales, xscale.components, yscale.components,
-            par.settings, colorkey, contour, region}{Graphical
+            par.settings, colorkey, panel, contour, region, labels}{Graphical
 	    parameters of \code{lattice}. See \code{\link{xyplot}} for
 	    details.}
 \item{zscaleLog}{Controls whether the Raster* will be log transformed before being passed to the
@@ -70,13 +71,10 @@
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 levelplot(r)
+
 s <- stack(r, r+500, r-500)
 levelplot(s, contour=TRUE)
-contourplot(s, labels=list(cex=0.6), cuts=12)
-
-##Log scale
-levelplot(r, zscaleLog=2, contour=TRUE)
-levelplot(r^2, zscaleLog=TRUE, contour=TRUE)
+contourplot(s, labels=list(cex=0.4), cuts=12)
 
 ##Add a layer of sampling points
 ##and change the theme
