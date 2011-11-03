@@ -5,12 +5,15 @@
 #+TAGS: 
 #+DESCRIPTION: rasterVis
 #+TITLE: rasterVis
+#+BABEL: :tangle yes
 
 The [[http://cran.r-project.org/web/packages/raster/index.html][raster]] package defines classes and methods for spatial raster data
 access and manipulation. The =rasterVis= package complements
 raster providing a set of methods for enhanced visualization and
 interaction. The stable release of =rasterVis= can be found at
 [[http://cran.r-project.org/web/packages/rasterVis/][CRAN]]. The development version is at [[https://r-forge.r-project.org/R/?group_id%3D1129][R-Forge]].
+
+This page has been generated with [[http://orgmode.org/][org-mode]]. You can download the [[http://rastervis.r-forge.r-project.org/index.org][org file]] and the [[http://rastervis.r-forge.r-project.org/index.r][R code]].
 
 Let's show some of its functionalities with some examples, using data
 from the
@@ -208,7 +211,7 @@ this vector field. This method is not restricted to the =RasterLayer=
 class. 
 
 
-#+begin_src R
+#+begin_src r
 df <- expand.grid(x=seq(-2, 2, .1), y=seq(-2, 2, .1))
 df$z <- with(df, (3*x^2 + y)*exp(-x^2-y^2))
 
