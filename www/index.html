@@ -111,8 +111,7 @@ old <span style="color: #008b8b;">&lt;-</span> getwd()
 <span style="color: #b22222;">##</span><span style="color: #b22222;">change to your folder...</span>
 setwd(<span style="color: #8b2252;">'CMSAF'</span>)
 listFich <span style="color: #008b8b;">&lt;-</span> dir(pattern=<span style="color: #8b2252;">'2008'</span>)
-listNC <span style="color: #008b8b;">&lt;-</span> lapply(listFich, raster)
-stackSIS <span style="color: #008b8b;">&lt;-</span> do.call(stack, listNC)
+stackSIS <span style="color: #008b8b;">&lt;-</span> stack(listFich)
 stackSIS <span style="color: #008b8b;">&lt;-</span> stackSIS*24 <span style="color: #b22222;">##</span><span style="color: #b22222;">from irradiance (W/m2) to irradiation Wh/m2</span>
 setwd(old)
 
