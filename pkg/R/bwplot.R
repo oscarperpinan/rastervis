@@ -91,3 +91,20 @@ setMethod('bwplot',
 ##             p
 ##           }
 ##             )
+
+
+
+## ##http://neo.sci.gsfc.nasa.gov/Search.html?group=64
+## pop <- raster('/home/oscar/temp/DescargasMozilla/875430rgb-167772161.0.FLOAT.TIFF')
+## pop[pop==99999] <- NA
+## levelplot(pop, zscaleLog=10, par.settings=BTCTheme)
+
+## ##http://neo.sci.gsfc.nasa.gov/Search.html?group=20
+## landClass <- raster('/home/oscar/temp/DescargasMozilla/241243rgb-167772161.0.TIFF')
+## landClass[landClass==254] <- NA
+## levelplot(landClass, par.settings=custom.theme)
+
+## s <- stack(pop, landClass)
+## layerNames(s) <- c('pop', 'landClass')
+
+## bwplot(asinh(pop) ~ landClass|cut(y, 4), data=s, violin=FALSE)
