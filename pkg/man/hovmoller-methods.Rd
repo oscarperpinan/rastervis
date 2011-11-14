@@ -73,6 +73,33 @@ hovmoller(SISmm, dirXY=y, add.contour=FALSE, xlab='Latitude')##without contours
 
 hovmoller(SISmm, dirXY=sqrt(x^2+y^2))##a function of coordinates...
 }
+\dontrun{
+library(zoo)
+
+url <- "ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"
+
+sst.dat = read.table(paste(url, "SST011970_032003.dat", sep=''), header
+	= FALSE) 
+
+sst.ll = read.table(paste(url, "SSTlonlat.dat", sep=''),
+	header = FALSE)
+
+spDat <- SpatialPointsDataFrame(sst.ll, sst.dat)
+gridded(spDat) <- TRUE
+proj4string(spDat) = "+proj=longlat +datum=WGS84"
+
+sDat <- stack(spDat)
+
+idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
+idx <- as.yearmon(idx)
+sDat <- setZ(sDat, idx)
+layerNames(sDat) <- as.character(idx)
+
+levelplot(sDat, layers=1:8)
+hovmoller(sDat, xlab='Latitude',
+          par.settings=BTCTheme, 
+          panel=panel.levelplot.raster, interpolate=TRUE)
+}
 }
 \keyword{spatial}
 \keyword{methods}
