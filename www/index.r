@@ -60,10 +60,25 @@ r <- raster(f)
 dirXY <-xyLayer(r, sqrt(x^2 + y^2))
 dirXY
 
-hovmoller(SISmm, dirXY=y, xlab='Latitude')
+library(zoo)
 
-xyplot(SISmm)
-horizonplot(SISmm)
+url <- "ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"
+sst.dat = read.table(paste(url, "SST011970_032003.dat", sep=''), header = FALSE) 
+sst.ll = read.table(paste(url, "SSTlonlat.dat", sep=''), header = FALSE)
+
+spSST <- SpatialPointsDataFrame(sst.ll, sst.dat)
+gridded(spSST) <- TRUE
+proj4string(spSST) = "+proj=longlat +datum=WGS84"
+SST <- brick(spSST)
+
+idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
+idx <- as.yearmon(idx)
+SST <- setZ(SST, idx)
+layerNames(SST) <- as.character(idx)
+hovmoller(SST, contour=FALSE, panel=panel.levelplot.raster,
+          interpolate=TRUE, par.settings=RdBuTheme)
+
+horizonplot(SST)
 
 df <- expand.grid(x=seq(-2, 2, .1), y=seq(-2, 2, .1))
 df$z <- with(df, (3*x^2 + y)*exp(-x^2-y^2))
