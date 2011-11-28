@@ -62,8 +62,7 @@ old <- getwd()
 ##change to your folder...
 setwd('CMSAF')
 listFich <- dir(pattern='2008')
-listNC <- lapply(listFich, raster)
-stackSIS <- do.call(stack, listNC)
+stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 setwd(old)
 

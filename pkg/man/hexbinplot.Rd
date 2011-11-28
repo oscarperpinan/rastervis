@@ -51,9 +51,7 @@ old <- getwd()
 ##change to your folder...
 setwd('CMSAF')
 listFich <- dir(pattern='2008')
-listNC <- lapply(listFich, raster)
-SISmm <- do.call(stack, listNC)
-SISmm <- SISmm*24 ##from irradiance (W/m2) to irradiation Wh/m2
+stackSIS <- stack(listFich)SISmm <- SISmm*24 ##from irradiance (W/m2) to irradiation Wh/m2
 setwd(old)
 
 layerNames(SISmm) <- month.abb
