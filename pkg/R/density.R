@@ -49,3 +49,35 @@ setMethod('densityplot',
           )
 
                  
+
+setMethod('densityplot', signature(x='formula', data='Raster'),
+          definition=function(x, data, dirXY, maxpixels=1e+05,
+            xscale.components=xscale.raster,
+            yscale.components=yscale.raster,
+            par.settings=rasterTheme,...){
+
+            nms <- layerNames(data)
+            nl <- nlayers(data)
+
+            data <- sampleRegular(data, maxpixels, asRaster=TRUE)
+            df <- getValues(data)
+            df <- as.data.frame(df)
+            names(df) <- make.names(nms)
+
+            xLayer <- getValues(init(data, v='x'))
+            yLayer <- getValues(init(data, v='y'))
+
+            df <- cbind(data.frame(x=xLayer, y=yLayer), df)
+
+            if (!missing(dirXY)) {
+              dirXY <- getValues(xyLayer(data, dirXY=substitute(dirXY)))
+              df <- cbind(df, dirXY)
+            }
+
+            p <- densityplot(x=x, data=df,
+                             xscale.components=xscale.components,
+                             yscale.components=yscale.components,                            
+                             par.settings=par.settings, ...)
+            p
+          }
+            )

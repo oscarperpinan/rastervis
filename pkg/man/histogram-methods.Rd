@@ -3,6 +3,8 @@
 \alias{histogram}
 \alias{histogram,RasterLayer,missing-method}
 \alias{histogram,RasterStackBrick,missing-method}
+\alias{histogram,formula,Raster-method}
+
 \title{
 Histogram of Raster objects.
 }
@@ -22,12 +24,21 @@ Histogram of Raster objects.
             yscale.components=yscale.raster,
             par.settings=rasterTheme,
             ...)
+
+\S4method{histogram}{formula,Raster}(x, data, dirXY,
+            maxpixels = 1e+05,
+            xscale.components=xscale.raster,
+            yscale.components=yscale.raster,
+            par.settings=rasterTheme,...)
+
 }
 \arguments{
-  \item{x}{A \code{Raster*} object.}
-  \item{data}{Not used.}
+  \item{x}{A \code{Raster*} object or a \code{formula}.}
+  \item{data}{\code{NULL} or a \code{Raster} object.}
   \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
+  \item{dirXY}{A direction as a function of the coordinates (see
+    \code{\link{xyLayer}}).}
   \item{FUN}{A function to applied to the \code{z} slot of a
             \code{RasterStackBrick} object. The result of this function
             is used as the grouping variable of the plot.}
@@ -73,6 +84,27 @@ layerNames(SISmm) <- month.abb
 histogram(SISmm)
 histogram(SISmm, FUN=as.yearqtr)
 }
+
+\dontrun{
+##http://neo.sci.gsfc.nasa.gov/Search.html?group=64
+pop <- raster('875430rgb-167772161.0.FLOAT.TIFF')
+pop[pop==99999] <- NA
+levelplot(pop, zscaleLog=10, par.settings=BTCTheme,
+          panel=panel.levelplot.raster, interpolate=TRUE)
+
+##http://neo.sci.gsfc.nasa.gov/Search.html?group=20
+landClass <- raster('241243rgb-167772161.0.TIFF')
+landClass[landClass==254] <- NA
+
+
+s <- stack(pop, landClass)
+layerNames(s) <- c('pop', 'landClass')
+
+histogram(~asinh(pop)|landClass, data=s,
+            scales=list(relation='free'),
+            strip=strip.custom(strip.levels=TRUE))
+}
+
 }
 \keyword{methods}
 \keyword{spatial}
