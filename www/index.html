@@ -7,7 +7,7 @@ lang="en" xml:lang="en">
 <title>rasterVis</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="[2011-09-23]"/>
+<meta name="generated" content="[2011-11-28]"/>
 <meta name="author" content="Oscar Perpinan Lamigueiro"/>
 <meta name="description" content="rasterVis"/>
 <meta name="keywords" content=""/>
@@ -380,28 +380,43 @@ evolution of the mean value along the latitude:
 </p>
 
 
-<pre class="src src-r">hovmoller(SISmm, dirXY=y, xlab=<span style="color: #8b2252;">'Latitude'</span>)
+<pre class="src src-r"><span style="color: #008b8b;">library</span>(zoo)
+
+url <span style="color: #008b8b;">&lt;-</span> <span style="color: #8b2252;">"ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"</span>
+sst.dat = read.table(paste(url, <span style="color: #8b2252;">"SST011970_032003.dat"</span>, sep=<span style="color: #8b2252;">''</span>), header = <span style="color: #228b22;">FALSE</span>) 
+sst.ll = read.table(paste(url, <span style="color: #8b2252;">"SSTlonlat.dat"</span>, sep=<span style="color: #8b2252;">''</span>), header = <span style="color: #228b22;">FALSE</span>)
+
+spSST <span style="color: #008b8b;">&lt;-</span> SpatialPointsDataFrame(sst.ll, sst.dat)
+gridded(spSST) <span style="color: #008b8b;">&lt;-</span> <span style="color: #228b22;">TRUE</span>
+proj4string(spSST) = <span style="color: #8b2252;">"+proj=longlat +datum=WGS84"</span>
+SST <span style="color: #008b8b;">&lt;-</span> brick(spSST)
+
+idx <span style="color: #008b8b;">&lt;-</span> seq(as.Date(<span style="color: #8b2252;">'1970-01-01'</span>), as.Date(<span style="color: #8b2252;">'2003-03-01'</span>), by=<span style="color: #8b2252;">'month'</span>)
+idx <span style="color: #008b8b;">&lt;-</span> as.yearmon(idx)
+SST <span style="color: #008b8b;">&lt;-</span> setZ(SST, idx)
+layerNames(SST) <span style="color: #008b8b;">&lt;-</span> as.character(idx)
+hovmoller(SST, contour=<span style="color: #228b22;">FALSE</span>, panel=panel.levelplot.raster,
+          interpolate=<span style="color: #228b22;">TRUE</span>, par.settings=RdBuTheme)
 </pre>
 
 
 
 
 <p>
-<img src="hovmoller.png" width="480" alt="hovmoller.png" />
+<img src="hovmoller.png" width="640" alt="hovmoller.png" />
 </p>
 <p>
 The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for the space-time <code>Raster</code> objects:
 </p>
 
 
-<pre class="src src-r">xyplot(SISmm)
-horizonplot(SISmm)
+<pre class="src src-r">horizonplot(SST)
 </pre>
 
 
 
 <p>
-<img src="horizon.png" width="480" alt="horizon.png" />
+<img src="horizon.png" width="640" alt="horizon.png" />
 </p>
 </div>
 
@@ -497,7 +512,7 @@ summary(reg)
 </div>
 
 <div id="postamble">
-<p class="date">Date: [2011-09-23]</p>
+<p class="date">Date: [2011-11-28]</p>
 <p class="author">Author: Oscar Perpinan Lamigueiro</p>
 <p class="creator">Org version 7.7 with Emacs version 23</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>

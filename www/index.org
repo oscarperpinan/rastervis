@@ -1,5 +1,4 @@
-#+POSTID: 756
-#+DATE: [2011-09-23]
+#+DATE: [2011-11-28]
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil f:nil
 #+CATEGORY: R
 #+TAGS: 
@@ -186,18 +185,33 @@ dirXY
 For example, the next code builds a hovmoller diagram showing the time
 evolution of the mean value along the latitude:
 #+begin_src r
-hovmoller(SISmm, dirXY=y, xlab='Latitude')
+library(zoo)
+
+url <- "ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"
+sst.dat = read.table(paste(url, "SST011970_032003.dat", sep=''), header = FALSE) 
+sst.ll = read.table(paste(url, "SSTlonlat.dat", sep=''), header = FALSE)
+
+spSST <- SpatialPointsDataFrame(sst.ll, sst.dat)
+gridded(spSST) <- TRUE
+proj4string(spSST) = "+proj=longlat +datum=WGS84"
+SST <- brick(spSST)
+
+idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
+idx <- as.yearmon(idx)
+SST <- setZ(SST, idx)
+layerNames(SST) <- as.character(idx)
+hovmoller(SST, contour=FALSE, panel=panel.levelplot.raster,
+          interpolate=TRUE, par.settings=RdBuTheme)
 #+end_src
 
-#+ATTR_HTML: width="480"
+#+ATTR_HTML: width="640"
 [[file:hovmoller.png]]
 
 The =horizonplot= and =xyplot= methods also are useful for the space-time =Raster= objects:
 #+begin_src r
-xyplot(SISmm)
-horizonplot(SISmm)
+horizonplot(SST)
 #+end_src
-#+ATTR_HTML: width="480"
+#+ATTR_HTML: width="640"
 [[file:horizon.png]]
 
 ** Vector field plots
