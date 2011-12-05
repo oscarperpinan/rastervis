@@ -19,7 +19,7 @@ setGeneric('hovmoller', function(object, ...){standardGeneric('hovmoller')})
 
 setMethod('hovmoller', signature='RasterStackBrick',
           definition=function(object, dirXY=y,
-            FUN=mean, digits=2,
+            FUN='mean', digits=2,
             xlab='Direction', ylab='Time',
             par.settings=rasterTheme,
             add.contour=TRUE,
