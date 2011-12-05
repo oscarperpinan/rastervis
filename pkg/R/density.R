@@ -29,8 +29,8 @@ setMethod('densityplot',
               dat <- raster2dat(x, FUN, maxpixels)
               p <- densityplot(~values,
                                data=dat, groups=ind,
-                               scales=list(x=list(relation='free'),
-                                 y=list(relation='free', draw=FALSE)),
+                               ## scales=list(x=list(relation='free'),
+                               ##   y=list(relation='free', draw=FALSE)),
                                breaks=100, par.settings=par.settings, pch='.',
                                xlab=xlab, ylab=ylab,
                                panel=panel.superpose,
@@ -54,6 +54,7 @@ setMethod('densityplot', signature(x='formula', data='Raster'),
           definition=function(x, data, dirXY, maxpixels=1e+05,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
+            auto.key = list(space = 'right'), 
             par.settings=rasterTheme,...){
 
             nms <- layerNames(data)
@@ -76,7 +77,8 @@ setMethod('densityplot', signature(x='formula', data='Raster'),
 
             p <- densityplot(x=x, data=df,
                              xscale.components=xscale.components,
-                             yscale.components=yscale.components,                            
+                             yscale.components=yscale.components,
+                             auto.key = auto.key, 
                              par.settings=par.settings, ...)
             p
           }

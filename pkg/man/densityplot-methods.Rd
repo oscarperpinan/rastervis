@@ -25,6 +25,7 @@
             maxpixels = 1e+05,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
+            auto.key = list(space = 'right'), 
             par.settings=rasterTheme,...)
 
 }
@@ -40,7 +41,7 @@
             is used as the grouping variable of the plot.}
   \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
   \item{xlab, ylab, main, col, xscale.components, yscale.components,
-    par.settings}{Arguments for \code{\link{densityplot}}.}
+    par.settings, auto.key}{Arguments for \code{\link{densityplot}}.}
   \item{\dots}{Additional arguments for \code{\link{densityplot}}}
 }
 \author{Oscar Perpiñán Lamigueiro}
