@@ -88,7 +88,7 @@ idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
 idx <- as.yearmon(idx)
 SST <- setZ(SST, idx)
 layerNames(SST) <- as.character(idx)
-hovmoller(SST, contour=FALSE, panel=panel.levelplot.raster,
+hovmoller(SST, panel=panel.levelplot.raster,
           interpolate=TRUE, par.settings=RdBuTheme)
 }
 }
