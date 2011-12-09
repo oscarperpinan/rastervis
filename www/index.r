@@ -27,6 +27,10 @@ mapaSHP <- readShapeLines('ESP_adm/ESP_adm2.shp', proj4string=proj)
 p <- levelplot(SISmm, layers=1, FUN.margin=median)
 p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
 
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+levelplot(r^2, zscaleLog=TRUE, contour=TRUE)
+
 Aug <- raster(SISmm, 8)
 
 meanAug <- cellStats(Aug, mean)
