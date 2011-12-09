@@ -13,7 +13,7 @@ setMethod('splom',
             if (maxpixels < ncell(x)) {
               dat <- sampleRandom(x, maxpixels)
               } else {
-                dat <- x
+                dat <- getValues(x)
                 }
             colnames(dat) <- nms
             diag.panel = function(x,...){
