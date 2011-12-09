@@ -73,6 +73,24 @@ p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
 #+ATTR_HTML: width="480"
 [[file:levelplot_layer_borders.png]]
 
+*** Log scale
+The =zscaleLog= argument controls whether the object will be log
+transformed before being passed to the panel function.  Defaults to
+‘NULL’, in which case the Raster* is not transformed.  Other possible
+values are any number that works as a base for taking logarithm,
+‘TRUE’ (which is equivalent to 10), and ‘"e"’ (for the natural
+logarithm).  As a side effect, the colorkey is labeled differently.
+
+#+begin_src r
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+levelplot(r^2, zscaleLog=TRUE, contour=TRUE)
+#+end_src
+
+#+ATTR_HTML: width="640"
+[[file:levelplot_logscale.png]]
+
+
 ** Themes
 
 The previous plots used the default theme of rasterVis,

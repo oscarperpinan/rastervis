@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 lang="en" xml:lang="en">
 <head>
 <title>rasterVis</title>
-<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="generator" content="Org-mode"/>
 <meta name="generated" content="[2011-11-28]"/>
 <meta name="author" content="Oscar Perpinan Lamigueiro"/>
@@ -182,6 +182,36 @@ p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span style="color: #8b2252;">'darkgray
 <p>
 <img src="levelplot_layer_borders.png" width="480" alt="levelplot_layer_borders.png" />
 </p>
+
+</div>
+
+<div id="outline-container-1-1" class="outline-4">
+<h4 id="sec-1-1">Log scale</h4>
+<div class="outline-text-4" id="text-1-1">
+
+<p>The <code>zscaleLog</code> argument controls whether the object will be log
+transformed before being passed to the panel function.  Defaults to
+‘NULL’, in which case the Raster* is not transformed.  Other possible
+values are any number that works as a base for taking logarithm,
+‘TRUE’ (which is equivalent to 10), and ‘"e"’ (for the natural
+logarithm).  As a side effect, the colorkey is labeled differently.
+</p>
+
+
+
+<pre class="src src-r">f <span style="color: #008b8b;">&lt;-</span> system.file(<span style="color: #8b2252;">"external/test.grd"</span>, package=<span style="color: #8b2252;">"raster"</span>)
+r <span style="color: #008b8b;">&lt;-</span> raster(f)
+levelplot(r^2, zscaleLog=<span style="color: #228b22;">TRUE</span>, contour=<span style="color: #228b22;">TRUE</span>)
+</pre>
+
+
+
+
+<p>
+<img src="levelplot_logscale.png" width="640" alt="levelplot_logscale.png" />
+</p>
+
+</div>
 </div>
 
 </div>
