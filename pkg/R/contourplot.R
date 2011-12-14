@@ -11,7 +11,7 @@ setMethod('contourplot',
             ...){
             dots <- list(...)
             settings <- list(
-                             margin=TRUE, FUN.margin=mean,
+                             margin=TRUE, FUN.margin=mean, scales.margin = NULL, 
                              maxpixels=1e5,            
                              between=list(x=0.5, y=0.2),
                              as.table=TRUE,
@@ -19,6 +19,7 @@ setMethod('contourplot',
                              scales=list(draw=TRUE),
                              xscale.components=xscale.raster,
                              yscale.components=yscale.raster,
+                             zscaleLog = NULL, 
                              cuts=7,
                              labels = TRUE,
                              contour = TRUE,

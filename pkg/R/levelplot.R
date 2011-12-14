@@ -105,13 +105,7 @@ setMethod('levelplot',
             }
             
             ## Some fixes for the margin
-            if (has.margin && has.colorkey){
-              if (is.logical(colorkey)){
-                colorkey=list(space='bottom')                
-              } else {
-                colorkey=modifyList(colorkey, list(space='bottom'))
-              }
-
+            if (has.margin){
               if (is.function(par.settings)) par.settings <- par.settings()
               par.settings=modifyList(par.settings,
                 list(
@@ -120,7 +114,13 @@ setMethod('levelplot',
                        xlab.key.padding=3)
                      )
                 )
-            } else {}
+              if (has.colorkey){## put the colorkey at the bottom to leave space for the margin
+                if (is.logical(colorkey)){
+                  colorkey=list(space='bottom')                
+                } else {
+                  colorkey=modifyList(colorkey, list(space='bottom'))
+                }}
+            }
 
             ## Build the formula for levelplot
             form <- as.formula(paste(paste(names(df)[-c(1,2)], collapse='+'), 'x*y', sep='~'))
@@ -186,7 +186,9 @@ setMethod('levelplot',
                                       fun=legendX,
                                       args=list(p, FUN=FUN.margin, scale.x=scales.margin$x))
                                     )
+              if (is.null(p$legend)) p$legend <- list()
               p$legend <- modifyList(p$legend, marginsLegend)
+              
             }
             p
           }
