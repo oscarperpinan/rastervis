@@ -8,7 +8,7 @@ setGeneric('levelplot')
 setMethod('levelplot',
           signature(x='Raster', data='missing'),
           definition=function(x, data=NULL, layers,
-            margin=TRUE, FUN.margin=mean,
+            margin=TRUE, FUN.margin=mean, scales.margin=NULL,
             maxpixels=1e5,
             par.settings=rasterTheme,
             between=list(x=0.5, y=0.2),
@@ -173,19 +173,21 @@ setMethod('levelplot',
                            ## The panel depends on zscaleLog and contour
                            panel=if (!is.null(zscaleLog) && has.contour) {
                              panelMixed 
-                             } else {
-                               requestedPanel 
-                               },
+                           } else {
+                             requestedPanel 
+                           },
                            ...)
             ## with the margins if needed
             if (nlayers(object)==1 && margin) {
-              update(p,
-                     legend=list(
-                       right=list(
-                         fun=legendY, args=list(p, FUN.margin)),
-                       top=list(
-                         fun=legendX, args=list(p, FUN.margin))
-                       ))
-            } else p
+              marginsLegend <- list(right=list(
+                                      fun=legendY,
+                                      args=list(p, FUN=FUN.margin, scale.y=scales.margin$y)),
+                                    top=list(
+                                      fun=legendX,
+                                      args=list(p, FUN=FUN.margin, scale.x=scales.margin$x))
+                                    )
+              p$legend <- modifyList(p$legend, marginsLegend)
+            }
+            p
           }
-            )
+          )

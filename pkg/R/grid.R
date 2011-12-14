@@ -3,20 +3,20 @@
 # Version 0.10
 # Licence GPL v3
 
-legendX <- function(p, FUN=max, ...){
-  x <- p$panel.args.common$x
-  y <- p$panel.args.common$y
-  z <- p$panel.args.common$z
+legendX <- function(p, FUN, scale.x,...){
+  px <- p$panel.args.common$x
+  py <- p$panel.args.common$y
+  pz <- p$panel.args.common$z
   lim <- p$x.limits
-  ag <- aggregate(z~x, FUN=FUN)
-  rngAg <- range(ag$z)
-  minZ <- min(ag$z)
-  lenX <- length(ag$x)
-  polygonGrob(x = c(ag$x[1], ag$x, ag$x[lenX]), y = c(minZ, ag$z, minZ),
+  ag <- aggregate(pz~px, FUN=FUN)
+  if (is.null(scale.x)) scale.x <- range(ag$pz)
+  minZ <- scale.x[1]
+  lenX <- length(ag$px)
+  polygonGrob(x = c(ag$px[1], ag$px, ag$px[lenX]), y = c(minZ, ag$pz, minZ),
             gp = gpar(col = "black", fill = 'grey'),
             default.units = "native",
             vp=viewport(clip='on',
-              yscale=rngAg,
+              yscale=scale.x,
               just='bottom',
               width=unit(1, 'npc'),
               height=unit(8, 'native'),
@@ -25,20 +25,20 @@ legendX <- function(p, FUN=max, ...){
 }
 
 
-legendY <- function(p, FUN=max, ...){
-  x <- p$panel.args.common$x
-  y <- p$panel.args.common$y
-  z <- p$panel.args.common$z
+legendY <- function(p, FUN, scale.y,...){
+  px <- p$panel.args.common$x
+  py <- p$panel.args.common$y
+  pz <- p$panel.args.common$z
   lim <- p$y.limits
-  ag <- aggregate(z~y, FUN=FUN)
-  rngAg <- range(ag$z)
-  minZ <- min(ag$z)
-  lenY <- length(ag$y)
-  polygonGrob(y = c(ag$y[1], ag$y, ag$y[lenY]), x = c(minZ, ag$z, minZ),
+  ag <- aggregate(pz~py, FUN=FUN)
+  if (is.null(scale.y)) scale.y <- range(ag$pz)
+  minZ <- scale.y[1]
+  lenY <- length(ag$py)
+  polygonGrob(y = c(ag$py[1], ag$py, ag$py[lenY]), x = c(minZ, ag$pz, minZ),
             gp = gpar(col = "black", fill = 'grey'),
              default.units = "native",
             vp=viewport(clip='off',
-              xscale=rngAg,
+              xscale=scale.y,
               just='left',
               height=unit(1, 'npc'),
               width=unit(8, 'native'),
