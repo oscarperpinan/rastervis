@@ -42,7 +42,7 @@
   defining the range for each marginal plot. If
   \code{scales.margin=NULL} the range is internally computed.}
   \item{maxpixels}{A numeric, for \code{\link{sampleRegular}}.}
-  \item{xlab, ylab, main}{Arguments for \code{\link{histogram}}.}
+  \item{xlab, ylab, main}{Arguments for \code{\link{levelplot}}.}
   \item{between, as.table, scales, xscale.components, yscale.components,
             par.settings, colorkey, panel, contour, region, labels}{Graphical
 	    parameters of \code{lattice}. See \code{\link{xyplot}} for

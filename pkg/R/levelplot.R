@@ -161,7 +161,7 @@ setMethod('levelplot',
             ## And finally, the levelplot call
             p <- levelplot(form, data=df,
                            scales=scales, aspect=aspect,
-                           xlab=xlab, ylab=ylab,
+                           xlab=xlab, ylab=ylab, main = main, 
                            par.settings=par.settings,
                            between=between,
                            as.table=as.table,
