@@ -8,9 +8,9 @@
 
 \title{Use ggplot to plot a Raster* object}
 
-\description{
-A wrapper function around \link[ggplot2]{ggplot} (ggplot2 package). Note that the function in the raster package is called gplot with a single 'g'.
-}
+\description{ A wrapper function around \link[ggplot2]{ggplot} (ggplot2
+package). Note that the function in the raster package is called gplot
+with a single 'g'.  }
 
 \usage{
 \S4method{gplot}{Raster}(x, maxpixels=50000,...) 
@@ -19,7 +19,7 @@ A wrapper function around \link[ggplot2]{ggplot} (ggplot2 package). Note that th
 \arguments{
   \item{x}{A Raster* object}
   \item{maxpixels}{Maximum number of pixels to use}
-  \item{...}{Additional arguments for ggplot}%. See under Details}  
+  \item{...}{Additional arguments for ggplot}
 }
 
 
@@ -31,16 +31,19 @@ A wrapper function around \link[ggplot2]{ggplot} (ggplot2 package). Note that th
 
 
 \examples{ 
+\dontrun{
 r <- raster(system.file("external/test.grd", package="raster"))
 s <- stack(r, r*2)
 layerNames(s) <- c('meuse', 'meuse x 2')
 
-if (require(ggplot2)) {
-  theme_set(theme_bw())
-  gplot(s) + geom_tile(aes(fill = value)) + facet_wrap(~ variable) +
-            scale_fill_gradient(low = 'white', high = 'blue') + coord_equal()
-}
+library(ggplot2)
 
+theme_set(theme_bw())
+gplot(s) + geom_tile(aes(fill = value)) +
+          facet_wrap(~ variable) +
+          scale_fill_gradient(low = 'white', high = 'blue') +
+          coord_equal()
+}
 }
 
 \keyword{methods}
