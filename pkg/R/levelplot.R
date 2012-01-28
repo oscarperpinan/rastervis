@@ -31,9 +31,7 @@ setMethod('levelplot',
             nms <- make.names(layerNames(dat))
 
             ##Extract coordinates from (sampled) raster
-            x <- xFromCell(dat, 1:ncell(dat))
-            y <- yFromCell(dat, 1:ncell(dat))
-          
+            coords <- xyFromCell(dat, seq_len(ncell(dat)))
             
             ## Extract values 
             dat <- getValues(dat)
@@ -64,8 +62,8 @@ setMethod('levelplot',
             ## Convert to a data.frame for conventional levelplot  
             dat <- as.data.frame(dat)
             names(dat) <- nms
-            df <- cbind(data.frame(x=x, y=y), dat)
-  
+            df <- cbind(coords, dat)
+            
             ##aspect and scales(from sp:::spplot.grid, sp:::longlat.scales, sp:::mapasp)
             bb <- extent(object)
             xlim=c(bb@xmin, bb@xmax)
