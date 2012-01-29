@@ -1,6 +1,7 @@
 # Author: Robert J. Hijmans, based on an example by Paul Hiemstra
 # Date :  June 2011
-# Version 1.0
+# Version 1.1
+# Updated: Oscar Perpiñán January 2012 (melt is not used anymore)
 # Licence GPL v3
 
 

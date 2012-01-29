@@ -27,7 +27,7 @@ with a single 'g'.  }
 \code{ \link[raster]{plot}, \link[raster]{spplot}}
 }
 
-\author{ Robert J. Hijmans; based on an example by Paul Hiemstra }
+\author{ Robert J. Hijmans and Oscar Perpiñán; based on an example by Paul Hiemstra }
 
 
 \examples{ 
