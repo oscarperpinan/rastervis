@@ -16,7 +16,7 @@
 \arguments{
   \item{object}{A Raster object. If \code{isField=FALSE} the vector
   field is calculated internally from the result of
-  \code{\link{slopeAspect}}. }
+  \code{\link{terrain}}. }
   \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
   \item{narrows}{A numeric, for \code{\link{sampleRegular}}.}
@@ -26,14 +26,14 @@
   \item{isField}{Logical, if \code{TRUE} (the object is a vector field),
   \code{object} must be a Raster*
   with two layers, slope and aspect (in this order), following the
-  philosophy of \code{\link{slopeAspect}}.}
+  philosophy of \code{\link{terrain}}.}
 \item{unit}{Character, angle units of the \code{aspect} layer if
   \code{isField=TRUE}: 'radians' or 'degrees'.}
   \item{\dots}{Additional arguments for \code{\link{levelplot}}}
 }
   
 \author{Oscar Perpiñán Lamigueiro}
-\seealso{\code{\link{panel.arrows}}, \code{\link{levelplot}}}
+\seealso{\code{\link{panel.arrows}}, \code{\link{levelplot}}, \code{\link{terrain}}}
 \examples{
 df <- expand.grid(x=seq(-2, 2, .1), y=seq(-2, 2, .1))
 df$z <- with(df, (3*x^2 + y)*exp(-x^2-y^2))

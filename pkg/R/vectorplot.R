@@ -22,7 +22,7 @@ setMethod('vectorplot',
               aspX <- xres(s)*0.6 ## maybe use a non-constant value...
               aspY <- yres(s)*0.6
 
-              if (!skip){s <- slopeAspect(s)} 
+              if (!skip){s <- terrain(s, opt=c('slope', 'aspect'))} 
               ##If s is a vector field, the first layer is the magnitude (slope)
               ##and the second is the angle (aspect)
               slope <- getValues(subset(s, 1)) 
