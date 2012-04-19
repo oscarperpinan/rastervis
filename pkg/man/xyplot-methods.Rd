@@ -3,7 +3,7 @@
 \alias{xyplot}
 \alias{xyplot,RasterStackBrick,missing-method}
 \title{xyplot for Raster objects}
-\description{Scatter plots of Raster objects for directions defined by \code{xyLayer}
+\description{Scatter plots of space-time Raster objects for directions defined by \code{xyLayer}
 }
 \usage{
 \S4method{xyplot}{RasterStackBrick,missing}(x, data=NULL, dirXY=y, xlab='Time',
@@ -11,7 +11,7 @@ ylab='', digits=0, par.settings=rasterTheme,...)
 }
 
 \arguments{
-\item{x}{A \code{RasterStackBrick} object.}
+\item{x}{A \code{RasterStackBrick} object whose \code{z} slot is not \code{NULL}.}
 \item{data}{Not used.}
 \item{dirXY}{A direction as a function of the coordinates (see
 \code{\link{xyLayer}}).}
