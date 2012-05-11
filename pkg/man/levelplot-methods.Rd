@@ -17,6 +17,7 @@
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
             xlab='', ylab='', main='',
+            names.attr,
             scales=list(draw=TRUE),
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
@@ -43,6 +44,9 @@
   \code{scales.margin=NULL} the range is internally computed.}
   \item{maxpixels}{A numeric, for \code{\link{sampleRegular}}.}
   \item{xlab, ylab, main}{Arguments for \code{\link{levelplot}}.}
+  \item{names.attr}{Character, names to use in each panel. If missing its
+  default value is the result of \code{layerNames(x)} (after subsetting
+  the layers to be displayed).}
   \item{between, as.table, scales, xscale.components, yscale.components,
             par.settings, colorkey, panel, contour, region, labels}{Graphical
 	    parameters of \code{lattice}. See \code{\link{xyplot}} for
@@ -87,6 +91,8 @@ levelplot(r^2, zscaleLog=TRUE, contour=TRUE)
 s <- stack(r, r+500, r-500)
 levelplot(s, contour=TRUE)
 contourplot(s, labels=list(cex=0.4), cuts=12)
+
+levelplot(s, names.attr=c('R', 'R + 500', 'R - 500'))
 
 ##Add a layer of sampling points
 ##and change the theme

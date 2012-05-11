@@ -14,6 +14,7 @@ setMethod('levelplot',
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
             xlab='', ylab='', main='',
+            names.attr,
             scales=list(draw=TRUE),
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
@@ -157,6 +158,12 @@ setMethod('levelplot',
             }
             
             ## And finally, the levelplot call
+            if (missing(names.attr)){
+              names.attr <- layerNames(object)
+              } else {
+                if (length(names.attr) != nlayers(object))
+                  stop('Length of names.attr should match number of layers.')
+                }
             p <- levelplot(form, data=df,
                            scales=scales, aspect=aspect,
                            xlab=xlab, ylab=ylab, main = main, 
@@ -167,7 +174,7 @@ setMethod('levelplot',
                            yscale.components=yscale.components,
                            colorkey=colorkey, 
                            contour=contour, region=region, labels=labels,
-                           strip=strip.custom(factor.levels=layerNames(object)),
+                           strip=strip.custom(factor.levels=names.attr),
                            ## The panel depends on zscaleLog and contour
                            panel=if (!is.null(zscaleLog) && has.contour) {
                              panelMixed 
