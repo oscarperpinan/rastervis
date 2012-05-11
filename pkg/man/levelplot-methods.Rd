@@ -91,8 +91,17 @@ contourplot(s, labels=list(cex=0.4), cuts=12)
 ##Add a layer of sampling points
 ##and change the theme
 pts <- sampleRandom(r, size=20, sp=TRUE)
+## Using +.trellis and layer from latticeExtra
 levelplot(r, par.settings=BTCTheme) + layer(sp.points(pts, col='red'))
 contourplot(r, labels=FALSE) + layer(sp.points(pts, col='red'))
+## or with a custom panel function
+
+levelplot(r, par.settings=BTCTheme,
+          panel=function(...){
+            panel.levelplot(...)
+            sp.points(pts, col='red')
+            })
+
 
 \dontrun{
 ##Solar irradiation data from CMSAF
