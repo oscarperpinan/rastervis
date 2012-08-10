@@ -48,7 +48,9 @@ export(
        'GrTheme',
        'RdBuTheme',
        'xscale.raster',
-       'yscale.raster'
+       'yscale.raster',
+       'xscale.raster.subticks',
+       'yscale.raster.subticks'
        )
 
 exportMethods(
