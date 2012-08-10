@@ -4,14 +4,77 @@
 # Licence GPL v3
 
 ##Customization of lattice
-xscale.raster <- function(...){ans <- xscale.components.default(...); ans$top=FALSE; ans}
-yscale.raster <- function(...){ans <- yscale.components.default(...); ans$right=FALSE; ans}
+xscale.raster <- function(lim, ...){
+  ans <- xscale.components.default(lim, ...)
+  ans$top=FALSE
+  ans}
+
+yscale.raster <- function(lim, ...){
+  ans <- yscale.components.default(lim, ...)
+  ans$right=FALSE
+  ans}
+
+
+xscale.raster.subticks <- function(lim, ...){
+  ans <- xscale.components.subticks(lim, ...);
+  ans$top=FALSE;
+  ans}
+
+yscale.raster.subticks <- function(lim, ...){
+  ans <- yscale.components.subticks(lim, ...)
+  ans$right=FALSE
+  ans}
+
+xscale.raster.EW <- function(lim, ...){
+  ans <- xscale.components.default(lim, ...);
+  ans$bottom$labels$labels <- parse(text=sp:::degreeLabelsEW(as.numeric(
+                                      ans$bottom$labels$labels)))
+  ans$top=FALSE  
+  ans}
+
+xscale.raster.EWsubticks <- function(lim, ...){
+  ans <- xscale.components.subticks(lim, ...)
+  idx <- (ans$bottom$labels$labels!=' ')
+  ans$bottom$labels$labels[idx] <- parse(text=sp:::degreeLabelsEW(as.numeric(
+                                           ans$bottom$labels$labels[idx])))
+  ans$top=FALSE  
+  ans}
+
+xscale.raster.NS <- function(lim, ...){ ## useful for hovmoller
+  ans <- xscale.components.default(lim, ...);
+  ans$bottom$labels$labels <- parse(text=sp:::degreeLabelsNS(as.numeric(ans$bottom$labels$labels)))
+  ans$top=FALSE  
+  ans}
+
+xscale.raster.NSsubticks <- function(lim, ...){
+  ans <- xscale.components.subticks(lim, ...)
+  idx <- (ans$bottom$labels$labels!=' ')
+  ans$bottom$labels$labels[idx] <- parse(text=sp:::degreeLabelsNS(as.numeric(
+                                           ans$bottom$labels$labels[idx])))
+  ans$top=FALSE  
+  ans}
+
+yscale.raster.NS <- function(lim, ...){
+  ans <- yscale.components.default(lim, ...);
+  ans$left$labels$labels <- parse(text=sp:::degreeLabelsNS(as.numeric(ans$left$labels$labels)))
+  ans$right=FALSE  
+  ans}
+
+yscale.raster.NSsubticks <- function(lim, ...){
+  ans <- yscale.components.subticks(lim, ...)
+  idx <- (ans$left$labels$labels!=' ')
+  ans$left$labels$labels[idx] <- parse(text=sp:::degreeLabelsNS(as.numeric(
+                                           ans$left$labels$labels[idx])))
+  ans$right=FALSE  
+  ans}
+
 
 rasterTheme <- function(pch=19, cex=0.7, region=rev(brewer.pal(9, 'YlOrRd')), ...) {
   theme <- custom.theme.2(pch=pch, cex=cex, region=region, ...)
   theme$strip.background$col='transparent'
   theme$strip.shingle$col='transparent'
   theme$strip.border$col='transparent'
+  theme$add.line$lwd=.4
   theme
 }
 
