@@ -18,7 +18,6 @@
             as.table=TRUE,
             xlab='', ylab='', main='',
             names.attr,
-            scales=list(draw=TRUE),
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
             zscaleLog=NULL,
@@ -47,8 +46,9 @@
   \item{names.attr}{Character, names to use in each panel. If missing its
   default value is the result of \code{layerNames(x)} (after subsetting
   the layers to be displayed).}
-  \item{between, as.table, scales, xscale.components, yscale.components,
-            par.settings, colorkey, panel, contour, region, labels}{Graphical
+  \item{xscale.components, yscale.components}{See
+  \code{\link{xscale.raster}} and \code{\link{yscale.raster}}.}
+  \item{between, as.table, par.settings, colorkey, panel, contour, region, labels}{Graphical
 	    parameters of \code{lattice}. See \code{\link{xyplot}} for
 	    details.}
 \item{zscaleLog}{Controls whether the Raster* will be log transformed before being passed to the
@@ -79,6 +79,10 @@
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 levelplot(r)
+
+## With subticks
+levelplot(r, xscale.components=xscale.raster.subticks,
+             yscale.components=yscale.raster.subticks)
 
 ## defining the scales for the marginal plot
 levelplot(r, scales.margin=list(x=c(100, 600), y=c(100, 1000)))
