@@ -22,7 +22,8 @@ setMethod('hovmoller', signature='RasterStackBrick',
             FUN='mean', digits=2,
             xlab='Direction', ylab='Time',
             par.settings=rasterTheme,
-            add.contour=TRUE,
+            xscale.components=xscale.raster,
+            add.contour=FALSE,
             labels=FALSE, region=TRUE, ...){
             
             idx=getZ(object)
@@ -35,7 +36,6 @@ setMethod('hovmoller', signature='RasterStackBrick',
             dat$z <- as.vector(as.numeric(z[,-1]))
 
             ##Labels of x-axis when isLonLat(object)==TRUE
-            scales=list()
             if (isLonLat(object)){
               direction=deparse(substitute(dirXY))
               if (missing(xlab)){
@@ -47,29 +47,34 @@ setMethod('hovmoller', signature='RasterStackBrick',
                   }
                 }
               }
-              bb <- extent(object)
-              if (direction=='x'){##Longitude
-                scales=list(x=list(at=pretty(c(bb@xmin, bb@xmax))))
-                scales$x$labels=parse(text=sp:::degreeLabelsEW(scales$x$at))
-              } else {
-                if (direction=='y'){##Latitude
-                  scales=list(x=list(at=pretty(c(bb@ymin, bb@ymax))))
-                  scales$x$labels=parse(text=sp:::degreeLabelsNS(scales$x$at))
-                }
-              }
-            }
+              ## which xscale.components?
+              if (direction=='x'){## Longitude
+                xscale.components <- if (identical(xscale.components, xscale.raster))
+                xscale.raster.EW
+              else if (identical(xscale.components, xscale.raster.subticks))
+                xscale.raster.EWsubticks
+              else xscale.components
+                } else {
+                  if (direction=='y'){## Latitude
+                xscale.components <- if (identical(xscale.components, xscale.raster))
+                xscale.raster.NS
+              else if (identical(xscale.components, xscale.raster.subticks))
+                xscale.raster.NSsubticks
+              else xscale.components
+            }}}
 
             ##Create the trellis object
             if (add.contour){
               p <- contourplot(z~x*y, data=dat,
                                xlab=xlab, ylab=ylab,
-                               labels=labels, scales=scales,
+                               labels=labels,
+                               xscale.components=xscale.components,
                                par.settings=par.settings,
                                region=region, ...)
             } else {
               p <- levelplot(z~x*y, data=dat,
                              par.settings=par.settings,
-                             scales=scales,
+                             xscale.components=xscale.components,
                              xlab=xlab, ylab=ylab,
                              ...)
             }

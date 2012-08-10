@@ -6,8 +6,9 @@
 \description{
 Hovmoller plots of Raster objects.}
 \usage{\S4method{hovmoller}{RasterStackBrick}(object, dirXY=y, FUN=mean, 
-digits=2, xlab='Direction', ylab='Time', par.settings=rasterTheme,
-add.contour=TRUE, labels=FALSE, region=TRUE, ...)
+digits=2, xlab='Direction', ylab='Time',
+par.settings=rasterTheme, xscale.components=xscale.raster,
+add.contour=FALSE, labels=FALSE, region=TRUE, ...)
 }
 \arguments{
   \item{object}{A RasterStackBrick with a non-empty \code{z} slot.}
@@ -17,8 +18,9 @@ add.contour=TRUE, labels=FALSE, region=TRUE, ...)
     \code{dirXY} and \code{zonal}.}
   \item{digits}{An integer, number of digits for \code{\link{zonal}}.}
   \item{xlab, ylab}{Labels of the axis.}
-  \item{par.settings}{Customization of lattice. See \code{\link{levelplot}}
-    for details.}
+  \item{par.settings}{Customization of lattice. See
+    \code{\link{levelplot}} and \code{\link{rasterTheme}} for details.}
+  \item{xscale.components}{See \code{\link{xscale.raster}}.}
   \item{labels, region}{Customization of \code{contourplot} when \code{add.contour} is
   TRUE.}
   \item{add.contour}{Logical, if TRUE a contourplot with filled regions
@@ -89,6 +91,7 @@ idx <- as.yearmon(idx)
 SST <- setZ(SST, idx)
 layerNames(SST) <- as.character(idx)
 hovmoller(SST, panel=panel.levelplot.raster,
+          xscale.components=xscale.raster.subticks,
           interpolate=TRUE, par.settings=RdBuTheme)
 }
 }
