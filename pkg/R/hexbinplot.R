@@ -1,6 +1,6 @@
 # Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
-# Date :  June 2011
-# Version 0.10
+# Date :  August 2012
+# Version 0.11
 # Licence GPL v3
 
 ##xyplot for directions created with xyLayer
@@ -12,7 +12,7 @@ setMethod('hexbinplot', signature(x='formula', data='Raster'),
             yscale.components=yscale.raster,
             par.settings=rasterTheme,
             ...){
-            idx=getZ(x)
+            idx=getZ(data)
             nms <- layerNames(data)
             nl <- nlayers(data)
             xLayer <- getValues(init(data, v='x'))
