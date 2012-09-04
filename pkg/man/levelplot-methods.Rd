@@ -11,7 +11,7 @@
 }
 \usage{
 \S4method{levelplot}{Raster,missing}(x, data=NULL, layers,
-            margin=TRUE, FUN.margin=mean, scales.margin=NULL,
+            margin=TRUE, FUN.margin=mean, 
             maxpixels=1e5,
             par.settings=rasterTheme,
             between=list(x=0.5, y=0.2),
@@ -24,7 +24,8 @@
             colorkey=list(space='right'),
             panel=panel.levelplot,
             contour=FALSE, region=TRUE, labels=FALSE,
-            ...)
+            ...,
+            scales.margin=NULL)
 
 \S4method{contourplot}{Raster,missing}(x, data=NULL, layers, ...)
 }
