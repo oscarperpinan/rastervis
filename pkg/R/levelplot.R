@@ -15,14 +15,14 @@ setMethod('levelplot',
             as.table=TRUE,
             xlab='', ylab='', main='',
             names.attr,
+            scales=list(), scales.margin=NULL,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
             zscaleLog=NULL,
             colorkey=list(space='right'),
             panel=panel.levelplot,
             contour=FALSE, region=TRUE, labels=FALSE,
-            ...,
-            scales.margin=NULL) {
+            ...) {
             
             if (!missing(layers)) {
               object <- subset(x, subset=layers)
@@ -175,7 +175,7 @@ setMethod('levelplot',
                   stop('Length of names.attr should match number of layers.')
                 }
             p <- levelplot(form, data=df,
-                           ## scales=scales,
+                           scales=scales,
                            aspect=aspect,
                            xlab=xlab, ylab=ylab, main = main, 
                            par.settings=par.settings,
