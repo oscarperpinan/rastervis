@@ -10,12 +10,12 @@ if (!isGeneric("plot3D")) {
 
 
 setMethod("plot3D", signature(x='RasterLayer'), 
+function(x, maxpixels=100000, zfac=1, drape=NULL, col, rev=FALSE, adjust=TRUE, ...) { 
 
-
-test <- function(x, maxpixels=100000, zfac=6, drape=NULL, col=terrain.colors, rev=FALSE, ...) { 
-# maxpixels=100000; zfac=6; col=terrain.colors; rev=TRUE
-# most of the below code was taken from example(surface3d) in the rgl package
-	if (!require(rgl)){ stop("to use this function you need to install the 'rgl' package") }
+# much of the below code was taken from example(surface3d) in the rgl package
+	if (!require(rgl)){ 
+		stop("to use this function you need to install the 'rgl' package") 
+	}
 
 	x <- sampleRegular(x, size=maxpixels, asRaster=TRUE)
 	X <- xFromCol(x,1:ncol(x))
@@ -29,15 +29,33 @@ test <- function(x, maxpixels=100000, zfac=6, drape=NULL, col=terrain.colors, re
 	zlen <- zlim[2] - zlim[1] + 1
 	xlen <- max(X) - min(X)
 	ylen <- max(Y) - min(Y)
-	adj <- zlen/min(ylen,xlen)
-	X <- X * adj * zfac
-	Y <- Y * adj * zfac
+	if (adjust) {
+		adj <- 4*zlen/min(ylen,xlen)
+		X <- X * adj
+		Y <- Y * adj
+	} 
+	color <- NULL
+
 	
 	if (is.null(drape)) {
-		colorlut <- col(zlen) # height color lookup table
-		if (rev) { colorlut <- rev(colorlut) }
-		color <- colorlut[ Z-zlim[1]+1 ] # assign colors to heights for each point
+		if (missing(col)) {
+			color <- x@legend@colortable
+			if (length(color) < 1) {
+				col <- terrain.colors
+			}			
+		}
+		if (length(color) < 1) {
+			if (missing(col)) {
+				col <- terrain.colors			
+			}
+			colorlut <- col(zlen) # height color lookup table
+			if (rev) { 
+				colorlut <- rev(colorlut) 
+			}
+			color <- colorlut[ Z-zlim[1]+1 ] # assign colors to heights for each point
+		}
 
+		Z <- Z * zfac
 		open3d()
 		if (background==min(Z)) {
 			trans <- Z
@@ -49,7 +67,6 @@ test <- function(x, maxpixels=100000, zfac=6, drape=NULL, col=terrain.colors, re
 		}
 		
 	} else {
-		colorlut <- drape@legend@colortable
 		x <- sampleRegular(drape, size=maxpixels, asRaster=TRUE)
 		Zcol <- t((getValues(x, format='matrix'))[nrow(x):1,])
 		background <- min(Zcol, na.rm=TRUE) - 1
@@ -57,14 +74,22 @@ test <- function(x, maxpixels=100000, zfac=6, drape=NULL, col=terrain.colors, re
 
 		zlim <- range(Zcol)
 		
-		if ( is.null(colorlut) ) {
+		if (missing(col)) {
+			color <- drape@legend@colortable
+		}
+		if ( length(color) < 1 ) {
+			if (missing(col)) {
+				col <- terrain.colors
+			}
 			zlen <- zlim[2] - zlim[1] + 1
 			colorlut <- col(zlen) # height color lookup table
-			if (rev) { colorlut <- rev(colorlut) }
+			if (rev) { 
+				colorlut <- rev(colorlut) 
+			}
+			color <- colorlut[ Zcol-zlim[1]+1 ] # assign colors to heights for each point
 		}
+		Z <- Z * zfac
 		
-		color <- colorlut[ Zcol-zlim[1]+1 ] # assign colors to heights for each point
-	
 		open3d()
 		if (background==min(Zcol)) {
 			trans <- Zcol
