@@ -15,6 +15,7 @@ a combination of \code{\link{panel.violin}} and
             xlab='', ylab='', main='',
             violin=TRUE,
             par.settings=rasterTheme,
+            scales=list(x=list(rot=45, cex=0.8)),
             ...)
 \S4method{bwplot}{formula,Raster}(x, data, dirXY, 
             maxpixels = 1e+05,
@@ -45,7 +46,7 @@ a combination of \code{\link{panel.violin}} and
   \item{xlab, ylab, main}{Labels for axis and title}.
   \item{violin}{Logical, if TRUE the panel is built with
     \code{panel.violin} and \code{panel.bwplot}.}
-  \item{par.settings}{See \code{\link{xyplot}} for details.}
+  \item{par.settings, scales}{See \code{\link{xyplot}} for details.}
   \item{\dots}{Additional arguments for \code{\link{bwplot}}}
 
 }

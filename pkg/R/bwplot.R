@@ -14,6 +14,7 @@ setMethod('bwplot',
             xlab='', ylab='', main='',
             violin=TRUE,
             par.settings=rasterTheme,
+            scales=list(x=list(rot=45, cex=0.8)),
             ...) {
             if (!missing(layers)) x <- subset(x, layers)
             nl=nlayers(x)
@@ -21,7 +22,7 @@ setMethod('bwplot',
               dat <- raster2dat(x, FUN, maxpixels)
               bwplot(values~ind,
                      data=dat, 
-                     xlab=xlab, ylab=ylab,
+                     xlab=xlab, ylab=ylab, main=main,
                      horizontal=FALSE,
                      panel = function(..., box.ratio) {
                        if (violin) {panel.violin(..., col = "lightblue",
@@ -31,7 +32,7 @@ setMethod('bwplot',
                      },
                      par.settings = list(box.rectangle=list(col='black'),
                        plot.symbol = list(pch='.', cex = 0.1)),
-                     scales=list(x=list(rot=45, cex=0.5))
+                     scales=scales
                      )
             } else {
               stop('bwplot is defined only for Raster objects with two or more layers.')
