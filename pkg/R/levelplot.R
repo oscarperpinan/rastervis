@@ -96,7 +96,7 @@ setMethod('levelplot',
             if (region==FALSE) colorkey=FALSE
            
             has.colorkey <- (is.logical(colorkey) && colorkey) || is.list(colorkey)
-            if (region==TRUE && !has.colorkey) colorkey=has.colorkey=TRUE
+##            if (region==TRUE && !has.colorkey) colorkey=has.colorkey=TRUE
             has.margin <- nlayers(object)==1 && margin
             has.contour <- (contour==TRUE) ##(!missing(contour) && contour==TRUE)
 
