@@ -27,7 +27,8 @@ setMethod('hovmoller', signature='RasterStackBrick',
             labels=FALSE, region=TRUE, ...){
             
             idx=getZ(object)
-            if (is.null(idx)) stop('z slot of the object is NULL.')
+            if (is.null(idx))
+            stop('z slot of the object is NULL. Use setZ.')
 
             ##Calculate the matrix with the zonal function
             dirLayer <- xyLayer(object, dirXY=substitute(dirXY))

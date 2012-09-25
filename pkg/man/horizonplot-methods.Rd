@@ -8,8 +8,13 @@
   calculated with \code{zonal} from the directions defined by
   \code{xyLayer}}
 
-\usage{\S4method{horizonplot}{RasterStackBrick,missing}(x, data=NULL, dirXY=y, xlab='Time', ylab='direction', digits=0, ...)
+\usage{\S4method{horizonplot}{RasterStackBrick,missing}(x, data=NULL, dirXY=y, digits=0,
+    xlab='Time', ylab='direction',
+    colorkey=TRUE, colorkey.digits=1,
+    scales=list(y=list(relation="same")),
+    ...)
 }
+
 \arguments{
 \item{x}{A \code{RasterStackBrick} object.}
 \item{data}{Not used.}
@@ -17,6 +22,7 @@
 \code{\link{xyLayer}}).}
 \item{xlab, ylab}{Labels of the axis.}
 \item{digits}{An integer, number of digits for \code{\link{zonal}}.}
+\item{colorkey, colorkey.digits, scales}{Arguments for \code{\link{horizonplot}}.}
 \item{\dots}{Additional arguments for the \code{horizonplot} function.}
 }
 

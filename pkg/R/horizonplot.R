@@ -6,8 +6,13 @@
 setGeneric('horizonplot')
 setMethod('horizonplot',
           signature(x='RasterStackBrick', data='missing'),
-          definition=function(x, data=NULL, dirXY=y, xlab='Time', ylab='direction', digits=0, ...){
+          definition=function(x, data=NULL, dirXY=y, digits=0,
+            xlab='Time', ylab='direction',
+            colorkey=TRUE, colorkey.digits=1,
+            scales=list(y=list(relation="same")),
+            ...){
             idx=getZ(x)
+            if (is.null(idx)) stop('z slot of the object is NULL. Use setZ.')
             dirLayer <- xyLayer(x, dirXY=substitute(dirXY))
             z <- zonal(x, dirLayer, digits=digits)
             nRows <- nrow(z)
@@ -15,8 +20,9 @@ setMethod('horizonplot',
             names(zz) <- z[,1]
             zz <- zoo(zz, order.by=idx)
             p <- horizonplot(zz, xlab=xlab, ylab=ylab, layout=c(1, nRows), 
-                 colorkey=TRUE, colorkey.digits=1, origin=mean(zz),
-                 scales=list(y=list(relation="same")))
+                             colorkey=colorkey,
+                             colorkey.digits=colorkey.digits,
+                             origin=mean(zz),
+                             scales=scales)
             p
-          }
-          )
+          })
