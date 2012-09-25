@@ -7,8 +7,10 @@ setGeneric('vectorplot', function(object, ...){standardGeneric('vectorplot')})
 setMethod('vectorplot',
           signature(object='Raster'),
           definition = function(object, layers,
-            narrows=2e3, lwd.arrows=0.6, region=TRUE,
-            isField=FALSE, unit='radians',...){
+            narrows=2e3, lwd.arrows=0.6, length=unit(5e-2, 'npc'),
+            region=TRUE,
+            isField=FALSE, unit='radians',
+            ...){
             if (!missing(layers)) {
               object <- subset(object, subset=layers)
             } else {}
@@ -57,9 +59,10 @@ setMethod('vectorplot',
             }
             if (isField) object <- subset(object, 1) ##only uses the magnitude for the region
             p <- levelplot(object, maxpixels=narrows, 
-                      colorkey=region, 
-                      sa=sa, length=unit(5e-2, 'npc'), lwd.arrows=lwd.arrows,
-                      panel=fooPanel, ...)
+                           colorkey=region, 
+                           sa=sa, length=length,
+                           lwd.arrows=lwd.arrows,
+                           panel=fooPanel, ...)
             p
   
           }

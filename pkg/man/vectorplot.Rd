@@ -8,7 +8,7 @@
 }
 \usage{
 \S4method{vectorplot}{Raster}(object, layers,
-    narrows=2e3, lwd.arrows=0.6,
+    narrows=2e3, lwd.arrows=0.6, length=unit(5e-2, 'npc'),
     region=TRUE,
     isField=FALSE, unit='radians',...)
 }
@@ -21,6 +21,7 @@
     to be displayed.}
   \item{narrows}{A numeric, for \code{\link{sampleRegular}}.}
   \item{lwd.arrows}{Numeric, width of the lines of the arrows}
+  \item{length}{Unit, extent of the arrow head.}
   \item{region}{Logical, if \code{TRUE} the region is displayed with
     \code{panel.levelplot.raster}}
   \item{isField}{Logical, if \code{TRUE} (the object is a vector field),
