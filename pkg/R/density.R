@@ -38,7 +38,11 @@ setMethod('densityplot',
                                  panel.densityplot(x, col.line=col.line, plot.points=FALSE,...)
                                  d <- density(x, na.rm=1)
                                  i <- which.max(d$y)
-                                 ltext(d$x[i],d$y[i],group.value,adj=c(0.3,0),col=col.line, cex=0.7)
+                                 ltext(d$x[i],d$y[i],
+                                       group.value,
+                                       adj=c(0.3,0),
+                                       col=col.line,
+                                       cex=0.7)
                                }
                                )
             } else {
