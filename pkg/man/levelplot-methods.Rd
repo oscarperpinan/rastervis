@@ -11,7 +11,7 @@
 }
 \usage{
 \S4method{levelplot}{Raster,missing}(x, data=NULL, layers,
-            margin=TRUE, FUN.margin=mean, 
+            margin=!(any(is.factor(x))), FUN.margin=mean, 
             maxpixels=1e5,
             par.settings=rasterTheme,
             between=list(x=0.5, y=0.2),
@@ -71,8 +71,13 @@
     The \code{contourplot} method is a wrapper for \code{levelplot} with
     the next additional default settings: \code{cuts=7}, \code{labels=TRUE},
     \code{contour}=TRUE, \code{pretty}=TRUE, \code{region=TRUE} and
-    \code{colorkey=TRUE} (see the help of \code{contourplot} for details.)
-  }
+    \code{colorkey=TRUE} (see the help of \code{contourplot} for
+    details.)
+
+    \code{levelplot} displays categorical data with a convenient
+  legend. You should use \code{\link{ratify}} to define a layer as a
+  categorical variable. See the examples below for details.
+}
   
 \author{Oscar Perpiñán Lamigueiro}
 \seealso{\code{\link{spplot}}, \code{\link[lattice]{levelplot}}}
@@ -118,6 +123,21 @@ levelplot(r, par.settings=BTCTheme,
             sp.points(pts, col='red')
             })
 
+
+## Categorical data
+r <- raster(nrow=10, ncol=10)
+r[] = 1
+r[51:100] = 2
+r[3:6, 1:5] = 3
+r <- ratify(r)
+     
+rat <- levels(r)[[1]]
+rat$landcover <- c('Pine', 'Oak', 'Meadow')
+levels(r) <- rat
+r
+
+levelplot(r,
+    par.settings=rasterTheme(region=rainbow(3)))
 
 \dontrun{
 ##Solar irradiation data from CMSAF
