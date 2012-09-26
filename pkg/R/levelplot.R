@@ -135,21 +135,23 @@ setMethod('levelplot',
                 }}
             }
 
-            if (isFactor && has.colorkey) {
+            if (isFactor) {
               rat <- data.frame(levels(object)[[1]])
-              classes <- rat[,2] #TODO: allow a different column
-              nClasses <- nlevels(factor(rat$ID))
+              classes <- as.factor(rat[,2]) #TODO: allow a different column
+              nClasses <- nlevels(classes)
               rng <- range(rat$ID)
-              ## define the breaks of the color key
+              ## define the breaks
               my.at <- seq(rng[1]-1, rng[2])
+              if (has.colorkey){
               ## the labels will be placed vertically centered
               my.labs.at <- seq(rng[1], rng[2])-0.5
               colorkey <- modifyList(colorkey,
                                      list(
                                        at=my.at,
                                        labels=
-                                          list(labels=classes, ## classes names as labels
+                                          list(labels=as.character(classes),
                                                at=my.labs.at)))
+              }
               }
 
             ## Build the formula for levelplot
@@ -215,6 +217,9 @@ setMethod('levelplot',
                              requestedPanel 
                            },
                            ...)
+
+            if (isFactor) p <- update(p, at=my.at)
+            
             ## with the margins if needed
             if (nlayers(object)==1 && margin) {
               marginsLegend <- list(right=list(

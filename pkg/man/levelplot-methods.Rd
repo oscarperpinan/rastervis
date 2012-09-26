@@ -136,8 +136,8 @@ rat$landcover <- c('Pine', 'Oak', 'Meadow')
 levels(r) <- rat
 r
 
-levelplot(r,
-    par.settings=rasterTheme(region=rainbow(3)))
+levelplot(r, col.regions=c('palegreen', 'midnightblue', 'indianred1'))
+
 
 \dontrun{
 ##Solar irradiation data from CMSAF
