@@ -9,7 +9,12 @@ setMethod('identifyRaster', signature(object='Raster'),
           definition=function(object, layer=1, values=FALSE, pch=13, cex=0.6, col='black',...){
             lay <- layer[1]
             nl <- nlayers(object)
-            if (is.character(lay)) lay <- which(lay==layerNames(object))
+
+            ## names replace layerNames with raster version 2.0-04
+            rasterVersion <- as.character(packageVersion('raster'))
+            objNames <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(object) else names(object)
+
+            if (is.character(lay)) lay <- which(lay==objNames)
             if (length(lay)<1 || lay > nl) stop('Incorrect value of layer.')
             prefix <- lattice:::lattice.getStatus('current.prefix')
             ll <- lattice:::lattice.getStatus('current.panel.positions', prefix=prefix)

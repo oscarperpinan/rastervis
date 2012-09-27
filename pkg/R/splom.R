@@ -9,12 +9,16 @@ setMethod('splom',
           signature(x='RasterStackBrick', data='missing'),
           definition=function(x, data=NULL, maxpixels=1e5,
             plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...){
-            nms <- layerNames(x)
+
+            ## names replace layerNames with raster version 2.0-04
+            rasterVersion <- as.character(packageVersion('raster'))
+            nms <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(x) else names(x)
+
             if (maxpixels < ncell(x)) {
               dat <- sampleRandom(x, maxpixels)
-              } else {
-                dat <- getValues(x)
-                }
+            } else {
+              dat <- getValues(x)
+            }
             colnames(dat) <- nms
             diag.panel = function(x,...){
               yrng <- current.panel.limits()$ylim

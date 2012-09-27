@@ -13,7 +13,10 @@ setMethod('hexbinplot', signature(x='formula', data='Raster'),
             par.settings=rasterTheme,
             ...){
             idx=getZ(data)
-            nms <- layerNames(data)
+            ## names replace layerNames with raster version 2.0-04
+            rasterVersion <- as.character(packageVersion('raster'))
+            nms <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(data) else names(data)
+
             nl <- nlayers(data)
             xLayer <- getValues(init(data, v='x'))
             yLayer <- getValues(init(data, v='y'))

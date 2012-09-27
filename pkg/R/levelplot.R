@@ -28,12 +28,16 @@ setMethod('levelplot',
               object <- subset(x, subset=layers)
             } else {object <- x}
 
+            ## names replace layerNames with raster version 2.0-04
+            rasterVersion <- as.character(packageVersion('raster'))
+            objNames <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(object) else names(object)
+            nms <- make.names(objNames)
+
             ## Is factor?
             isFactor <- all(is.factor(object)) ## TODO: different individual layers
 
+            ## The plot display a sample of the whole object defined with maxpixels
             dat <- sampleRegular(object, size=maxpixels, asRaster=TRUE)
-            nms <- make.names(layerNames(dat))
-
             ##Extract coordinates from (sampled) raster
             coords <- xyFromCell(dat, seq_len(ncell(dat)))
             
@@ -100,7 +104,7 @@ setMethod('levelplot',
             if (region==FALSE) colorkey=FALSE
            
             has.colorkey <- (is.logical(colorkey) && colorkey) || is.list(colorkey)
-##            if (region==TRUE && !has.colorkey) colorkey=has.colorkey=TRUE
+            ##            if (region==TRUE && !has.colorkey) colorkey=has.colorkey=TRUE
             has.margin <- nlayers(object)==1 && margin
             has.contour <- (contour==TRUE) ##(!missing(contour) && contour==TRUE)
 
@@ -122,12 +126,12 @@ setMethod('levelplot',
               if (is.function(par.settings)) par.settings <- par.settings()
               par.settings=modifyList(par.settings,
                 list(
-                     layout.widths=list(right.padding=10),
-                     layout.heights=list(top.padding=10,
-                       xlab.key.padding=3)
-                     )
+                  layout.widths=list(right.padding=10),
+                  layout.heights=list(top.padding=10,
+                    xlab.key.padding=3)
+                  )
                 )
-              if (has.colorkey){## put the colorkey at the bottom to leave space for the margin
+              if (has.colorkey){ ## put the colorkey at the bottom to leave space for the margin
                 if (is.logical(colorkey)){
                   colorkey=list(space='bottom')
                 } else {
@@ -143,16 +147,16 @@ setMethod('levelplot',
               ## define the breaks
               my.at <- seq(rng[1]-1, rng[2])
               if (has.colorkey){
-              ## the labels will be placed vertically centered
-              my.labs.at <- seq(rng[1], rng[2])-0.5
-              colorkey <- modifyList(colorkey,
-                                     list(
-                                       at=my.at,
-                                       labels=
-                                          list(labels=as.character(classes),
-                                               at=my.labs.at)))
+                ## the labels will be placed vertically centered
+                my.labs.at <- seq(rng[1], rng[2])-0.5
+                colorkey <- modifyList(colorkey,
+                                       list(
+                                         at=my.at,
+                                         labels=
+                                         list(labels=as.character(classes),
+                                              at=my.labs.at)))
               }
-              }
+            }
 
             ## Build the formula for levelplot
             form <- as.formula(paste(paste(names(df)[-c(1,2)], collapse='+'), 'x*y', sep='~'))
@@ -192,11 +196,11 @@ setMethod('levelplot',
             
             ## And finally, the levelplot call
             if (missing(names.attr)){
-              names.attr <- layerNames(object)
-              } else {
-                if (length(names.attr) != nlayers(object))
-                  stop('Length of names.attr should match number of layers.')
-                }
+              names.attr <- objNames
+            } else {
+              if (length(names.attr) != nlayers(object))
+                stop('Length of names.attr should match number of layers.')
+            }
             
             p <- levelplot(form, data=df,
                            scales=scales,

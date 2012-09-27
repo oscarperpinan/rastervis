@@ -35,7 +35,10 @@ setMethod('xyplot', signature(x='formula', data='Raster'),
             yscale.components=yscale.raster,
             par.settings=rasterTheme,...){
 
-            nms <- layerNames(data)
+            ## names replace layerNames with raster version 2.0-04
+            rasterVersion <- as.character(packageVersion('raster'))
+            nms <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(data) else names(data)
+
             nl <- nlayers(data)
 
             data <- sampleRegular(data, maxpixels, asRaster=TRUE)
