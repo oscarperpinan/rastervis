@@ -1,4 +1,18 @@
 ------------------------------------------------------------------------
+r117 | oscarperpi | 2012-10-11 14:48:40 +0200 (jue, 11 oct 2012) | 2 lines
+Changed paths:
+   M /pkg/DESCRIPTION
+
+raster 2.0-12 version required. Updated date and version.
+
+------------------------------------------------------------------------
+r116 | oscarperpi | 2012-10-11 14:48:09 +0200 (jue, 11 oct 2012) | 2 lines
+Changed paths:
+   A /pkg/ChangeLog
+
+Added ChangeLog
+
+------------------------------------------------------------------------
 r115 | oscarperpi | 2012-09-27 11:47:58 +0200 (jue, 27 sep 2012) | 2 lines
 Changed paths:
    M /pkg/R/bwplot.R
