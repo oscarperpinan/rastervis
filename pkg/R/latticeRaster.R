@@ -1,4 +1,5 @@
-# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
+
+                                        # Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
 # Date :  June 2011
 # Version 0.10
 # Licence GPL v3
@@ -79,6 +80,16 @@ rasterTheme <- function(pch=19, cex=0.7, region=rev(brewer.pal(9, 'YlOrRd')), ..
 }
 
 RdBuTheme <- function(region=brewer.pal(9, 'RdBu'), ...) {
+  theme <- rasterTheme(region=region, ...)
+  theme
+}
+
+BuRdTheme <- function(region=rev(brewer.pal(9, 'RdBu')), ...) {
+  theme <- rasterTheme(region=region, ...)
+  theme
+}
+
+PuOrTheme <- function(region=brewer.pal(9, 'PuOr'), ...) {
   theme <- rasterTheme(region=region, ...)
   theme
 }
