@@ -69,11 +69,18 @@ setMethod('histogram', signature(x='formula', data='Raster'),
             nms <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(data) else names(data)
 
             nl <- nlayers(data)
+            isFactor <- is.factor(data)
+            levelsData <- levels(data)[[which(isFactor)]][[1]][,2]
 
             data <- sampleRegular(data, maxpixels, asRaster=TRUE)
             df <- getValues(data)
             df <- as.data.frame(df)
             names(df) <- make.names(nms)
+
+            ## Categorical data
+            if (any(isFactor)){
+               df[, isFactor]<- as.factor(levelsData[df[, isFactor]])
+               }
 
             xLayer <- getValues(init(data, v='x'))
             yLayer <- getValues(init(data, v='y'))
