@@ -1,11 +1,11 @@
 
-## #+DATE: 2012-08-10
 ## #+CATEGORY: R
 ## #+TAGS: 
 ## #+DESCRIPTION: rasterVis
 ## #+TITLE: rasterVis
 ## #+PROPERTY:  session *R:2*
 ## #+PROPERTY:  tangle yes
+## #+PROPERTY:  eval no-export
 ## #+PROPERTY:  comments org
 ## #+LANGUAGE:  en
 ## #+STYLE:    <link rel="stylesheet" type="text/css" href="styles.css" />
@@ -40,7 +40,7 @@ setwd(old)
 idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 
 SISmm <- setZ(stackSIS, idx)
-layerNames(SISmm) <- month.abb
+names(SISmm) <- month.abb
 
 ## Level plots
 ##   :PROPERTIES:
@@ -239,7 +239,7 @@ SST <- brick(spSST)
 idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
 idx <- as.yearmon(idx)
 SST <- setZ(SST, idx)
-layerNames(SST) <- as.character(idx)
+names(SST) <- as.character(idx)
 hovmoller(SST, contour=FALSE, panel=panel.levelplot.raster,
           yscale.components=yscale.raster.subticks,
           interpolate=TRUE, par.settings=RdBuTheme)

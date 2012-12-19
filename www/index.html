@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="rasterVis"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2012-12-19 21:56:34 CET"/>
+<meta name="generated" content="2012-12-19 22:14:06 CET"/>
 <meta name="author" content="Oscar Perpiñán Lamigueiro"/>
 <meta name="description" content="rasterVis"/>
 <meta name="keywords" content=""/>
@@ -129,7 +129,7 @@ setwd(old)
 idx <span class="org-constant">&lt;-</span> seq(as.Date(<span class="org-string">'2008-01-15'</span>), as.Date(<span class="org-string">'2008-12-15'</span>), <span class="org-string">'month'</span>)
 
 SISmm <span class="org-constant">&lt;-</span> setZ(stackSIS, idx)
-layerNames(SISmm) <span class="org-constant">&lt;-</span> month.abb
+names(SISmm) <span class="org-constant">&lt;-</span> month.abb
 
 </pre>
 
@@ -457,7 +457,7 @@ SST <span class="org-constant">&lt;-</span> brick(spSST)
 idx <span class="org-constant">&lt;-</span> seq(as.Date(<span class="org-string">'1970-01-01'</span>), as.Date(<span class="org-string">'2003-03-01'</span>), by=<span class="org-string">'month'</span>)
 idx <span class="org-constant">&lt;-</span> as.yearmon(idx)
 SST <span class="org-constant">&lt;-</span> setZ(SST, idx)
-layerNames(SST) <span class="org-constant">&lt;-</span> as.character(idx)
+names(SST) <span class="org-constant">&lt;-</span> as.character(idx)
 hovmoller(SST, contour=<span class="org-type">FALSE</span>, panel=panel.levelplot.raster,
           yscale.components=yscale.raster.subticks,
           interpolate=<span class="org-type">TRUE</span>, par.settings=RdBuTheme)
@@ -572,7 +572,7 @@ be highlighted and returned as a SpatialPoints object.
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2012-12-19 21:56:34 CET</p>
+<p class="date">Date: 2012-12-19 22:14:06 CET</p>
 <p class="author">Author: Oscar Perpiñán Lamigueiro</p>
 <p class="creator">Org version 7.8.11 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
