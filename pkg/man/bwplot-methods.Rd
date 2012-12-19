@@ -76,7 +76,7 @@ setwd(old)
 idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 
 SISmm <- setZ(stackSIS, idx)
-layerNames(SISmm) <- month.abb
+names(SISmm) <- month.abb
 
 bwplot(SISmm)
 bwplot(SISmm, FUN=as.yearqtr)##FUN applies to z if not NULL
@@ -94,7 +94,7 @@ landClass[landClass==254] <- NA
 
 
 s <- stack(pop, landClass)
-layerNames(s) <- c('pop', 'landClass')
+names(s) <- c('pop', 'landClass')
 
 bwplot(asinh(pop) ~ landClass|cut(y, 3), data=s,
        layout=c(3, 1), violin=FALSE)

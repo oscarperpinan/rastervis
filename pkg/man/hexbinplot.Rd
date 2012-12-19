@@ -39,7 +39,7 @@ for details.}
 \examples{
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
-layerNames(r)
+names(r)
 
 xyplot(test~y, data=r, alpha=0.5)
 
@@ -54,7 +54,7 @@ listFich <- dir(pattern='2008')
 stackSIS <- stack(listFich)SISmm <- SISmm*24 ##from irradiance (W/m2) to irradiation Wh/m2
 setwd(old)
 
-layerNames(SISmm) <- month.abb
+names(SISmm) <- month.abb
 
 ##Relation between the January & February versus July radiation for four
 ##differents longitude regions.

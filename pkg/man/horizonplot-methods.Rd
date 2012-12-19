@@ -54,7 +54,7 @@ setwd(old)
 idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 
 SISmm <- setZ(stackSIS, idx)
-layerNames(SISmm) <- month.abb
+names(SISmm) <- month.abb
 
 horizonplot(SISmm)
 }
@@ -74,7 +74,7 @@ SST <- brick(spSST)
 idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
 idx <- as.yearmon(idx)
 SST <- setZ(SST, idx)
-layerNames(SST) <- as.character(idx)
+names(SST) <- as.character(idx)
 horizonplot(SST)
 }
 

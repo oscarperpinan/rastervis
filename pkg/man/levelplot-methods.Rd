@@ -45,7 +45,7 @@
   \item{maxpixels}{A numeric, for \code{\link{sampleRegular}}.}
   \item{xlab, ylab, main}{Arguments for \code{\link{levelplot}}.}
   \item{names.attr}{Character, names to use in each panel. If missing its
-  default value is the result of \code{layerNames(x)} (after subsetting
+  default value is the result of \code{names(x)} (after subsetting
   the layers to be displayed).}
   \item{xscale.components, yscale.components}{See
   \code{\link{xscale.raster}} and \code{\link{yscale.raster}}.}
@@ -154,7 +154,7 @@ setwd(old)
 idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 
 SISmm <- setZ(stackSIS, idx)
-layerNames(SISmm) <- month.abb
+names(SISmm) <- month.abb
 
 levelplot(SISmm)
 

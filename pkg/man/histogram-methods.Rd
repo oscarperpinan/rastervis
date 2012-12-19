@@ -82,7 +82,7 @@ setwd(old)
 idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 
 SISmm <- setZ(stackSIS, idx)
-layerNames(SISmm) <- month.abb
+names(SISmm) <- month.abb
 
 histogram(SISmm)
 histogram(SISmm, FUN=as.yearqtr)
@@ -101,7 +101,7 @@ landClass[landClass==254] <- NA
 
 
 s <- stack(pop, landClass)
-layerNames(s) <- c('pop', 'landClass')
+names(s) <- c('pop', 'landClass')
 
 histogram(~asinh(pop)|landClass, data=s,
             scales=list(relation='free'),
