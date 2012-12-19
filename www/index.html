@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="rasterVis"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2012-08-10"/>
+<meta name="generated" content="2012-12-19 21:56:34 CET"/>
 <meta name="author" content="Oscar Perpiñán Lamigueiro"/>
 <meta name="description" content="rasterVis"/>
 <meta name="keywords" content=""/>
@@ -165,9 +165,6 @@ The first step is to display the content with a <code>levelplot</code>:
 
 
 <p>
-<a href="figs/levelplot.pdf">figs/levelplot.pdf</a>
-</p>
-<p>
 <img src="figs/levelplot.png"  alt="figs/levelplot.png" />
 </p>
 <p>
@@ -182,9 +179,6 @@ of a function across each coordinate:
 
 
 <p>
-<a href="figs/levelplot_layer1.pdf">figs/levelplot_layer1.pdf</a>
-</p>
-<p>
 <img src="figs/levelplot_layer1.png"  alt="figs/levelplot_layer1.png" />
 </p>
 <p>
@@ -196,7 +190,7 @@ This information is available at the <a href="http://www.gadm.org/data/shp/ESP_a
 
 
 <pre class="src src-R"><span class="org-constant">library</span>(maptools)
-proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=latlon +ellps=WGS84'</span>)
+proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=longlat +ellps=WGS84'</span>)
 <span class="org-comment-delimiter">##</span><span class="org-comment">Change to your folder</span>
 mapaSHP <span class="org-constant">&lt;-</span> readShapeLines(<span class="org-string">'~/Datos/ESP_adm/ESP_adm2.shp'</span>, proj4string=proj)
 
@@ -205,9 +199,6 @@ p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span class="org-string">'darkgray'</sp
 </pre>
 
 
-<p>
-<a href="figs/levelplot_layer_borders.pdf">figs/levelplot_layer_borders.pdf</a>
-</p>
 <p>
 <img src="figs/levelplot_layer_borders.png"  alt="figs/levelplot_layer_borders.png" />
 </p>
@@ -236,9 +227,6 @@ levelplot(r^2, zscaleLog=<span class="org-type">TRUE</span>, contour=<span class
 </pre>
 
 
-<p>
-<a href="figs/levelplot_logscale.pdf">figs/levelplot_logscale.pdf</a>
-</p>
 </div>
 </div>
 
@@ -288,9 +276,6 @@ The diverging palette is specially well suited to this data:
 
 
 <p>
-<a href="figs/levelplotAug.pdf">figs/levelplotAug.pdf</a>
-</p>
-<p>
 <img src="figs/levelplotAug.png"  alt="figs/levelplotAug.png" />
 </p>
 <p>
@@ -308,9 +293,6 @@ levelplot(Aug, par.settings=myTheme, contour=<span class="org-type">TRUE</span>)
 
 
 <p>
-<a href="figs/levelplot_colorspace.pdf">figs/levelplot_colorspace.pdf</a>
-</p>
-<p>
 <img src="figs/levelplot_colorspace.png"  alt="figs/levelplot_colorspace.png" />
 </p>
 <p>
@@ -325,9 +307,6 @@ levelplot(Aug, par.settings=myTheme)
 </pre>
 
 
-<p>
-<a href="figs/levelplot_dichromat.pdf">figs/levelplot_dichromat.pdf</a>
-</p>
 <p>
 <img src="figs/levelplot_dichromat.png"  alt="figs/levelplot_dichromat.png" />
 </p>
@@ -354,9 +333,6 @@ xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space=<span class="org-s
 
 
 <p>
-<a href="figs/xyplot_formula.pdf">figs/xyplot_formula.pdf</a>
-</p>
-<p>
 <img src="figs/xyplot_formula.png"  alt="figs/xyplot_formula.png" />
 </p>
 
@@ -367,9 +343,6 @@ hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 </pre>
 
 
-<p>
-<a href="figs/hexbinplot_formula.pdf">figs/hexbinplot_formula.pdf</a>
-</p>
 <p>
 <img src="figs/hexbinplot_formula.png"  alt="figs/hexbinplot_formula.png" />
 </p>
@@ -384,9 +357,6 @@ hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 
 
 <p>
-<a href="figs/splom.pdf">figs/splom.pdf</a>
-</p>
-<p>
 <img src="figs/splom.png"  alt="figs/splom.png" />
 </p>
 <p>
@@ -400,9 +370,6 @@ hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 
 
 <p>
-<a href="figs/histogram.pdf">figs/histogram.pdf</a>
-</p>
-<p>
 <img src="figs/histogram.png"  alt="figs/histogram.png" />
 </p>
 
@@ -413,9 +380,6 @@ hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 
 
 <p>
-<a href="figs/density.pdf">figs/density.pdf</a>
-</p>
-<p>
 <img src="figs/density.png"  alt="figs/density.png" />
 </p>
 
@@ -425,9 +389,6 @@ hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 </pre>
 
 
-<p>
-<a href="figs/bwplot.pdf">figs/bwplot.pdf</a>
-</p>
 <p>
 <img src="figs/bwplot.png"  alt="figs/bwplot.png" />
 </p>
@@ -443,9 +404,6 @@ variable of the plot:
 </pre>
 
 
-<p>
-<a href="figs/histogram_FUN.pdf">figs/histogram_FUN.pdf</a>
-</p>
 <p>
 <img src="figs/histogram_FUN.png"  alt="figs/histogram_FUN.png" />
 </p>
@@ -507,9 +465,6 @@ hovmoller(SST, contour=<span class="org-type">FALSE</span>, panel=panel.levelplo
 
 
 <p>
-<a href="figs/hovmoller.pdf">figs/hovmoller.pdf</a>
-</p>
-<p>
 <img src="figs/hovmoller.png"  alt="figs/hovmoller.png" />
 </p>
 <p>
@@ -522,9 +477,6 @@ The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for
 </pre>
 
 
-<p>
-<a href="figs/horizon.pdf">figs/horizon.pdf</a>
-</p>
 <p>
 <img src="figs/horizon.png"  alt="figs/horizon.png" />
 </p>
@@ -561,9 +513,6 @@ vectorplot(r, par.settings=RdBuTheme)
 </pre>
 
 
-<p>
-<a href="figs/vectorplot.pdf">figs/vectorplot.pdf</a>
-</p>
 <p>
 <img src="figs/vectorplot.png"  alt="figs/vectorplot.png" />
 </p>
@@ -614,14 +563,16 @@ be highlighted and returned as a SpatialPoints object.
 </pre>
 
 
+
 <hr/>
+
 
 </div>
 </div>
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2012-08-10</p>
+<p class="date">Date: 2012-12-19 21:56:34 CET</p>
 <p class="author">Author: Oscar Perpiñán Lamigueiro</p>
 <p class="creator">Org version 7.8.11 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>

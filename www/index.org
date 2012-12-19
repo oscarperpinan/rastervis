@@ -1,10 +1,10 @@
-#+DATE: 2012-08-10
 #+CATEGORY: R
 #+TAGS: 
 #+DESCRIPTION: rasterVis
 #+TITLE: rasterVis
 #+PROPERTY:  session *R:2*
-#+PROPERTY:  tangle t
+#+PROPERTY:  tangle yes
+#+PROPERTY:  eval no-export
 #+PROPERTY:  comments org
 #+LANGUAGE:  en
 #+STYLE:    <link rel="stylesheet" type="text/css" href="styles.css" />
@@ -72,7 +72,7 @@ This information is available at the [[http://www.gadm.org/data/shp/ESP_adm.zip]
 
 #+begin_src R :results output graphics :exports both :file "figs/levelplot_layer_borders.pdf"
   library(maptools)
-  proj <- CRS('+proj=latlon +ellps=WGS84')
+  proj <- CRS('+proj=longlat +ellps=WGS84')
   ##Change to your folder
   mapaSHP <- readShapeLines('~/Datos/ESP_adm/ESP_adm2.shp', proj4string=proj)
   
