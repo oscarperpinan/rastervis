@@ -13,7 +13,7 @@ setMethod('bwplot',
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
             violin=TRUE,
-            par.settings=rasterTheme,
+            par.settings=rasterTheme(),
             scales=list(x=list(rot=45, cex=0.8)),
             ...) {
             if (!missing(layers)) x <- subset(x, layers)
@@ -47,7 +47,7 @@ setMethod('bwplot', signature(x='formula', data='Raster'),
             yscale.components=yscale.raster,
             horizontal=FALSE,
             violin=TRUE,
-            par.settings=rasterTheme,...){
+            par.settings=rasterTheme(),...){
 
             localSets = list(box.rectangle=list(col='black'),
               plot.symbol = list(pch='.', cex = 0.1))

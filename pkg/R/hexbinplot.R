@@ -10,7 +10,7 @@ setMethod('hexbinplot', signature(x='formula', data='Raster'),
           definition=function(x, data, dirXY,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
-            par.settings=rasterTheme,
+            par.settings=rasterTheme(),
             ...){
             idx=getZ(data)
             ## names replace layerNames with raster version 2.0-04

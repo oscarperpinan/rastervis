@@ -10,7 +10,7 @@ setMethod('xyplot',
           signature(x='RasterStackBrick', data='missing'),
           definition=function(x, data=NULL, dirXY=y,
             xlab='Time', ylab='', digits=0,
-            par.settings=rasterTheme,...){
+            par.settings=rasterTheme(),...){
 
             idx=getZ(x)
             if (is.null(idx)) stop('z slot of the object is NULL.')
@@ -33,7 +33,7 @@ setMethod('xyplot', signature(x='formula', data='Raster'),
             alpha=0.05,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
-            par.settings=rasterTheme,...){
+            par.settings=rasterTheme(),...){
 
             ## names replace layerNames with raster version 2.0-04
             rasterVersion <- as.character(packageVersion('raster'))

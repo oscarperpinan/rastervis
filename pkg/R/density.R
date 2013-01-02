@@ -22,7 +22,7 @@ setMethod('densityplot',
           definition=function (x, data=NULL, layers, FUN,
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
-            par.settings=rasterTheme,...){
+            par.settings=rasterTheme(),...){
             if (!missing(layers)) x <- subset(x, layers)
             nl=nlayers(x)
             if (nl > 1) {
@@ -59,7 +59,7 @@ setMethod('densityplot', signature(x='formula', data='Raster'),
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
             auto.key = list(space = 'right'), 
-            par.settings=rasterTheme,...){
+            par.settings=rasterTheme(),...){
 
             ## names replace layerNames with raster version 2.0-04
             rasterVersion <- as.character(packageVersion('raster'))

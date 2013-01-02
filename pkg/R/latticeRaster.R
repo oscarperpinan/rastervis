@@ -104,9 +104,17 @@ BTCTheme <- function(region=BTC(n=9), ...) {
   theme
 }
 
+streamTheme <- function(region='black',
+                        symbol=brewer.pal(n=5, name='Blues'),
+                        alpha=0.6, 
+                        panel.background=list(col='gray20'),
+                        ...){
+  theme <- rasterTheme(region=region, symbol=symbol, ...)
+  theme <- modifyList(theme, list(panel.background=panel.background))
+  theme
+}
 
 ##Auxiliary function for densityplot, histogram and bwplot
-
 raster2dat <- function(x, FUN, maxpixels){
   nl <- nlayers(x)
   if (maxpixels < ncell(x)) {

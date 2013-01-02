@@ -33,7 +33,7 @@ setMethod('histogram',
               y=list(relation='free',
                 draw=FALSE)),
             strip.names=c(TRUE, TRUE),
-            par.settings=rasterTheme,
+            par.settings=rasterTheme(),
             ...) {
             if (!missing(layers)) x <- subset(x, layers)
             nl=nlayers(x)
@@ -62,7 +62,7 @@ setMethod('histogram', signature(x='formula', data='Raster'),
           definition=function(x, data, dirXY, maxpixels=1e+05,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
-            par.settings=rasterTheme,...){
+            par.settings=rasterTheme(),...){
 
             ## names replace layerNames with raster version 2.0-04
             rasterVersion <- as.character(packageVersion('raster'))
