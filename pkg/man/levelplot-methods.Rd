@@ -13,7 +13,7 @@
 \S4method{levelplot}{Raster,missing}(x, data=NULL, layers,
             margin=!(any(is.factor(x))), FUN.margin=mean, 
             maxpixels=1e5,
-            par.settings=rasterTheme,
+            par.settings=rasterTheme(),
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
             xlab='', ylab='', main='',

@@ -9,10 +9,10 @@
 \S4method{xyplot}{formula,Raster}(x, data, dirXY, maxpixels=1e5,
             alpha=0.05,
             xscale.components=xscale.raster, yscale.components=yscale.raster,
-            par.settings=rasterTheme,...)
+            par.settings=rasterTheme(),...)
 \S4method{hexbinplot}{formula,Raster}(x, data, dirXY,
             xscale.components=xscale.raster, yscale.components=yscale.raster,
-            par.settings=rasterTheme,...)
+            par.settings=rasterTheme(),...)
 
 }
 \arguments{

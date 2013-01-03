@@ -7,7 +7,7 @@
 Hovmoller plots of Raster objects.}
 \usage{\S4method{hovmoller}{RasterStackBrick}(object, dirXY=y, FUN=mean, 
 digits=2, xlab='Direction', ylab='Time',
-par.settings=rasterTheme, xscale.components=xscale.raster,
+par.settings=rasterTheme(), xscale.components=xscale.raster,
 add.contour=FALSE, labels=FALSE, region=TRUE, ...)
 }
 \arguments{

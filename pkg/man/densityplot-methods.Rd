@@ -18,7 +18,7 @@
 \S4method{densityplot}{RasterStackBrick,missing}(x, data=NULL, layers, FUN,
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
-            par.settings=rasterTheme,
+            par.settings=rasterTheme(),
             ...)
 
 \S4method{densityplot}{formula,Raster}(x, data, dirXY,
@@ -26,7 +26,7 @@
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
             auto.key = list(space = 'right'), 
-            par.settings=rasterTheme,...)
+            par.settings=rasterTheme(),...)
 
 }
 \arguments{

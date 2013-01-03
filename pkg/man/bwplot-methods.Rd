@@ -14,7 +14,7 @@ a combination of \code{\link{panel.violin}} and
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
             violin=TRUE,
-            par.settings=rasterTheme,
+            par.settings=rasterTheme(),
             scales=list(x=list(rot=45, cex=0.8)),
             ...)
 \S4method{bwplot}{formula,Raster}(x, data, dirXY, 
@@ -23,7 +23,7 @@ a combination of \code{\link{panel.violin}} and
             yscale.components=yscale.raster,
             horizontal=FALSE,
             violin=TRUE,
-            par.settings=rasterTheme,
+            par.settings=rasterTheme(),
             ...)
 }
 

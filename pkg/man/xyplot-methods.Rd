@@ -7,7 +7,7 @@
 }
 \usage{
 \S4method{xyplot}{RasterStackBrick,missing}(x, data=NULL, dirXY=y, xlab='Time',
-ylab='', digits=0, par.settings=rasterTheme,...)
+ylab='', digits=0, par.settings=rasterTheme(),...)
 }
 
 \arguments{

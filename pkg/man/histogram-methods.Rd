@@ -26,14 +26,14 @@ Histogram of Raster objects.
               y=list(relation='free',
                 draw=FALSE)),
             strip.names=c(TRUE, TRUE),
-            par.settings=rasterTheme,
+            par.settings=rasterTheme(),
             ...)
 
 \S4method{histogram}{formula,Raster}(x, data, dirXY,
             maxpixels = 1e+05,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
-            par.settings=rasterTheme,...)
+            par.settings=rasterTheme(),...)
 
 }
 \arguments{
