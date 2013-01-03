@@ -1,5 +1,4 @@
-
-                                        # Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
+# Author: Oscar Perpinan Lamigueiro oscar.perpinan@gmail.es
 # Date :  June 2011
 # Version 0.10
 # Licence GPL v3

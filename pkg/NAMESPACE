@@ -41,16 +41,19 @@ import(raster)
 
 
 export(
-       'chooseRegion',
-       'xyLayer',
-       'rasterTheme',
-       'BTCTheme',
-       'GrTheme',
-       'RdBuTheme',
-       'xscale.raster',
-       'yscale.raster',
-       'xscale.raster.subticks',
-       'yscale.raster.subticks'
+  'chooseRegion',
+  'xyLayer',
+  'rasterTheme',
+  'BTCTheme',
+  'GrTheme',
+  'RdBuTheme',
+  'BuRdTheme',
+  'PuOrTheme',
+  'streamTheme',
+  'xscale.raster',
+  'yscale.raster',
+  'xscale.raster.subticks',
+  'yscale.raster.subticks'
        )
 
 exportMethods(
