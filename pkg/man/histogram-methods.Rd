@@ -12,11 +12,11 @@ Histogram of Raster objects.
 }
 
 \usage{
-\S4method{histogram}{RasterLayer,missing}(x, data=NULL, maxpixels = 1e+05, breaks=100, 
+\S4method{histogram}{RasterLayer,missing}(x, data=NULL, maxpixels = 1e+05, nint=100, 
             xlab='', ylab='', main='', col='gray', ...)
 
 \S4method{histogram}{RasterStackBrick,missing}(x, data=NULL, layers, FUN,
-            maxpixels = 1e+05, breaks=100,
+            maxpixels = 1e+05, nint=100,
             xlab='', ylab='', main='', col='gray',
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
@@ -33,6 +33,7 @@ Histogram of Raster objects.
             maxpixels = 1e+05,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
+            strip=TRUE,
             par.settings=rasterTheme(),...)
 
 }
@@ -46,12 +47,12 @@ Histogram of Raster objects.
   \item{FUN}{A function to applied to the \code{z} slot of a
             \code{RasterStackBrick} object. The result of this function
             is used as the grouping variable of the plot.}
-  \item{breaks}{Breaks for the histogram. See the documentation of
+  \item{nint}{Number of breaks for the histogram. See the documentation of
             \code{\link[lattice]{histogram}} at lattice for details.}
   \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
   \item{xlab, ylab, main, col}{Arguments for \code{\link{histogram}}.}
-  \item{between, as.table, xscale.components, yscale.components, scales, strip.names,
-            par.settings}{Graphical parameters of \code{lattice}. See \code{\link{xyplot}} for details.}
+  \item{between, as.table, xscale.components, yscale.components, scales,
+    strip, strip.names, par.settings}{Graphical parameters of \code{lattice}. See \code{\link{xyplot}} for details.}
   \item{\dots}{Additional arguments for \code{\link{histogram}}}
 }
 

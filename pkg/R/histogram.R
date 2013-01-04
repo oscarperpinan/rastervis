@@ -7,12 +7,12 @@
 setGeneric('histogram')
 setMethod('histogram',
           signature(x='RasterLayer', data='missing'),
-          definition=function (x, data=NULL, maxpixels = 1e+05, breaks=100,
+          definition=function (x, data=NULL, maxpixels = 1e+05, nint=100,
             xlab='', ylab='', main='', col='gray',...){
             dat <- raster2dat(x, maxpixels=maxpixels)
             p <- histogram(dat,
                            data=NULL,
-                           breaks=breaks, col=col,
+                           nint=nint, col=col,
                            xlab=xlab, ylab=ylab,
                            main=main, ...)
             p
@@ -23,7 +23,7 @@ setMethod('histogram',
 setMethod('histogram',
           signature(x='RasterStackBrick', data='missing'),
           definition=function (x, data=NULL, layers, FUN,
-            maxpixels = 1e+05, breaks=100,
+            maxpixels = 1e+05, nint=100,
             xlab='', ylab='', main='', col='gray',
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
@@ -46,12 +46,12 @@ setMethod('histogram',
                              xscale.components=xscale.components,
                              yscale.components=yscale.components,
                              scales=scales,
-                             breaks=breaks, col=col,
+                             nint=nint, col=col,
                              xlab=xlab, ylab=ylab, main=main,
                              strip.names=strip.names,
                              ...)
             } else {
-              p <- histogram(x, maxpixels = maxpixels, breaks=breaks,
+              p <- histogram(x, maxpixels = maxpixels, nint=nint,
                              main = main, ylab=ylab, xlab=xlab, col=col,...)
             }
             p
@@ -62,7 +62,8 @@ setMethod('histogram', signature(x='formula', data='Raster'),
           definition=function(x, data, dirXY, maxpixels=1e+05,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
-            par.settings=rasterTheme(),...){
+            strip=TRUE, par.settings=rasterTheme(),
+            ...){
 
             ## names replace layerNames with raster version 2.0-04
             rasterVersion <- as.character(packageVersion('raster'))
@@ -79,7 +80,8 @@ setMethod('histogram', signature(x='formula', data='Raster'),
 
             ## Categorical data
             if (any(isFactor)){
-               df[, isFactor]<- as.factor(levelsData[df[, isFactor]])
+               df[, isFactor] <- as.factor(levelsData[df[, isFactor]])
+               if (isTRUE(strip)) strip <- strip.custom(strip.levels=TRUE)
                }
 
             xLayer <- getValues(init(data, v='x'))
@@ -93,9 +95,10 @@ setMethod('histogram', signature(x='formula', data='Raster'),
             }
 
             p <- histogram(x=x, data=df,
-                             xscale.components=xscale.components,
-                             yscale.components=yscale.components,                            
-                             par.settings=par.settings, ...)
+                           xscale.components=xscale.components,
+                           yscale.components=yscale.components,
+                           strip=strip,
+                           par.settings=par.settings, ...)
             p
           }
-            )
+          )
