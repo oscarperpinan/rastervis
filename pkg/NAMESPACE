@@ -66,6 +66,7 @@ exportMethods(
               "levelplot",
               "contourplot",
               "vectorplot",
+              "streamplot",
               "splom",
               "xyplot",
               "hexbinplot",
