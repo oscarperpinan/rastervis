@@ -125,9 +125,14 @@ setMethod('streamplot',
                                    rightmost.closed=TRUE, all.inside=TRUE)
             ## colClasses <- cut(slopeVals, nClasses)
             ## indCol <- as.numeric(colClasses)
+
+            ## Stream Lines Calculation
             pts <- rbind(pts, indCol)
             h <- streamlet$h
             L <- streamlet$L
+            ## Disable parallel if runinng Windows
+            if (.Platform$OS.type == "windows") parallel <- FALSE
+
             if (parallel && require(parallel)) {
               streamList <- mclapply(pts, streamLine, h=h, L=L,
                                      pal=pars$col, cex=pars$cex,
