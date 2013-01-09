@@ -1,4 +1,124 @@
 ------------------------------------------------------------------------
+r132 | oscarperpi | 2013-01-08 22:50:08 +0100 (mar, 08 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/R/streamplot.R
+
+streamplot: parallel disabled in windows
+
+------------------------------------------------------------------------
+r131 | oscarperpi | 2013-01-04 01:51:48 +0100 (vie, 04 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/DESCRIPTION
+
+Date and version updated
+
+------------------------------------------------------------------------
+r130 | oscarperpi | 2013-01-04 01:49:20 +0100 (vie, 04 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/NAMESPACE
+   A /pkg/R/streamplot.R
+
+New streamplot methods
+
+------------------------------------------------------------------------
+r129 | oscarperpi | 2013-01-04 01:48:52 +0100 (vie, 04 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/R/vectorplot.R
+   M /pkg/man/vectorplot.Rd
+
+Added reverse and maxpixels (different from narrows) in vectorplot
+
+------------------------------------------------------------------------
+r128 | oscarperpi | 2013-01-04 01:44:41 +0100 (vie, 04 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/man/rasterTheme.Rd
+
+Completed help page of rasterTheme after new themes
+
+------------------------------------------------------------------------
+r127 | oscarperpi | 2013-01-04 01:38:20 +0100 (vie, 04 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/R/histogram.R
+   M /pkg/man/histogram-methods.Rd
+
+Fixed bug: nints instead of breaks in histogram
+
+------------------------------------------------------------------------
+r126 | oscarperpi | 2013-01-03 23:24:42 +0100 (jue, 03 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/NAMESPACE
+   M /pkg/R/latticeRaster.R
+   M /pkg/man/rasterTheme.Rd
+
+New themes added.
+
+------------------------------------------------------------------------
+r125 | oscarperpi | 2013-01-03 22:55:01 +0100 (jue, 03 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/man/bwplot-methods.Rd
+   M /pkg/man/densityplot-methods.Rd
+   M /pkg/man/hexbinplot.Rd
+   M /pkg/man/histogram-methods.Rd
+   M /pkg/man/hovmoller-methods.Rd
+   M /pkg/man/levelplot-methods.Rd
+   M /pkg/man/xyplot-methods.Rd
+
+rasterTheme() instead of rasterTheme in Rd
+
+------------------------------------------------------------------------
+r124 | oscarperpi | 2013-01-02 17:53:15 +0100 (mié, 02 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/bwplot.R
+   M /pkg/R/density.R
+   M /pkg/R/hexbinplot.R
+   M /pkg/R/histogram.R
+   M /pkg/R/hovmoller.R
+   M /pkg/R/latticeRaster.R
+   M /pkg/R/levelplot.R
+   M /pkg/R/xyplot.R
+
+rasterTheme() instead of rasterTheme in par.settings
+
+------------------------------------------------------------------------
+r123 | oscarperpi | 2012-12-19 22:15:53 +0100 (mié, 19 dic 2012) | 2 lines
+Changed paths:
+   M /pkg/man/bwplot-methods.Rd
+   M /pkg/man/chooseRegion.Rd
+   M /pkg/man/densityplot-methods.Rd
+   M /pkg/man/gplot-methods.Rd
+   M /pkg/man/hexbinplot.Rd
+   M /pkg/man/histogram-methods.Rd
+   M /pkg/man/horizonplot-methods.Rd
+   M /pkg/man/hovmoller-methods.Rd
+   M /pkg/man/levelplot-methods.Rd
+   M /pkg/man/splom-methods.Rd
+   M /pkg/man/xyplot-methods.Rd
+
+Changed layerNames with names in help pages
+
+------------------------------------------------------------------------
+r120 | oscarperpi | 2012-10-18 23:38:29 +0200 (jue, 18 oct 2012) | 2 lines
+Changed paths:
+   M /pkg/R/latticeRaster.R
+
+New themes added.
+
+------------------------------------------------------------------------
+r119 | oscarperpi | 2012-10-18 16:52:53 +0200 (jue, 18 oct 2012) | 2 lines
+Changed paths:
+   M /pkg/R/histogram.R
+
+Categorical data with histogram (is.factor)
+
+------------------------------------------------------------------------
+r118 | oscarperpi | 2012-10-11 14:51:11 +0200 (jue, 11 oct 2012) | 2 lines
+Changed paths:
+   M /pkg/ChangeLog
+
+Updated ChangeLog. To CRAN.
+
+------------------------------------------------------------------------
 r117 | oscarperpi | 2012-10-11 14:48:40 +0200 (jue, 11 oct 2012) | 2 lines
 Changed paths:
    M /pkg/DESCRIPTION
