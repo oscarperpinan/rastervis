@@ -103,17 +103,19 @@ s <- stack(r1, r2, r3)
 names(s) <- c('R1', 'R2', 'R3')
 
 vectorplot(r1)
-streamplot(r1)
-
 vectorplot(r2, par.settings=RdBuTheme())
-streamplot(r2, par.settings=streamTheme(symbol=brewer.pal(n=5, name='Reds')))
-
 vectorplot(r3, par.settings=PuOrTheme())
-streamplot(r3, par.settings=streamTheme(symbol=brewer.pal(n=5, name='Greens')))
 
+\dontrun{
+## streamplot uses parallel::mclapply except with Windows. Therefore,
+## next code spends more than 60s under Windows.
+
+streamplot(r1)
+streamplot(r2, par.settings=streamTheme(symbol=brewer.pal(n=5, name='Reds')))
+streamplot(r3, par.settings=streamTheme(symbol=brewer.pal(n=5, name='Greens')))
 streamplot(s, layout=c(1, 3), droplet=list(pc=.2), streamlet=list(L=20),
            par.settings=streamTheme(cex=.6))
-
+}
 
 }
 
