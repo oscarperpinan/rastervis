@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="rasterVis"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2012-12-19 22:14:06 CET"/>
+<meta name="generated" content="2013-01-10 16:25:28 CET"/>
 <meta name="author" content="Oscar Perpiñán Lamigueiro"/>
 <meta name="description" content="rasterVis"/>
 <meta name="keywords" content=""/>
@@ -490,26 +490,28 @@ The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for
 
 
 <p>
-The function <code>slopeAspect</code> from <code>raster</code> provides the vector field
+The function <code>terrain</code> from <code>raster</code> provides the vector field
 (gradient) from a scalar field stored in a <code>RasterLayer</code> object. The
 magnitude (slope) and direction (aspect) of the vector field is
 usually displayed with a set of arrows (e.g. <code>quiver</code> in Matlab).
 </p>
 <p>
 <code>rasterVis</code> includes a method, <code>vectorplot</code>, to calculate and display
-this vector field. This method is not restricted to the <code>RasterLayer</code>
-class. 
+this vector field. 
 </p>
 
 
 
-<pre class="src src-R">df <span class="org-constant">&lt;-</span> expand.grid(x=seq(-2, 2, .1), y=seq(-2, 2, .1))
+<pre class="src src-R">proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=longlat +datum=WGS84'</span>)
+df <span class="org-constant">&lt;-</span> expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
+
 df$z <span class="org-constant">&lt;-</span> with(df, (3*x^2 + y)*exp(-x^2-y^2))
+r <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
+</pre>
 
-r <span class="org-constant">&lt;-</span> rasterFromXYZ(df)
-projection(r) <span class="org-constant">&lt;-</span> CRS(<span class="org-string">"+proj=longlat +datum=WGS84"</span>)
 
-vectorplot(r, par.settings=RdBuTheme)
+
+<pre class="src src-R">vectorplot(r, par.settings=RdBuTheme())
 </pre>
 
 
@@ -518,7 +520,57 @@ vectorplot(r, par.settings=RdBuTheme)
 </p>
 <p>
 If the <code>Raster*</code> object passed to <code>vectorplot</code> is a
-vector field (<code>isField=TRUE</code>), the <code>slopeAspect</code> calculation is skipped.
+vector field (<code>isField=TRUE</code>), the <code>terrain</code> calculation is
+skipped.
+</p>
+<p>
+An alternative method to display a vector field plots streamlines
+along the field lines. Streamlines, a family of curves that are
+tangent to the vector field, show the direction an element
+(<i>droplet</i>) will follow under the effect of the field.
+\code{streamplot} displays streamlines with a procedure inspired
+by the <a href="http://christl.cg.tuwien.ac.at/research/vis/dynsys/frolic/frolic_crc.pdf">FROLIC algorithm</a>: for each point
+(\emph{droplet}) of a jittered regular grid, a short streamline
+portion (\emph{streamlet}) is calculated by integrating the
+underlying vector field at that point. The main color of each
+streamlet indicates local vector magnitude
+(\emph{slope}). Besides, streamlets are composed of points whose sizes,
+positions and color degradation encode the local vector direction
+(\emph{aspect}).
+</p>
+
+
+
+<pre class="src src-R">streamplot(r)
+</pre>
+
+
+<p>
+<img src="figs/streamplot.png"  alt="figs/streamplot.png" />
+</p>
+<p>
+<code>streamplot</code> accepts two arguments (<code>droplets</code> and <code>streamlets</code>)
+to control the number of droplets, the length of the streamlets
+and the streamlet calculation step. The streamlet colour
+palette and the panel background color are defined with an
+specific theme for <code>streamplot</code>, <code>streamTheme</code>. The default
+options can be changed easily:
+</p>
+
+
+
+<pre class="src src-R">df$z <span class="org-constant">&lt;-</span> with(df, sqrt(x^2 + y^2))
+df$phi <span class="org-constant">&lt;-</span> with(df, atan2(-y, x))
+r2 <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
+
+streamplot(r2, isField=<span class="org-type">TRUE</span>, streamlet=list(L=30), droplet=list(pc=.3),
+           par.settings=streamTheme(symbol=brewer.pal(n=5, name=<span class="org-string">'Reds'</span>)))
+
+</pre>
+
+
+<p>
+<img src="figs/streamplotReds.png"  alt="figs/streamplotReds.png" />
 </p>
 </div>
 
@@ -572,7 +624,7 @@ be highlighted and returned as a SpatialPoints object.
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2012-12-19 22:14:06 CET</p>
+<p class="date">Date: 2013-01-10 16:25:28 CET</p>
 <p class="author">Author: Oscar Perpiñán Lamigueiro</p>
 <p class="creator">Org version 7.8.11 with Emacs version 24</p>
 <a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
