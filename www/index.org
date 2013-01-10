@@ -307,7 +307,7 @@ An alternative method to display a vector field plots streamlines
 along the field lines. Streamlines, a family of curves that are
 tangent to the vector field, show the direction an element
 (/droplet/) will follow under the effect of the field.
-\code{streamplot} displays streamlines with a procedure inspired
+=streamplot= displays streamlines with a procedure inspired
 by the [[http://christl.cg.tuwien.ac.at/research/vis/dynsys/frolic/frolic_crc.pdf][FROLIC algorithm]]: for each point
 (/droplet/) of a jittered regular grid, a short streamline
 portion (/streamlet/) is calculated by integrating the
