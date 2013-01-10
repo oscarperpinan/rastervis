@@ -258,23 +258,69 @@ dev.off()
 ##   :CUSTOM_ID: vectorplot
 ##   :END: 
 
-## The function =slopeAspect= from =raster= provides the vector field
+## The function =terrain= from =raster= provides the vector field
 ## (gradient) from a scalar field stored in a =RasterLayer= object. The
 ## magnitude (slope) and direction (aspect) of the vector field is
 ## usually displayed with a set of arrows (e.g. =quiver= in Matlab).
 
 ## =rasterVis= includes a method, =vectorplot=, to calculate and display
-## this vector field. This method is not restricted to the =RasterLayer=
-## class.
+## this vector field.
 
-pdf(file="figs/vectorplot.pdf")
-df <- expand.grid(x=seq(-2, 2, .1), y=seq(-2, 2, .1))
+proj <- CRS('+proj=longlat +datum=WGS84')
+df <- expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
+
 df$z <- with(df, (3*x^2 + y)*exp(-x^2-y^2))
+r <- rasterFromXYZ(df, crs=proj)
 
-r <- rasterFromXYZ(df)
-projection(r) <- CRS("+proj=longlat +datum=WGS84")
+## #+RESULTS:
 
-vectorplot(r, par.settings=RdBuTheme)
+png(filename="figs/vectorplot.png")
+vectorplot(r, par.settings=RdBuTheme())
+dev.off()
+
+## #+RESULTS:
+## [[file:figs/vectorplot.png]]
+
+## If the =Raster*= object passed to =vectorplot= is a
+## vector field (=isField=TRUE=), the =terrain= calculation is
+## skipped.
+
+## An alternative method to display a vector field plots streamlines
+## along the field lines. Streamlines, a family of curves that are
+## tangent to the vector field, show the direction an element
+## (/droplet/) will follow under the effect of the field.
+## \code{streamplot} displays streamlines with a procedure inspired
+## by the [[http://christl.cg.tuwien.ac.at/research/vis/dynsys/frolic/frolic_crc.pdf][FROLIC algorithm]]: for each point
+## (/droplet/) of a jittered regular grid, a short streamline
+## portion (/streamlet/) is calculated by integrating the
+## underlying vector field at that point. The main color of each
+## streamlet indicates local vector magnitude
+## (=slope=). Besides, streamlets are composed of points whose sizes,
+## positions and color degradation encode the local vector direction
+## (=aspect=).
+
+png(filename="figs/streamplot.png")
+streamplot(r)
+dev.off()
+
+## #+RESULTS:
+## [[file:figs/streamplot.png]]
+
+## =streamplot= accepts two arguments (=droplets= and =streamlets=)
+## to control the number of droplets, the length of the streamlets
+## and the streamlet calculation step. The streamlet colour
+## palette and the panel background color are defined with an
+## specific theme for =streamplot=, =streamTheme=. The default
+## options can be changed easily:
+
+png(filename="figs/streamplotReds.png")
+df$z <- with(df, sqrt(x^2 + y^2))
+df$phi <- with(df, atan2(-y, x))
+r2 <- rasterFromXYZ(df, crs=proj)
+
+streamplot(r2, isField=TRUE, streamlet=list(L=30), droplet=list(pc=.3),
+           par.settings=streamTheme(symbol=brewer.pal(n=5, name='Reds')))
+
 dev.off()
 
 ## Interaction
