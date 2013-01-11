@@ -90,6 +90,7 @@
 \author{Oscar Perpiñán Lamigueiro}
 \seealso{\code{\link{panel.arrows}}, \code{\link{levelplot}}, \code{\link{terrain}}}
 \examples{
+\dontrun{
 proj <- CRS('+proj=longlat +datum=WGS84')
 
 df <- expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
@@ -106,7 +107,7 @@ vectorplot(r1)
 vectorplot(r2, par.settings=RdBuTheme())
 vectorplot(r3, par.settings=PuOrTheme())
 
-\dontrun{
+
 ## streamplot uses parallel::mclapply except with Windows. Therefore,
 ## next code spends more than 60s under Windows.
 
