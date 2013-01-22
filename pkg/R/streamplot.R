@@ -10,7 +10,8 @@ setMethod('streamplot',
             droplet = list(), streamlet = list(),
             par.settings=streamTheme(),
             isField = FALSE, reverse=FALSE, ##unit = 'radians',
-            parallel=TRUE, ...){
+            parallel=TRUE, mc.cores=detectCores(), cl,
+            ...){
             stopifnot(is.list(droplet))
             stopifnot(is.list(streamlet))
             ## uniVector extracts the unitary vector at point
@@ -130,16 +131,22 @@ setMethod('streamplot',
             pts <- rbind(pts, indCol)
             h <- streamlet$h
             L <- streamlet$L
-            ## Disable parallel if runinng Windows
-            if (.Platform$OS.type == "windows") parallel <- FALSE
 
+            ## Forking does not work with Windows
+            if (.Platform$OS.type == "windows" & missing(cl)) parallel <- FALSE
+            
             if (parallel && require(parallel)) {
-              streamList <- mclapply(pts, streamLine, h=h, L=L,
-                                     pal=pars$col, cex=pars$cex,
-                                     mc.cores=detectCores())
-            } else {
+              if (!missing(cl)) { ## parallel with a cluster
+                streamList <- parLapply(cl, pts, streamLine, h=h, L=L,
+                                        pal=pars$col, cex=pars$cex)
+              } else { ## parallel with forking
+                streamList <- mclapply(pts, streamLine, h=h, L=L,
+                                       pal=pars$col, cex=pars$cex,
+                                       mc.cores=mc.cores)
+              }
+            } else { ## without parallel
               streamList <- lapply(pts, streamLine, h=h, L=L,
-                                     pal=pars$col, cex=pars$cex)
+                                   pal=pars$col, cex=pars$cex)
             }
 
             ## Points with low slope values are displayed earlier
@@ -183,10 +190,11 @@ setMethod('streamplot',
             droplet = list(), streamlet = list(),
             par.settings=streamTheme(),
             isField = FALSE, reverse=FALSE, ##unit = 'radians',
-            parallel=TRUE, ...){
+            parallel=TRUE, mc.cores=detectCores(), cl,
+            ...){
             if (isField) callNextMethod(object, layers, droplet, streamlet,
                                         par.settings, isField=TRUE, reverse,
-                                        parallel, ...)
+                                        parallel, mc.cores, cl, ...)
             else {
               if (!missing(layers)) {
                 object <- subset(object, subset=layers)
@@ -194,8 +202,10 @@ setMethod('streamplot',
               streamplotList <- lapply(unstack(object), streamplot,
                                        ## layers=layers,
                                        droplet=droplet, streamlet=streamlet,
-                                       par.settings=par.settings, parallel=parallel,
-                                       isField=FALSE, reverse=reverse, ...)##unit=unit, ...)
+                                       par.settings=par.settings,
+                                       isField=FALSE, reverse=reverse, 
+                                       parallel=parallel, mc.cores=mc.cores,
+                                       cl, ...)
               names(streamplotList) <- names(object)
               dots <- list(...)
               streamplotList <- c(streamplotList, dots)

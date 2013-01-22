@@ -32,13 +32,15 @@
             droplet = list(), streamlet = list(),
             par.settings=streamTheme(),
             isField = FALSE, reverse=FALSE, 
-            parallel=TRUE, ...)
+            parallel=TRUE, mc.cores=detectCores(), cl,
+            ...)
 
 \S4method{streamplot}{RasterStack}(object, layers,
             droplet = list(), streamlet = list(),
             par.settings=streamTheme(),
             isField = FALSE, reverse=FALSE, 
-            parallel=TRUE, ...)
+            parallel=TRUE, mc.cores=detectCores(), cl,
+            ...)
 }
 
 \arguments{
@@ -69,6 +71,11 @@
 
 \item{parallel}{Logical, TRUE (default) to use \code{\link{parallel}}
   package.}
+\item{cl}{a cluster object. Read the help page of
+  \code{\link{parLapply}} for details.}
+\item{mc.cores}{The number of cores to use if \code{parallel=TRUE} and
+  no \code{cl} is provided. Read the help page of \code{\link{mclapply}}
+  for details.}
   \item{region}{Logical, if \code{TRUE} the region is displayed with
   \code{vectorplot} using \code{panel.levelplot.raster}}
 \item{reverse}{Logical, TRUE if arrows or streamlets go against the direction
@@ -88,7 +95,14 @@
   }
   
 \author{Oscar Perpiñán Lamigueiro}
-\seealso{\code{\link{panel.arrows}}, \code{\link{levelplot}}, \code{\link{terrain}}}
+
+\seealso{\code{\link{panel.arrows}},
+  \code{\link{levelplot}},
+  \code{\link{terrain}},
+  \code{\link{mclapply}},
+  \code{\link{parLapply}}
+}
+
 \examples{
 \dontrun{
 proj <- CRS('+proj=longlat +datum=WGS84')
@@ -108,12 +122,25 @@ vectorplot(r2, par.settings=RdBuTheme())
 vectorplot(r3, par.settings=PuOrTheme())
 
 
-## streamplot uses parallel::mclapply except with Windows. Therefore,
-## next code spends more than 60s under Windows.
-
+## If no cluster is provided, streamplot uses parallel::mclapply except
+## with Windows. Therefore, next code could spend a long time under
+## Windows.
 streamplot(r1)
-streamplot(r2, par.settings=streamTheme(symbol=brewer.pal(n=5, name='Reds')))
-streamplot(r3, par.settings=streamTheme(symbol=brewer.pal(n=5, name='Greens')))
+
+## With a cluster
+hosts <- rep('localhost', 4)
+cl <- makeCluster(hosts)
+streamplot(r2, cl=cl,
+           par.settings=streamTheme(symbol=brewer.pal(n=5,
+                                                      name='Reds')))
+stopCluster(cl)
+
+## Without parallel
+streamplot(r3, parallel=FALSE,
+           par.settings=streamTheme(symbol=brewer.pal(n=5,
+                                                      name='Greens')))
+
+## Configuration of droplets and streamlets
 streamplot(s, layout=c(1, 3), droplet=list(pc=.2), streamlet=list(L=20),
            par.settings=streamTheme(cex=.6))
 }
