@@ -1,6 +1,4 @@
 # Author: Oscar Perpinan Lamigueiro oscar.perpinan@gmail.es
-# Date :  June 2011
-# Version 0.10
 # Licence GPL v3
 
 
@@ -146,24 +144,3 @@ raster2dat <- function(x, FUN, maxpixels){
     dat ##nl==1 --> raster2dat gives a vector 
   }
 }
-
-##################################################################
-## LITERAL COPY FROM sp
-##################################################################
-degreeLabelsEW <- function (x) {
-  x <- ifelse(x > 180, x - 360, x)
-  pos = sign(x) + 2
-  if (any(x == -180)) 
-    pos[x == -180] = 2
-  if (any(x == 180)) 
-    pos[x == 180] = 2
-  dir = c("*W", "", "*E")
-  paste(abs(x), "*degree", dir[pos])
-}
-
-degreeLabelsNS <- function(x) {
-  pos = sign(x) + 2
-  dir = c("*S", "", "*N")
-  paste(abs(x), "*degree", dir[pos])
-}
-##################################################################
