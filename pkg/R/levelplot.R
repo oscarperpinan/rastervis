@@ -66,7 +66,9 @@ setMethod('levelplot',
               dat <- log(dat, zlogbase)
             }
             ## Calculate the range (for zscale.components)
-            zlim <- lattice:::extend.limits(range(dat, finite=TRUE))
+            zlim <- extendrange(dat,
+                                f=lattice.getOption("axis.padding")$numeric)
+            ##lattice:::extend.limits(range(dat, finite=TRUE))
             
             ## Convert to a data.frame for conventional levelplot  
             dat <- as.data.frame(dat)
