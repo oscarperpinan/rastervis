@@ -29,7 +29,10 @@ importFrom(hexbin,
 
 
 importClassesFrom(sp, SpatialPoints)
-importFrom(sp, SpatialPoints)
+importFrom(sp,
+           SpatialPoints,
+           degreeLabelsNS,
+           degreeLabelsEW)
 
 importFrom(zoo,
            zoo)##,
