@@ -38,7 +38,8 @@ The direction defined by \code{dirXY} and the function \code{FUN} allows
 for a variety of diagrams with this method.
 }
 \author{Oscar Perpiñán Lamigueiro}
-\seealso{\code{\link[lattice]{levelplot}}, \code{\link{zonal}}
+\seealso{\code{\link[lattice]{levelplot}},
+  \code{\link{zonal}}, \code{\link{panel.2dsmoother}}
   }
 \keyword{methods}
 \references{\itemize{
@@ -67,11 +68,20 @@ idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 SISmm <- setZ(stackSIS, idx)
 names(SISmm) <- month.abb
 
-hovmoller(SISmm, dirXY=y, xlab='Latitude')##latitude
-hovmoller(SISmm, dirXY=y, labels=FALSE, xlab='Latitude')##without labels
-hovmoller(SISmm, dirXY=y, add.contour=FALSE, xlab='Latitude')##without contours
+## Latitude as default
+hovmoller(SISmm, xlab='Latitude')
 
-hovmoller(SISmm, dirXY=sqrt(x^2+y^2))##a function of coordinates...
+## With contour lines and labels
+hovmoller(SISmm, labels=TRUE, add.contour=TRUE,
+          xlab='Latitude')
+
+## Smooth color regions with latticeExtra::panel.2dsmoother
+hovmoller(SISmm, panel=panel.2dsmoother, n=1000,
+          labels=FALSE, add.contour=TRUE,
+          xlab='Latitude')
+
+## Using a function of coordinates
+hovmoller(SISmm, dirXY=sqrt(x^2+y^2))
 }
 
 \dontrun{
