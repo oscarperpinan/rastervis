@@ -1,6 +1,4 @@
-# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
-# Date :  June 2011
-# Version 0.10
+# Author: Oscar Perpinan Lamigueiro oscar.perpinan@gmail.com
 # Licence GPL v3
 
 setGeneric('levelplot')
@@ -8,7 +6,7 @@ setGeneric('levelplot')
 setMethod('levelplot',
           signature(x='Raster', data='missing'),
           definition=function(x, data=NULL, layers,
-            margin=!(any(is.factor(x))), FUN.margin=mean, 
+            margin=!(any(is.factor(x))), FUN.margin=mean,
             maxpixels=1e5,
             par.settings=rasterTheme(),
             between=list(x=0.5, y=0.2),
@@ -23,28 +21,21 @@ setMethod('levelplot',
             panel=panel.levelplot,
             contour=FALSE, region=TRUE, labels=FALSE,
             ...) {
-            
+
             if (!missing(layers)) {
               object <- subset(x, subset=layers)
             } else {object <- x}
 
-            ## names replace layerNames with raster version 2.0-04
-            rasterVersion <- as.character(packageVersion('raster'))
-            objNames <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(object) else names(object)
-            nms <- make.names(objNames)
+
+            ## The plot display a sample of the whole object defined with maxpixels
+            objectSample <- sampleRegular(object, size=maxpixels, asRaster=TRUE)
+            ## Convert to a data.frame for conventional levelplot
+            df <- as.data.frame(objectSample, xy=TRUE)
+            dat <- df[, -c(1, 2)]
 
             ## Is factor?
             isFactor <- all(is.factor(object)) ## TODO: different individual layers
 
-            ## The plot display a sample of the whole object defined with maxpixels
-            dat <- sampleRegular(object, size=maxpixels, asRaster=TRUE)
-            ##Extract coordinates from (sampled) raster
-            coords <- xyFromCell(dat, seq_len(ncell(dat)))
-            
-            ## Extract values 
-            dat <- getValues(dat)
-
-            
             ## If zscale is not NULL, transform the values and choose a function
             ## to calculate the labels
             if (!is.null(zscaleLog) && !isFactor){
@@ -69,22 +60,17 @@ setMethod('levelplot',
             zlim <- extendrange(dat,
                                 f=lattice.getOption("axis.padding")$numeric)
             ##lattice:::extend.limits(range(dat, finite=TRUE))
-            
-            ## Convert to a data.frame for conventional levelplot  
-            dat <- as.data.frame(dat)
-            names(dat) <- nms
-            df <- cbind(coords, dat)
-            
+
             ##aspect and scales(from sp:::spplot.grid, sp:::longlat.scales, sp:::mapasp)
             bb <- extent(object)
             xlim=c(bb@xmin, bb@xmax)
             ylim=c(bb@ymin, bb@ymax)
-  
+
             if (isLonLat(object)){
-              
+
               if (xlab=='') xlab='Longitude'
               if (ylab=='') ylab='Latitude'
-            
+
               aspect=(diff(ylim)/diff(xlim))/cos((mean(ylim) * pi)/180)
 
               xscale.components <- if (identical(xscale.components, xscale.raster))
@@ -98,13 +84,13 @@ setMethod('levelplot',
               else if (identical(yscale.components, yscale.raster.subticks))
                 yscale.raster.NSsubticks
               else yscale.components
-              
+
             } else { ## !isLonLat
               aspect='iso'
             }
 
             if (region==FALSE) colorkey=FALSE
-           
+
             has.colorkey <- (is.logical(colorkey) && colorkey) || is.list(colorkey)
             ##            if (region==TRUE && !has.colorkey) colorkey=has.colorkey=TRUE
             has.margin <- nlayers(object)==1 && margin
@@ -122,7 +108,7 @@ setMethod('levelplot',
                 }
               }
             }
-            
+
             ## Some fixes for the margin
             if (has.margin){
               if (is.function(par.settings)) par.settings <- par.settings()
@@ -195,37 +181,37 @@ setMethod('levelplot',
                                   region=FALSE, contour=TRUE)
               }
             }
-            
+
             ## And finally, the levelplot call
             if (missing(names.attr)){
-              names.attr <- objNames
+              names.attr <- names(dat)
             } else {
               if (length(names.attr) != nlayers(object))
                 stop('Length of names.attr should match number of layers.')
             }
-            
+
             p <- levelplot(form, data=df,
                            scales=scales,
                            aspect=aspect,
-                           xlab=xlab, ylab=ylab, main = main, 
+                           xlab=xlab, ylab=ylab, main = main,
                            par.settings=par.settings,
                            between=between,
                            as.table=as.table,
                            xscale.components=xscale.components,
                            yscale.components=yscale.components,
-                           colorkey=colorkey, 
+                           colorkey=colorkey,
                            contour=contour, region=region, labels=labels,
                            strip=strip.custom(factor.levels=names.attr),
                            ## The panel depends on zscaleLog and contour
                            panel=if (!is.null(zscaleLog) && has.contour && !isFactor) {
-                             panelMixed 
+                             panelMixed
                            } else {
-                             requestedPanel 
+                             requestedPanel
                            },
                            ...)
 
             if (isFactor) p <- update(p, at=my.at)
-            
+
             ## with the margins if needed
             if (nlayers(object)==1 && margin) {
               marginsLegend <- list(right=list(
@@ -237,7 +223,7 @@ setMethod('levelplot',
                                     )
               if (is.null(p$legend)) p$legend <- list()
               p$legend <- modifyList(p$legend, marginsLegend)
-              
+
             }
             p
           }
