@@ -76,8 +76,11 @@
 
     \code{levelplot} displays categorical data with a convenient
   legend. You should use \code{\link{ratify}} to define a layer as a
-  categorical variable. See the examples below for details.
-}
+  categorical variable. It is able to display multilayer categorical
+  rasters \bold{only if} they share the same RAT (Raster Attribute
+  Table). \code{levelplot} is not able to display multilayer rasters
+  with factor \bold{and} numeric layers. See \code{\link{ratify}} and the
+  examples below for details.  }
   
 \author{Oscar Perpiñán Lamigueiro}
 \seealso{\code{\link{spplot}}, \code{\link[lattice]{levelplot}}}
@@ -127,8 +130,8 @@ levelplot(r, par.settings=BTCTheme,
 ## Categorical data
 r <- raster(nrow=10, ncol=10)
 r[] = 1
-r[51:100] = 2
-r[3:6, 1:5] = 3
+r[51:100] = 3
+r[3:6, 1:5] = 5
 r <- ratify(r)
      
 rat <- levels(r)[[1]]
@@ -137,6 +140,21 @@ levels(r) <- rat
 r
 
 levelplot(r, col.regions=c('palegreen', 'midnightblue', 'indianred1'))
+
+r2 <- raster(r)
+r2[] = 3
+r2[51:100] = 1
+r2[3:6, 1:5] = 5
+
+r3 <- init(r, function(n)sample(c(1, 3, 5), n, replace=TRUE))
+
+## Multilayer categorical Raster* are displayed only if their RATs are the same
+levels(r2) <- levels(r3) <- levels(r)
+
+s <- stack(r, r2, r3)
+names(s) <- c('A', 'B', 'C')
+
+levelplot(s)
 
 
 \dontrun{
