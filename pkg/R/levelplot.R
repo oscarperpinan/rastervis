@@ -42,16 +42,19 @@ setMethod('levelplot',
               }
               if (isFactor) {
                   rat <- levels(object)
-                  if (length(rat)>1) {
-                      ## It works correctly only if all the layers
-                      ## share the same RAT
-                      if (any(!duplicated(rat)[-1])) {
-                          stop('all the layers must share the same RAT.')
-                      } else rat <- rat[[1]]
+                  ## It works correctly only if all the layers
+                  ## share the same RAT
+                  if (length(rat)>1 && any(!duplicated(rat)[-1])){
+                      stop('all the layers must share the same RAT.')
                   } else rat <- rat[[1]]
                   datLevels <- rat[,2]
-                  dat <- as.data.frame(lapply(dat, factor, levels=datLevels))
-                  dat <- sapply(dat, as.numeric)
+                  if (nlayers(object)>1){
+                      dat <- as.data.frame(lapply(dat, factor, levels=datLevels))
+                      dat <- sapply(dat, as.numeric)
+                  } else {
+                      dat <- factor(dat, levels=datLevels)
+                      dat <- as.numeric(dat)
+                  }
               }
 
               ## If zscale is not NULL, transform the values and choose a function
@@ -146,7 +149,7 @@ setMethod('levelplot',
 
 
               if (isFactor) {
-                  rng <- range(dat)
+                  rng <- range(dat, na.rm=TRUE)
                   ## define the breaks
                   my.at <- seq(rng[1]-1, rng[2])
                   if (has.colorkey){
