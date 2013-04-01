@@ -32,14 +32,14 @@
             droplet = list(), streamlet = list(),
             par.settings=streamTheme(),
             isField = FALSE, reverse=FALSE, 
-            parallel=TRUE, mc.cores=detectCores(), cl,
+            parallel=TRUE, mc.cores=detectCores(), cl=NULL,
             ...)
 
 \S4method{streamplot}{RasterStack}(object, layers,
             droplet = list(), streamlet = list(),
             par.settings=streamTheme(),
             isField = FALSE, reverse=FALSE, 
-            parallel=TRUE, mc.cores=detectCores(), cl,
+            parallel=TRUE, mc.cores=detectCores(), cl=NULL,
             ...)
 }
 

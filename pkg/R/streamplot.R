@@ -10,7 +10,7 @@ setMethod('streamplot',
             droplet = list(), streamlet = list(),
             par.settings=streamTheme(),
             isField = FALSE, reverse=FALSE, ##unit = 'radians',
-            parallel=TRUE, mc.cores=detectCores(), cl,
+            parallel=TRUE, mc.cores=detectCores(), cl=NULL,
             ...){
             stopifnot(is.list(droplet))
             stopifnot(is.list(streamlet))
@@ -44,7 +44,7 @@ setMethod('streamplot',
             ## the result, therefore total length is 2*(L*h) + 1).
             streamLine <- function(p, h=0.5, L=10, pal, cex){
               ## Color class
-              cl <- p[3]
+              colClass <- p[3]
               ## Coordinates
               p <- matrix(p[1:2], ncol=2)
               ## Forward direction
@@ -73,14 +73,14 @@ setMethod('streamplot',
               else stream <- list(x=pts[,1], y=pts[,2])
               ## Color and size
               ncolors <- length(stream$x)
-              color <- pal[cl]
+              color <- pal[colClass]
               stream$colors <- rev(colorRampPalette(c(color, 'gray50'))(ncolors))
               stream$cexs <- seq(.3, cex, length=ncolors)
               stream
             }
 
             if (isField) {
-              field <- object 
+              field <- object
               } else {
               field <- terrain(object, opt = c("slope", "aspect"))##, unit=unit)
               }
@@ -90,7 +90,7 @@ setMethod('streamplot',
             aspectVals <- as.matrix(subset(field, 2))
             ## Should streamlets go from sinks to sources?
             if (reverse) aspectVals <- aspectVals + pi
-            
+
             ## Droplets and streamlets configuration
             default.droplet <- list(cropExtent = .97, pc = .5)
             droplet <- modifyList(default.droplet, droplet)
@@ -133,10 +133,10 @@ setMethod('streamplot',
             L <- streamlet$L
 
             ## Forking does not work with Windows
-            if (.Platform$OS.type == "windows" & missing(cl)) parallel <- FALSE
-            
+            if (.Platform$OS.type == "windows" & is.null(cl)) parallel <- FALSE
+
             if (parallel && require(parallel)) {
-              if (!missing(cl)) { ## parallel with a cluster
+              if (!is.null(cl)) { ## parallel with a cluster
                 streamList <- parLapply(cl, pts, streamLine, h=h, L=L,
                                         pal=pars$col, cex=pars$cex)
               } else { ## parallel with forking
@@ -154,11 +154,11 @@ setMethod('streamplot',
             streamList <- streamList[order(slopeVals)]
 
             ## key <- list(space='right', at=colClasses, col=pal)
-            
+
             p <- levelplot(object, layers=1,
                            margin=FALSE, colorkey=FALSE,
-                           par.settings=par.settings) + ##,
-                           ##colorkey=key) + 
+                           par.settings=par.settings, ...) + ##,
+                           ##colorkey=key) +
                              layer(lapply(streamList, function(streamlet){
                                panel.points(streamlet$x, streamlet$y,
                                             col=streamlet$colors, cex=streamlet$cexs)
@@ -190,7 +190,7 @@ setMethod('streamplot',
             droplet = list(), streamlet = list(),
             par.settings=streamTheme(),
             isField = FALSE, reverse=FALSE, ##unit = 'radians',
-            parallel=TRUE, mc.cores=detectCores(), cl,
+            parallel=TRUE, mc.cores=detectCores(), cl=NULL,
             ...){
             if (isField) callNextMethod(object, layers, droplet, streamlet,
                                         par.settings, isField=TRUE, reverse,
@@ -203,7 +203,7 @@ setMethod('streamplot',
                                        ## layers=layers,
                                        droplet=droplet, streamlet=streamlet,
                                        par.settings=par.settings,
-                                       isField=FALSE, reverse=reverse, 
+                                       isField=FALSE, reverse=reverse,
                                        parallel=parallel, mc.cores=mc.cores,
                                        cl, ...)
               names(streamplotList) <- names(object)
