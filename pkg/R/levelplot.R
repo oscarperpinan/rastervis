@@ -158,6 +158,7 @@ setMethod('levelplot',
                       colorkey <- modifyList(colorkey,
                                              list(
                                              at=my.at,
+                                             height=min(1, 0.05*length(datLevels)),
                                              labels=
                                              list(labels=datLevels,
                                                   at=my.labs.at)))
