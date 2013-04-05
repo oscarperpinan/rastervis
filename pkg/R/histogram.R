@@ -65,10 +65,6 @@ setMethod('histogram', signature(x='formula', data='Raster'),
             strip=TRUE, par.settings=rasterTheme(),
             ...){
 
-            ## names replace layerNames with raster version 2.0-04
-            rasterVersion <- as.character(packageVersion('raster'))
-            nms <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(data) else names(data)
-
             nl <- nlayers(data)
             isFactor <- which(is.factor(data))
             levelsData <- levels(data)[[isFactor]][[1]][,2]
