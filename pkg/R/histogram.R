@@ -70,29 +70,22 @@ setMethod('histogram', signature(x='formula', data='Raster'),
             nms <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(data) else names(data)
 
             nl <- nlayers(data)
-            isFactor <- is.factor(data)
-            levelsData <- levels(data)[[which(isFactor)]][[1]][,2]
+            isFactor <- which(is.factor(data))
+            levelsData <- levels(data)[[isFactor]][[1]][,2]
 
-            data <- sampleRegular(data, maxpixels, asRaster=TRUE)
-            df <- getValues(data)
-            df <- as.data.frame(df)
-            names(df) <- make.names(nms)
+            if (!missing(dirXY)) {
+              dirXY <- xyLayer(data, dirXY=substitute(dirXY))
+              names(dirXY) <- 'dirXY'
+              data <- stack(data, dirXY)
+            }
+
+            df <- as.data.frame(sampleRegular(data, maxpixels, xy=TRUE))
 
             ## Categorical data
             if (any(isFactor)){
-               df[, isFactor] <- as.factor(levelsData[df[, isFactor]])
+               df[, isFactor + 2] <- as.factor(levelsData[df[, isFactor + 2]])
                if (isTRUE(strip)) strip <- strip.custom(strip.levels=TRUE)
                }
-
-            xLayer <- getValues(init(data, v='x'))
-            yLayer <- getValues(init(data, v='y'))
-
-            df <- cbind(data.frame(x=xLayer, y=yLayer), df)
-
-            if (!missing(dirXY)) {
-              dirXY <- getValues(xyLayer(data, dirXY=substitute(dirXY)))
-              df <- cbind(df, dirXY)
-            }
 
             p <- histogram(x=x, data=df,
                            xscale.components=xscale.components,
