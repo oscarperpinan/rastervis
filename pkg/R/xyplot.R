@@ -8,7 +8,7 @@ setGeneric('xyplot')
 
 setMethod('xyplot',
           signature(x='RasterStackBrick', data='missing'),
-          definition=function(x, data=NULL, dirXY=y,
+          definition=function(x, data=NULL, dirXY=y, stat='mean',
             xlab='Time', ylab='', digits=0,
             par.settings=rasterTheme(),...){
 
@@ -16,7 +16,7 @@ setMethod('xyplot',
             if (is.null(idx)) stop('z slot of the object is NULL.')
 
             dirLayer <- xyLayer(x, dirXY=substitute(dirXY))
-            z <- zonal(x, dirLayer, mean, digits=digits)
+            z <- zonal(x, dirLayer, stat, digits=digits)
             nRows <- nrow(z)
             zz <- as.data.frame(t(z[,-1]), row.names='')
             names(zz) <- z[,1]
@@ -59,7 +59,7 @@ setMethod('xyplot', signature(x='formula', data='Raster'),
             p <- xyplot(x=x, data=df,
                         alpha=alpha,
                         xscale.components=xscale.components,
-                        yscale.components=yscale.components,                            
+                        yscale.components=yscale.components,
                         par.settings=par.settings, ...)
             p
           }

@@ -6,21 +6,26 @@
 \description{Scatter plots of space-time Raster objects for directions defined by \code{xyLayer}
 }
 \usage{
-\S4method{xyplot}{RasterStackBrick,missing}(x, data=NULL, dirXY=y, xlab='Time',
-ylab='', digits=0, par.settings=rasterTheme(),...)
+\S4method{xyplot}{RasterStackBrick,missing}(x, data=NULL, dirXY=y,
+       stat='mean', xlab='Time', ylab='',
+       digits=0, par.settings=rasterTheme(),...)
 }
 
 \arguments{
 \item{x}{A \code{RasterStackBrick} object whose \code{z} slot is not \code{NULL}.}
 \item{data}{Not used.}
 \item{dirXY}{A direction as a function of the coordinates (see
-\code{\link{xyLayer}}).}
+  \code{\link{xyLayer}}).}
+\item{stat}{a function to be applied to summarize the values by
+  zone. See \code{\link{zonal}} for details.}
 \item{xlab, ylab}{Labels of the axis.}
 \item{par.settings}{Customization of \code{lattice}. See \code{xyplot}
 for details.}
 \item{digits}{An integer, number of digits for \code{\link{zonal}}.}
 \item{\dots}{Additional arguments for the \code{xyplot} function.}
 }
+
+\seealso{zonal}
 
 \author{Oscar Perpiñán Lamigueiro}
 
