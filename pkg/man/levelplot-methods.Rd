@@ -12,7 +12,7 @@
 \usage{
 \S4method{levelplot}{Raster,missing}(x, data=NULL, layers,
             margin=!(any(is.factor(x))), FUN.margin=mean, 
-            maxpixels=1e5,
+            maxpixels=1e5, att=1,
             par.settings=rasterTheme(),
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
@@ -42,7 +42,9 @@
   \code{y}. Each of these components is a numeric vector of length 2
   defining the range for each marginal plot. If
   \code{scales.margin=NULL} the range is internally computed.}
-  \item{maxpixels}{A numeric, for \code{\link{sampleRegular}}.}
+\item{maxpixels}{A numeric, for \code{\link{sampleRegular}}.}
+\item{att}{A numeric, which variable in the RAT table
+          should be used.}
   \item{xlab, ylab, main}{Arguments for \code{\link{levelplot}}.}
   \item{names.attr}{Character, names to use in each panel. If missing its
   default value is the result of \code{names(x)} (after subsetting

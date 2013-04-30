@@ -7,7 +7,7 @@ setMethod('levelplot',
           signature(x='Raster', data='missing'),
           definition = function(x, data=NULL, layers,
           margin=!(any(is.factor(x))), FUN.margin=mean,
-          maxpixels=1e5,
+          maxpixels=1e5, att=1L,
           par.settings=rasterTheme(),
           between=list(x=0.5, y=0.2),
           as.table=TRUE,
@@ -30,9 +30,6 @@ setMethod('levelplot',
 
               ## The plot display a sample of the whole object defined with maxpixels
               objectSample <- sampleRegular(object, size=maxpixels, asRaster=TRUE)
-              ## Convert to a data.frame for conventional levelplot
-              df <- as.data.frame(objectSample, xy=TRUE)
-              dat <- df[, -c(1, 2)]
 
               ## Is factor?
               factorLayers <- is.factor(object)
@@ -46,15 +43,28 @@ setMethod('levelplot',
                   ## share the same RAT
                   if (length(rat)>1 && any(!duplicated(rat)[-1])){
                       stop('all the layers must share the same RAT.')
-                  } else rat <- rat[[1]]
-                  datLevels <- rat[,2]
-                  if (nlayers(object)>1){
-                      dat <- as.data.frame(lapply(dat, factor, levels=datLevels))
-                      dat <- sapply(dat, as.numeric)
                   } else {
-                      dat <- factor(dat, levels=datLevels)
-                      dat <- as.numeric(dat)
+                      rat <- rat[[1]]
                   }
+                  ## choose which level to use for the legend
+                  if (att + 1 > ncol(rat)) {
+                      stop('att is higher than the number of columns of the RAT. ')
+                  } else {
+                      datLevels <- rat[,att + 1]
+                  }
+                  dat <- getValues(objectSample)
+                  if (nlayers(object)>1){
+                      dat <- apply(dat, 2, FUN=function(x)as.numeric(factor(x)))
+                  } else {
+                      dat <- as.numeric(factor(dat))
+                  }
+                  dat <- as.data.frame(dat)
+                  xy <- xyFromCell(objectSample, 1:ncell(objectSample))
+                  df <- cbind(xy, dat)
+              } else {
+                  ## Convert to a data.frame for conventional levelplot
+                  df <- as.data.frame(objectSample, xy=TRUE)
+                  dat <- df[, -c(1, 2)]
               }
 
               ## If zscale is not NULL, transform the values and choose a function
