@@ -138,10 +138,14 @@ r <- ratify(r)
      
 rat <- levels(r)[[1]]
 rat$landcover <- c('Pine', 'Oak', 'Meadow')
+rat$class <- c('A1', 'B2', 'C3')
 levels(r) <- rat
 r
 
 levelplot(r, col.regions=c('palegreen', 'midnightblue', 'indianred1'))
+
+## with 'att' you can choose another variable from the RAT
+levelplot(r, att=2, col.regions=c('palegreen', 'midnightblue', 'indianred1'))
 
 r2 <- raster(r)
 r2[] = 3
@@ -157,7 +161,7 @@ s <- stack(r, r2, r3)
 names(s) <- c('A', 'B', 'C')
 
 levelplot(s)
-
+levelplot(s, att=2)
 
 \dontrun{
 ##Solar irradiation data from CMSAF
