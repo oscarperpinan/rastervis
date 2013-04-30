@@ -26,8 +26,6 @@ setMethod('levelplot',
                   object <- subset(x, subset=layers)
               } else {object <- x}
 
-              objNames <- names(object)
-
               ## The plot display a sample of the whole object defined with maxpixels
               objectSample <- sampleRegular(object, size=maxpixels, asRaster=TRUE)
 
@@ -59,6 +57,7 @@ setMethod('levelplot',
                       dat <- as.numeric(factor(dat))
                   }
                   dat <- as.data.frame(dat)
+                  names(dat) <- names(object)
                   xy <- xyFromCell(objectSample, 1:ncell(objectSample))
                   df <- cbind(xy, dat)
               } else {
@@ -208,14 +207,14 @@ setMethod('levelplot',
 
               ## Names of each panel
               if (missing(names.attr)){
-                  names.attr <- objNames
+                  names.attr <- names(object)
               } else {
                   names.attr <- as.character(names.attr)
                   if (length(names.attr) != nlayers(object))
                       stop('Length of names.attr should match number of layers.')
               }
               ## Build the formula for levelplot
-              form <- as.formula(paste(paste(names(df)[-c(1, 2)], collapse='+'), 'x*y', sep='~'))
+              form <- as.formula(paste(paste(names(object), collapse='+'), 'x*y', sep='~'))
 
               ## Update the data content of the original data.frame
               df[, -c(1, 2)] <- dat
