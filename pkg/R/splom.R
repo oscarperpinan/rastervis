@@ -10,9 +10,7 @@ setMethod('splom',
           definition=function(x, data=NULL, maxpixels=1e5,
             plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...){
 
-            ## names replace layerNames with raster version 2.0-04
-            rasterVersion <- as.character(packageVersion('raster'))
-            nms <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(x) else names(x)
+            nms <- names(x)
 
             if (maxpixels < ncell(x)) {
               dat <- sampleRandom(x, maxpixels)
@@ -33,7 +31,7 @@ setMethod('splom',
             }
             splom(~dat,
                   colramp=colramp,
-                  varname.cex=varname.cex, 
+                  varname.cex=varname.cex,
                   plot.loess=plot.loess,
                   panel=panel.hexbinplot,
                   diag.panel=diag.panel,
