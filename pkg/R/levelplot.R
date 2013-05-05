@@ -11,7 +11,9 @@ setMethod('levelplot',
           par.settings=rasterTheme(),
           between=list(x=0.5, y=0.2),
           as.table=TRUE,
-          xlab='', ylab='', main='',
+          xlab=if(isLonLat(x)) 'Longitude' else NULL,
+          ylab=if(isLonLat(x)) 'Latitude' else NULL,
+          main=NULL,
           names.attr,
           scales=list(), scales.margin=NULL,
           xscale.components=xscale.raster,
@@ -98,8 +100,8 @@ setMethod('levelplot',
 
               if (isLonLat(object)){
 
-                  if (xlab=='') xlab='Longitude'
-                  if (ylab=='') ylab='Latitude'
+                  ## if (xlab=='') xlab='Longitude'
+                  ## if (ylab=='') ylab='Latitude'
 
                   aspect=(diff(ylim)/diff(xlim))/cos((mean(ylim) * pi)/180)
 
