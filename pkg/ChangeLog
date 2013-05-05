@@ -1,4 +1,220 @@
 ------------------------------------------------------------------------
+r166 | oscarperpi | 2013-05-05 19:48:50 +0200 (dom, 05 may 2013) | 2 lines
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/levelplot.R
+
+Date updated
+
+------------------------------------------------------------------------
+r165 | oscarperpi | 2013-05-05 12:13:14 +0200 (dom, 05 may 2013) | 2 lines
+Changed paths:
+   M /pkg/R/vectorplot.R
+
+aspect is converted to radians only if skip is TRUE
+
+------------------------------------------------------------------------
+r164 | oscarperpi | 2013-05-05 12:11:54 +0200 (dom, 05 may 2013) | 2 lines
+Changed paths:
+   M /pkg/man/levelplot-methods.Rd
+
+Correction, improvement of the levelplot help page with new examples.
+
+------------------------------------------------------------------------
+r163 | oscarperpi | 2013-05-05 09:13:41 +0200 (dom, 05 may 2013) | 2 lines
+Changed paths:
+   M /pkg/R/levelplot.R
+
+improved use of xlab and ylab in levelplot
+
+------------------------------------------------------------------------
+r162 | oscarperpi | 2013-05-01 01:29:26 +0200 (mié, 01 may 2013) | 2 lines
+Changed paths:
+   M /pkg/DESCRIPTION
+
+version and date updated
+
+------------------------------------------------------------------------
+r161 | oscarperpi | 2013-05-01 01:28:36 +0200 (mié, 01 may 2013) | 2 lines
+Changed paths:
+   M /pkg/R/splom.R
+
+layerNames by names in splom
+
+------------------------------------------------------------------------
+r160 | oscarperpi | 2013-05-01 01:27:35 +0200 (mié, 01 may 2013) | 2 lines
+Changed paths:
+   M /pkg/man/levelplot-methods.Rd
+
+Added new example to show use of 'att'
+
+------------------------------------------------------------------------
+r159 | oscarperpi | 2013-05-01 01:24:17 +0200 (mié, 01 may 2013) | 2 lines
+Changed paths:
+   M /pkg/R/levelplot.R
+
+Improved management of layer names in levelplot
+
+------------------------------------------------------------------------
+r158 | oscarperpi | 2013-05-01 01:08:11 +0200 (mié, 01 may 2013) | 2 lines
+Changed paths:
+   M /pkg/R/levelplot.R
+   M /pkg/man/levelplot-methods.Rd
+
+levelplot is able to work with multivariable RATs. New argument "att".
+
+------------------------------------------------------------------------
+r157 | oscarperpi | 2013-04-16 19:44:05 +0200 (mar, 16 abr 2013) | 2 lines
+Changed paths:
+   M /pkg/R/xyplot.R
+   M /pkg/man/xyplot-methods.Rd
+
+In xyplot added stat='mean'
+
+------------------------------------------------------------------------
+r156 | oscarperpi | 2013-04-05 14:12:11 +0200 (vie, 05 abr 2013) | 2 lines
+Changed paths:
+   M /pkg/DESCRIPTION
+
+Version and Date updated in DESCRIPTION
+
+------------------------------------------------------------------------
+r155 | oscarperpi | 2013-04-05 14:11:47 +0200 (vie, 05 abr 2013) | 2 lines
+Changed paths:
+   M /pkg/R/histogram.R
+
+layerNames in histogram is not needed
+
+------------------------------------------------------------------------
+r154 | oscarperpi | 2013-04-05 14:10:29 +0200 (vie, 05 abr 2013) | 2 lines
+Changed paths:
+   M /pkg/R/histogram.R
+
+Improved histogram with formula, RasterStack with a mixture of numerical and factor data
+
+------------------------------------------------------------------------
+r152 | oscarperpi | 2013-04-02 01:03:24 +0200 (mar, 02 abr 2013) | 2 lines
+Changed paths:
+   M /pkg/R/streamplot.R
+   M /pkg/man/vectorplot.Rd
+
+NULL as default value for cl in streamplot
+
+------------------------------------------------------------------------
+r151 | oscarperpi | 2013-04-02 01:02:40 +0200 (mar, 02 abr 2013) | 2 lines
+Changed paths:
+   M /pkg/R/levelplot.R
+
+Added legend key for categorical data in levelplot
+
+------------------------------------------------------------------------
+r150 | oscarperpi | 2013-03-03 14:57:27 +0100 (dom, 03 mar 2013) | 2 lines
+Changed paths:
+   M /pkg/R/levelplot.R
+
+names.attr coerced to as.character
+
+------------------------------------------------------------------------
+r149 | oscarperpi | 2013-03-01 19:32:16 +0100 (vie, 01 mar 2013) | 2 lines
+Changed paths:
+   M /pkg/R/levelplot.R
+
+Fix NA usage with categorical data in levelplot
+
+------------------------------------------------------------------------
+r148 | oscarperpi | 2013-02-28 11:47:00 +0100 (jue, 28 feb 2013) | 2 lines
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/levelplot.R
+   M /pkg/man/levelplot-methods.Rd
+
+levelplot improved for categorical data (thanks to https://stat.ethz.ch/pipermail/r-sig-geo/2013-February/017632.html)
+
+------------------------------------------------------------------------
+r147 | oscarperpi | 2013-02-27 23:36:28 +0100 (mié, 27 feb 2013) | 2 lines
+Changed paths:
+   M /pkg/R/levelplot.R
+
+as.data.frame in levelplot instead of getData
+
+------------------------------------------------------------------------
+r146 | oscarperpi | 2013-02-18 12:03:30 +0100 (lun, 18 feb 2013) | 2 lines
+Changed paths:
+   M /pkg/DESCRIPTION
+
+parallel included in Suggests
+
+------------------------------------------------------------------------
+r145 | oscarperpi | 2013-02-08 12:08:10 +0100 (vie, 08 feb 2013) | 2 lines
+Changed paths:
+   M /pkg/man/hovmoller-methods.Rd
+
+Add example with panel.2dsmoother for hovmoller
+
+------------------------------------------------------------------------
+r144 | oscarperpi | 2013-01-31 00:30:52 +0100 (jue, 31 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/DESCRIPTION
+
+Update package version; depends on R 2.14.0 (parallel); imports sp 1.0-6
+
+------------------------------------------------------------------------
+r143 | oscarperpi | 2013-01-31 00:29:58 +0100 (jue, 31 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/NAMESPACE
+
+Import degreeLabelsXX from sp
+
+------------------------------------------------------------------------
+r142 | oscarperpi | 2013-01-31 00:29:34 +0100 (jue, 31 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/R/levelplot.R
+
+extendrange instead of lattice:::extend.limits
+
+------------------------------------------------------------------------
+r141 | oscarperpi | 2013-01-31 00:29:05 +0100 (jue, 31 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/R/latticeRaster.R
+
+degreeLabelsXX has been exported in sp
+
+------------------------------------------------------------------------
+r140 | oscarperpi | 2013-01-30 14:42:40 +0100 (mié, 30 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/R/latticeRaster.R
+
+degreeLabels copied from sp
+
+------------------------------------------------------------------------
+r139 | oscarperpi | 2013-01-22 11:09:07 +0100 (mar, 22 ene 2013) | 1 line
+Changed paths:
+   M /pkg/DESCRIPTION
+   M /pkg/R/streamplot.R
+   M /pkg/man/vectorplot.Rd
+
+Added parallel cluster in streamplot
+------------------------------------------------------------------------
+r138 | oscarperpi | 2013-01-11 07:10:09 +0100 (vie, 11 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/man/vectorplot.Rd
+
+vectorplot examples under dontrun
+
+------------------------------------------------------------------------
+r134 | oscarperpi | 2013-01-09 11:37:11 +0100 (mié, 09 ene 2013) | 1 line
+Changed paths:
+   M /pkg/ChangeLog
+
+
+------------------------------------------------------------------------
+r133 | oscarperpi | 2013-01-09 11:35:17 +0100 (mié, 09 ene 2013) | 2 lines
+Changed paths:
+   M /pkg/man/vectorplot.Rd
+
+streamplot examples enclosed under dontrun
+
+------------------------------------------------------------------------
 r132 | oscarperpi | 2013-01-08 22:50:08 +0100 (mar, 08 ene 2013) | 2 lines
 Changed paths:
    M /pkg/R/streamplot.R
