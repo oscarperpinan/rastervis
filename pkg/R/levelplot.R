@@ -7,7 +7,7 @@ setMethod('levelplot',
           signature(x='Raster', data='missing'),
           definition = function(x, data=NULL, layers,
           margin=!(any(is.factor(x))), FUN.margin=mean,
-          maxpixels=1e5, att=1L,
+          maxpixels=1e5,
           par.settings=rasterTheme(),
           between=list(x=0.5, y=0.2),
           as.table=TRUE,
@@ -22,7 +22,7 @@ setMethod('levelplot',
           colorkey=list(space='right'),
           panel=panel.levelplot,
           contour=FALSE, region=TRUE, labels=FALSE,
-          ...) {
+          ..., att=1L) {
 
               if (!missing(layers)) {
                   object <- subset(x, subset=layers)
