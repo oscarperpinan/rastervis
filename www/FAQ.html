@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Frequently Asked Questions</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="Frequently Asked Questions"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-05-12T17:38+0200"/>
+<meta name="author" content="Oscar Perpiñán Lamigueiro"/>
+<meta name="description" content="FAQ rasterVis"/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Frequently Asked Questions</h1>
+
+
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">How to define the breaks</a></li>
+<li><a href="#sec-2">How to suppress axis labels and ticks</a></li>
+<li><a href="#sec-3">How to rotate the axis label or use a different color</a></li>
+<li><a href="#sec-4">How to plot a geographical subset of a raster?</a></li>
+<li><a href="#sec-5">How to add an arrow</a></li>
+<li><a href="#sec-6">How to add an scale</a></li>
+<li><a href="#sec-7">How to print several Rasters with different legends in the same page</a></li>
+<li><a href="#sec-8">How to label each panel with a different label from the layer name</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1">How to define the breaks</h2>
+<div class="outline-text-2" id="text-1">
+
+
+<p>
+Use the <code>at</code> argument to define the breaks.
+</p>
+
+
+
+<pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
+r <span class="org-constant">&lt;-</span> raster(f)
+
+my.at <span class="org-constant">&lt;-</span> seq(100, 1850, 500)
+levelplot(r, at=my.at)
+</pre>
+
+
+<p>
+<img src="figs/FAQ_at.png"  alt="figs/FAQ_at.png" />
+</p>
+<p>
+Moreover, if you want to define where the labels are located
+define the components of <code>colorkey</code>:
+</p>
+
+
+
+<pre class="src src-R">myColorkey <span class="org-constant">&lt;-</span> list(at=my.at, <span class="org-comment-delimiter">## </span><span class="org-comment">where the colors change</span>
+                   labels=list(
+                     at=my.at <span class="org-comment-delimiter">## </span><span class="org-comment">where to print labels</span>
+                     ))
+levelplot(r, at=my.at, colorkey=myColorkey)
+</pre>
+
+
+<p>
+<img src="figs/FAQ_at2.png"  alt="figs/FAQ_at2.png" />
+</p>
+<p>
+Last, you can even define the contents of the labels:
+</p>
+
+
+
+<pre class="src src-R">myColorkey <span class="org-constant">&lt;-</span> list(at=my.at, <span class="org-comment-delimiter">## </span><span class="org-comment">where the colors change</span>
+                   labels=list(
+                     labels=letters[seq_along(my.at)], <span class="org-comment-delimiter">## </span><span class="org-comment">labels</span>
+                     at=my.at <span class="org-comment-delimiter">## </span><span class="org-comment">where to print labels</span>
+                     ))
+levelplot(r, at=my.at, colorkey=myColorkey)
+</pre>
+
+
+<p>
+<img src="figs/FAQ_at3.png"  alt="figs/FAQ_at3.png" />
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">How to suppress axis labels and ticks</h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> inside <code>scale</code>.
+</p>
+
+
+
+<pre class="src src-R">r <span class="org-constant">&lt;-</span> raster()
+r <span class="org-constant">&lt;-</span> init(r, runif)
+
+levelplot(r, xlab=<span class="org-type">NULL</span>, ylab=<span class="org-type">NULL</span>, scales=list(draw=<span class="org-type">FALSE</span>))
+</pre>
+
+
+<p>
+<img src="figs/FAQ_axis_labels.png"  alt="figs/FAQ_axis_labels.png" />
+</p>
+
+
+
+<pre class="src src-R">levelplot(r, xlab=<span class="org-type">NULL</span>, scales=list(x=list(draw=<span class="org-type">FALSE</span>)))
+</pre>
+
+
+<p>
+<img src="figs/FAQ_axis_labelsX.png"  alt="figs/FAQ_axis_labelsX.png" />
+</p>
+
+
+
+<pre class="src src-R">levelplot(r, ylab=<span class="org-type">NULL</span>, scales=list(y=list(draw=<span class="org-type">FALSE</span>)))
+</pre>
+
+
+<p>
+<img src="figs/FAQ_axis_labelsY.png"  alt="figs/FAQ_axis_labelsY.png" />
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">How to rotate the axis label or use a different color</h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+Define <code>main</code>, <code>xlab</code> and <code>ylab</code> as vectors or lists with
+arguments to be passed to <code>grid::gpar</code>.
+</p>
+
+
+
+<pre class="src src-R">r <span class="org-constant">&lt;-</span> raster(nrow=10, ncol=10)
+r[] <span class="org-constant">&lt;-</span> runif(100)
+
+levelplot(r, margin=<span class="org-type">FALSE</span>,
+          main=list(<span class="org-string">'My plot'</span>, col=<span class="org-string">'red'</span>),
+          xlab=c(<span class="org-string">'Longitude'</span>, <span class="org-string">'X-Axis'</span>),
+          ylab=list(<span class="org-string">'Latitude'</span>, rot=30, fontface=<span class="org-string">'bold'</span>)
+          )
+</pre>
+
+
+<p>
+<img src="figs/FAQ_label_color.png"  alt="figs/FAQ_label_color.png" />
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">How to plot a geographical subset of a raster?</h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+Use <code>xlim</code> and <code>ylim</code>
+</p>
+
+
+<pre class="src src-R">r <span class="org-constant">&lt;-</span> raster(nrow=10, ncol=10)
+r[] = 1:10
+levelplot(r, xlim=c(-100, 100), ylim=c(-50, 50))
+</pre>
+
+
+<p>
+<img src="figs/FAQ_subset.png"  alt="figs/FAQ_subset.png" />
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">How to add an arrow</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>Use <code>sp::layout.north.arrow</code> with <code>latticeExtra::layer</code>.
+</p>
+
+
+<pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
+r <span class="org-constant">&lt;-</span> raster(f)
+
+levelplot(r, margin=<span class="org-type">FALSE</span>, auto.key=<span class="org-type">FALSE</span>, scales=list(draw=<span class="org-type">FALSE</span>)) + 
+    layer({
+        SpatialPolygonsRescale(layout.north.arrow(),
+                               offset = c(179000,332500),
+                               scale = 400)
+    })
+
+</pre>
+
+
+<p>
+<img src="figs/FAQ_arrow.png"  alt="figs/FAQ_arrow.png" />
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<h2 id="sec-6">How to add an scale</h2>
+<div class="outline-text-2" id="text-6">
+
+<p>Use <code>grid.rect</code>, <code>grid.text</code> and <code>latticeExtra::layer</code>.
+</p>
+
+
+
+<pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
+r <span class="org-constant">&lt;-</span> raster(f)
+
+levelplot(r) +
+  layer({
+    xs <span class="org-constant">&lt;-</span> seq(181000, 181400, by=100)
+    grid.rect(x=xs, y=330500,
+                  width=100, height=30,
+                  gp=gpar(fill=rep(c(<span class="org-string">'transparent'</span>, <span class="org-string">'black'</span>), 2)),
+                  default.units=<span class="org-string">'native'</span>)
+    grid.text(x= xs - 50, y=330560, seq(0, 400, by=100),
+              gp=gpar(cex=0.5), rot=30,
+              default.units=<span class="org-string">'native'</span>)
+    })
+
+</pre>
+
+
+<p>
+<img src="figs/FAQ_scale.png"  alt="figs/FAQ_scale.png" />
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-7" class="outline-2">
+<h2 id="sec-7">How to print several Rasters with different legends in the same page</h2>
+<div class="outline-text-2" id="text-7">
+
+
+<p>
+Use <code>print.trellis</code> and its argument <code>split</code>. 
+</p>
+<p>
+For two different <code>RasterLayer</code>.
+</p>
+
+
+<pre class="src src-R">r <span class="org-constant">&lt;-</span> r2 <span class="org-constant">&lt;-</span> raster()
+r[] <span class="org-constant">&lt;-</span> runif(ncell(r))
+r2[] <span class="org-constant">&lt;-</span> 1:10
+
+p <span class="org-constant">&lt;-</span> levelplot(r, par.settings=RdBuTheme(), margin=<span class="org-type">FALSE</span>)
+p2 <span class="org-constant">&lt;-</span> levelplot(r2, par.settings=BTCTheme(), margin=<span class="org-type">FALSE</span>)
+
+
+print(p, split=c(1, 1, 1, 2), more=<span class="org-type">TRUE</span>)
+print(p2, split=c(1, 2, 1, 2))
+
+</pre>
+
+
+<p>
+<img src="figs/FAQ_print_split.png"  alt="figs/FAQ_print_split.png" />
+</p>
+<p>
+A more sophisticated solution to print more than two layers.
+</p>
+
+
+<pre class="src src-R">s <span class="org-constant">&lt;-</span> stack(r, r2, 10*r+r2, 10*r-r2)
+nl <span class="org-constant">&lt;-</span> nlayers(s)
+m <span class="org-constant">&lt;-</span> matrix(1:nl, nrow=2)
+themes <span class="org-constant">&lt;-</span> list(RdBuTheme(), BTCTheme(), GrTheme(), PuOrTheme())
+<span class="org-keyword">for</span> (i <span class="org-keyword">in</span> 1:nl){
+    p <span class="org-constant">&lt;-</span> levelplot(s, layers=i,
+                   par.settings=themes[[i]],
+                   margin=<span class="org-type">FALSE</span>)
+    print(p, split=c(col(m)[i], row(m)[i], 2, 2), more=(i&lt;nl))
+}
+</pre>
+
+
+<p>
+<img src="figs/FAQ_print_split4.png"  alt="figs/FAQ_print_split4.png" />
+</p>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8">How to label each panel with a different label from the layer name</h2>
+<div class="outline-text-2" id="text-8">
+
+<p>Use <code>names.attr</code>.
+</p>
+
+
+
+<pre class="src src-R">r <span class="org-constant">&lt;-</span> raster(nrow=10, ncol=10)
+r[] <span class="org-constant">&lt;-</span> runif(100)
+s <span class="org-constant">&lt;-</span> stack(lapply(1:8, <span class="org-keyword">function</span>(i)r))
+
+levelplot(s, scales=list(draw=<span class="org-type">FALSE</span>), colorkey=<span class="org-type">FALSE</span>,
+          par.settings=GrTheme(),
+          names.attr=paste0(<span class="org-string">'MNF-'</span>, 1:8))
+
+</pre>
+
+
+<p>
+<img src="figs/FAQ_namesattr.png"  alt="figs/FAQ_namesattr.png" />
+</p>
+
+<hr/>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2013-05-12T17:38+0200</p>
+<p class="author">Author: Oscar Perpiñán Lamigueiro</p>
+<p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.2 with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>
