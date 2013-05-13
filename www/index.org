@@ -10,21 +10,21 @@
 #+STYLE:    <link rel="stylesheet" type="text/css" href="styles.css" />
 #+OPTIONS:   num:nil toc:1 ^:nil
 
-
 The [[http://cran.r-project.org/web/packages/raster/index.html][raster]] package defines classes and methods for spatial raster data
 access and manipulation. The =rasterVis= package complements
 raster providing a set of methods for enhanced visualization and
 interaction. The stable release of =rasterVis= can be found at
 [[http://cran.r-project.org/web/packages/rasterVis/][CRAN]]. The development version is at [[https://r-forge.r-project.org/R/?group_id%3D1129][R-Forge]].
 
-This page has been generated with [[http://orgmode.org/][org-mode]]. You can download the [[http://rastervis.r-forge.r-project.org/index.org][org file]] and the [[http://rastervis.r-forge.r-project.org/index.R][R code]].
+There is a FAQs page available [[./FAQ.org][here]].
+ 
+This page has been generated with [[http://orgmode.org/][org-mode]]. You can download the
+[[http://rastervis.r-forge.r-project.org/index.org][org file]] and the [[http://rastervis.r-forge.r-project.org/index.R][R code]].
 
-Let's show some of its functionalities with some examples, using data
-from the
-[[http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet][CMSAF]]
-project as described
-[[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]]
-([[http://www.box.net/shared/rl51y1t9sldxk54ogd44][download data]]).
+-----
+
+Let's show some of its functionalities with some examples, using
+data from the [[http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet][CMSAF]] project as described [[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]] ([[http://www.box.net/shared/rl51y1t9sldxk54ogd44][download data]]).
 
 #+begin_src R
   library(raster)
@@ -43,6 +43,8 @@ project as described
   names(SISmm) <- month.abb
   
 #+end_src
+
+
 
 * Level plots
   :PROPERTIES:

@@ -100,9 +100,9 @@ small {
 }
 
 hr {
-  border:0;
+  border:1px;
   background:#e5e5e5;
-  height:1px;
+  height:4px;
   margin:0 0 20px;
 }
 
