@@ -12,7 +12,7 @@
 \usage{
 \S4method{levelplot}{Raster,missing}(x, data=NULL, layers,
             margin=!(any(is.factor(x))), FUN.margin=mean, 
-            maxpixels=1e5, att=1,
+            maxpixels=1e5, 
             par.settings=rasterTheme(),
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
@@ -27,7 +27,7 @@
             colorkey=list(space='right'),
             panel=panel.levelplot,
             contour=FALSE, region=TRUE, labels=FALSE,
-            ...)
+            ..., att=1L)
 
 \S4method{contourplot}{Raster,missing}(x, data=NULL, layers, ...)
 }
@@ -268,6 +268,23 @@ levelplot(r, par.settings=PuOrTheme())
 
 myTheme=rasterTheme(region=brewer.pal('Blues', n=9))
 levelplot(r, par.settings=myTheme)
+
+## Define the legend breaks
+my.at <- seq(100, 1850, 500)
+levelplot(r, at=my.at)
+
+myColorkey <- list(at=my.at, ## where the colors change
+                   labels=list(
+                     at=my.at ## where to print labels
+                     ))
+levelplot(r, at=my.at, colorkey=myColorkey)
+
+myColorkey <- list(at=my.at, ## where the colors change
+                   labels=list(
+                     labels=letters[seq_along(my.at)], ## labels
+                     at=my.at ## where to print labels
+                     ))
+levelplot(r, at=my.at, colorkey=myColorkey)
 
 ## shrink and border color
 rCenter <- (maxValue(r) + minValue(r)) / 2
