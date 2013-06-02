@@ -44,7 +44,7 @@ setMethod('levelplot',
                   if (length(rat)>1 && any(!duplicated(rat)[-1])){
                       stop('all the layers must share the same RAT.')
                   } else {
-                      rat <- rat[[1]][,-1] ## drop ID column
+                      rat <- as.data.frame(rat[[1]][,-1]) ## drop ID column
                   }
                   ## choose which level to use for the legend
                   datLevels <- rat[, att]
