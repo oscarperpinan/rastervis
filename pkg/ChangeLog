@@ -1,4 +1,32 @@
 ------------------------------------------------------------------------
+r175 | oscarperpi | 2013-06-03 10:18:33 +0200 (lun, 03 jun 2013) | 2 lines
+Changed paths:
+   M /pkg/R/levelplot.R
+
+Bug fixed: colorkey couldn't be modified when using zscale
+
+------------------------------------------------------------------------
+r174 | oscarperpi | 2013-06-03 10:17:46 +0200 (lun, 03 jun 2013) | 2 lines
+Changed paths:
+   M /pkg/R/horizonplot.R
+
+Add dots in horizonplot
+
+------------------------------------------------------------------------
+r172 | oscarperpi | 2013-06-02 22:31:18 +0200 (dom, 02 jun 2013) | 2 lines
+Changed paths:
+   M /pkg/R/levelplot.R
+
+Fix bug in levelplot with categorical data with solution by José Padarian
+
+------------------------------------------------------------------------
+r168 | oscarperpi | 2013-05-12 17:34:53 +0200 (dom, 12 may 2013) | 2 lines
+Changed paths:
+   M /pkg/R/levelplot.R
+
+fix location of att (after ...) to avoid interference with at
+
+------------------------------------------------------------------------
 r166 | oscarperpi | 2013-05-05 19:48:50 +0200 (dom, 05 may 2013) | 2 lines
 Changed paths:
    M /pkg/DESCRIPTION
@@ -14,13 +42,6 @@ Changed paths:
 aspect is converted to radians only if skip is TRUE
 
 ------------------------------------------------------------------------
-r164 | oscarperpi | 2013-05-05 12:11:54 +0200 (dom, 05 may 2013) | 2 lines
-Changed paths:
-   M /pkg/man/levelplot-methods.Rd
-
-Correction, improvement of the levelplot help page with new examples.
-
-------------------------------------------------------------------------
 r163 | oscarperpi | 2013-05-05 09:13:41 +0200 (dom, 05 may 2013) | 2 lines
 Changed paths:
    M /pkg/R/levelplot.R
@@ -28,25 +49,11 @@ Changed paths:
 improved use of xlab and ylab in levelplot
 
 ------------------------------------------------------------------------
-r162 | oscarperpi | 2013-05-01 01:29:26 +0200 (mié, 01 may 2013) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-version and date updated
-
-------------------------------------------------------------------------
 r161 | oscarperpi | 2013-05-01 01:28:36 +0200 (mié, 01 may 2013) | 2 lines
 Changed paths:
    M /pkg/R/splom.R
 
 layerNames by names in splom
-
-------------------------------------------------------------------------
-r160 | oscarperpi | 2013-05-01 01:27:35 +0200 (mié, 01 may 2013) | 2 lines
-Changed paths:
-   M /pkg/man/levelplot-methods.Rd
-
-Added new example to show use of 'att'
 
 ------------------------------------------------------------------------
 r159 | oscarperpi | 2013-05-01 01:24:17 +0200 (mié, 01 may 2013) | 2 lines
@@ -70,13 +77,6 @@ Changed paths:
    M /pkg/man/xyplot-methods.Rd
 
 In xyplot added stat='mean'
-
-------------------------------------------------------------------------
-r156 | oscarperpi | 2013-04-05 14:12:11 +0200 (vie, 05 abr 2013) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-Version and Date updated in DESCRIPTION
 
 ------------------------------------------------------------------------
 r155 | oscarperpi | 2013-04-05 14:11:47 +0200 (vie, 05 abr 2013) | 2 lines
@@ -138,34 +138,6 @@ Changed paths:
 as.data.frame in levelplot instead of getData
 
 ------------------------------------------------------------------------
-r146 | oscarperpi | 2013-02-18 12:03:30 +0100 (lun, 18 feb 2013) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-parallel included in Suggests
-
-------------------------------------------------------------------------
-r145 | oscarperpi | 2013-02-08 12:08:10 +0100 (vie, 08 feb 2013) | 2 lines
-Changed paths:
-   M /pkg/man/hovmoller-methods.Rd
-
-Add example with panel.2dsmoother for hovmoller
-
-------------------------------------------------------------------------
-r144 | oscarperpi | 2013-01-31 00:30:52 +0100 (jue, 31 ene 2013) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-Update package version; depends on R 2.14.0 (parallel); imports sp 1.0-6
-
-------------------------------------------------------------------------
-r143 | oscarperpi | 2013-01-31 00:29:58 +0100 (jue, 31 ene 2013) | 2 lines
-Changed paths:
-   M /pkg/NAMESPACE
-
-Import degreeLabelsXX from sp
-
-------------------------------------------------------------------------
 r142 | oscarperpi | 2013-01-31 00:29:34 +0100 (jue, 31 ene 2013) | 2 lines
 Changed paths:
    M /pkg/R/levelplot.R
@@ -195,38 +167,11 @@ Changed paths:
 
 Added parallel cluster in streamplot
 ------------------------------------------------------------------------
-r138 | oscarperpi | 2013-01-11 07:10:09 +0100 (vie, 11 ene 2013) | 2 lines
-Changed paths:
-   M /pkg/man/vectorplot.Rd
-
-vectorplot examples under dontrun
-
-------------------------------------------------------------------------
-r134 | oscarperpi | 2013-01-09 11:37:11 +0100 (mié, 09 ene 2013) | 1 line
-Changed paths:
-   M /pkg/ChangeLog
-
-
-------------------------------------------------------------------------
-r133 | oscarperpi | 2013-01-09 11:35:17 +0100 (mié, 09 ene 2013) | 2 lines
-Changed paths:
-   M /pkg/man/vectorplot.Rd
-
-streamplot examples enclosed under dontrun
-
-------------------------------------------------------------------------
 r132 | oscarperpi | 2013-01-08 22:50:08 +0100 (mar, 08 ene 2013) | 2 lines
 Changed paths:
    M /pkg/R/streamplot.R
 
 streamplot: parallel disabled in windows
-
-------------------------------------------------------------------------
-r131 | oscarperpi | 2013-01-04 01:51:48 +0100 (vie, 04 ene 2013) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-Date and version updated
 
 ------------------------------------------------------------------------
 r130 | oscarperpi | 2013-01-04 01:49:20 +0100 (vie, 04 ene 2013) | 2 lines
@@ -243,13 +188,6 @@ Changed paths:
    M /pkg/man/vectorplot.Rd
 
 Added reverse and maxpixels (different from narrows) in vectorplot
-
-------------------------------------------------------------------------
-r128 | oscarperpi | 2013-01-04 01:44:41 +0100 (vie, 04 ene 2013) | 2 lines
-Changed paths:
-   M /pkg/man/rasterTheme.Rd
-
-Completed help page of rasterTheme after new themes
 
 ------------------------------------------------------------------------
 r127 | oscarperpi | 2013-01-04 01:38:20 +0100 (vie, 04 ene 2013) | 2 lines
@@ -269,19 +207,6 @@ Changed paths:
 New themes added.
 
 ------------------------------------------------------------------------
-r125 | oscarperpi | 2013-01-03 22:55:01 +0100 (jue, 03 ene 2013) | 2 lines
-Changed paths:
-   M /pkg/man/bwplot-methods.Rd
-   M /pkg/man/densityplot-methods.Rd
-   M /pkg/man/hexbinplot.Rd
-   M /pkg/man/histogram-methods.Rd
-   M /pkg/man/hovmoller-methods.Rd
-   M /pkg/man/levelplot-methods.Rd
-   M /pkg/man/xyplot-methods.Rd
-
-rasterTheme() instead of rasterTheme in Rd
-
-------------------------------------------------------------------------
 r124 | oscarperpi | 2013-01-02 17:53:15 +0100 (mié, 02 ene 2013) | 2 lines
 Changed paths:
    M /pkg/DESCRIPTION
@@ -297,23 +222,6 @@ Changed paths:
 rasterTheme() instead of rasterTheme in par.settings
 
 ------------------------------------------------------------------------
-r123 | oscarperpi | 2012-12-19 22:15:53 +0100 (mié, 19 dic 2012) | 2 lines
-Changed paths:
-   M /pkg/man/bwplot-methods.Rd
-   M /pkg/man/chooseRegion.Rd
-   M /pkg/man/densityplot-methods.Rd
-   M /pkg/man/gplot-methods.Rd
-   M /pkg/man/hexbinplot.Rd
-   M /pkg/man/histogram-methods.Rd
-   M /pkg/man/horizonplot-methods.Rd
-   M /pkg/man/hovmoller-methods.Rd
-   M /pkg/man/levelplot-methods.Rd
-   M /pkg/man/splom-methods.Rd
-   M /pkg/man/xyplot-methods.Rd
-
-Changed layerNames with names in help pages
-
-------------------------------------------------------------------------
 r120 | oscarperpi | 2012-10-18 23:38:29 +0200 (jue, 18 oct 2012) | 2 lines
 Changed paths:
    M /pkg/R/latticeRaster.R
@@ -326,27 +234,6 @@ Changed paths:
    M /pkg/R/histogram.R
 
 Categorical data with histogram (is.factor)
-
-------------------------------------------------------------------------
-r118 | oscarperpi | 2012-10-11 14:51:11 +0200 (jue, 11 oct 2012) | 2 lines
-Changed paths:
-   M /pkg/ChangeLog
-
-Updated ChangeLog. To CRAN.
-
-------------------------------------------------------------------------
-r117 | oscarperpi | 2012-10-11 14:48:40 +0200 (jue, 11 oct 2012) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-raster 2.0-12 version required. Updated date and version.
-
-------------------------------------------------------------------------
-r116 | oscarperpi | 2012-10-11 14:48:09 +0200 (jue, 11 oct 2012) | 2 lines
-Changed paths:
-   A /pkg/ChangeLog
-
-Added ChangeLog
 
 ------------------------------------------------------------------------
 r115 | oscarperpi | 2012-09-27 11:47:58 +0200 (jue, 27 sep 2012) | 2 lines
@@ -372,26 +259,12 @@ Changed paths:
 my.at was not being passed to levelplot when isFactor
 
 ------------------------------------------------------------------------
-r113 | oscarperpi | 2012-09-26 14:46:48 +0200 (mié, 26 sep 2012) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-Updated date and
-
-------------------------------------------------------------------------
 r112 | oscarperpi | 2012-09-26 14:46:27 +0200 (mié, 26 sep 2012) | 2 lines
 Changed paths:
    M /pkg/R/levelplot.R
    M /pkg/man/levelplot-methods.Rd
 
 levelplot displays categorical data
-
-------------------------------------------------------------------------
-r111 | oscarperpi | 2012-09-25 14:32:30 +0200 (mar, 25 sep 2012) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-Updated version and date.
 
 ------------------------------------------------------------------------
 r110 | oscarperpi | 2012-09-25 14:32:15 +0200 (mar, 25 sep 2012) | 2 lines
@@ -435,13 +308,6 @@ Changed paths:
 fixed levelplot to allow colorkey=FALSE
 
 ------------------------------------------------------------------------
-r105 | oscarperpi | 2012-09-20 13:11:39 +0200 (jue, 20 sep 2012) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-Updated version and date in DESCRIPTION
-
-------------------------------------------------------------------------
 r104 | oscarperpi | 2012-09-20 13:09:35 +0200 (jue, 20 sep 2012) | 3 lines
 Changed paths:
    M /pkg/R/bwplot.R
@@ -456,13 +322,6 @@ Changed paths:
    M /pkg/R/plot3d.R
    M /pkg/man/plot3d.Rd
 
-
-------------------------------------------------------------------------
-r102 | oscarperpi | 2012-09-07 11:49:21 +0200 (vie, 07 sep 2012) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-increase version and update date
 
 ------------------------------------------------------------------------
 r101 | oscarperpi | 2012-09-07 11:47:37 +0200 (vie, 07 sep 2012) | 2 lines
@@ -482,26 +341,11 @@ Changed paths:
 scales.margin after ... to not interfere with scales of levelplot
 
 ------------------------------------------------------------------------
-r99 | oscarperpi | 2012-08-28 16:01:19 +0200 (mar, 28 ago 2012) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-Changed email to gmail
-
-------------------------------------------------------------------------
 r98 | oscarperpi | 2012-08-11 17:17:37 +0200 (sáb, 11 ago 2012) | 2 lines
 Changed paths:
    M /pkg/R/hexbinplot.R
 
 Fix bug in hexbinplot
-
-------------------------------------------------------------------------
-r93 | oscarperpi | 2012-08-10 23:03:04 +0200 (vie, 10 ago 2012) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-   M /pkg/NAMESPACE
-
-Updated DESCRIPTION and NAMESPACE
 
 ------------------------------------------------------------------------
 r92 | oscarperpi | 2012-08-10 23:02:25 +0200 (vie, 10 ago 2012) | 2 lines
@@ -528,33 +372,12 @@ Changed paths:
 New xscale.components with xscale.raster.*
 
 ------------------------------------------------------------------------
-r89 | oscarperpi | 2012-08-10 23:00:51 +0200 (vie, 10 ago 2012) | 2 lines
-Changed paths:
-   M /pkg/man/rasterTheme.Rd
-
-New xscale.components with xscale.raster.*
-
-------------------------------------------------------------------------
-r88 | oscarperpi | 2012-05-11 22:24:36 +0200 (vie, 11 may 2012) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-Version number and date updated in DESCRIPTION
-
-------------------------------------------------------------------------
 r87 | oscarperpi | 2012-05-11 22:23:33 +0200 (vie, 11 may 2012) | 2 lines
 Changed paths:
    M /pkg/R/levelplot.R
    M /pkg/man/levelplot-methods.Rd
 
 New: names.attr in levelplot
-
-------------------------------------------------------------------------
-r86 | oscarperpi | 2012-05-11 21:38:31 +0200 (vie, 11 may 2012) | 2 lines
-Changed paths:
-   M /pkg/man/levelplot-methods.Rd
-
-add new example in levelplot with custom panel function
 
 ------------------------------------------------------------------------
 r85 | oscarperpi | 2012-04-19 14:27:24 +0200 (jue, 19 abr 2012) | 2 lines
@@ -581,13 +404,6 @@ Changed paths:
 updated authors in gplot-methods
 
 ------------------------------------------------------------------------
-r82 | oscarperpi | 2012-01-29 16:17:47 +0100 (dom, 29 ene 2012) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-Version and date updated before uploading to CRAN
-
-------------------------------------------------------------------------
 r81 | oscarperpi | 2012-01-28 12:10:33 +0100 (sáb, 28 ene 2012) | 2 lines
 Changed paths:
    M /pkg/R/gplot.R
@@ -611,34 +427,6 @@ Changed paths:
 fix incorrect use of main in levelplot
 
 ------------------------------------------------------------------------
-r78 | oscarperpi | 2011-12-22 15:29:39 +0100 (jue, 22 dic 2011) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-suppress Author and Maintainer fields
-
-------------------------------------------------------------------------
-r77 | oscarperpi | 2011-12-22 15:24:40 +0100 (jue, 22 dic 2011) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-suppress all non-ascii characters from DESCRIPTION (maybe that is the problem at R-Forge...)
-
-------------------------------------------------------------------------
-r76 | oscarperpi | 2011-12-20 19:04:05 +0100 (mar, 20 dic 2011) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-fix in Authors@R (missing whitespace after colon)
-
-------------------------------------------------------------------------
-r75 | oscarperpi | 2011-12-14 17:23:53 +0100 (mié, 14 dic 2011) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-DESCRIPTION date and version updated
-
-------------------------------------------------------------------------
 r74 | oscarperpi | 2011-12-14 17:23:06 +0100 (mié, 14 dic 2011) | 2 lines
 Changed paths:
    M /pkg/R/contourplot.R
@@ -656,20 +444,6 @@ Changed paths:
 new scales.margin argument for levelplot
 
 ------------------------------------------------------------------------
-r70 | oscarperpi | 2011-12-09 02:39:59 +0100 (vie, 09 dic 2011) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-update date in DESCRIPTION
-
-------------------------------------------------------------------------
-r69 | oscarperpi | 2011-12-09 02:39:36 +0100 (vie, 09 dic 2011) | 2 lines
-Changed paths:
-   M /pkg/man/hovmoller-methods.Rd
-
-small fix in last example of hovmoller (add.contour)
-
-------------------------------------------------------------------------
 r68 | oscarperpi | 2011-12-09 02:38:53 +0100 (vie, 09 dic 2011) | 2 lines
 Changed paths:
    M /pkg/R/splom.R
@@ -685,56 +459,12 @@ Changed paths:
 add auto.key in density; suppress scales in density
 
 ------------------------------------------------------------------------
-r65 | oscarperpi | 2011-12-05 12:50:13 +0100 (lun, 05 dic 2011) | 2 lines
-Changed paths:
-   M /pkg/man/horizonplot-methods.Rd
-   M /pkg/man/hovmoller-methods.Rd
-
-fix in examples for horizonplot and hovmoller
-
-------------------------------------------------------------------------
 r64 | oscarperpi | 2011-12-05 11:24:54 +0100 (lun, 05 dic 2011) | 2 lines
 Changed paths:
    M /pkg/R/horizonplot.R
    M /pkg/R/hovmoller.R
 
 fixes in horizonplot and hovmoller
-
-------------------------------------------------------------------------
-r63 | oscarperpi | 2011-11-30 23:11:43 +0100 (mié, 30 nov 2011) | 2 lines
-Changed paths:
-   M /pkg/man/hovmoller-methods.Rd
-
-small fix in hovmoller.Rd
-
-------------------------------------------------------------------------
-r62 | oscarperpi | 2011-11-30 22:56:24 +0100 (mié, 30 nov 2011) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-date and version updated in DESCRIPTION
-
-------------------------------------------------------------------------
-r61 | oscarperpi | 2011-11-30 22:55:47 +0100 (mié, 30 nov 2011) | 2 lines
-Changed paths:
-   M /pkg/man/hovmoller-methods.Rd
-
-new example for hovmoller
-
-------------------------------------------------------------------------
-r58 | oscarperpi | 2011-11-28 23:12:19 +0100 (lun, 28 nov 2011) | 2 lines
-Changed paths:
-   M /pkg/man/bwplot-methods.Rd
-   M /pkg/man/chooseRegion.Rd
-   M /pkg/man/densityplot-methods.Rd
-   M /pkg/man/hexbinplot.Rd
-   M /pkg/man/histogram-methods.Rd
-   M /pkg/man/horizonplot-methods.Rd
-   M /pkg/man/hovmoller-methods.Rd
-   M /pkg/man/splom-methods.Rd
-   M /pkg/man/xyplot-methods.Rd
-
-small fix in the examples using stack with lists of files
 
 ------------------------------------------------------------------------
 r57 | oscarperpi | 2011-11-28 23:00:40 +0100 (lun, 28 nov 2011) | 2 lines
@@ -754,13 +484,6 @@ Changed paths:
    M /pkg/R/bwplot.R
 
 example for bwplot with formula, Raster
-
-------------------------------------------------------------------------
-r55 | oscarperpi | 2011-11-14 22:47:02 +0100 (lun, 14 nov 2011) | 2 lines
-Changed paths:
-   M /pkg/man/hovmoller-methods.Rd
-
-new example using Cressie data
 
 ------------------------------------------------------------------------
 r54 | oscarperpi | 2011-11-13 21:48:15 +0100 (dom, 13 nov 2011) | 2 lines
@@ -804,13 +527,6 @@ Changed paths:
 first attempt with zscaleLog to levelplot
 
 ------------------------------------------------------------------------
-r46 | oscarperpi | 2011-09-23 15:50:47 +0200 (vie, 23 sep 2011) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-change in DESCRIPTION before uploading to CRAN
-
-------------------------------------------------------------------------
 r45 | oscarperpi | 2011-09-23 15:48:52 +0200 (vie, 23 sep 2011) | 2 lines
 Changed paths:
    M /pkg/R/levelplot.R
@@ -830,13 +546,6 @@ Changed paths:
 add vectorplot
 
 ------------------------------------------------------------------------
-r38 | oscarperpi | 2011-09-18 13:55:40 +0200 (dom, 18 sep 2011) | 2 lines
-Changed paths:
-   M /pkg/man/levelplot-methods.Rd
-
-fix use of stack in example
-
-------------------------------------------------------------------------
 r36 | oscarperpi | 2011-09-13 13:02:32 +0200 (mar, 13 sep 2011) | 2 lines
 Changed paths:
    M /pkg/DESCRIPTION
@@ -844,13 +553,6 @@ Changed paths:
    M /pkg/R/histogram.R
 
 add "..." inside density and histogram
-
-------------------------------------------------------------------------
-r35 | oscarperpi | 2011-08-25 20:01:06 +0200 (jue, 25 ago 2011) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-
-change date in DESCRIPTION
 
 ------------------------------------------------------------------------
 r34 | oscarperpi | 2011-08-21 15:30:44 +0200 (dom, 21 ago 2011) | 2 lines
@@ -906,28 +608,6 @@ Changed paths:
    M /pkg/R/bwplot.R
 
 fix in raster2dat (size < maxpixels); fix in Rd files (layer->layers); add examples out of dontrun;
-
-------------------------------------------------------------------------
-r29 | oscarperpi | 2011-07-08 19:34:07 +0200 (vie, 08 jul 2011) | 2 lines
-Changed paths:
-   M /pkg/DESCRIPTION
-   M /pkg/NAMESPACE
-
-modified Depends, Imports and Suggests in order to avoid the mask of lattice, latticeExtra and hexbin methods; added colorspace and dichromat to the Suggests list
-
-------------------------------------------------------------------------
-r27 | rhijmans | 2011-07-08 11:12:34 +0200 (vie, 08 jul 2011) | 1 line
-Changed paths:
-   M /pkg/DESCRIPTION
-
-added package names to required such that these packages do not hide rasterVis functions when loaded after loading rasterVis
-------------------------------------------------------------------------
-r26 | rhijmans | 2011-07-08 11:11:44 +0200 (vie, 08 jul 2011) | 2 lines
-Changed paths:
-   M /pkg/man/densityplot-methods.Rd
-   M /pkg/man/levelplot-methods.Rd
-
-\alias{levelplot-methods} to \alias{levelplot} for better help index and response to ?levelplot (same for densityplot)
 
 ------------------------------------------------------------------------
 r23 | oscarperpi | 2011-07-05 01:47:53 +0200 (mar, 05 jul 2011) | 2 lines
@@ -997,33 +677,12 @@ Changed paths:
 
 
 ------------------------------------------------------------------------
-r20 | oscarperpi | 2011-07-01 13:53:35 +0200 (vie, 01 jul 2011) | 2 lines
-Changed paths:
-   M /pkg/NAMESPACE
-
-exported themes
-
-------------------------------------------------------------------------
 r19 | oscarperpi | 2011-07-01 09:04:18 +0200 (vie, 01 jul 2011) | 2 lines
 Changed paths:
    M /pkg/R/latticeRaster.R
    M /pkg/man/rasterTheme.Rd
 
 new themes
-
-------------------------------------------------------------------------
-r18 | oscarperpi | 2011-06-28 19:37:28 +0200 (mar, 28 jun 2011) | 2 lines
-Changed paths:
-   M /pkg/man/bwplot-methods.Rd
-   M /pkg/man/chooseRegion.Rd
-   M /pkg/man/densityplot-methods.Rd
-   M /pkg/man/histogram-methods.Rd
-   M /pkg/man/horizonplot-methods.Rd
-   M /pkg/man/hovmoller-methods.Rd
-   M /pkg/man/splom-methods.Rd
-   M /pkg/man/xyplot-methods.Rd
-
-month.abb for layerNames in examples
 
 ------------------------------------------------------------------------
 r17 | oscarperpi | 2011-06-28 19:32:08 +0200 (mar, 28 jun 2011) | 2 lines
@@ -1064,13 +723,6 @@ Changed paths:
 Completion of help pages for Formula methods
 
 ------------------------------------------------------------------------
-r11 | oscarperpi | 2011-06-27 09:31:57 +0200 (lun, 27 jun 2011) | 2 lines
-Changed paths:
-   A /pkg/man/hexbinplot.Rd
-
-add formula methods help
-
-------------------------------------------------------------------------
 r10 | oscarperpi | 2011-06-27 09:24:59 +0200 (lun, 27 jun 2011) | 1 line
 Changed paths:
    A /pkg/R/hexbinplot.R
@@ -1093,13 +745,6 @@ Changed paths:
    M /pkg/man/levelplot-methods.Rd
 
 fix in levelplot with non-valid names in layerNames; add data=NULL as second argument
-
-------------------------------------------------------------------------
-r7 | oscarperpi | 2011-06-22 21:19:45 +0200 (mié, 22 jun 2011) | 2 lines
-Changed paths:
-   D /pkg/man/identifyRaster-methods.Rd
-
-rasterVis is now ready for installation!; identifyRaster-methods.Rd is no longer neccessary;
 
 ------------------------------------------------------------------------
 r6 | oscarperpi | 2011-06-22 21:18:56 +0200 (mié, 22 jun 2011) | 2 lines
@@ -1177,13 +822,4 @@ Changed paths:
    A /pkg/man/xyplot-methods.Rd
 
 Initial commit
-------------------------------------------------------------------------
-r1 | stefan7th | 2010-09-10 11:42:37 +0200 (vie, 10 sep 2010) | 1 line
-Changed paths:
-   A /README
-   A /pkg
-   A /www
-   A /www/index.php
-
-improved the README file and made some corrections to the index.php
 ------------------------------------------------------------------------
