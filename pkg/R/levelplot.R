@@ -132,7 +132,7 @@ setMethod('levelplot',
                       if (is.logical(colorkey)){
                           colorkey=colorkey.default
                       } else {
-                          colorkey=modifyList(colorkey, colorkey.default)
+                          colorkey=modifyList(colorkey.default, colorkey)
                       }
                   }
               }
