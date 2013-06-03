@@ -23,6 +23,6 @@ setMethod('horizonplot',
                              colorkey=colorkey,
                              colorkey.digits=colorkey.digits,
                              origin=mean(zz),
-                             scales=scales)
+                             scales=scales, ...)
             p
           })
