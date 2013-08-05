@@ -24,9 +24,9 @@ h1, h2, h3 {
 
 h1 {
     width: 20%;
-    float:left;
-    position:fixed;
-    font-size:36px;
+    float: left;
+    position: fixed;
+    font-size: 36px;
 }
 
 h2 {
@@ -142,10 +142,10 @@ hr {
 
 /* https://github.com/orderedlist/minimal/blob/master/stylesheets/styles.css */
 .header {
-  width:20%;
-  float:left;
-  position:fixed;
-  top: 10%;
+  width: 20%;
+  float: left;
+  position: fixed;
+  top: 100px;
 }
 
 
@@ -174,28 +174,33 @@ hr {
     margin: 10px;
 }
 
+@media screen and (max-height: 790px) {
+    #table-of-contents {
+	display: none;
+    }
+}
 
-/* https://github.com/orderedlist/minimal/blob/master/stylesheets/styles.css */
-@media print, screen and (max-width: 960px) {
-  .header, #postamble {
+@media screen and (max-height: 500px) {
+    #postamble {
+	float: right;
+	width:75%;
+	position:static;
+    }
+}
+
+
+@media screen and (max-width: 1100px) {
+  h1, .header, #table-of-contents, .outline-2, #postamble {
     float:none;
     position:static;
     width:auto;
   }
-  
-  .header {
-    padding-right:320px;
-  }
-  
-  .outline-2 {
-    border:1px solid #e5e5e5;
-    border-width:1px 0;
-    padding:20px 0;
-    margin:0 0 20px;
+  #table-of-contents {
+      display: inline;
   }
 }
 
-@media print, screen and (max-width: 720px) {
+@media screen and (max-width: 720px) {
   body {
     word-wrap:break-word;
   }
