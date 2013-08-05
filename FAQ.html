@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="Frequently Asked Questions"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2013-05-12T17:38+0200"/>
+<meta name="generated" content="2013-08-05T16:56+0200"/>
 <meta name="author" content="Oscar Perpiñán Lamigueiro"/>
 <meta name="description" content="FAQ rasterVis"/>
 <meta name="keywords" content=""/>
@@ -61,6 +61,7 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="styles.css" />
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1">
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -121,6 +122,7 @@ for the JavaScript code in this tag.
 
 
 
+
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -148,10 +150,10 @@ Use the <code>at</code> argument to define the breaks.
 
 
 
-<pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
-r <span class="org-constant">&lt;-</span> raster(f)
+<pre class="src src-R">f <span style="color: #e6a8df;">&lt;-</span> system.file(<span style="color: #e9b96e;">"external/test.grd"</span>, package=<span style="color: #e9b96e;">"raster"</span>)
+r <span style="color: #e6a8df;">&lt;-</span> raster(f)
 
-my.at <span class="org-constant">&lt;-</span> seq(100, 1850, 500)
+my.at <span style="color: #e6a8df;">&lt;-</span> seq(100, 1850, 500)
 levelplot(r, at=my.at)
 </pre>
 
@@ -166,9 +168,9 @@ define the components of <code>colorkey</code>:
 
 
 
-<pre class="src src-R">myColorkey <span class="org-constant">&lt;-</span> list(at=my.at, <span class="org-comment-delimiter">## </span><span class="org-comment">where the colors change</span>
+<pre class="src src-R">myColorkey <span style="color: #e6a8df;">&lt;-</span> list(at=my.at, <span style="color: #73d216;">## </span><span style="color: #73d216;">where the colors change</span>
                    labels=list(
-                     at=my.at <span class="org-comment-delimiter">## </span><span class="org-comment">where to print labels</span>
+                     at=my.at <span style="color: #73d216;">## </span><span style="color: #73d216;">where to print labels</span>
                      ))
 levelplot(r, at=my.at, colorkey=myColorkey)
 </pre>
@@ -183,10 +185,10 @@ Last, you can even define the contents of the labels:
 
 
 
-<pre class="src src-R">myColorkey <span class="org-constant">&lt;-</span> list(at=my.at, <span class="org-comment-delimiter">## </span><span class="org-comment">where the colors change</span>
+<pre class="src src-R">myColorkey <span style="color: #e6a8df;">&lt;-</span> list(at=my.at, <span style="color: #73d216;">## </span><span style="color: #73d216;">where the colors change</span>
                    labels=list(
-                     labels=letters[seq_along(my.at)], <span class="org-comment-delimiter">## </span><span class="org-comment">labels</span>
-                     at=my.at <span class="org-comment-delimiter">## </span><span class="org-comment">where to print labels</span>
+                     labels=letters[seq_along(my.at)], <span style="color: #73d216;">## </span><span style="color: #73d216;">labels</span>
+                     at=my.at <span style="color: #73d216;">## </span><span style="color: #73d216;">where to print labels</span>
                      ))
 levelplot(r, at=my.at, colorkey=myColorkey)
 </pre>
@@ -211,10 +213,10 @@ Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> i
 
 
 
-<pre class="src src-R">r <span class="org-constant">&lt;-</span> raster()
-r <span class="org-constant">&lt;-</span> init(r, runif)
+<pre class="src src-R">r <span style="color: #e6a8df;">&lt;-</span> raster()
+r <span style="color: #e6a8df;">&lt;-</span> init(r, runif)
 
-levelplot(r, xlab=<span class="org-type">NULL</span>, ylab=<span class="org-type">NULL</span>, scales=list(draw=<span class="org-type">FALSE</span>))
+levelplot(r, xlab=<span style="color: #8cc4ff;">NULL</span>, ylab=<span style="color: #8cc4ff;">NULL</span>, scales=list(draw=<span style="color: #8cc4ff;">FALSE</span>))
 </pre>
 
 
@@ -224,7 +226,7 @@ levelplot(r, xlab=<span class="org-type">NULL</span>, ylab=<span class="org-type
 
 
 
-<pre class="src src-R">levelplot(r, xlab=<span class="org-type">NULL</span>, scales=list(x=list(draw=<span class="org-type">FALSE</span>)))
+<pre class="src src-R">levelplot(r, xlab=<span style="color: #8cc4ff;">NULL</span>, scales=list(x=list(draw=<span style="color: #8cc4ff;">FALSE</span>)))
 </pre>
 
 
@@ -234,7 +236,7 @@ levelplot(r, xlab=<span class="org-type">NULL</span>, ylab=<span class="org-type
 
 
 
-<pre class="src src-R">levelplot(r, ylab=<span class="org-type">NULL</span>, scales=list(y=list(draw=<span class="org-type">FALSE</span>)))
+<pre class="src src-R">levelplot(r, ylab=<span style="color: #8cc4ff;">NULL</span>, scales=list(y=list(draw=<span style="color: #8cc4ff;">FALSE</span>)))
 </pre>
 
 
@@ -257,13 +259,13 @@ arguments to be passed to <code>grid::gpar</code>.
 
 
 
-<pre class="src src-R">r <span class="org-constant">&lt;-</span> raster(nrow=10, ncol=10)
-r[] <span class="org-constant">&lt;-</span> runif(100)
+<pre class="src src-R">r <span style="color: #e6a8df;">&lt;-</span> raster(nrow=10, ncol=10)
+r[] <span style="color: #e6a8df;">&lt;-</span> runif(100)
 
-levelplot(r, margin=<span class="org-type">FALSE</span>,
-          main=list(<span class="org-string">'My plot'</span>, col=<span class="org-string">'red'</span>),
-          xlab=c(<span class="org-string">'Longitude'</span>, <span class="org-string">'X-Axis'</span>),
-          ylab=list(<span class="org-string">'Latitude'</span>, rot=30, fontface=<span class="org-string">'bold'</span>)
+levelplot(r, margin=<span style="color: #8cc4ff;">FALSE</span>,
+          main=list(<span style="color: #e9b96e;">'My plot'</span>, col=<span style="color: #e9b96e;">'red'</span>),
+          xlab=c(<span style="color: #e9b96e;">'Longitude'</span>, <span style="color: #e9b96e;">'X-Axis'</span>),
+          ylab=list(<span style="color: #e9b96e;">'Latitude'</span>, rot=30, fontface=<span style="color: #e9b96e;">'bold'</span>)
           )
 </pre>
 
@@ -286,7 +288,7 @@ Use <code>xlim</code> and <code>ylim</code>
 </p>
 
 
-<pre class="src src-R">r <span class="org-constant">&lt;-</span> raster(nrow=10, ncol=10)
+<pre class="src src-R">r <span style="color: #e6a8df;">&lt;-</span> raster(nrow=10, ncol=10)
 r[] = 1:10
 levelplot(r, xlim=c(-100, 100), ylim=c(-50, 50))
 </pre>
@@ -308,10 +310,10 @@ levelplot(r, xlim=c(-100, 100), ylim=c(-50, 50))
 </p>
 
 
-<pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
-r <span class="org-constant">&lt;-</span> raster(f)
+<pre class="src src-R">f <span style="color: #e6a8df;">&lt;-</span> system.file(<span style="color: #e9b96e;">"external/test.grd"</span>, package=<span style="color: #e9b96e;">"raster"</span>)
+r <span style="color: #e6a8df;">&lt;-</span> raster(f)
 
-levelplot(r, margin=<span class="org-type">FALSE</span>, auto.key=<span class="org-type">FALSE</span>, scales=list(draw=<span class="org-type">FALSE</span>)) + 
+levelplot(r, margin=<span style="color: #8cc4ff;">FALSE</span>, auto.key=<span style="color: #8cc4ff;">FALSE</span>, scales=list(draw=<span style="color: #8cc4ff;">FALSE</span>)) + 
     layer({
         SpatialPolygonsRescale(layout.north.arrow(),
                                offset = c(179000,332500),
@@ -338,19 +340,19 @@ levelplot(r, margin=<span class="org-type">FALSE</span>, auto.key=<span class="o
 
 
 
-<pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
-r <span class="org-constant">&lt;-</span> raster(f)
+<pre class="src src-R">f <span style="color: #e6a8df;">&lt;-</span> system.file(<span style="color: #e9b96e;">"external/test.grd"</span>, package=<span style="color: #e9b96e;">"raster"</span>)
+r <span style="color: #e6a8df;">&lt;-</span> raster(f)
 
 levelplot(r) +
   layer({
-    xs <span class="org-constant">&lt;-</span> seq(181000, 181400, by=100)
+    xs <span style="color: #e6a8df;">&lt;-</span> seq(181000, 181400, by=100)
     grid.rect(x=xs, y=330500,
                   width=100, height=30,
-                  gp=gpar(fill=rep(c(<span class="org-string">'transparent'</span>, <span class="org-string">'black'</span>), 2)),
-                  default.units=<span class="org-string">'native'</span>)
+                  gp=gpar(fill=rep(c(<span style="color: #e9b96e;">'transparent'</span>, <span style="color: #e9b96e;">'black'</span>), 2)),
+                  default.units=<span style="color: #e9b96e;">'native'</span>)
     grid.text(x= xs - 50, y=330560, seq(0, 400, by=100),
               gp=gpar(cex=0.5), rot=30,
-              default.units=<span class="org-string">'native'</span>)
+              default.units=<span style="color: #e9b96e;">'native'</span>)
     })
 
 </pre>
@@ -377,15 +379,15 @@ For two different <code>RasterLayer</code>.
 </p>
 
 
-<pre class="src src-R">r <span class="org-constant">&lt;-</span> r2 <span class="org-constant">&lt;-</span> raster()
-r[] <span class="org-constant">&lt;-</span> runif(ncell(r))
-r2[] <span class="org-constant">&lt;-</span> 1:10
+<pre class="src src-R">r <span style="color: #e6a8df;">&lt;-</span> r2 <span style="color: #e6a8df;">&lt;-</span> raster()
+r[] <span style="color: #e6a8df;">&lt;-</span> runif(ncell(r))
+r2[] <span style="color: #e6a8df;">&lt;-</span> 1:10
 
-p <span class="org-constant">&lt;-</span> levelplot(r, par.settings=RdBuTheme(), margin=<span class="org-type">FALSE</span>)
-p2 <span class="org-constant">&lt;-</span> levelplot(r2, par.settings=BTCTheme(), margin=<span class="org-type">FALSE</span>)
+p <span style="color: #e6a8df;">&lt;-</span> levelplot(r, par.settings=RdBuTheme(), margin=<span style="color: #8cc4ff;">FALSE</span>)
+p2 <span style="color: #e6a8df;">&lt;-</span> levelplot(r2, par.settings=BTCTheme(), margin=<span style="color: #8cc4ff;">FALSE</span>)
 
 
-print(p, split=c(1, 1, 1, 2), more=<span class="org-type">TRUE</span>)
+print(p, split=c(1, 1, 1, 2), more=<span style="color: #8cc4ff;">TRUE</span>)
 print(p2, split=c(1, 2, 1, 2))
 
 </pre>
@@ -399,14 +401,14 @@ A more sophisticated solution to print more than two layers.
 </p>
 
 
-<pre class="src src-R">s <span class="org-constant">&lt;-</span> stack(r, r2, 10*r+r2, 10*r-r2)
-nl <span class="org-constant">&lt;-</span> nlayers(s)
-m <span class="org-constant">&lt;-</span> matrix(1:nl, nrow=2)
-themes <span class="org-constant">&lt;-</span> list(RdBuTheme(), BTCTheme(), GrTheme(), PuOrTheme())
-<span class="org-keyword">for</span> (i <span class="org-keyword">in</span> 1:nl){
-    p <span class="org-constant">&lt;-</span> levelplot(s, layers=i,
+<pre class="src src-R">s <span style="color: #e6a8df;">&lt;-</span> stack(r, r2, 10*r+r2, 10*r-r2)
+nl <span style="color: #e6a8df;">&lt;-</span> nlayers(s)
+m <span style="color: #e6a8df;">&lt;-</span> matrix(1:nl, nrow=2)
+themes <span style="color: #e6a8df;">&lt;-</span> list(RdBuTheme(), BTCTheme(), GrTheme(), PuOrTheme())
+<span style="color: #b4fa70;">for</span> (i <span style="color: #b4fa70;">in</span> 1:nl){
+    p <span style="color: #e6a8df;">&lt;-</span> levelplot(s, layers=i,
                    par.settings=themes[[i]],
-                   margin=<span class="org-type">FALSE</span>)
+                   margin=<span style="color: #8cc4ff;">FALSE</span>)
     print(p, split=c(col(m)[i], row(m)[i], 2, 2), more=(i&lt;nl))
 }
 </pre>
@@ -430,32 +432,25 @@ themes <span class="org-constant">&lt;-</span> list(RdBuTheme(), BTCTheme(), GrT
 
 
 
-<pre class="src src-R">r <span class="org-constant">&lt;-</span> raster(nrow=10, ncol=10)
-r[] <span class="org-constant">&lt;-</span> runif(100)
-s <span class="org-constant">&lt;-</span> stack(lapply(1:8, <span class="org-keyword">function</span>(i)r))
+<pre class="src src-R">r <span style="color: #e6a8df;">&lt;-</span> raster(nrow=10, ncol=10)
+r[] <span style="color: #e6a8df;">&lt;-</span> runif(100)
+s <span style="color: #e6a8df;">&lt;-</span> stack(lapply(1:8, <span style="color: #b4fa70;">function</span>(i)r))
 
-levelplot(s, scales=list(draw=<span class="org-type">FALSE</span>), colorkey=<span class="org-type">FALSE</span>,
+levelplot(s, scales=list(draw=<span style="color: #8cc4ff;">FALSE</span>), colorkey=<span style="color: #8cc4ff;">FALSE</span>,
           par.settings=GrTheme(),
-          names.attr=paste0(<span class="org-string">'MNF-'</span>, 1:8))
+          names.attr=paste0(<span style="color: #e9b96e;">'MNF-'</span>, 1:8))
 
 </pre>
 
 
 <p>
 <img src="figs/FAQ_namesattr.png"  alt="figs/FAQ_namesattr.png" />
-</p>
-
-<hr/>
-</div>
+</p></div>
 </div>
 </div>
 
 <div id="postamble">
-<p class="date">Date: 2013-05-12T17:38+0200</p>
-<p class="author">Author: Oscar Perpiñán Lamigueiro</p>
-<p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.2 with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 24</p>
-<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
-
+<p><a href="http://oscarperpinan.github.io/rastervis">HOME</a></p><p><a href="https://github.com/oscarperpinan/rastervis">View the Project on GitHub</a></p><p>Maintained by <a href="http://oscarperpinan.github.io/">Oscar Perpiñán</a>.</p>
 </div>
 </body>
 </html>

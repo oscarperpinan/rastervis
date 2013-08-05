@@ -5,16 +5,21 @@
 #+AUTHOR: Oscar Perpiñán Lamigueiro
 #+PROPERTY:  session *R*
 #+PROPERTY:  tangle yes
+#+PROPERTY:  eval no-export
 #+PROPERTY:  comments org
 #+LANGUAGE:  en
+#+OPTIONS:   H:3 num:nil toc:1 \n:nil @:t ::t |:t ^:t -:t f:t *:t TeX:t LaTeX:nil skip:nil d:t tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+OPTIONS: org-html-preamble nil org-html-postamble nil
 #+STYLE:    <link rel="stylesheet" type="text/css" href="styles.css" />
-#+OPTIONS:   num:nil toc:1 ^:nil
-#+PROPERTY 
+#+STYLE: <META NAME="viewport" CONTENT="width=device-width, initial-scale=1">
+#+BIND: org-export-html-postamble "<p><a href=\"http://oscarperpinan.github.io/rastervis\">HOME</a></p><p><a href=\"https://github.com/oscarperpinan/rastervis\">View the Project on GitHub</a></p><p>Maintained by <a href=\"http://oscarperpinan.github.io/\">Oscar Perpiñán</a>.</p>"
 #+PROPERTY exports both 
 
 #+begin_src R :exports none
   setwd('~/R/rastervis/www/')
 #+end_src
+
 
 * How to define the breaks
 
@@ -41,6 +46,10 @@ myColorkey <- list(at=my.at, ## where the colors change
                      ))
 levelplot(r, at=my.at, colorkey=myColorkey)
 #+end_src
+
+#+RESULTS:
+[[file:figs/FAQ_at2.png]]
+
 Last, you can even define the contents of the labels:
 
 #+begin_src R :results output graphics :exports both :file "figs/FAQ_at3.png" 
@@ -51,6 +60,9 @@ myColorkey <- list(at=my.at, ## where the colors change
                      ))
 levelplot(r, at=my.at, colorkey=myColorkey)
 #+end_src
+
+#+RESULTS:
+[[file:figs/FAQ_at3.png]]
 
 
 * How to suppress axis labels and ticks
@@ -64,13 +76,23 @@ Use =xlab=NULL=, =ylab=NULL= and =draw=FALSE= inside =scale=.
   levelplot(r, xlab=NULL, ylab=NULL, scales=list(draw=FALSE))
 #+end_src
 
+#+RESULTS:
+[[file:figs/FAQ_axis_labels.png]]
+
 #+begin_src R :results output graphics :exports both :file "figs/FAQ_axis_labelsX.png" 
   levelplot(r, xlab=NULL, scales=list(x=list(draw=FALSE)))
 #+end_src
 
+#+RESULTS:
+[[file:figs/FAQ_axis_labelsX.png]]
+
 #+begin_src R :results output graphics :exports both :file "figs/FAQ_axis_labelsY.png" 
   levelplot(r, ylab=NULL, scales=list(y=list(draw=FALSE)))
 #+end_src
+
+#+RESULTS:
+[[file:figs/FAQ_axis_labelsY.png]]
+
 * How to rotate the axis label or use a different color
 
 Define =main=, =xlab= and =ylab= as vectors or lists with
@@ -87,6 +109,9 @@ arguments to be passed to =grid::gpar=.
             )
 #+end_src
 
+#+RESULTS:
+[[file:figs/FAQ_label_color.png]]
+
 
 * How to plot a geographical subset of a raster?
 
@@ -96,6 +121,9 @@ Use =xlim= and =ylim=
   r[] = 1:10
   levelplot(r, xlim=c(-100, 100), ylim=c(-50, 50))
 #+end_src
+
+#+RESULTS:
+[[file:figs/FAQ_subset.png]]
 
 
 * How to add an arrow
@@ -112,6 +140,9 @@ Use =sp::layout.north.arrow= with =latticeExtra::layer=.
       })
   
 #+end_src
+
+#+RESULTS:
+[[file:figs/FAQ_arrow.png]]
 
 
 * How to add an scale
@@ -135,6 +166,9 @@ Use =grid.rect=, =grid.text= and =latticeExtra::layer=.
   
 #+end_src
 
+#+RESULTS:
+[[file:figs/FAQ_scale.png]]
+
 
 * How to print several Rasters with different legends in the same page
 
@@ -155,6 +189,9 @@ For two different =RasterLayer=.
   
 #+end_src
 
+#+RESULTS:
+[[file:figs/FAQ_print_split.png]]
+
 A more sophisticated solution to print more than two layers.
 #+begin_src R :results output graphics :exports both :file "figs/FAQ_print_split4.png" 
   s <- stack(r, r2, 10*r+r2, 10*r-r2)
@@ -168,6 +205,9 @@ A more sophisticated solution to print more than two layers.
       print(p, split=c(col(m)[i], row(m)[i], 2, 2), more=(i<nl))
   }
 #+end_src
+
+#+RESULTS:
+[[file:figs/FAQ_print_split4.png]]
 
 
 
@@ -185,4 +225,5 @@ Use =names.attr=.
   
 #+end_src
 
------
+#+RESULTS:
+[[file:figs/FAQ_namesattr.png]]

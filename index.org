@@ -1,5 +1,3 @@
-#+CATEGORY: R
-#+TAGS: 
 #+DESCRIPTION: rasterVis
 #+TITLE: rasterVis
 #+PROPERTY:  session *R:2*
@@ -7,22 +5,26 @@
 #+PROPERTY:  eval no-export
 #+PROPERTY:  comments org
 #+LANGUAGE:  en
-#+STYLE:    <link rel="stylesheet" type="text/css" href="styles.css" />
+#+AUTHOR: Oscar Perpiñán Lamigueiro
 #+OPTIONS:   num:nil toc:1 ^:nil
+#+OPTIONS: org-html-preamble nil org-html-postamble nil
+#+STYLE:    <link rel="stylesheet" type="text/css" href="styles.css" />
+#+STYLE: <META NAME="viewport" CONTENT="width=device-width, initial-scale=1">
+#+BIND: org-export-html-postamble "<p><a href=\"http://oscarperpinan.github.io/rastervis\">HOME</a> | <a href=\"http://oscarperpinan.github.io/rastervis/FAQ.html\">FAQs</a></p><p><a href=\"https://github.com/oscarperpinan/rastervis\">View the Project on GitHub</a></p><p>Maintained by <a href=\"http://oscarperpinan.github.io/\">Oscar Perpiñán</a>.</p>"
 
+#+BEGIN_header
 The [[http://cran.r-project.org/web/packages/raster/index.html][raster]] package defines classes and methods for spatial raster data
 access and manipulation. The =rasterVis= package complements
 raster providing a set of methods for enhanced visualization and
-interaction. The stable release of =rasterVis= can be found at
-[[http://cran.r-project.org/web/packages/rasterVis/][CRAN]]. The development version is at [[https://r-forge.r-project.org/R/?group_id%3D1129][R-Forge]].
+interaction. 
 
-There is a FAQs page available [[./FAQ.org][here]].
+The stable release of =rasterVis= can be found at [[http://cran.r-project.org/web/packages/rasterVis/][CRAN]]. 
+The development version is at [[https://r-forge.r-project.org/R/?group_id%3D1129][R-Forge]].
+#+END_header
  
-This page has been generated with [[http://orgmode.org/][org-mode]]. You can download the
-[[http://rastervis.r-forge.r-project.org/index.org][org file]] and the [[http://rastervis.r-forge.r-project.org/index.R][R code]].
+# This page has been generated with [[http://orgmode.org/][org-mode]]. You can download the [[http://rastervis.r-forge.r-project.org/index.org][org file]] and the [[http://rastervis.r-forge.r-project.org/index.R][R code]].
 
------
-
+* Introduction
 Let's show some of its functionalities with some examples, using
 data from the [[http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet][CMSAF]] project as described [[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]] ([[http://www.box.net/shared/rl51y1t9sldxk54ogd44][download data]]).
 
@@ -375,8 +377,6 @@ be highlighted and returned as a SpatialPoints object.
 #+begin_src R :exports code
 reg <- chooseRegion()
 #+end_src
-
------
 
 #+begin_src sh :results silent :exports none
   mogrify -density 200 -format png figs/*.pdf 
