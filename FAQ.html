@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <meta name="title" content="FAQs"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2013-08-21T16:54+0200"/>
+<meta name="generated" content="2013-08-21T17:10+0200"/>
 <meta name="author" content="Oscar Perpiñán Lamigueiro"/>
 <meta name="description" content="FAQ rasterVis"/>
 <meta name="keywords" content=""/>
@@ -130,11 +130,12 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1">How to define the breaks</a></li>
 <li><a href="#sec-2">How to suppress axis labels and ticks</a></li>
 <li><a href="#sec-3">How to rotate the axis label or use a different color</a></li>
-<li><a href="#sec-4">How to plot a geographical subset of a raster?</a></li>
+<li><a href="#sec-4">How to plot a geographical subset of a raster</a></li>
 <li><a href="#sec-5">How to add an arrow</a></li>
 <li><a href="#sec-6">How to add an scale</a></li>
-<li><a href="#sec-7">How to print several Rasters with different legends in the same page</a></li>
-<li><a href="#sec-8">How to label each panel with a different label from the layer name</a></li>
+<li><a href="#sec-7">How to overlay a shapefile</a></li>
+<li><a href="#sec-8">How to print several Rasters with different legends in the same page</a></li>
+<li><a href="#sec-9">How to label each panel with a different label from the layer name</a></li>
 </ul>
 </div>
 </div>
@@ -243,6 +244,7 @@ levelplot(r, xlab=<span style="color: #8cc4ff;">NULL</span>, ylab=<span style="c
 <p>
 <img src="figs/FAQ_axis_labelsY.png"  alt="figs/FAQ_axis_labelsY.png" />
 </p>
+
 </div>
 
 </div>
@@ -279,7 +281,7 @@ levelplot(r, margin=<span style="color: #8cc4ff;">FALSE</span>,
 </div>
 
 <div id="outline-container-4" class="outline-2">
-<h2 id="sec-4">How to plot a geographical subset of a raster?</h2>
+<h2 id="sec-4">How to plot a geographical subset of a raster</h2>
 <div class="outline-text-2" id="text-4">
 
 
@@ -367,8 +369,77 @@ levelplot(r) +
 </div>
 
 <div id="outline-container-7" class="outline-2">
-<h2 id="sec-7">How to print several Rasters with different legends in the same page</h2>
+<h2 id="sec-7">How to overlay a shapefile</h2>
 <div class="outline-text-2" id="text-7">
+
+
+<p>
+Several layers can be combined using the <code>+.trellis</code> and <code>layer</code>
+functions from the <code>latticeExtra</code> package (which is automatically
+loaded with <code>rasterVis</code>).
+</p>
+
+
+
+<pre class="src src-R"><span style="color: #e6a8df;">library</span>(raster)
+<span style="color: #e6a8df;">library</span>(rasterVis)
+</pre>
+
+
+<p>
+Let's build some data to play. You can skip this part if you already have a raster file and a shapefile.
+</p>
+
+
+
+<pre class="src src-R"><span style="color: #e6a8df;">library</span>(maps)
+<span style="color: #e6a8df;">library</span>(mapdata)
+<span style="color: #e6a8df;">library</span>(maptools)
+
+<span style="color: #73d216;">## </span><span style="color: #73d216;">raster</span>
+myRaster <span style="color: #e6a8df;">&lt;-</span> raster(xmn=-100, xmx=100, ymn=-60, ymx=60)
+myRaster <span style="color: #e6a8df;">&lt;-</span> init(myRaster, runif)
+
+<span style="color: #73d216;">## </span><span style="color: #73d216;">polygon shapefile</span>
+ext <span style="color: #e6a8df;">&lt;-</span> as.vector(extent(myRaster))
+
+boundaries <span style="color: #e6a8df;">&lt;-</span> map(<span style="color: #e9b96e;">'worldHires'</span>, fill=<span style="color: #8cc4ff;">TRUE</span>,
+    xlim=ext[1:2], ylim=ext[3:4],
+    plot=<span style="color: #8cc4ff;">FALSE</span>)
+
+<span style="color: #73d216;">## </span><span style="color: #73d216;">read the map2SpatialPolygons help page for details</span>
+IDs <span style="color: #e6a8df;">&lt;-</span> sapply(strsplit(boundaries$names, <span style="color: #e9b96e;">":"</span>), <span style="color: #b4fa70;">function</span>(x) x[1])
+bPols <span style="color: #e6a8df;">&lt;-</span> map2SpatialPolygons(boundaries, IDs=IDs,
+                              proj4string=CRS(projection(myRaster)))
+</pre>
+
+
+<p>
+The polygons are printed with <code>sp::sp.polygons</code> using <code>+.trellis</code> and
+<code>layer</code> to display them over the result of <code>levelplot</code>.
+</p>
+
+
+
+<pre class="src src-R">levelplot(myRaster) + layer(sp.polygons(bPols))
+</pre>
+
+
+<p>
+<img src="figs/FAQ_overlay.png"  alt="figs/FAQ_overlay.png" />
+</p>
+<p>
+Read the help page of <code>sp.polygons</code> for detailed information about its
+options.
+</p>
+
+</div>
+
+</div>
+
+<div id="outline-container-8" class="outline-2">
+<h2 id="sec-8">How to print several Rasters with different legends in the same page</h2>
+<div class="outline-text-2" id="text-8">
 
 
 <p>
@@ -423,9 +494,9 @@ themes <span style="color: #e6a8df;">&lt;-</span> list(RdBuTheme(), BTCTheme(), 
 
 </div>
 
-<div id="outline-container-8" class="outline-2">
-<h2 id="sec-8">How to label each panel with a different label from the layer name</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-9" class="outline-2">
+<h2 id="sec-9">How to label each panel with a different label from the layer name</h2>
+<div class="outline-text-2" id="text-9">
 
 <p>Use <code>names.attr</code>.
 </p>

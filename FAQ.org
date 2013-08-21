@@ -93,6 +93,7 @@ Use =xlab=NULL=, =ylab=NULL= and =draw=FALSE= inside =scale=.
 #+RESULTS:
 [[file:figs/FAQ_axis_labelsY.png]]
 
+
 * How to rotate the axis label or use a different color
 
 Define =main=, =xlab= and =ylab= as vectors or lists with
@@ -113,7 +114,7 @@ arguments to be passed to =grid::gpar=.
 [[file:figs/FAQ_label_color.png]]
 
 
-* How to plot a geographical subset of a raster?
+* How to plot a geographical subset of a raster
 
 Use =xlim= and =ylim=
 #+begin_src R :results output graphics :exports both :file "figs/FAQ_subset.png"
@@ -168,6 +169,55 @@ Use =grid.rect=, =grid.text= and =latticeExtra::layer=.
 
 #+RESULTS:
 [[file:figs/FAQ_scale.png]]
+
+
+* How to overlay a shapefile
+
+Several layers can be combined using the =+.trellis= and =layer=
+functions from the =latticeExtra= package (which is automatically
+loaded with =rasterVis=).
+
+#+begin_src R
+library(raster)
+library(rasterVis)
+#+end_src
+
+Let's build some data to play. You can skip this part if you already have a raster file and a shapefile.
+
+#+begin_src R
+library(maps)
+library(mapdata)
+library(maptools)
+
+## raster
+myRaster <- raster(xmn=-100, xmx=100, ymn=-60, ymx=60)
+myRaster <- init(myRaster, runif)
+
+## polygon shapefile
+ext <- as.vector(extent(myRaster))
+
+boundaries <- map('worldHires', fill=TRUE,
+    xlim=ext[1:2], ylim=ext[3:4],
+    plot=FALSE)
+
+## read the map2SpatialPolygons help page for details
+IDs <- sapply(strsplit(boundaries$names, ":"), function(x) x[1])
+bPols <- map2SpatialPolygons(boundaries, IDs=IDs,
+                              proj4string=CRS(projection(myRaster)))
+#+end_src
+
+The polygons are printed with =sp::sp.polygons= using =+.trellis= and
+=layer= to display them over the result of =levelplot=.
+
+#+begin_src R :results output graphics :exports both :file "figs/FAQ_overlay.png" 
+levelplot(myRaster) + layer(sp.polygons(bPols))
+#+end_src
+
+#+RESULTS:
+[[file:figs/FAQ_overlay.png]]
+
+Read the help page of =sp.polygons= for detailed information about its
+options.
 
 
 * How to print several Rasters with different legends in the same page
