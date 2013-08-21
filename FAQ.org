@@ -1,7 +1,7 @@
 #+CATEGORY: R
 #+TAGS: 
 #+DESCRIPTION: FAQ rasterVis
-#+TITLE: Frequently Asked Questions
+#+TITLE: FAQs
 #+AUTHOR: Oscar Perpiñán Lamigueiro
 #+PROPERTY:  session *R*
 #+PROPERTY:  tangle yes
@@ -13,7 +13,7 @@
 #+OPTIONS: org-html-preamble nil org-html-postamble nil
 #+STYLE:    <link rel="stylesheet" type="text/css" href="styles.css" />
 #+STYLE: <META NAME="viewport" CONTENT="width=device-width, initial-scale=1">
-#+BIND: org-export-html-postamble "<p><a href=\"http://oscarperpinan.github.io/rastervis\">HOME</a></p><p><a href=\"https://github.com/oscarperpinan/rastervis\">View the Project on GitHub</a></p><p>Maintained by <a href=\"http://oscarperpinan.github.io/\">Oscar Perpiñán</a>.</p>"
+#+BIND: org-export-html-postamble "<p><a href=\"http://oscarperpinan.github.io/rastervis\">HOME</a></p>"
 #+PROPERTY exports both 
 
 #+begin_src R :exports none

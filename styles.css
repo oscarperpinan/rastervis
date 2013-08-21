@@ -27,6 +27,8 @@ h1 {
     float: left;
     position: fixed;
     font-size: 36px;
+    top:3%;
+    left:0%;
 }
 
 h2 {
@@ -151,11 +153,15 @@ hr {
 
 #table-of-contents {
     position: fixed;
-    bottom: 25%;
+    /* bottom: 25%; */
     float: left;
     width: 20%;
+    /* top: 150px; */
 }
 
+#table-of-contents h2{
+    display:none;
+}
 #postamble {
   float:left;
   position:fixed;
@@ -174,11 +180,11 @@ hr {
     margin: 10px;
 }
 
-@media screen and (max-height: 790px) {
-    #table-of-contents {
-	display: none;
-    }
-}
+/* @media screen and (max-height: 690px) { */
+/*     #table-of-contents { */
+/* 	display: none; */
+/*     } */
+/* } */
 
 @media screen and (max-height: 500px) {
     #postamble {
