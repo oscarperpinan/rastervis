@@ -110,31 +110,40 @@ hr {
   margin:0 0 20px;
 }
 
-/* Copied from worg.css*/
-
+/* CODE BLOCKS*/
+pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+        font-size: 90%;
+        overflow:auto;
+}
+/* Adapted from worg.css*/
   .org-comment {
     /* font-lock-comment-face */
-    color: #b22222;
+    color: #707070;
   }
   .org-comment-delimiter {
     /* font-lock-comment-delimiter-face */
-    color: #b22222;
+    color: #707070;
   }
   .org-constant {
     /* font-lock-constant-face */
-    color: #5f9ea0;
+    color: #8B0000;
   }
   .org-string {
     /* font-lock-string-face */
-    color: #bc8f8f;
+    color: #008000;
   }
   .org-type {
     /* font-lock-type-face */
-    color: #228b22;
+    color: #483D8B;
+    font-style:bold;
   }
 
   code {
-    font-family: "Courier New Mono";
+    font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
     background:#e5e5e5;
     font-size: 90%;
     color: black;
