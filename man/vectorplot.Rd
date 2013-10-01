@@ -81,10 +81,15 @@
   the same extent and resolution as \code{object}.}
 \item{reverse}{Logical, TRUE if arrows or streamlets go against the direction
   of the gradient.}
-  \item{isField}{Logical, if \code{TRUE} (the object is a vector field),
-  \code{object} must be a Raster*
-  with two layers, slope and aspect (in this order), following the
-  philosophy of \code{\link{terrain}}.}
+
+\item{isField}{If \code{TRUE} (the object is a vector field),
+  \code{object} must be a Raster* with two layers, slope and aspect (in
+  this order), following the philosophy of \code{\link{terrain}}. If
+  \code{isField='dXY'} \code{object} must be a Raster* with two layers
+  representing the horizontal and the vertical components,
+  respectively.
+}
+
 \item{unit}{Character, angle units of the \code{aspect} layer if
   \code{isField=TRUE}: 'radians' or 'degrees'.}
   \item{\dots}{Additional arguments for \code{\link{levelplot}}}
@@ -122,7 +127,28 @@ vectorplot(r1)
 vectorplot(r2, par.settings=RdBuTheme())
 vectorplot(r3, par.settings=PuOrTheme())
 
+## A vector field defined by the horizontal and vertical components
+u <- v <- raster(xmn=0, xmx=2, ymn=0, ymx=2, ncol=1e3, nrow=1e3)
+x <- init(u, v='x')
+y <- init(u, v='y')
+u <- y * cos(x)
+v <- y * sin(x) 
+field <- stack(u, v)
+names(field) <- c('u', 'v')
 
+vectorplot(field, isField='dXY', narrows=5e2)
+
+## We can display both components as the background
+vectorplot(field, isField='dXY', narrows=5e2, region=field)
+
+## Or even compute the slope and use it as the background region
+slope <- sqrt(u^2 + y^2)
+vectorplot(field, isField='dXY', narrows=5e2,
+           region=slope, par.settings=BTCTheme())
+
+##################################################################
+## Streamplot
+##################################################################
 ## If no cluster is provided, streamplot uses parallel::mclapply except
 ## with Windows. Therefore, next code could spend a long time under
 ## Windows.

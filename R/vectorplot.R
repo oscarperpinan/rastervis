@@ -11,39 +11,53 @@ setMethod('vectorplot',
               maxpixels=1e5, region=TRUE,
               isField=FALSE, reverse=FALSE, unit='radians',
               ...){
+              
               if (!missing(layers)) {
                   object <- subset(object, subset=layers)
-              } else {}
-
+              }
               
               dat <- sampleRegular(object, size=narrows, asRaster=TRUE)
               x <- getValues(init(dat, v='x'))
               y <- getValues(init(dat, v='y'))
 
-
-              fooSlopeAspect <- function(s, skip, unit, reverse){
-                  aspX <- xres(s)*0.6 ## maybe use a non-constant value...
+              if (isField=='dXY') {
+                  isField=TRUE
+                  dXY=TRUE
+                  } else {
+                      dXY=FALSE
+                      }
+              
+              ## Compute slope and aspect layers
+              fooSlopeAspect <- function(s, skip, dXY=FALSE,
+                                         unit, reverse){
+                  aspX <- xres(s)*0.6 ## maybe use a non-constant value
                   aspY <- yres(s)*0.6
 
                   if (!skip){s <- terrain(s, opt=c('slope', 'aspect'))}
                   ## If s is a vector field, the first layer is the
-                  ## magnitude (slope) and the second is the angle (aspect)
-                  slope <- getValues(subset(s, 1))
-                  aspect <- getValues(subset(s, 2))
-                  if (unit=='degrees' & skip) {aspect <- aspect/180*pi}
-                  if (reverse) aspect <- aspect + pi
-
-
-                  slope <- scale(slope, center=FALSE) ##center=FALSE to
-                  ## get only positive
-                  ## values of slope
-                  dx <- slope*sin(aspect)*aspX ##sin due to the angular
-                  ## definition of aspect
-                  dy <- slope*cos(aspect)*aspY
-
+                  ## magnitude (slope) and the second is the angle
+                  ## (aspect)
                   x <- getValues(init(s, v='x'))
                   y <- getValues(init(s, v='y'))
 
+                  if (!dXY) {
+                      slope <- getValues(subset(s, 1))
+                      aspect <- getValues(subset(s, 2))
+                                        
+                      if (unit=='degrees' & skip) {
+                          aspect <- aspect/180*pi
+                      }
+                      if (reverse) aspect <- aspect + pi
+                      ##center=FALSE to get only positive values of
+                      ##slope
+                      slope <- scale(slope, center=FALSE)
+                      ##sin due to the angular definition of aspect
+                      dx <- slope * sin(aspect) * aspX 
+                      dy <- slope * cos(aspect) * aspY
+                  } else {
+                      dx <- getValues(subset(s, 1)) * aspX
+                      dy <- getValues(subset(s, 2)) * aspY
+                  }
                   data.frame(x, y, dx, dy)
               }
 
@@ -53,16 +67,15 @@ setMethod('vectorplot',
                                skip=FALSE, unit=unit, reverse=reverse)
                   sa <- do.call(rbind, sa)
               } else {
-                  sa <- fooSlopeAspect(dat, skip=isField,
+                  sa <- fooSlopeAspect(dat, skip=isField, dXY=dXY,
                                        unit=unit, reverse=reverse)
               }
-
               
               ##only uses the magnitude for the region
               if (isField) object <- subset(object, 1)
 
               if (is(region, 'Raster')) {
-                  compareRaster(object, region)
+                  compareRaster(object, region, rowcol=FALSE)
                   object <- region
                   region <- TRUE
                   }
