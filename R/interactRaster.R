@@ -3,6 +3,11 @@
 # Version 0.10
 # Licence GPL v3
 
+## chooseRegion: no visible binding for global variable ‘xin’
+## chooseRegion: no visible binding for global variable ‘yin’
+if(getRversion() >= "2.15.1") globalVariables(c('xin', 'yin'))
+
+
 setGeneric('identifyRaster', function(object, ...){standardGeneric('identifyRaster')})
 
 setMethod('identifyRaster', signature(object='Raster'),

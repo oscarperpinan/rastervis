@@ -41,14 +41,17 @@
   \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
 
-  \item{margin}{logical, if TRUE a marginal plot of the
-    \code{FUN.margin} function to each coordinate will be displayed.}
+  \item{margin}{logical, if TRUE two marginal graphics show the column
+    (x) and row (y) summaries of the \code{Raster*} object. The summary
+    is computed with the function defined by \code{FUN.margin} (which
+    uses \code{mean} as default value).}
 
-  \item{FUN.margin}{A function to be applied to each coordinate.}
+  \item{FUN.margin}{A function to summarise the \code{Raster*} by rows
+  and columns (default: \code{mean}).}
 
-  \item{scales.margin}{A list with components \code{x} and
-    \code{y}. Each of these components is a numeric vector of length 2
-    defining the range for each marginal plot. If
+  \item{scales.margin}{A list with components \code{x} (columns) and
+    \code{y} (rows). Each of these components is a numeric vector of
+    length 2 defining the range for each marginal plot. If
     \code{scales.margin=NULL} the range is internally computed.}
 
   \item{maxpixels}{A positive integer giving the number of cells to
