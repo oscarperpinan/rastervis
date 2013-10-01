@@ -50,7 +50,7 @@
   \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
   \item{maxpixels}{A numeric, number of cells to be shown if
-  \code{region=TRUE}.}
+  \code{region=TRUE} or if \code{region} is a \code{Raster*} object.}
 \item{narrows}{A numeric, number of arrows.}
   \item{lwd.arrows}{Numeric, width of the lines of the arrows}
   \item{length}{Unit, extent of the arrow head.}
@@ -76,8 +76,9 @@
 \item{mc.cores}{The number of cores to use if \code{parallel=TRUE} and
   no \code{cl} is provided. Read the help page of \code{\link{mclapply}}
   for details.}
-  \item{region}{Logical, if \code{TRUE} the region is displayed with
-  \code{vectorplot} using \code{panel.levelplot.raster}}
+  \item{region}{Logical, if \code{TRUE} the region is displayed as the
+  background  using \code{levelplot}. It can be a \code{Raster*} with
+  the same extent and resolution as \code{object}.}
 \item{reverse}{Logical, TRUE if arrows or streamlets go against the direction
   of the gradient.}
   \item{isField}{Logical, if \code{TRUE} (the object is a vector field),
