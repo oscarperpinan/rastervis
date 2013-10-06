@@ -75,7 +75,10 @@ idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
 idx <- as.yearmon(idx)
 SST <- setZ(SST, idx)
 names(SST) <- as.character(idx)
+
 horizonplot(SST)
+
+horizonplot(SST, stat='sd')
 }
 
 }
