@@ -44,18 +44,26 @@ setMethod('levelplot',
                   if (length(rat)>1 && any(!duplicated(rat)[-1])){
                       stop('all the layers must share the same RAT.')
                   } else {
-                      rat <- as.data.frame(rat[[1]][,-1]) ## drop ID column
+                      rat <- as.data.frame(rat[[1]])
+                      ratID <- rat$ID
+                      ## choose which level to use for the legend
+                      if (is.numeric(att)) att = att + 1
+                      ratLevels <- rat[, att]
                   }
-                  ## choose which level to use for the legend
-                  datLevels <- rat[, att]
 
-                  dat <- getValues(objectSample)
-                  if (nlayers(object)>1){
-                      dat <- apply(dat, 2, FUN=function(x)as.numeric(factor(x)))
-                  } else {
-                      dat <- as.numeric(factor(dat))
-                  }
-                  dat <- as.data.frame(dat)
+
+                  ## dat <- getValues(objectSample)
+                  ## if (nlayers(object)>1){
+                  ##     dat <- apply(dat, 2, FUN=function(x)as.numeric(factor(x)))
+                  ## } else {
+                  ##     dat <- as.numeric(factor(dat))
+                  ## }
+                  datFactor <- factor(unique(object))
+                  datID <- as.numeric(levels(datFactor))
+
+                  datLevels <- ratLevels[ratID %in% datID]
+                  
+                  dat <- as.data.frame(getValues(objectSample))
                   names(dat) <- names(object)
                   xy <- xyFromCell(objectSample, 1:ncell(objectSample))
                   df <- cbind(xy, dat)
@@ -65,8 +73,8 @@ setMethod('levelplot',
                   dat <- df[, -c(1, 2)]
               }
 
-              ## If zscale is not NULL, transform the values and choose a function
-              ## to calculate the labels
+              ## If zscale is not NULL, transform the values and
+              ## choose a function to calculate the labels
               if (!is.null(zscaleLog) && !isFactor){
                   zlogbase <- if (is.logical(zscaleLog)) {
                       10
@@ -90,7 +98,8 @@ setMethod('levelplot',
                                   f=lattice.getOption("axis.padding")$numeric)
 
 
-              ##aspect and scales(from sp::spplot.grid, sp::longlat.scales, sp::mapasp)
+              ##aspect and scales(from sp::spplot.grid,
+              ##sp::longlat.scales, sp::mapasp)
               bb <- extent(object)
               xlim=c(bb@xmin, bb@xmax)
               ylim=c(bb@ymin, bb@ymax)
@@ -157,12 +166,17 @@ setMethod('levelplot',
 
 
               if (isFactor) {
-                  rng <- range(dat, na.rm=TRUE)
                   ## define the breaks
-                  my.at <- seq(rng[1]-1, rng[2])
+                  rng <- extendrange(datID)
+                  if (diff(rng)!=0) {
+                  my.at <- seq(rng[1], rng[2],
+                               length=length(datID) + 1)
+                  } else {
+                      my.at <- c(datID - 1, datID + 1)
+                      }
                   if (has.colorkey){
                       ## the labels will be placed vertically centered
-                      my.labs.at <- seq(rng[1], rng[2])-0.5
+                      my.labs.at <- my.at[-1] - diff(my.at)/2
                       colorkey <- modifyList(colorkey,
                                              list(
                                              at=my.at,
