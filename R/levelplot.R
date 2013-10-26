@@ -50,17 +50,13 @@ setMethod('levelplot',
                       if (is.numeric(att)) att = att + 1
                       ratLevels <- rat[, att]
                   }
-
-
-                  ## dat <- getValues(objectSample)
-                  ## if (nlayers(object)>1){
-                  ##     dat <- apply(dat, 2, FUN=function(x)as.numeric(factor(x)))
-                  ## } else {
-                  ##     dat <- as.numeric(factor(dat))
-                  ## }
+                  ## Unique values present in data
                   datFactor <- factor(unique(object))
                   datID <- as.numeric(levels(datFactor))
-
+                  ## Sometimes levels in data are different from
+                  ## levels in RAT (for example, after
+                  ## crop). datLevels is the subset of RAT levels that
+                  ## can be found in data.
                   datLevels <- ratLevels[ratID %in% datID]
                   
                   dat <- as.data.frame(getValues(objectSample))
@@ -172,6 +168,8 @@ setMethod('levelplot',
                   my.at <- seq(rng[1], rng[2],
                                length=length(datID) + 1)
                   } else {
+                      ## It is possible (although unlikely) that there
+                      ## is only one level (diff(rng)==0).
                       my.at <- c(datID - 1, datID + 1)
                       }
                   if (has.colorkey){
