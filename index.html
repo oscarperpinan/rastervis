@@ -1,63 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>rasterVis</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<meta name="title" content="rasterVis"/>
-<meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2013-09-02T15:53+0200"/>
-<meta name="author" content="Oscar Perpiñán Lamigueiro"/>
-<meta name="description" content="rasterVis"/>
-<meta name="keywords" content=""/>
+<!-- 2013-11-04 lun 14:34 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Oscar Perpiñán Lamigueiro" />
+<meta  name="description" content="rasterVis"
+ />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  html { font-family: Times, serif; font-size: 12pt; }
   .title  { text-align: center; }
-  .todo   { color: red; }
+  .todo   { font-family: monospace; color: red; }
   .done   { color: green; }
-  .tag    { background-color: #add8e6; font-weight:normal }
-  .target { }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
-  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
-  .center {margin-left:auto; margin-right:auto; text-align:center;}
-  p.verse { margin-left: 3% }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
   pre {
-	border: 1pt solid #AEBDCC;
-	background-color: #F3F5F7;
-	padding: 5pt;
-	font-family: courier, monospace;
-        font-size: 90%;
-        overflow:auto;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
   }
-  table { border-collapse: collapse; }
-  td, th { vertical-align: top;  }
-  th.right  { text-align:center;  }
-  th.left   { text-align:center;   }
-  th.center { text-align:center; }
-  td.right  { text-align:right;  }
-  td.left   { text-align:left;   }
-  td.center { text-align:center; }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
   dt { font-weight: bold; }
-  div.figure { padding: 0.5em; }
-  div.figure p { text-align: center; }
-  div.inlinetask {
-    padding:10px;
-    border:2px solid gray;
-    margin:10px;
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
     background: #ffffcc;
   }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
   textarea { overflow-x: auto; }
-  .linenr { font-size:smaller }
-  .code-highlighted {background-color:#ffff00;}
-  .org-info-js_info-navigation { border-style:none; }
-  #org-info-js_console-label { font-size:10px; font-weight:bold;
-                               white-space:nowrap; }
-  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
-                                 font-weight:bold; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="styles.css" />
@@ -67,7 +95,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012  Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -108,21 +136,10 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-
 </head>
 <body>
-
-<div id="preamble">
-
-</div>
-
 <div id="content">
 <h1 class="title">rasterVis</h1>
-
-
-
-
-
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -138,111 +155,112 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1">Introduction</h2>
 <div class="outline-text-2" id="text-1">
-
-<p>The <a href="http://cran.r-project.org/web/packages/raster/index.html">raster</a> package defines classes and methods for spatial raster data
+<p>
+The <a href="http://cran.r-project.org/web/packages/raster/index.html">raster</a> package defines classes and methods for spatial raster data
 access and manipulation. The <code>rasterVis</code> package complements
 raster providing a set of methods for enhanced visualization and
 interaction. 
 </p>
+
 <p>
 The stable release of <code>rasterVis</code> can be found at <a href="http://cran.r-project.org/web/packages/rasterVis/">CRAN</a>. 
 The development version is at <a href="https://github.com/oscarperpinan/rastervis">GitHub</a>.
 </p>
+
 <p>
 Let's show some of its functionalities with some examples, using
 data from the <a href="http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet">CMSAF</a> project as described <a href="http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/">here</a> (<a href="http://www.box.net/shared/rl51y1t9sldxk54ogd44">download data</a>).
 </p>
 
+<div class="org-src-container">
 
+<pre class="src src-R"><span style="color: #e6a8df;">library</span>(raster)
+<span style="color: #e6a8df;">library</span>(rasterVis)
 
-<pre class="src src-R"><span class="org-constant">library</span>(raster)
-<span class="org-constant">library</span>(rasterVis)
-
-<span class="org-comment-delimiter">##</span><span class="org-comment">change to your folder...</span>
-old <span class="org-constant">&lt;-</span> setwd(<span class="org-string">'~/Datos/CMSAF'</span>)
-listFich <span class="org-constant">&lt;-</span> dir(pattern=<span class="org-string">'2008'</span>)
-stackSIS <span class="org-constant">&lt;-</span> stack(listFich)
-stackSIS <span class="org-constant">&lt;-</span> stackSIS*24 <span class="org-comment-delimiter">##</span><span class="org-comment">from irradiance (W/m2) to irradiation Wh/m2</span>
+<span style="color: #73d216;">##</span><span style="color: #73d216;">change to your folder...</span>
+old <span style="color: #e6a8df;">&lt;-</span> setwd(<span style="color: #e9b96e;">'~/Datos/CMSAF'</span>)
+listFich <span style="color: #e6a8df;">&lt;-</span> dir(pattern=<span style="color: #e9b96e;">'2008'</span>)
+stackSIS <span style="color: #e6a8df;">&lt;-</span> stack(listFich)
+stackSIS <span style="color: #e6a8df;">&lt;-</span> stackSIS*24 <span style="color: #73d216;">##</span><span style="color: #73d216;">from irradiance (W/m2) to irradiation Wh/m2</span>
 setwd(old)
 
-idx <span class="org-constant">&lt;-</span> seq(as.Date(<span class="org-string">'2008-01-15'</span>), as.Date(<span class="org-string">'2008-12-15'</span>), <span class="org-string">'month'</span>)
+idx <span style="color: #e6a8df;">&lt;-</span> seq(as.Date(<span style="color: #e9b96e;">'2008-01-15'</span>), as.Date(<span style="color: #e9b96e;">'2008-12-15'</span>), <span style="color: #e9b96e;">'month'</span>)
 
-SISmm <span class="org-constant">&lt;-</span> setZ(stackSIS, idx)
-names(SISmm) <span class="org-constant">&lt;-</span> month.abb
-
+SISmm <span style="color: #e6a8df;">&lt;-</span> setZ(stackSIS, idx)
+names(SISmm) <span style="color: #e6a8df;">&lt;-</span> month.abb
 </pre>
-
-
-
-
+</div>
+</div>
 </div>
 
-</div>
 
 <div id="outline-container-levelplot" class="outline-2">
-<h2 id="levelplot"><a name="sec-2" id="sec-2"></a>Level plots</h2>
+<h2 id="levelplot"><a id="sec-2" name="sec-2"></a>Level plots</h2>
 <div class="outline-text-2" id="text-levelplot">
-
-
 <p>
 The first step is to display the content with a <code>levelplot</code>:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-R">levelplot(SISmm)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/levelplot.png"  alt="figs/levelplot.png" />
+<div class="figure">
+<p><img src="figs/levelplot.png" alt="levelplot.png" />
 </p>
+</div>
+
 <p>
 If only one layer is chosen, this method displays a marginal plot
 of a function across each coordinate:
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="src src-R">levelplot(SISmm, layers=1, FUN.margin=median, contour=<span class="org-type">TRUE</span>)
+<pre class="src src-R">levelplot(SISmm, layers=1, FUN.margin=median, contour=<span style="color: #8cc4ff;">TRUE</span>)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/levelplot_layer1.png"  alt="figs/levelplot_layer1.png" />
+<div class="figure">
+<p><img src="figs/levelplot_layer1.png" alt="levelplot_layer1.png" />
 </p>
+</div>
+
 <p>
 The result of this call is a <code>trellis</code> object. The <a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a> package
 provides the <code>layer</code> function to add contents. For example, let's add the administrative borders. 
 This information is available at the <a href="http://www.gadm.org/data/shp/ESP_adm.zip">GADM service</a>.
 </p>
 
+<div class="org-src-container">
 
+<pre class="src src-R"><span style="color: #e6a8df;">library</span>(maptools)
+proj <span style="color: #e6a8df;">&lt;-</span> CRS(<span style="color: #e9b96e;">'+proj=longlat +ellps=WGS84'</span>)
+<span style="color: #73d216;">##</span><span style="color: #73d216;">Change to your folder</span>
+mapaSHP <span style="color: #e6a8df;">&lt;-</span> readShapeLines(<span style="color: #e9b96e;">'~/Datos/ESP_adm/ESP_adm2.shp'</span>, proj4string=proj)
 
-<pre class="src src-R"><span class="org-constant">library</span>(maptools)
-proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=longlat +ellps=WGS84'</span>)
-<span class="org-comment-delimiter">##</span><span class="org-comment">Change to your folder</span>
-mapaSHP <span class="org-constant">&lt;-</span> readShapeLines(<span class="org-string">'~/Datos/ESP_adm/ESP_adm2.shp'</span>, proj4string=proj)
-
-p <span class="org-constant">&lt;-</span> levelplot(SISmm, layers=1, FUN.margin=median)
-p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span class="org-string">'darkgray'</span>))
+p <span style="color: #e6a8df;">&lt;-</span> levelplot(SISmm, layers=1, FUN.margin=median)
+p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span style="color: #e9b96e;">'darkgray'</span>))
 </pre>
+</div>
 
 
-<p>
-<img src="figs/levelplot_layer_borders.png"  alt="figs/levelplot_layer_borders.png" />
+<div class="figure">
+<p><img src="figs/levelplot_layer_borders.png" alt="levelplot_layer_borders.png" />
 </p>
-
+</div>
 </div>
 
 <div id="outline-container-levelplot_logscale" class="outline-3">
-<h3 id="levelplot_logscale"><a name="sec-2-1" id="sec-2-1"></a>Log scale</h3>
+<h3 id="levelplot_logscale"><a id="sec-2-1" name="sec-2-1"></a>Log scale</h3>
 <div class="outline-text-3" id="text-levelplot_logscale">
-
-
 <p>
 The <code>zscaleLog</code> argument controls whether the object will be log
 transformed before being passed to the panel function.  Defaults to
@@ -252,24 +270,19 @@ values are any number that works as a base for taking logarithm,
 logarithm).  As a side effect, the colorkey is labeled differently.
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
-r <span class="org-constant">&lt;-</span> raster(f)
-levelplot(r^2, zscaleLog=<span class="org-type">TRUE</span>, contour=<span class="org-type">TRUE</span>)
+<pre class="src src-R">f <span style="color: #e6a8df;">&lt;-</span> system.file(<span style="color: #e9b96e;">"external/test.grd"</span>, package=<span style="color: #e9b96e;">"raster"</span>)
+r <span style="color: #e6a8df;">&lt;-</span> raster(f)
+levelplot(r^2, zscaleLog=<span style="color: #8cc4ff;">TRUE</span>, contour=<span style="color: #8cc4ff;">TRUE</span>)
 </pre>
-
-
 </div>
 </div>
-
 </div>
-
+</div>
 <div id="outline-container-themes" class="outline-2">
-<h2 id="themes"><a name="sec-3" id="sec-3"></a>Themes</h2>
+<h2 id="themes"><a id="sec-3" name="sec-3"></a>Themes</h2>
 <div class="outline-text-2" id="text-themes">
-
-
 <p>
 The previous plots used the default theme of rasterVis,
 <code>rasterTheme</code>. This theme defines a sequential palette with yellow,
@@ -278,194 +291,213 @@ orange and red. There are three more themes in <code>rasterVis</code>: <code>GrT
 the <code>hexbin</code> package) and <code>RdBuTheme</code> (with a diverging palette with
 red and blue). 
 </p>
+
 <p>
 The irradiation of August is:
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="src src-R">Aug <span class="org-constant">&lt;-</span> raster(SISmm, 8)
+<pre class="src src-R">Aug <span style="color: #e6a8df;">&lt;-</span> raster(SISmm, 8)
 </pre>
-
+</div>
 
 <p>
 and its overall mean is calculated with cellStats:
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="src src-R">meanAug <span class="org-constant">&lt;-</span> cellStats(Aug, mean)
+<pre class="src src-R">meanAug <span style="color: #e6a8df;">&lt;-</span> cellStats(Aug, mean)
 </pre>
-
+</div>
 
 <p>
 The diverging palette is specially well suited to this data:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-R">levelplot(Aug-meanAug, par.settings=RdBuTheme)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/levelplotAug.png"  alt="figs/levelplotAug.png" />
+<div class="figure">
+<p><img src="figs/levelplotAug.png" alt="levelplotAug.png" />
 </p>
+</div>
+
 <p>
 Besides, it is easy to define a new theme with a different
 palette. For example, using a sequential palette from
 <a href="http://cran.r-project.org/web/packages/colorspace">colorspace</a>:
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="src src-R"><span class="org-constant">library</span>(colorspace)
+<pre class="src src-R"><span style="color: #e6a8df;">library</span>(colorspace)
 myTheme=rasterTheme(region=sequential_hcl(10, power=2.2))
-levelplot(Aug, par.settings=myTheme, contour=<span class="org-type">TRUE</span>)
+levelplot(Aug, par.settings=myTheme, contour=<span style="color: #8cc4ff;">TRUE</span>)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/levelplot_colorspace.png"  alt="figs/levelplot_colorspace.png" />
+<div class="figure">
+<p><img src="figs/levelplot_colorspace.png" alt="levelplot_colorspace.png" />
 </p>
+</div>
+
 <p>
 or with the colour-blindness corrections from the <a href="http://cran.r-project.org/web/packages/dichromat/">dichromat</a> package:
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="src src-R"><span class="org-constant">library</span>(dichromat)
-myTheme <span class="org-constant">&lt;-</span> rasterTheme(region=dichromat(terrain.colors(15)))
+<pre class="src src-R"><span style="color: #e6a8df;">library</span>(dichromat)
+myTheme <span style="color: #e6a8df;">&lt;-</span> rasterTheme(region=dichromat(terrain.colors(15)))
 levelplot(Aug, par.settings=myTheme)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/levelplot_dichromat.png"  alt="figs/levelplot_dichromat.png" />
+<div class="figure">
+<p><img src="figs/levelplot_dichromat.png" alt="levelplot_dichromat.png" />
 </p>
 </div>
-
 </div>
-
+</div>
 <div id="outline-container-scatterplot" class="outline-2">
-<h2 id="scatterplot"><a name="sec-4" id="sec-4"></a>Scatterplots and histograms</h2>
+<h2 id="scatterplot"><a id="sec-4" name="sec-4"></a>Scatterplots and histograms</h2>
 <div class="outline-text-2" id="text-scatterplot">
-
-
 <p>
 There are methods to show scatter plots and hexbin plots of the layers
 and coordinates of a <code>Raster</code> object:
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="src src-R"><span class="org-comment-delimiter">##</span><span class="org-comment">Relation between the January &amp; February versus July radiation for four</span>
-<span class="org-comment-delimiter">##</span><span class="org-comment">differents longitude regions.</span>
-xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space=<span class="org-string">'right'</span>))
+<pre class="src src-R"><span style="color: #73d216;">##</span><span style="color: #73d216;">Relation between the January &amp; February versus July radiation for four</span>
+<span style="color: #73d216;">##</span><span style="color: #73d216;">differents longitude regions.</span>
+xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space=<span style="color: #e9b96e;">'right'</span>))
 </pre>
+</div>
 
 
-<p>
-<img src="figs/xyplot_formula.png"  alt="figs/xyplot_formula.png" />
+<div class="figure">
+<p><img src="figs/xyplot_formula.png" alt="xyplot_formula.png" />
 </p>
+</div>
 
+<div class="org-src-container">
 
-
-<pre class="src src-R"><span class="org-comment-delimiter">##</span><span class="org-comment">Faster with hexbinplot</span>
+<pre class="src src-R"><span style="color: #73d216;">##</span><span style="color: #73d216;">Faster with hexbinplot</span>
 hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 </pre>
+</div>
 
+
+<div class="figure">
+<p><img src="figs/hexbinplot_formula.png" alt="hexbinplot_formula.png" />
+</p>
+</div>
 
 <p>
-<img src="figs/hexbinplot_formula.png"  alt="figs/hexbinplot_formula.png" />
-</p>
-<p>
-&hellip;a method for scatter plot matrices:
+&#x2026;a method for scatter plot matrices:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-R">splom(SISmm)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/splom.png"  alt="figs/splom.png" />
+<div class="figure">
+<p><img src="figs/splom.png" alt="splom.png" />
 </p>
+</div>
+
 <p>
 ..and methods for histograms, <a href="http://procomun.wordpress.com/2011/04/02/violin-plot/">box-and-whisker and violin</a> plots or density estimates:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-R">histogram(SISmm)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/histogram.png"  alt="figs/histogram.png" />
+<div class="figure">
+<p><img src="figs/histogram.png" alt="histogram.png" />
 </p>
+</div>
 
-
+<div class="org-src-container">
 
 <pre class="src src-R">densityplot(SISmm)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/density.png"  alt="figs/density.png" />
+<div class="figure">
+<p><img src="figs/density.png" alt="density.png" />
 </p>
+</div>
 
-
+<div class="org-src-container">
 
 <pre class="src src-R">bwplot(SISmm)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/bwplot.png"  alt="figs/bwplot.png" />
+<div class="figure">
+<p><img src="figs/bwplot.png" alt="bwplot.png" />
 </p>
+</div>
+
 <p>
 These methods accept a <code>FUN</code> argument to be applied to the <code>z</code> slot of
 the <code>Raster</code> object. The result of this function is used as the grouping
 variable of the plot:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-R">histogram(SISmm, FUN=as.yearqtr)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/histogram_FUN.png"  alt="figs/histogram_FUN.png" />
+<div class="figure">
+<p><img src="figs/histogram_FUN.png" alt="histogram_FUN.png" />
 </p>
 </div>
-
 </div>
-
+</div>
 <div id="outline-container-spacetime" class="outline-2">
-<h2 id="spacetime"><a name="sec-5" id="sec-5"></a>Space-time plots</h2>
+<h2 id="spacetime"><a id="sec-5" name="sec-5"></a>Space-time plots</h2>
 <div class="outline-text-2" id="text-spacetime">
-
-
 <p>
 The <code>z</code> slot of this <code>Raster</code> object stores a time index. This 3D
 space-time <code>Raster</code> object can be displayed with a <a href="http://en.wikipedia.org/wiki/Hovmoller_diagram">hovmoller diagram</a>.
 </p>
+
 <p>
 The <code>hovmoller</code> method uses the function <code>xyLayer</code>, which creates a
 <code>RasterLayer</code> from a function of the coordinates.
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
-r <span class="org-constant">&lt;-</span> raster(f)
-dirXY <span class="org-constant">&lt;-</span>xyLayer(r, sqrt(x^2 + y^2))
+<pre class="src src-R">f <span style="color: #e6a8df;">&lt;-</span> system.file(<span style="color: #e9b96e;">"external/test.grd"</span>, package=<span style="color: #e9b96e;">"raster"</span>)
+r <span style="color: #e6a8df;">&lt;-</span> raster(f)
+dirXY <span style="color: #e6a8df;">&lt;-</span>xyLayer(r, sqrt(x^2 + y^2))
 dirXY
 </pre>
-
+</div>
 
 <p>
 For example, the next code builds a hovmoller diagram showing the
@@ -474,88 +506,96 @@ available at
 <a href="ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/">ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/</a>):
 </p>
 
+<div class="org-src-container">
 
+<pre class="src src-R"><span style="color: #e6a8df;">library</span>(zoo)
 
-<pre class="src src-R"><span class="org-constant">library</span>(zoo)
+url <span style="color: #e6a8df;">&lt;-</span> <span style="color: #e9b96e;">"~/Datos/Cressie/"</span>
+sst.dat = read.table(paste(url, <span style="color: #e9b96e;">"SST011970_032003.dat"</span>, sep=<span style="color: #e9b96e;">''</span>), header = <span style="color: #8cc4ff;">FALSE</span>) 
+sst.ll = read.table(paste(url, <span style="color: #e9b96e;">"SSTlonlat.dat"</span>, sep=<span style="color: #e9b96e;">''</span>), header = <span style="color: #8cc4ff;">FALSE</span>)
 
-url <span class="org-constant">&lt;-</span> <span class="org-string">"~/Datos/Cressie/"</span>
-sst.dat = read.table(paste(url, <span class="org-string">"SST011970_032003.dat"</span>, sep=<span class="org-string">''</span>), header = <span class="org-type">FALSE</span>) 
-sst.ll = read.table(paste(url, <span class="org-string">"SSTlonlat.dat"</span>, sep=<span class="org-string">''</span>), header = <span class="org-type">FALSE</span>)
+spSST <span style="color: #e6a8df;">&lt;-</span> SpatialPointsDataFrame(sst.ll, sst.dat)
+gridded(spSST) <span style="color: #e6a8df;">&lt;-</span> <span style="color: #8cc4ff;">TRUE</span>
+proj4string(spSST) = <span style="color: #e9b96e;">"+proj=longlat +datum=WGS84"</span>
+SST <span style="color: #e6a8df;">&lt;-</span> brick(spSST)
 
-spSST <span class="org-constant">&lt;-</span> SpatialPointsDataFrame(sst.ll, sst.dat)
-gridded(spSST) <span class="org-constant">&lt;-</span> <span class="org-type">TRUE</span>
-proj4string(spSST) = <span class="org-string">"+proj=longlat +datum=WGS84"</span>
-SST <span class="org-constant">&lt;-</span> brick(spSST)
-
-idx <span class="org-constant">&lt;-</span> seq(as.Date(<span class="org-string">'1970-01-01'</span>), as.Date(<span class="org-string">'2003-03-01'</span>), by=<span class="org-string">'month'</span>)
-idx <span class="org-constant">&lt;-</span> as.yearmon(idx)
-SST <span class="org-constant">&lt;-</span> setZ(SST, idx)
-names(SST) <span class="org-constant">&lt;-</span> as.character(idx)
-hovmoller(SST, contour=<span class="org-type">FALSE</span>, panel=panel.levelplot.raster,
+idx <span style="color: #e6a8df;">&lt;-</span> seq(as.Date(<span style="color: #e9b96e;">'1970-01-01'</span>), as.Date(<span style="color: #e9b96e;">'2003-03-01'</span>), by=<span style="color: #e9b96e;">'month'</span>)
+idx <span style="color: #e6a8df;">&lt;-</span> as.yearmon(idx)
+SST <span style="color: #e6a8df;">&lt;-</span> setZ(SST, idx)
+names(SST) <span style="color: #e6a8df;">&lt;-</span> as.character(idx)
+hovmoller(SST, contour=<span style="color: #8cc4ff;">FALSE</span>, panel=panel.levelplot.raster,
           yscale.components=yscale.raster.subticks,
-          interpolate=<span class="org-type">TRUE</span>, par.settings=RdBuTheme)
+          interpolate=<span style="color: #8cc4ff;">TRUE</span>, par.settings=RdBuTheme)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/hovmoller.png"  alt="figs/hovmoller.png" />
+<div class="figure">
+<p><img src="figs/hovmoller.png" alt="hovmoller.png" />
 </p>
+</div>
+
 <p>
 The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for the space-time <code>Raster</code> objects:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-R">horizonplot(SST)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/horizon.png"  alt="figs/horizon.png" />
+<div class="figure">
+<p><img src="figs/horizon.png" alt="horizon.png" />
 </p>
 </div>
-
 </div>
-
+</div>
 <div id="outline-container-vectorplot" class="outline-2">
-<h2 id="vectorplot"><a name="sec-6" id="sec-6"></a>Vector field plots</h2>
+<h2 id="vectorplot"><a id="sec-6" name="sec-6"></a>Vector field plots</h2>
 <div class="outline-text-2" id="text-vectorplot">
-
-
 <p>
 The function <code>terrain</code> from <code>raster</code> provides the vector field
 (gradient) from a scalar field stored in a <code>RasterLayer</code> object. The
 magnitude (slope) and direction (aspect) of the vector field is
 usually displayed with a set of arrows (e.g. <code>quiver</code> in Matlab).
 </p>
+
 <p>
 <code>rasterVis</code> includes a method, <code>vectorplot</code>, to calculate and display
 this vector field. 
 </p>
 
+<div class="org-src-container">
 
+<pre class="src src-R">proj <span style="color: #e6a8df;">&lt;-</span> CRS(<span style="color: #e9b96e;">'+proj=longlat +datum=WGS84'</span>)
+df <span style="color: #e6a8df;">&lt;-</span> expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
 
-<pre class="src src-R">proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=longlat +datum=WGS84'</span>)
-df <span class="org-constant">&lt;-</span> expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
-
-df$z <span class="org-constant">&lt;-</span> with(df, (3*x^2 + y)*exp(-x^2-y^2))
-r <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
+df$z <span style="color: #e6a8df;">&lt;-</span> with(df, (3*x^2 + y)*exp(-x^2-y^2))
+r <span style="color: #e6a8df;">&lt;-</span> rasterFromXYZ(df, crs=proj)
 </pre>
+</div>
 
 
+<div class="org-src-container">
 
 <pre class="src src-R">vectorplot(r, par.settings=RdBuTheme())
 </pre>
+</div>
 
 
-<p>
-<img src="figs/vectorplot.png"  alt="figs/vectorplot.png" />
+<div class="figure">
+<p><img src="figs/vectorplot.png" alt="vectorplot.png" />
 </p>
+</div>
+
 <p>
 If the <code>Raster*</code> object passed to <code>vectorplot</code> is a
 vector field (<code>isField=TRUE</code>), the <code>terrain</code> calculation is
 skipped.
 </p>
+
 <p>
 An alternative method to display a vector field plots streamlines
 along the field lines. Streamlines, a family of curves that are
@@ -572,15 +612,18 @@ positions and color degradation encode the local vector direction
 (<code>aspect</code>).
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-R">streamplot(r)
 </pre>
+</div>
 
 
-<p>
-<img src="figs/streamplot.png"  alt="figs/streamplot.png" />
+<div class="figure">
+<p><img src="figs/streamplot.png" alt="streamplot.png" />
 </p>
+</div>
+
 <p>
 <code>streamplot</code> accepts two arguments (<code>droplets</code> and <code>streamlets</code>)
 to control the number of droplets, the length of the streamlets
@@ -590,49 +633,47 @@ specific theme for <code>streamplot</code>, <code>streamTheme</code>. The defaul
 options can be changed easily:
 </p>
 
+<div class="org-src-container">
 
+<pre class="src src-R">df$z <span style="color: #e6a8df;">&lt;-</span> with(df, sqrt(x^2 + y^2))
+df$phi <span style="color: #e6a8df;">&lt;-</span> with(df, atan2(-y, x))
+r2 <span style="color: #e6a8df;">&lt;-</span> rasterFromXYZ(df, crs=proj)
 
-<pre class="src src-R">df$z <span class="org-constant">&lt;-</span> with(df, sqrt(x^2 + y^2))
-df$phi <span class="org-constant">&lt;-</span> with(df, atan2(-y, x))
-r2 <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
-
-streamplot(r2, isField=<span class="org-type">TRUE</span>, streamlet=list(L=30), droplet=list(pc=.3),
-           par.settings=streamTheme(symbol=brewer.pal(n=5, name=<span class="org-string">'Reds'</span>)))
-
+streamplot(r2, isField=<span style="color: #8cc4ff;">TRUE</span>, streamlet=list(L=30), droplet=list(pc=.3),
+           par.settings=streamTheme(symbol=brewer.pal(n=5, name=<span style="color: #e9b96e;">'Reds'</span>)))
 </pre>
+</div>
 
 
-<p>
-<img src="figs/streamplotReds.png"  alt="figs/streamplotReds.png" />
+<div class="figure">
+<p><img src="figs/streamplotReds.png" alt="streamplotReds.png" />
 </p>
 </div>
-
 </div>
-
+</div>
 <div id="outline-container-interaction" class="outline-2">
-<h2 id="interaction"><a name="sec-7" id="sec-7"></a>Interaction</h2>
+<h2 id="interaction"><a id="sec-7" name="sec-7"></a>Interaction</h2>
 <div class="outline-text-2" id="text-interaction">
-
-
 <p>
 This package includes two functions to interact with the <code>trellis</code> objects. 
 </p>
+
 <p>
 The <code>identifyRaster</code> method labels and returns points of a trellis graphic
 according to mouse clicks. It is commonly used after <code>levelplot</code>,
 although it can be also used after <code>xyplot</code>, <code>hexbinplot</code> or even <code>splom</code>:
 </p>
 
-
+<div class="org-src-container">
 
 <pre class="src src-R">levelplot(SISmm)
 
-<span class="org-comment-delimiter">## </span><span class="org-comment">Do not close the last graphical window.  Use the left button of the</span>
-<span class="org-comment-delimiter">## </span><span class="org-comment">mouse to identify points and the right button to finish</span>
+<span style="color: #73d216;">## </span><span style="color: #73d216;">Do not close the last graphical window.  Use the left button of the</span>
+<span style="color: #73d216;">## </span><span style="color: #73d216;">mouse to identify points and the right button to finish</span>
 
-chosen <span class="org-constant">&lt;-</span> identifyRaster(SISmm, layer=3, values=<span class="org-type">TRUE</span>)
+chosen <span style="color: #e6a8df;">&lt;-</span> identifyRaster(SISmm, layer=3, values=<span style="color: #8cc4ff;">TRUE</span>)
 </pre>
-
+</div>
 
 <p>
 The <code>chooseRegion</code> function provides a set of points (in the form of a
@@ -642,19 +683,16 @@ the right button to finish.  The points enclosed by the border will
 be highlighted and returned as a SpatialPoints object.
 </p>
 
+<div class="org-src-container">
 
-
-<pre class="src src-R">reg <span class="org-constant">&lt;-</span> chooseRegion()
+<pre class="src src-R">reg <span style="color: #e6a8df;">&lt;-</span> chooseRegion()
 </pre>
-
-
-
 </div>
 </div>
 </div>
-
-<div id="postamble">
-<p><a href="http://oscarperpinan.github.io/rastervis/FAQ.html">FAQs</a></p><p><a href="https://github.com/oscarperpinan/rastervis">View the Project on GitHub</a></p><p>Maintained by <a href="http://oscarperpinan.github.io/">Oscar Perpiñán</a>.</p>
+</div>
+<div id="postamble" class="status">
+<p><a href="http://oscarperpinan.github.io/rastervis/FAQ.html">FAQs</a></p><p><a href="https://github.com/oscarperpinan/rastervis">View the Project on GitHub</a></p><p>Maintained by <a href="http://oscarperpinan.github.io/">Oscar Perpiñán</a>.</script></p>
 </div>
 </body>
 </html>
