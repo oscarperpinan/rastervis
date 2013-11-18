@@ -1,9 +1,5 @@
-# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
-# Date :  June 2011
-# Version 0.10
-# Licence GPL v3
-
 setGeneric('horizonplot')
+
 setMethod('horizonplot',
           signature(x='RasterStackBrick', data='missing'),
           definition=function(x, data=NULL, dirXY=y, 

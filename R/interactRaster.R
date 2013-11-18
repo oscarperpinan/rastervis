@@ -1,12 +1,6 @@
-# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
-# Date :  June 2011
-# Version 0.10
-# Licence GPL v3
-
 ## chooseRegion: no visible binding for global variable ‘xin’
 ## chooseRegion: no visible binding for global variable ‘yin’
 if(getRversion() >= "2.15.1") globalVariables(c('xin', 'yin'))
-
 
 setGeneric('identifyRaster', function(object, ...){standardGeneric('identifyRaster')})
 
@@ -15,9 +9,7 @@ setMethod('identifyRaster', signature(object='Raster'),
             lay <- layer[1]
             nl <- nlayers(object)
 
-            ## names replace layerNames with raster version 2.0-04
-            rasterVersion <- as.character(packageVersion('raster'))
-            objNames <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(object) else names(object)
+            objNames <- names(object)
 
             if (is.character(lay)) lay <- which(lay==objNames)
             if (length(lay)<1 || lay > nl) stop('Incorrect value of layer.')

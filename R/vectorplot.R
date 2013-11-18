@@ -1,7 +1,3 @@
-# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
-# Date :  September 2011
-# Version 0.10
-# Licence GPL v3
 setGeneric('vectorplot', function(object, ...){standardGeneric('vectorplot')})
 
 setMethod('vectorplot',

@@ -1,7 +1,3 @@
-# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
-# Date :  January 2013
-# Version 0.10
-# Licence GPL v3
 setGeneric('streamplot', function(object, ...){standardGeneric('streamplot')})
 
 setMethod('streamplot',

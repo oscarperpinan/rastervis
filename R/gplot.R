@@ -18,14 +18,6 @@ setMethod("gplot", signature(x='Raster'),
               x <- sampleRegular(x, maxpixels, asRaster=TRUE)
             }
 
-            ## if (nl == 1) {
-            ## 	x <- data.frame(xyFromCell(x, 1:ncell(x)), value=values(x))
-            ## 	x <- melt(x, id.vars = c('x','y'), na.rm = TRUE)
-            ## } else {
-            ## 	x <- data.frame(xyFromCell(x, 1:ncell(x)), values(x))
-            ## 	x <- melt(x, id.vars = c('x','y'), na.rm = TRUE)
-            ## }
-
             coords <- xyFromCell(x, seq_len(ncell(x)))
             ## Extract values 
             dat <- stack(as.data.frame(getValues(x)))

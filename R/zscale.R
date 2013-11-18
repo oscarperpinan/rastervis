@@ -1,8 +1,3 @@
-# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
-# Date :  October 2011
-# Version 0.10
-# Licence GPL v3
-
 logTicks <- function(lim, loc=1:9){
   expSeq <- seq(floor(lim[1]), ceiling(lim[2]))
   all <- outer(loc, 10^expSeq)

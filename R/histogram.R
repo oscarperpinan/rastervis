@@ -1,10 +1,5 @@
-# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
-# Date :  June 2011
-# Version 0.10
-# Licence GPL v3
-
-
 setGeneric('histogram')
+
 setMethod('histogram',
           signature(x='RasterLayer', data='missing'),
           definition=function (x, data=NULL, maxpixels = 1e+05, nint=100,

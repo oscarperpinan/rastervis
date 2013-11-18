@@ -1,8 +1,3 @@
-# Author: Oscar Perpinan Lamigueiro oscar.perpinan@gmail.es
-# Licence GPL v3
-
-
-
 ##Customization of lattice
 xscale.raster <- function(lim, ...){
   ans <- xscale.components.default(lim, ...)
@@ -132,10 +127,7 @@ raster2dat <- function(x, FUN, maxpixels){
       FUN <- match.fun(FUN)   
       dat$ind <- factor(FUN(z))[dat$ind]
     } else {
-      ## names replace layerNames with raster version 2.0-04
-      rasterVersion <- as.character(packageVersion('raster'))
-      nms <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(x) else names(x)
-
+      nms <- names(x)
       nms <- reorder(factor(nms), 1:nl)
       dat$ind <- nms[dat$ind]
     }

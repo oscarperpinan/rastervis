@@ -1,6 +1,3 @@
-# Author: Oscar Perpinan Lamigueiro oscar.perpinan@gmail.com
-# Licence GPL v3
-
 setGeneric('levelplot')
 
 setMethod('levelplot',

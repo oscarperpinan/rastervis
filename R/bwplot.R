@@ -1,11 +1,5 @@
-# Author: Oscar Perpinan Lamigueiro oscar.perpinan@upm.es
-# Date :  June 2011
-# Version 0.10
-# Licence GPL v3
-
 setGeneric("bwplot", function(x, data, ...)
            standardGeneric("bwplot"))
-
 
 setMethod('bwplot',
           signature(x='RasterStackBrick', data='missing'),
@@ -58,9 +52,7 @@ setMethod('bwplot', signature(x='formula', data='Raster'),
               par.settings <- modifyList(par.settings(), localSets)
             } else par.settings <- localSets
                 
-            ## names replace layerNames with raster version 2.0-04
-            rasterVersion <- as.character(packageVersion('raster'))
-            nms <- if (compareVersion(rasterVersion, '2.0-04') == -1) layerNames(data) else names(data)
+            nms <- names(data)
 
             nl <- nlayers(data)
 
