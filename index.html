@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>rasterVis</title>
-<!-- 2013-11-04 lun 14:34 -->
+<!-- 2013-11-18 lun 11:17 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Oscar Perpiñán Lamigueiro" />
@@ -177,20 +177,20 @@ data from the <a href="http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet">C
 
 <div class="org-src-container">
 
-<pre class="src src-R"><span style="color: #e6a8df;">library</span>(raster)
-<span style="color: #e6a8df;">library</span>(rasterVis)
+<pre class="src src-R"><span class="org-constant">library</span>(raster)
+<span class="org-constant">library</span>(rasterVis)
 
-<span style="color: #73d216;">##</span><span style="color: #73d216;">change to your folder...</span>
-old <span style="color: #e6a8df;">&lt;-</span> setwd(<span style="color: #e9b96e;">'~/Datos/CMSAF'</span>)
-listFich <span style="color: #e6a8df;">&lt;-</span> dir(pattern=<span style="color: #e9b96e;">'2008'</span>)
-stackSIS <span style="color: #e6a8df;">&lt;-</span> stack(listFich)
-stackSIS <span style="color: #e6a8df;">&lt;-</span> stackSIS*24 <span style="color: #73d216;">##</span><span style="color: #73d216;">from irradiance (W/m2) to irradiation Wh/m2</span>
+<span class="org-comment-delimiter">##</span><span class="org-comment">change to your folder...</span>
+old <span class="org-constant">&lt;-</span> setwd(<span class="org-string">'~/Datos/CMSAF'</span>)
+listFich <span class="org-constant">&lt;-</span> dir(pattern=<span class="org-string">'2008'</span>)
+stackSIS <span class="org-constant">&lt;-</span> stack(listFich)
+stackSIS <span class="org-constant">&lt;-</span> stackSIS*24 <span class="org-comment-delimiter">##</span><span class="org-comment">from irradiance (W/m2) to irradiation Wh/m2</span>
 setwd(old)
 
-idx <span style="color: #e6a8df;">&lt;-</span> seq(as.Date(<span style="color: #e9b96e;">'2008-01-15'</span>), as.Date(<span style="color: #e9b96e;">'2008-12-15'</span>), <span style="color: #e9b96e;">'month'</span>)
+idx <span class="org-constant">&lt;-</span> seq(as.Date(<span class="org-string">'2008-01-15'</span>), as.Date(<span class="org-string">'2008-12-15'</span>), <span class="org-string">'month'</span>)
 
-SISmm <span style="color: #e6a8df;">&lt;-</span> setZ(stackSIS, idx)
-names(SISmm) <span style="color: #e6a8df;">&lt;-</span> month.abb
+SISmm <span class="org-constant">&lt;-</span> setZ(stackSIS, idx)
+names(SISmm) <span class="org-constant">&lt;-</span> month.abb
 </pre>
 </div>
 </div>
@@ -223,7 +223,7 @@ of a function across each coordinate:
 
 <div class="org-src-container">
 
-<pre class="src src-R">levelplot(SISmm, layers=1, FUN.margin=median, contour=<span style="color: #8cc4ff;">TRUE</span>)
+<pre class="src src-R">levelplot(SISmm, layers=1, FUN.margin=median, contour=<span class="org-type">TRUE</span>)
 </pre>
 </div>
 
@@ -241,13 +241,13 @@ This information is available at the <a href="http://www.gadm.org/data/shp/ESP_a
 
 <div class="org-src-container">
 
-<pre class="src src-R"><span style="color: #e6a8df;">library</span>(maptools)
-proj <span style="color: #e6a8df;">&lt;-</span> CRS(<span style="color: #e9b96e;">'+proj=longlat +ellps=WGS84'</span>)
-<span style="color: #73d216;">##</span><span style="color: #73d216;">Change to your folder</span>
-mapaSHP <span style="color: #e6a8df;">&lt;-</span> readShapeLines(<span style="color: #e9b96e;">'~/Datos/ESP_adm/ESP_adm2.shp'</span>, proj4string=proj)
+<pre class="src src-R"><span class="org-constant">library</span>(maptools)
+proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=longlat +ellps=WGS84'</span>)
+<span class="org-comment-delimiter">##</span><span class="org-comment">Change to your folder</span>
+mapaSHP <span class="org-constant">&lt;-</span> readShapeLines(<span class="org-string">'~/Datos/ESP_adm/ESP_adm2.shp'</span>, proj4string=proj)
 
-p <span style="color: #e6a8df;">&lt;-</span> levelplot(SISmm, layers=1, FUN.margin=median)
-p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span style="color: #e9b96e;">'darkgray'</span>))
+p <span class="org-constant">&lt;-</span> levelplot(SISmm, layers=1, FUN.margin=median)
+p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span class="org-string">'darkgray'</span>))
 </pre>
 </div>
 
@@ -272,9 +272,9 @@ logarithm).  As a side effect, the colorkey is labeled differently.
 
 <div class="org-src-container">
 
-<pre class="src src-R">f <span style="color: #e6a8df;">&lt;-</span> system.file(<span style="color: #e9b96e;">"external/test.grd"</span>, package=<span style="color: #e9b96e;">"raster"</span>)
-r <span style="color: #e6a8df;">&lt;-</span> raster(f)
-levelplot(r^2, zscaleLog=<span style="color: #8cc4ff;">TRUE</span>, contour=<span style="color: #8cc4ff;">TRUE</span>)
+<pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
+r <span class="org-constant">&lt;-</span> raster(f)
+levelplot(r^2, zscaleLog=<span class="org-type">TRUE</span>, contour=<span class="org-type">TRUE</span>)
 </pre>
 </div>
 </div>
@@ -298,7 +298,7 @@ The irradiation of August is:
 
 <div class="org-src-container">
 
-<pre class="src src-R">Aug <span style="color: #e6a8df;">&lt;-</span> raster(SISmm, 8)
+<pre class="src src-R">Aug <span class="org-constant">&lt;-</span> raster(SISmm, 8)
 </pre>
 </div>
 
@@ -308,7 +308,7 @@ and its overall mean is calculated with cellStats:
 
 <div class="org-src-container">
 
-<pre class="src src-R">meanAug <span style="color: #e6a8df;">&lt;-</span> cellStats(Aug, mean)
+<pre class="src src-R">meanAug <span class="org-constant">&lt;-</span> cellStats(Aug, mean)
 </pre>
 </div>
 
@@ -336,9 +336,9 @@ palette. For example, using a sequential palette from
 
 <div class="org-src-container">
 
-<pre class="src src-R"><span style="color: #e6a8df;">library</span>(colorspace)
+<pre class="src src-R"><span class="org-constant">library</span>(colorspace)
 myTheme=rasterTheme(region=sequential_hcl(10, power=2.2))
-levelplot(Aug, par.settings=myTheme, contour=<span style="color: #8cc4ff;">TRUE</span>)
+levelplot(Aug, par.settings=myTheme, contour=<span class="org-type">TRUE</span>)
 </pre>
 </div>
 
@@ -354,8 +354,8 @@ or with the colour-blindness corrections from the <a href="http://cran.r-project
 
 <div class="org-src-container">
 
-<pre class="src src-R"><span style="color: #e6a8df;">library</span>(dichromat)
-myTheme <span style="color: #e6a8df;">&lt;-</span> rasterTheme(region=dichromat(terrain.colors(15)))
+<pre class="src src-R"><span class="org-constant">library</span>(dichromat)
+myTheme <span class="org-constant">&lt;-</span> rasterTheme(region=dichromat(terrain.colors(15)))
 levelplot(Aug, par.settings=myTheme)
 </pre>
 </div>
@@ -377,9 +377,9 @@ and coordinates of a <code>Raster</code> object:
 
 <div class="org-src-container">
 
-<pre class="src src-R"><span style="color: #73d216;">##</span><span style="color: #73d216;">Relation between the January &amp; February versus July radiation for four</span>
-<span style="color: #73d216;">##</span><span style="color: #73d216;">differents longitude regions.</span>
-xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space=<span style="color: #e9b96e;">'right'</span>))
+<pre class="src src-R"><span class="org-comment-delimiter">##</span><span class="org-comment">Relation between the January &amp; February versus July radiation for four</span>
+<span class="org-comment-delimiter">##</span><span class="org-comment">differents longitude regions.</span>
+xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space=<span class="org-string">'right'</span>))
 </pre>
 </div>
 
@@ -391,7 +391,7 @@ xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space=<span style="color
 
 <div class="org-src-container">
 
-<pre class="src src-R"><span style="color: #73d216;">##</span><span style="color: #73d216;">Faster with hexbinplot</span>
+<pre class="src src-R"><span class="org-comment-delimiter">##</span><span class="org-comment">Faster with hexbinplot</span>
 hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 </pre>
 </div>
@@ -492,9 +492,9 @@ The <code>hovmoller</code> method uses the function <code>xyLayer</code>, which 
 
 <div class="org-src-container">
 
-<pre class="src src-R">f <span style="color: #e6a8df;">&lt;-</span> system.file(<span style="color: #e9b96e;">"external/test.grd"</span>, package=<span style="color: #e9b96e;">"raster"</span>)
-r <span style="color: #e6a8df;">&lt;-</span> raster(f)
-dirXY <span style="color: #e6a8df;">&lt;-</span>xyLayer(r, sqrt(x^2 + y^2))
+<pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
+r <span class="org-constant">&lt;-</span> raster(f)
+dirXY <span class="org-constant">&lt;-</span>xyLayer(r, sqrt(x^2 + y^2))
 dirXY
 </pre>
 </div>
@@ -508,24 +508,24 @@ available at
 
 <div class="org-src-container">
 
-<pre class="src src-R"><span style="color: #e6a8df;">library</span>(zoo)
+<pre class="src src-R"><span class="org-constant">library</span>(zoo)
 
-url <span style="color: #e6a8df;">&lt;-</span> <span style="color: #e9b96e;">"~/Datos/Cressie/"</span>
-sst.dat = read.table(paste(url, <span style="color: #e9b96e;">"SST011970_032003.dat"</span>, sep=<span style="color: #e9b96e;">''</span>), header = <span style="color: #8cc4ff;">FALSE</span>) 
-sst.ll = read.table(paste(url, <span style="color: #e9b96e;">"SSTlonlat.dat"</span>, sep=<span style="color: #e9b96e;">''</span>), header = <span style="color: #8cc4ff;">FALSE</span>)
+url <span class="org-constant">&lt;-</span> <span class="org-string">"~/Datos/Cressie/"</span>
+sst.dat = read.table(paste(url, <span class="org-string">"SST011970_032003.dat"</span>, sep=<span class="org-string">''</span>), header = <span class="org-type">FALSE</span>) 
+sst.ll = read.table(paste(url, <span class="org-string">"SSTlonlat.dat"</span>, sep=<span class="org-string">''</span>), header = <span class="org-type">FALSE</span>)
 
-spSST <span style="color: #e6a8df;">&lt;-</span> SpatialPointsDataFrame(sst.ll, sst.dat)
-gridded(spSST) <span style="color: #e6a8df;">&lt;-</span> <span style="color: #8cc4ff;">TRUE</span>
-proj4string(spSST) = <span style="color: #e9b96e;">"+proj=longlat +datum=WGS84"</span>
-SST <span style="color: #e6a8df;">&lt;-</span> brick(spSST)
+spSST <span class="org-constant">&lt;-</span> SpatialPointsDataFrame(sst.ll, sst.dat)
+gridded(spSST) <span class="org-constant">&lt;-</span> <span class="org-type">TRUE</span>
+proj4string(spSST) = <span class="org-string">"+proj=longlat +datum=WGS84"</span>
+SST <span class="org-constant">&lt;-</span> brick(spSST)
 
-idx <span style="color: #e6a8df;">&lt;-</span> seq(as.Date(<span style="color: #e9b96e;">'1970-01-01'</span>), as.Date(<span style="color: #e9b96e;">'2003-03-01'</span>), by=<span style="color: #e9b96e;">'month'</span>)
-idx <span style="color: #e6a8df;">&lt;-</span> as.yearmon(idx)
-SST <span style="color: #e6a8df;">&lt;-</span> setZ(SST, idx)
-names(SST) <span style="color: #e6a8df;">&lt;-</span> as.character(idx)
-hovmoller(SST, contour=<span style="color: #8cc4ff;">FALSE</span>, panel=panel.levelplot.raster,
+idx <span class="org-constant">&lt;-</span> seq(as.Date(<span class="org-string">'1970-01-01'</span>), as.Date(<span class="org-string">'2003-03-01'</span>), by=<span class="org-string">'month'</span>)
+idx <span class="org-constant">&lt;-</span> as.yearmon(idx)
+SST <span class="org-constant">&lt;-</span> setZ(SST, idx)
+names(SST) <span class="org-constant">&lt;-</span> as.character(idx)
+hovmoller(SST, contour=<span class="org-type">FALSE</span>, panel=panel.levelplot.raster,
           yscale.components=yscale.raster.subticks,
-          interpolate=<span style="color: #8cc4ff;">TRUE</span>, par.settings=RdBuTheme)
+          interpolate=<span class="org-type">TRUE</span>, par.settings=RdBuTheme)
 </pre>
 </div>
 
@@ -569,11 +569,11 @@ this vector field.
 
 <div class="org-src-container">
 
-<pre class="src src-R">proj <span style="color: #e6a8df;">&lt;-</span> CRS(<span style="color: #e9b96e;">'+proj=longlat +datum=WGS84'</span>)
-df <span style="color: #e6a8df;">&lt;-</span> expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
+<pre class="src src-R">proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=longlat +datum=WGS84'</span>)
+df <span class="org-constant">&lt;-</span> expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
 
-df$z <span style="color: #e6a8df;">&lt;-</span> with(df, (3*x^2 + y)*exp(-x^2-y^2))
-r <span style="color: #e6a8df;">&lt;-</span> rasterFromXYZ(df, crs=proj)
+df$z <span class="org-constant">&lt;-</span> with(df, (3*x^2 + y)*exp(-x^2-y^2))
+r <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
 </pre>
 </div>
 
@@ -635,12 +635,12 @@ options can be changed easily:
 
 <div class="org-src-container">
 
-<pre class="src src-R">df$z <span style="color: #e6a8df;">&lt;-</span> with(df, sqrt(x^2 + y^2))
-df$phi <span style="color: #e6a8df;">&lt;-</span> with(df, atan2(-y, x))
-r2 <span style="color: #e6a8df;">&lt;-</span> rasterFromXYZ(df, crs=proj)
+<pre class="src src-R">df$z <span class="org-constant">&lt;-</span> with(df, sqrt(x^2 + y^2))
+df$phi <span class="org-constant">&lt;-</span> with(df, atan2(-y, x))
+r2 <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
 
-streamplot(r2, isField=<span style="color: #8cc4ff;">TRUE</span>, streamlet=list(L=30), droplet=list(pc=.3),
-           par.settings=streamTheme(symbol=brewer.pal(n=5, name=<span style="color: #e9b96e;">'Reds'</span>)))
+streamplot(r2, isField=<span class="org-type">TRUE</span>, streamlet=list(L=30), droplet=list(pc=.3),
+           par.settings=streamTheme(symbol=brewer.pal(n=5, name=<span class="org-string">'Reds'</span>)))
 </pre>
 </div>
 
@@ -668,10 +668,10 @@ although it can be also used after <code>xyplot</code>, <code>hexbinplot</code> 
 
 <pre class="src src-R">levelplot(SISmm)
 
-<span style="color: #73d216;">## </span><span style="color: #73d216;">Do not close the last graphical window.  Use the left button of the</span>
-<span style="color: #73d216;">## </span><span style="color: #73d216;">mouse to identify points and the right button to finish</span>
+<span class="org-comment-delimiter">## </span><span class="org-comment">Do not close the last graphical window.  Use the left button of the</span>
+<span class="org-comment-delimiter">## </span><span class="org-comment">mouse to identify points and the right button to finish</span>
 
-chosen <span style="color: #e6a8df;">&lt;-</span> identifyRaster(SISmm, layer=3, values=<span style="color: #8cc4ff;">TRUE</span>)
+chosen <span class="org-constant">&lt;-</span> identifyRaster(SISmm, layer=3, values=<span class="org-type">TRUE</span>)
 </pre>
 </div>
 
@@ -685,7 +685,7 @@ be highlighted and returned as a SpatialPoints object.
 
 <div class="org-src-container">
 
-<pre class="src src-R">reg <span style="color: #e6a8df;">&lt;-</span> chooseRegion()
+<pre class="src src-R">reg <span class="org-constant">&lt;-</span> chooseRegion()
 </pre>
 </div>
 </div>
