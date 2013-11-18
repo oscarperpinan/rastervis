@@ -1,5 +1,9 @@
 Commits in HEAD
-763bbb3 * HEAD v0.23 origin/master master Stat in horizonplot documented
+33706ec * HEAD origin/master master layerNames is not longer present in raster
+06e51ef * FIxed levelplot for categorical data when levels in data are different from levels in RAT
+d82d9b6 * Fixed levelplot for categorical data when levels in data are differe
+f581218 * ChangeLog updated
+763bbb3 * v0.23 Stat in horizonplot documented
 33d50d5 * Version and date updated.
 4352e42 * New example using Cressie data
 1dab825 * Horizonplot: new stat argument; rasterTheme included.
@@ -66,7 +70,7 @@ d096d33 * degreeLabels copied from sp
 36fdc07 * streamplot examples added in webpage
 4bc0e2c * streamplot examples added in webpage
 93fa192 * streamplot examples added in webpage
-beeb8c5 * 
+        
 a661ea6 * streamplot examples enclosed under dontrun
 32d6b94 * streamplot: parallel disabled in windows
 c1f3c91 * Date and version updated
@@ -97,10 +101,5 @@ d6af9c7 * levelplot displays categorical data
 80f9323 * fixed levelplot to allow colorkey=FALSE
 0fe0d68 * Updated version and date in DESCRIPTION
 cab4a78 * Fixed bwplot: main now works, and scales is an explicit argument (thanks to Agustin Lobo)
-8d920e7 * 
-3df931d * increase version and update date
-1112369 * scales is again a explicit argument but only a list()
-af678c8 * scales.margin after ... to not interfere with scales of levelplot
-1621cf7 * Changed email to gmail
+        
 
-type "e" to show more logs
