@@ -69,14 +69,13 @@
           panels."}
 	  
 \item{\dots}{Additional arguments for the \code{horizonplot}
-  function. \code{horizonscale} is the most interesting, that is (from
+  function. \code{horizonscale} is the most interesting, being (from
   the \code{latticeExtra} help page) "the scale of each color
   segment. There are 3 positive segments and 3 negative segments. If
   this is a given as a number then all panels will have comparable
   distances, though not necessarily the same actual values (similar in
-  concept to ‘scales$relation = "sliced"’). If \code{NA}, as it is by
-  default, then the scale is chosen in each panel to cover the range of
-  the data (unless overridden by \code{ylim})."}
+  concept to ‘scales$relation = "sliced"’)". On the other hand,
+  \code{col.regions} is used to choose the color scale.}
 
 }
 
@@ -97,26 +96,6 @@
 
 \examples{
 \dontrun{
-##Solar irradiation data from CMSAF
-##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
-
-old <- getwd()
-##change to your folder...
-setwd('CMSAF')
-listFich <- dir(pattern='2008')
-stackSIS <- stack(listFich)
-stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
-setwd(old)
-
-idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
-
-SISmm <- setZ(stackSIS, idx)
-names(SISmm) <- month.abb
-
-horizonplot(SISmm)
-}
-
-\dontrun{
 library(zoo)
 
 url <- "ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"
@@ -136,7 +115,43 @@ names(SST) <- as.character(idx)
 horizonplot(SST)
 
 horizonplot(SST, stat='sd')
+
+## Different scales for each panel, with colors representing deviations
+## from the origin in *that* panel
+horizonplot(SST, scales=list('free'))
+
+## origin may be a function...
+horizonplot(SST, origin=mean)
+## ...or a number
+horizonplot(SST, origin=0)
+
+## A different color palette
+horizonplot(SST, origin=0, col.regions=brewer.pal(n=6, 'PuOr'))
+
+## The width of each color segment can be defined with horizonscale
+horizonplot(SST, horizonscale=1, origin=0)
 }
+
+\dontrun{
+##Solar irradiation data from CMSAF
+##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+
+old <- getwd()
+##change to your folder...
+setwd('CMSAF')
+listFich <- dir(pattern='2008')
+stackSIS <- stack(listFich)
+stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+setwd(old)
+
+idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+
+SISmm <- setZ(stackSIS, idx)
+names(SISmm) <- month.abb
+
+horizonplot(SISmm)
+}
+
 
 }
 \keyword{methods}
