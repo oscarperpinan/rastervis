@@ -33,11 +33,41 @@ Make an interactive 3D plot (map) of a RasterLayer. This is a wrapper around \co
 
 \examples{
 if (require(rgl)) {
-data(volcano)
-r <- raster(volcano)
-extent(r) <- c(0, 610, 0, 870)
-drape <- cut(r, 5)
-plot3D(r, drape=drape, zfac=2)
+
+    data(volcano)
+    r <- raster(volcano)
+    extent(r) <- c(0, 610, 0, 870)
+
+    ## level plot as reference
+    levelplot(r, col.regions=terrain.colors)
+
+    plot3D(r)
+
+    ## Default: x-axis and y-axis are adjusted with z-values. Therefore,
+    ## labels with decorate3d() are useless
+    plot3D(r, adjust=TRUE)
+    decorate3d()
+    ## Compare the graphic limits
+    par3d('bbox')
+    ## with the extent of the Raster
+    extent(r)
+
+    ## Set adjust=FALSE to fix it
+    plot3D(r, adjust=FALSE)
+    decorate3d()
+    ## Once again, compare the graphic limits
+    par3d('bbox')
+    ## with the extent of the Raster
+    extent(r)
+
+    ## zfac controls the z values so z-axis will be distorted
+    plot3D(r, adjust=FALSE, zfac=2)
+    decorate3d()
+    par3d('bbox')
+
+    ## Set drape to define the color breaks
+    drape <- cut(r, 5)
+    plot3D(r, drape=drape)
 }
 }
 
