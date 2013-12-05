@@ -12,24 +12,49 @@ Make an interactive 3D plot (map) of a RasterLayer. This is a wrapper around \co
 }
 
 \usage{
-\S4method{plot3D}{RasterLayer}(x, maxpixels=100000, 
-   zfac=1, drape=NULL, col, rev=FALSE, adjust=TRUE, ...)
+\S4method{plot3D}{RasterLayer}(x, maxpixels=1e5, 
+   zfac=1, drape=NULL, col=terrain.colors,
+   at=100, rev=FALSE,
+   useLegend=TRUE, adjust=TRUE, ...)
 }
 
 \arguments{
+
  \item{x}{a RasterLayer object}
-% \item{background}{value used to replace NA values}
+
  \item{maxpixels}{Maximum number of pixels to use}
+
  \item{zfac}{Numeric, to set the elevation scale relative to x and y}
- \item{drape}{RasterLayer, to 'drape' colors representing the values of this layer on the 3D representation of layer \code{x}. In this case\code{x} typically has elevation data}
- \item{col}{A color palette generating function such as \code{rainbow}, \code{heat.colors}, and \code{topo.colors}, or one or your own making}
- \item{rev}{Logical. If \code{TRUE}, the color palette values are reversed in order}
- \item{adjust}{Logical. If \code{TRUE}, the x and y axes are scaled relative to the cell (z) values}
- \item{...}{Any argument that can be passed to \code{\link[rgl]{surface3d}}}
+
+ \item{drape}{RasterLayer, to 'drape' colors representing the values of
+ this layer on the 3D representation of layer \code{x}. In this
+ case\code{x} typically has elevation data}
+
+ \item{col}{A color palette generating function such as \code{rainbow},
+ \code{heat.colors}, and \code{topo.colors}, or one or your own making}
+
+ \item{at}{A numeric variable of breakpoints defining intervals along
+          the range of \code{x} or a number definining the number of
+          intervals the range of \code{x} will be divided into.}
+	
+ \item{rev}{Logical. If \code{TRUE}, the color palette values are
+   reversed in order}
+
+ \item{useLegend}{Logical. If \code{TRUE} (default) the content of the
+   slot \code{x@legend@colortable} is used instead of \code{col} and
+   \code{at}.}
+
+ \item{adjust}{Logical. If \code{TRUE}, the x and y axes are scaled
+ relative to the cell (z) values}
+
+ \item{...}{Any argument that can be passed to
+ \code{\link[rgl]{surface3d}}}
+
 }
 
 
-\author{ Robert J. Hijmans }
+
+\author{ Robert J. Hijmans and Oscar Perpiñán}
 
 \examples{
 if (require(rgl)) {
@@ -42,6 +67,26 @@ if (require(rgl)) {
     levelplot(r, col.regions=terrain.colors)
 
     plot3D(r)
+    ## Use different colors with a predefined function
+    plot3D(r, col=rainbow)
+    ## or with a custom function using colorRampPalette
+    myPal <- colorRampPalette(brewer.pal(11, 'PuOr'))
+    plot3D(r, col=myPal)
+
+    ## With at you can define an homogeneus color table for different Rasters
+
+    r2 <- r + 100
+    r3 <- r + 200
+    s <- stack(r, r2, r3)
+
+    maxVal <- max(maxValue(s))
+    minVal <- min(minValue(s))
+    N <- 40
+    breaks <- seq(minVal, maxVal, length=N)
+
+    plot3D(r, at=breaks)
+    plot3D(r2, at=breaks)
+    plot3D(r3, at=breaks)
 
     ## Default: x-axis and y-axis are adjusted with z-values. Therefore,
     ## labels with decorate3d() are useless
@@ -65,9 +110,12 @@ if (require(rgl)) {
     decorate3d()
     par3d('bbox')
 
-    ## Set drape to define the color breaks
-    drape <- cut(r, 5)
+
+    ## With drape you can disconnect the z-axis from the colors
+    drape <- cut(r^4, 4)
     plot3D(r, drape=drape)
+    ## Compare with:
+    plot3D(r, at=4)
 }
 }
 
