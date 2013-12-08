@@ -56,66 +56,67 @@ Make an interactive 3D plot (map) of a RasterLayer. This is a wrapper around \co
 
 \author{ Robert J. Hijmans and Oscar Perpiñán}
 
-\examples{
-if (require(rgl)) {
+\examples{ \dontrun{
+## rgl is needed to use plot3D
+library(rgl)
 
-    data(volcano)
-    r <- raster(volcano)
-    extent(r) <- c(0, 610, 0, 870)
+data(volcano)
+r <- raster(volcano)
+extent(r) <- c(0, 610, 0, 870)
 
-    ## level plot as reference
-    levelplot(r, col.regions=terrain.colors)
+## level plot as reference
+levelplot(r, col.regions=terrain.colors)
 
-    plot3D(r)
-    ## Use different colors with a predefined function
-    plot3D(r, col=rainbow)
-    ## or with a custom function using colorRampPalette
-    myPal <- colorRampPalette(brewer.pal(11, 'PuOr'))
-    plot3D(r, col=myPal)
+plot3D(r)
+## Use different colors with a predefined function
+plot3D(r, col=rainbow)
+## or with a custom function using colorRampPalette
+myPal <- colorRampPalette(brewer.pal(11, 'PuOr'))
+plot3D(r, col=myPal)
 
-    ## With at you can define an homogeneus color table for different Rasters
+## With at you can define an homogeneus color table for different Rasters
 
-    r2 <- r + 100
-    r3 <- r + 200
-    s <- stack(r, r2, r3)
+r2 <- r + 100
+r3 <- r + 200
+s <- stack(r, r2, r3)
 
-    maxVal <- max(maxValue(s))
-    minVal <- min(minValue(s))
-    N <- 40
-    breaks <- seq(minVal, maxVal, length=N)
+maxVal <- max(maxValue(s))
+minVal <- min(minValue(s))
+N <- 40
+breaks <- seq(minVal, maxVal, length=N)
 
-    plot3D(r, at=breaks)
-    plot3D(r2, at=breaks)
-    plot3D(r3, at=breaks)
+plot3D(r, at=breaks)
+plot3D(r2, at=breaks)
+plot3D(r3, at=breaks)
 
-    ## Default: x-axis and y-axis are adjusted with z-values. Therefore,
-    ## labels with decorate3d() are useless
-    plot3D(r, adjust=TRUE)
-    decorate3d()
-    ## Compare the graphic limits
-    par3d('bbox')
-    ## with the extent of the Raster
-    extent(r)
+## Default: x-axis and y-axis are adjusted with z-values. Therefore,
+## labels with decorate3d() are useless
+plot3D(r, adjust=TRUE)
+decorate3d()
+## Compare the graphic limits
+par3d('bbox')
+## with the extent of the Raster
+extent(r)
 
-    ## Set adjust=FALSE to fix it
-    plot3D(r, adjust=FALSE)
-    decorate3d()
-    ## Once again, compare the graphic limits
-    par3d('bbox')
-    ## with the extent of the Raster
-    extent(r)
+## Set adjust=FALSE to fix it
+plot3D(r, adjust=FALSE)
+decorate3d()
+## Once again, compare the graphic limits
+par3d('bbox')
+## with the extent of the Raster
+extent(r)
 
-    ## zfac controls the z values so z-axis will be distorted
-    plot3D(r, adjust=FALSE, zfac=2)
-    decorate3d()
-    par3d('bbox')
+## zfac controls the z values so z-axis will be distorted
+plot3D(r, adjust=FALSE, zfac=2)
+decorate3d()
+par3d('bbox')
 
 
-    ## With drape you can disconnect the z-axis from the colors
-    drape <- cut(r^4, 4)
-    plot3D(r, drape=drape)
-    ## Compare with:
-    plot3D(r, at=4)
+## With drape you can disconnect the z-axis from the colors
+drape <- cut(r^4, 4)
+plot3D(r, drape=drape)
+## Compare with:
+plot3D(r, at=4)
 }
 }
 
