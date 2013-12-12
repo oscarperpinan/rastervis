@@ -4,8 +4,10 @@ setMethod('vectorplot',
           signature(object='Raster'),
           definition = function(object, layers,
               narrows=2e3, lwd.arrows=0.6, length=unit(5e-2, 'npc'),
-              maxpixels=1e5, region=TRUE,
-              isField=FALSE, reverse=FALSE, unit='radians',
+              maxpixels=1e5, region=TRUE, 
+              isField=FALSE, reverse=FALSE,
+              unit='radians', scaleSlope=TRUE,
+              aspX=0.08, aspY=aspX,
               ...){
               
               if (!missing(layers)) {
@@ -26,9 +28,6 @@ setMethod('vectorplot',
               ## Compute slope and aspect layers
               fooSlopeAspect <- function(s, skip, dXY=FALSE,
                                          unit, reverse){
-                  aspX <- xres(s)*0.6 ## maybe use a non-constant value
-                  aspY <- yres(s)*0.6
-
                   if (!skip){s <- terrain(s, opt=c('slope', 'aspect'))}
                   ## If s is a vector field, the first layer is the
                   ## magnitude (slope) and the second is the angle
@@ -46,7 +45,13 @@ setMethod('vectorplot',
                       if (reverse) aspect <- aspect + pi
                       ##center=FALSE to get only positive values of
                       ##slope
-                      slope <- scale(slope, center=FALSE)
+                      if (is.logical(scaleSlope) & isTRUE(scaleSlope)){
+                          slope <- scale(slope, center=FALSE)
+                          } else {
+                              if (is.numeric(scaleSlope)) {
+                                  slope <- slope/scaleSlope
+                                  }
+                              }
                       ##sin due to the angular definition of aspect
                       dx <- slope * sin(aspect) * aspX 
                       dy <- slope * cos(aspect) * aspY
@@ -86,7 +91,7 @@ setMethod('vectorplot',
                              panel.arrows(x, y, x+dx, y+dy,
                                           length=length,
                                           lwd=lwd.arrows, ...)
-                         })
+                         }, ...)
           }
           )
 

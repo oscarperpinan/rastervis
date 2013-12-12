@@ -26,7 +26,9 @@
 \S4method{vectorplot}{Raster}(object, layers,
             narrows=2e3, lwd.arrows=0.6, length=unit(5e-2, 'npc'),
             maxpixels=1e5, region=TRUE,  
-            isField=FALSE, reverse=FALSE, unit='radians', ...)
+            isField=FALSE, reverse=FALSE,
+            unit='radians', scaleSlope=TRUE,
+            aspX=0.08, aspY=aspX, ...)
 
 \S4method{streamplot}{Raster}(object, layers,
             droplet = list(), streamlet = list(),
@@ -54,7 +56,11 @@
 \item{narrows}{A numeric, number of arrows.}
   \item{lwd.arrows}{Numeric, width of the lines of the arrows}
   \item{length}{Unit, extent of the arrow head.}
-
+  \item{scaleSlope}{Logical or numeric. If TRUE the slope is scaled (but
+  not centered) with its standard deviation. If it is a numeric, the
+  slope is scaled with this value. It is not used if \code{isField='dXY'}.}
+\item{aspX, aspY}{Numeric. Multipliers to convert the slope values into
+  horizontal (\code{aspX}) and vertical (\code{aspY}) displacements.}
 \item{droplet}{A list whose elements define the droplet
   configuration:\itemize{ \item{cropExtent: Percentage of the object
   extent to be cropped (default .97) to avoid droplets at boundaries}
@@ -126,6 +132,13 @@ names(s) <- c('R1', 'R2', 'R3')
 vectorplot(r1)
 vectorplot(r2, par.settings=RdBuTheme())
 vectorplot(r3, par.settings=PuOrTheme())
+
+## scaleSlope, aspX and aspY
+vectorplot(r1, scaleSlope=FALSE)
+vectorplot(r1, scaleSlope=1e-5)
+vectorplot(r1, scaleSlope=5e-6, alpha=0.6)
+vectorplot(r1, scaleSlope=TRUE, aspX=0.1, alpha=0.6)
+vectorplot(r1, scaleSlope=TRUE, aspX=0.3, alpha=0.3)
 
 ## A vector field defined by the horizontal and vertical components
 u <- v <- raster(xmn=0, xmx=2, ymn=0, ymx=2, ncol=1e3, nrow=1e3)
