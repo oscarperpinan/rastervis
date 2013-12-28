@@ -25,7 +25,6 @@ setMethod('histogram',
             scales=list(x=list(relation='free'),
               y=list(relation='free',
                 draw=FALSE)),
-            strip.names=c(TRUE, TRUE),
             par.settings=rasterTheme(),
             ...) {
             if (!missing(layers)) x <- subset(x, layers)
@@ -39,7 +38,6 @@ setMethod('histogram',
                              scales=scales,
                              nint=nint, col=col,
                              xlab=xlab, ylab=ylab, main=main,
-                             strip.names=strip.names,
                              ...)
             } else {
               p <- histogram(x, maxpixels = maxpixels, nint=nint,
