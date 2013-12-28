@@ -22,8 +22,6 @@ setMethod('histogram',
             xlab='', ylab='', main='', col='gray',
             between=list(x=0.5, y=0.2),
             as.table=TRUE,
-            xscale.components=xscale.raster,
-            yscale.components=yscale.raster,
             scales=list(x=list(relation='free'),
               y=list(relation='free',
                 draw=FALSE)),
@@ -38,8 +36,6 @@ setMethod('histogram',
                              as.table=as.table,
                              par.settings=par.settings,
                              between=between,
-                             xscale.components=xscale.components,
-                             yscale.components=yscale.components,
                              scales=scales,
                              nint=nint, col=col,
                              xlab=xlab, ylab=ylab, main=main,
@@ -55,8 +51,6 @@ setMethod('histogram',
 
 setMethod('histogram', signature(x='formula', data='Raster'),
           definition=function(x, data, dirXY, maxpixels=1e+05,
-            xscale.components=xscale.raster,
-            yscale.components=yscale.raster,
             strip=TRUE, par.settings=rasterTheme(),
             ...){
 
@@ -79,8 +73,6 @@ setMethod('histogram', signature(x='formula', data='Raster'),
                }
 
             p <- histogram(x=x, data=df,
-                           xscale.components=xscale.components,
-                           yscale.components=yscale.components,
                            strip=strip,
                            par.settings=par.settings, ...)
             p
