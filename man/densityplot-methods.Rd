@@ -56,8 +56,6 @@ s <- stack(r, r+500, r-500)
 densityplot(s)
 
 \dontrun{
-##Solar irradiation data from CMSAF
-##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
 
 old <- getwd()
 ##change to your folder...
@@ -73,7 +71,8 @@ SISmm <- setZ(stackSIS, idx)
 names(SISmm) <- month.abb
 
 densityplot(SISmm)
-densityplot(SISmm, FUN=as.yearqtr)##FUN applies to z if not NULL
+##FUN applies to z if not NULL
+densityplot(SISmm, FUN=as.yearqtr)
 }
 \dontrun{
 ##http://neo.sci.gsfc.nasa.gov/Search.html?group=64

@@ -31,16 +31,15 @@ for details.}
 
 \examples{
 \dontrun{
-##Solar irradiation data from CMSAF
-##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
+old <- setwd(tempdir())
+download.file('https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip',
+   'SISmm2008_CMSAF.zip', method='wget')
+unzip('SISmm2008_CMSAF.zip')
 
-old <- getwd()
-##change to your folder...
-setwd('CMSAF')
-listFich <- dir(pattern='2008')
+listFich <- dir(pattern='\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
-setwd(old)
 
 idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 
@@ -48,6 +47,12 @@ SISmm <- setZ(stackSIS, idx)
 names(SISmm) <- month.abb
 
 xyplot(SISmm)
+## Formula interface 
+xyplot(Jan ~ Jul, data=SISmm)
+## Different scatterplots for each latitude zone
+xyplot(Jan ~ Dec|cut(y, 4), data=SISmm)
+## More sophisticated bands can be defined using the dirXY argument 
+xyplot(Jan ~ Dec|cut(dirXY, 4), dirXY=x^2 + y^2, data=SISmm)
 }
 
 \dontrun{

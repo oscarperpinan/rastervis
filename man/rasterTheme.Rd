@@ -58,13 +58,16 @@ streamTheme(region='black',
   \item{lim}{Range of data.}
   \item{pch}{Symbol used for points.}
   \item{cex}{A numeric multiplier to control the size of the points.}
-  \item{region}{A palette to fill in regions.}
+  \item{region}{A vector of colors that is used to define a continuous color
+    gradient using \code{colorRampPalette} to fill in
+    regions. Note that the length of this gradient is set by
+    \code{\link{custom.theme}} to exactly 100 colors.}
   \item{symbol}{A palette to display symbols.}
   \item{panel.background}{Parameters of the panel background.}
   \item{alpha, ...}{Additional arguments for \code{\link{custom.theme.2}},
-  \code{\link{yscale.components.default}} and
-  \code{\link{xscale.components.default}}
-}
+    \code{\link{yscale.components.default}} and
+    \code{\link{xscale.components.default}}
+  }
 }
 \author{Oscar Perpiñán Lamigueiro}
 \seealso{\code{custom.theme}, \code{custom.theme.2}, \code{BTC},

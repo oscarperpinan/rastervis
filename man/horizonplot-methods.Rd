@@ -133,8 +133,7 @@ horizonplot(SST, horizonscale=1, origin=0)
 }
 
 \dontrun{
-##Solar irradiation data from CMSAF
-##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+
 
 old <- getwd()
 ##change to your folder...

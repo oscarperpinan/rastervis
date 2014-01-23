@@ -62,13 +62,7 @@ s <- stack(r, r-500, r+500)
 bwplot(s)
 
 \dontrun{
-##Solar irradiation data from CMSAF
-##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
 
-old <- getwd()
-##change to your folder...
-setwd('CMSAF')
-listFich <- dir(pattern='2008')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 setwd(old)
@@ -79,7 +73,8 @@ SISmm <- setZ(stackSIS, idx)
 names(SISmm) <- month.abb
 
 bwplot(SISmm)
-bwplot(SISmm, FUN=as.yearqtr)##FUN applies to z if not NULL
+##FUN applies to z if not NULL
+bwplot(SISmm, FUN=as.yearqtr)
 }
 \dontrun{
 ##http://neo.sci.gsfc.nasa.gov/Search.html?group=64
