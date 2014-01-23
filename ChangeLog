@@ -1,5 +1,17 @@
 Commits in HEAD
-33706ec * HEAD origin/master master layerNames is not longer present in raster
+86b9a85 * HEAD origin/master master Histogram formula interface documented; CMSAF route changed
+0fd125b * strip.names blocks usage of strip.custom
+e7de68a * Use of breaks documented
+56ba0d2 * vectorplot gains new args: scaleSlope, aspX/aspY
+ea43dbc * plot3D examples inside dontrun to pass check OSx
+0b562c2 * plot3D gains new args; color management improved
+899400b * plot3D help page with more examples
+54cd4bc * v0.25 horizonplot documentation improved
+c413c99 * origin and horizonscale documented
+d0685fd * new argument origin
+2827b09 * v0.24 Fix version in DESCRIPTION
+54f6ae3 * ChangeLog updated
+33706ec * layerNames is not longer present in raster
 06e51ef * FIxed levelplot for categorical data when levels in data are different from levels in RAT
 d82d9b6 * Fixed levelplot for categorical data when levels in data are differe
 f581218 * ChangeLog updated
@@ -70,7 +82,7 @@ d096d33 * degreeLabels copied from sp
 36fdc07 * streamplot examples added in webpage
 4bc0e2c * streamplot examples added in webpage
 93fa192 * streamplot examples added in webpage
-        
+beeb8c5 * 
 a661ea6 * streamplot examples enclosed under dontrun
 32d6b94 * streamplot: parallel disabled in windows
 c1f3c91 * Date and version updated
@@ -90,16 +102,4 @@ aee8d48 * Updated ChangeLog. To CRAN.
 a25a9c1 * raster 2.0-12 version required. Updated date and version.
 60e3ea5 * Added ChangeLog
 add9d7b * layerNames is deprecated. Replaced with names
-b28b9da * my.at was not being passed to levelplot when isFactor
-47a46d9 * Updated date and
-d6af9c7 * levelplot displays categorical data
-9653c81 * Updated version and date.
-0aed6dc * extent of the arrow head is now controlled with length
-5811a8f * colorkey, colorkey.digits and scales are now arguments; is.null(getZ(object)) checked
-751de05 * scales and strip.names added as arguments
-65db895 * contourplot: scales added as internal element of the list
-80f9323 * fixed levelplot to allow colorkey=FALSE
-0fe0d68 * Updated version and date in DESCRIPTION
-cab4a78 * Fixed bwplot: main now works, and scales is an explicit argument (thanks to Agustin Lobo)
-        
-
+type "e" to show more history
