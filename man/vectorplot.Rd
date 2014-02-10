@@ -3,6 +3,7 @@
 
 \alias{vectorplot}
 \alias{vectorplot,Raster-method}
+\alias{vectorplot,RasterStack-method}
 \alias{streamplot}
 \alias{streamplot,Raster-method}
 \alias{streamplot,RasterStack-method}
@@ -25,10 +26,18 @@
 \usage{
 \S4method{vectorplot}{Raster}(object, layers,
             narrows=2e3, lwd.arrows=0.6, length=unit(5e-2, 'npc'),
-            maxpixels=1e5, region=TRUE,  
+            maxpixels=1e5, region=TRUE, margin=FALSE,  
             isField=FALSE, reverse=FALSE,
             unit='radians', scaleSlope=TRUE,
             aspX=0.08, aspY=aspX, ...)
+
+\S4method{vectorplot}{RasterStack}(object, layers,
+            narrows=2e3, lwd.arrows=0.6, length=unit(5e-2, 'npc'),
+            maxpixels=1e5, region=TRUE, margin=FALSE,
+            isField=FALSE, reverse=FALSE,
+            unit='radians', scaleSlope=TRUE,
+            aspX=0.08, aspY=aspX,
+            uLayers, vLayers, ...)
 
 \S4method{streamplot}{Raster}(object, layers,
             droplet = list(), streamlet = list(),
@@ -51,16 +60,33 @@
   \code{\link{terrain}}. }
   \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
+
   \item{maxpixels}{A numeric, number of cells to be shown if
   \code{region=TRUE} or if \code{region} is a \code{Raster*} object.}
+
 \item{narrows}{A numeric, number of arrows.}
-  \item{lwd.arrows}{Numeric, width of the lines of the arrows}
-  \item{length}{Unit, extent of the arrow head.}
-  \item{scaleSlope}{Logical or numeric. If TRUE the slope is scaled (but
+
+\item{lwd.arrows}{Numeric, width of the lines of the arrows}
+
+\item{length}{Unit, extent of the arrow head.}
+
+
+\item{margin}{Logical, if TRUE two marginal graphics show the summaries
+  of the object.}
+
+\item{scaleSlope}{Logical or numeric. If TRUE the slope is scaled (but
   not centered) with its standard deviation. If it is a numeric, the
   slope is scaled with this value. It is not used if \code{isField='dXY'}.}
+
 \item{aspX, aspY}{Numeric. Multipliers to convert the slope values into
   horizontal (\code{aspX}) and vertical (\code{aspY}) displacements.}
+
+\item{uLayers, vLayers}{Numeric, indexes of layers with horizontal and
+  vertical components, respectively, when \code{isField='dXY'} and the
+  \code{RasterStack} has more than 2 layers.  If missing, the horizontal
+  components are the layers of the first half of the object, and the
+  vertical components are the layers of the second half.}
+
 \item{droplet}{A list whose elements define the droplet
   configuration:\itemize{ \item{cropExtent: Percentage of the object
   extent to be cropped (default .97) to avoid droplets at boundaries}
@@ -79,12 +105,15 @@
   package.}
 \item{cl}{a cluster object. Read the help page of
   \code{\link{parLapply}} for details.}
+
 \item{mc.cores}{The number of cores to use if \code{parallel=TRUE} and
   no \code{cl} is provided. Read the help page of \code{\link{mclapply}}
   for details.}
-  \item{region}{Logical, if \code{TRUE} the region is displayed as the
+
+\item{region}{Logical, if \code{TRUE} the region is displayed as the
   background  using \code{levelplot}. It can be a \code{Raster*} with
   the same extent and resolution as \code{object}.}
+
 \item{reverse}{Logical, TRUE if arrows or streamlets go against the direction
   of the gradient.}
 
@@ -98,7 +127,8 @@
 
 \item{unit}{Character, angle units of the \code{aspect} layer if
   \code{isField=TRUE}: 'radians' or 'degrees'.}
-  \item{\dots}{Additional arguments for \code{\link{levelplot}}}
+
+\item{\dots}{Additional arguments for \code{\link{levelplot}}}
 }
 
 \references{
@@ -140,7 +170,7 @@ vectorplot(r1, scaleSlope=5e-6, alpha=0.6)
 vectorplot(r1, scaleSlope=TRUE, aspX=0.1, alpha=0.6)
 vectorplot(r1, scaleSlope=TRUE, aspX=0.3, alpha=0.3)
 
-## A vector field defined by the horizontal and vertical components
+## A vector field defined with horizontal and vertical components
 u <- v <- raster(xmn=0, xmx=2, ymn=0, ymx=2, ncol=1e3, nrow=1e3)
 x <- init(u, v='x')
 y <- init(u, v='y')
@@ -158,6 +188,28 @@ vectorplot(field, isField='dXY', narrows=5e2, region=field)
 slope <- sqrt(u^2 + y^2)
 vectorplot(field, isField='dXY', narrows=5e2,
            region=slope, par.settings=BTCTheme())
+
+
+## It is also possible to use a RasterStack
+## with more than 2 layers when isField='dXY'
+u1 <- cos(y) * cos(x)
+v1 <- cos(y) * sin(x)
+u2 <- sin(y) * sin(x)
+v2 <- sin(y) * cos(x)
+field <- stack(u, u1, u2, v, v1, v2)
+names(field) <- c('u', 'u1', 'u2', 'v', 'v1', 'v2')
+
+vectorplot(field, isField='dXY',
+           narrows=300, lwd.arrows=.4,
+           par.settings=BTCTheme(),
+           layout=c(3, 1))
+
+## uLayer and vLayer define which layers contain
+## horizontal and vertical components, respectively
+vectorplot(field, isField='dXY',
+           narrows=300,
+           uLayer=1:3,
+           vLayer=6:4)
 
 ##################################################################
 ## Streamplot

@@ -4,7 +4,7 @@ setMethod('vectorplot',
           signature(object='Raster'),
           definition = function(object, layers,
               narrows=2e3, lwd.arrows=0.6, length=unit(5e-2, 'npc'),
-              maxpixels=1e5, region=TRUE, 
+              maxpixels=1e5, region=TRUE, margin=FALSE,
               isField=FALSE, reverse=FALSE,
               unit='radians', scaleSlope=TRUE,
               aspX=0.08, aspY=aspX,
@@ -82,8 +82,10 @@ setMethod('vectorplot',
                   }
 
               levelplot(object,
-                        maxpixels = maxpixels,
-                        region = region,...) +
+                        maxpixels = maxpixels, 
+                        region = region,
+                        margin = margin,
+                        ...) +
                   xyplot(y~x, data=sa, dx=sa$dx, dy=sa$dy,
                          length=length, lwd.arrows=lwd.arrows,
                          panel=function(x, y, dx, dy,
@@ -95,3 +97,48 @@ setMethod('vectorplot',
           }
           )
 
+
+setMethod('vectorplot',
+          signature(object='RasterStack'),
+          definition = function(object, layers,
+              narrows=2e3, lwd.arrows=0.6, length=unit(5e-2, 'npc'),
+              maxpixels=1e5, region=TRUE, margin=FALSE,
+              isField=FALSE, reverse=FALSE,
+              unit='radians', scaleSlope=TRUE,
+              aspX=0.08, aspY=aspX,
+              uLayers, vLayers,
+              ...){
+              if (isField!='dXY' | (isField=='dXY' & nlayers(object)==2)) {
+                  if (missing(layers)) layers=seq_len(nlayers(object))
+                  callNextMethod(object, layers,
+                                 narrows, lwd.arrows, length,
+                                 maxpixels, region, margin,
+                                 isField, reverse, unit,
+                                 scaleSlope, aspX, aspY,
+                                 ...)
+              } else {
+                  stopifnot((nlayers(object) %% 2) == 0)
+                  hl <- nlayers(object)/2
+                  if (missing(uLayers) & missing(vLayers)) {
+                      uLayers <- seq_len(hl)
+                      vLayers <- uLayers + hl
+                  } else if (missing(vLayers) & !missing(uLayers)) {
+                              vLayers <- setdiff(seq_len(nlayers(object)), uLayers)
+                          } else if (missing(uLayers) & !missing(vLayers)) {
+                              uLayers <- setdiff(seq_len(nlayers(object)), vLayers)
+                          }
+                                  
+                  layList <- unstack(object)
+                  uvIdx <- cbind(uLayers, vLayers)
+                  objectList <- apply(uvIdx, 1, FUN=function(idx)stack(layList[idx]))
+                  names(objectList) <- sapply(objectList,
+                                              FUN=function(s)paste(names(s), collapse='.'))
+                  p <- xyplot.list(objectList, FUN=vectorplot,
+                                   narrows=narrows, lwd.arrows=lwd.arrows, length=length,
+                                   maxpixels=maxpixels, region=region, margin=margin,
+                                   isField='dXY', reverse=reverse, unit=unit,
+                                   scaleSlope=scaleSlope, aspX=aspX, aspY=aspY,
+                                   ...)
+                  p
+              }
+          })
