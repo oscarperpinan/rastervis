@@ -188,24 +188,26 @@ setMethod('streamplot',
             isField = FALSE, reverse=FALSE, ##unit = 'radians',
             parallel=TRUE, mc.cores=detectCores(), cl=NULL,
             ...){
-            if (isField) callNextMethod(object, layers, droplet, streamlet,
-                                        par.settings, isField=TRUE, reverse,
-                                        parallel, mc.cores, cl, ...)
+              if (missing(layers)) layers=seq_len(nlayers(object))
+              if (isField) callNextMethod(object, layers, droplet,
+                                          streamlet,
+                                          par.settings,
+                                          isField=TRUE,
+                                          reverse,
+                                          parallel,
+                                          mc.cores, cl, ...)
             else {
               if (!missing(layers)) {
-                object <- subset(object, subset=layers)
+                  object <- subset(object, subset=layers)
               }
-              streamplotList <- lapply(unstack(object), streamplot,
-                                       ## layers=layers,
-                                       droplet=droplet, streamlet=streamlet,
-                                       par.settings=par.settings,
-                                       isField=FALSE, reverse=reverse,
-                                       parallel=parallel, mc.cores=mc.cores,
-                                       cl, ...)
-              names(streamplotList) <- names(object)
-              dots <- list(...)
-              streamplotList <- c(streamplotList, dots)
-              p <- do.call(c, streamplotList)
+              objectList <- unstack(object)
+              names(objectList) <- names(object)
+              p <- xyplot.list(objectList, FUN=streamplot,
+                               droplet=droplet, streamlet=streamlet,
+                               par.settings=par.settings,
+                               isField=FALSE, reverse=reverse,
+                               parallel=parallel, mc.cores=mc.cores,
+                               cl, ...)
               p
-              }
-            })
+          }
+          })
