@@ -178,15 +178,13 @@
           \code{\link{panel.levelplot}} for details.}
       }}
     
-  \item{zscaleLog}{Controls whether the Raster* will be log
-    transformed before being passed to the
-    panel function.  Defaults to ‘NULL’, in which case the
-    Raster* is not transformed.  Other possible values are any
-    number that works as a base for taking logarithm, ‘TRUE’
-    (which is equivalent to 10), and ‘"e"’ (for the natural
-    logarithm).  As a side effect, the colorkey is
-    labeled differently.
-  }
+  \item{zscaleLog}{Controls whether the Raster* will be log transformed
+    before being passed to the panel function.  Defaults to \code{NULL}, in
+    which case the \code{Raster*} is not transformed.  Other possible values
+    are any number that works as a base for taking logarithm, \code{TRUE}
+    (which is equivalent to 10), \code{"e"} (for the natural logarithm), and
+    \code{FALSE} (that is equivalent to \code{NULL}).  As a side effect,
+    the colorkey is labeled differently.  }
 
   \item{\dots}{Additional arguments for
     \code{lattice::\link[lattice]{levelplot}},

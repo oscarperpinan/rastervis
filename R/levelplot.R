@@ -66,8 +66,9 @@ setMethod('levelplot',
                   dat <- df[, -c(1, 2)]
               }
 
-              ## If zscale is not NULL, transform the values and
+              ## If zscaleLog is not NULL, transform the values and
               ## choose a function to calculate the labels
+              if (identical(FALSE, zscaleLog)) zscaleLog <- NULL
               if (!is.null(zscaleLog) && !isFactor){
                   zlogbase <- if (is.logical(zscaleLog)) {
                       10
