@@ -38,7 +38,7 @@ setMethod('identifyRaster', signature(object='Raster'),
 
 
 
-chooseRegion <- function(sp=TRUE, proj=CRS('+proj=latlon +ellps=WGS84')){
+chooseRegion <- function(sp=TRUE, proj=as.character(NA)){
   if (require(mgcv)){
   trellis.focus('panel', 1, 1)
   x <- trellis.panelArgs()$x
@@ -67,7 +67,7 @@ chooseRegion <- function(sp=TRUE, proj=CRS('+proj=latlon +ellps=WGS84')){
 
   inside <- in.out(border, pointsData)
   pointsInside <- data.frame(xin=x[inside], yin=y[inside])
-  spPoints <- SpatialPoints(coords=pointsInside, proj4string=proj)
+  spPoints <- SpatialPoints(coords=pointsInside, proj4string=CRS(proj))
 
   ## spPoints <- list('sp.points', pointsInside, cex=0.5)
   ## print(update(trellis.last.object(), sp.layout=spPoints))

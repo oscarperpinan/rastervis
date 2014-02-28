@@ -15,7 +15,7 @@ Interaction with trellis objects.
 graphic according to mouse clicks.
 }
 \usage{
-chooseRegion(sp = TRUE, proj = CRS("+proj=latlon +ellps=WGS84"))
+chooseRegion(sp = TRUE, proj = as.character(NA))
 \S4method{identifyRaster}{Raster}(object, layer=1, values=FALSE, pch=13, cex=0.6, col='black',...)
 
 }
