@@ -43,22 +43,18 @@ setMethod('levelplot',
                   } else {
                       rat <- as.data.frame(rat[[1]])
                       ratID <- rat$ID
+                      nLevels <- length(ratID)
                       ## choose which level to use for the legend
                       if (is.numeric(att)) att = att + 1
                       ratLevels <- rat[, att]
                   }
-                  ## Unique values present in data
-                  datFactor <- factor(unique(object))
-                  datID <- as.numeric(levels(datFactor))
-                  ## Sometimes levels in data are different from
-                  ## levels in RAT (for example, after
-                  ## crop). datLevels is the subset of RAT levels that
-                  ## can be found in data.
-                  datLevels <- ratLevels[ratID %in% datID]
-                  
-                  dat <- as.data.frame(getValues(objectSample))
+                  ## Use factor index (position) instead of code (ratID)
+                  dat <- match(objectSample, ratID)
+                  dat <- as.data.frame(getValues(dat))
                   names(dat) <- names(object)
+
                   xy <- xyFromCell(objectSample, 1:ncell(objectSample))
+
                   df <- cbind(xy, dat)
               } else {
                   ## Convert to a data.frame for conventional levelplot
@@ -99,9 +95,6 @@ setMethod('levelplot',
               ylim=c(bb@ymin, bb@ymax)
 
               if (isLonLat(object)){
-
-                  ## if (xlab=='') xlab='Longitude'
-                  ## if (ylab=='') ylab='Latitude'
 
                   aspect=(diff(ylim)/diff(xlim))/cos((mean(ylim) * pi)/180)
 
@@ -161,24 +154,17 @@ setMethod('levelplot',
 
               if (isFactor) {
                   ## define the breaks
-                  rng <- extendrange(datID)
-                  if (diff(rng)!=0) {
-                  my.at <- seq(rng[1], rng[2],
-                               length=length(datID) + 1)
-                  } else {
-                      ## It is possible (although unlikely) that there
-                      ## is only one level (diff(rng)==0).
-                      my.at <- c(datID - 1, datID + 1)
-                      }
+                  my.at <- seq(0.5, nLevels + 0.5,
+                               length = nLevels + 1)
                   if (has.colorkey){
                       ## the labels will be placed vertically centered
-                      my.labs.at <- my.at[-1] - diff(my.at)/2
+                      my.labs.at <- seq_len(nLevels)
                       colorkey <- modifyList(colorkey,
                                              list(
                                              at=my.at,
-                                             height=min(1, 0.05*length(datLevels)),
+                                             height=min(1, 0.05*nLevels),
                                              labels=
-                                             list(labels=datLevels,
+                                             list(labels=ratLevels,
                                                   at=my.labs.at)))
                   }
               }
