@@ -75,6 +75,8 @@ setMethod('vectorplot',
               ##only uses the magnitude for the region
               if (isField) object <- subset(object, 1)
 
+              ## If region is a Raster, it is used as the background
+              ## instead of the magnitude of the object
               if (is(region, 'Raster')) {
                   compareRaster(object, region, rowcol=FALSE)
                   object <- region
@@ -116,29 +118,52 @@ setMethod('vectorplot',
                                  isField, reverse, unit,
                                  scaleSlope, aspX, aspY,
                                  ...)
-              } else {
+              } else {## RasterStack with dXY
+                  ## nlayers must be even
+                  ## Maybe it should not be compulsory...
                   stopifnot((nlayers(object) %% 2) == 0)
+                  ## u and v layers may be defined by the user. If
+                  ## not, first half are u components, second half v
+                  ## components
                   hl <- nlayers(object)/2
                   if (missing(uLayers) & missing(vLayers)) {
                       uLayers <- seq_len(hl)
                       vLayers <- uLayers + hl
+                      ## If only u layers are defined v layers are the
+                      ## remaining layers and viceversa
                   } else if (missing(vLayers) & !missing(uLayers)) {
                               vLayers <- setdiff(seq_len(nlayers(object)), uLayers)
                           } else if (missing(uLayers) & !missing(vLayers)) {
                               uLayers <- setdiff(seq_len(nlayers(object)), vLayers)
                           }
-                                  
+                  ## Convert the original RasterStack into a list
                   layList <- unstack(object)
+                  ## Build a list of RasterStacks. Each element of the
+                  ## list is a pair u,v according to uLayers and vLayers
                   uvIdx <- cbind(uLayers, vLayers)
                   objectList <- apply(uvIdx, 1, FUN=function(idx)stack(layList[idx]))
                   names(objectList) <- sapply(objectList,
                                               FUN=function(s)paste(names(s), collapse='.'))
-                  p <- xyplot.list(objectList, FUN=vectorplot,
-                                   narrows=narrows, lwd.arrows=lwd.arrows, length=length,
-                                   maxpixels=maxpixels, region=region, margin=margin,
-                                   isField='dXY', reverse=reverse, unit=unit,
-                                   scaleSlope=scaleSlope, aspX=aspX, aspY=aspY,
-                                   ...)
-                  p
+                  ## Now use xyplot.list with FUN=vectorplot to
+                  ## display each element of the list with the method
+                  ## vectorplot for a RasterStack with dXY and only
+                  ## two layers.  I have to embed xyplot.list in an
+                  ## auxiliary function to remove names.attr from
+                  ## '...' because it is not correctly passed to
+                  ## levelplot.
+                  removeNmsAttr <- function(..., names.attr){
+                      xyplot.list(objectList, FUN=vectorplot,
+                                  narrows=narrows, lwd.arrows=lwd.arrows, length=length,
+                                  maxpixels=maxpixels, region=region, margin=margin,
+                                  isField='dXY', reverse=reverse, unit=unit,
+                                  scaleSlope=scaleSlope, aspX=aspX, aspY=aspY,
+                                  ...)
+                  }
+                  p <- removeNmsAttr(...)
+                  ## If names.attr is in '...' I use it directly with strip.custom
+                  dots <- list(...)
+                  if ('names.attr' %in% names(dots)) {
+                      update(p, strip=strip.custom(factor.levels=as.character(dots$names.attr)))
+                  } else p
               }
-          })
+              })
