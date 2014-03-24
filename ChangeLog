@@ -1,8 +1,25 @@
 Commits in HEAD
-86b9a85 * HEAD origin/master master Histogram formula interface documented; CMSAF route changed
+78a318e * HEAD master v0.28
+11342bd *   origin/master Merge branch 'master' of github.com:oscarperpinan/rastervis
+        |\  
+6d8273b | * Fixes #4: vectorplot for >2layers, dXY, names.attr
+3f4ecd1 * | Problem with unequal spaced factors, fixes #6
+        |/  
+620c471 * Fix projection in chooseRegion
+62512aa * levelplot can display a Raster* completely filled with NA, fixes #3
+153c2ac * pc definition improved, fixes #2
+24a6b78 * zscaleLog = FALSE is equivalent to NULL (suggested by Agustin Lobo)
+5b90ca8 *   Merge branch 'master' of github.com:oscarperpinan/rastervis
+        |\  
+e130d2e | * Better labeling of EW coordinates (thanks to Pascal Oettli)
+96297ab * | xyplot.list for RasterStack in streamplot
+efa2e1d * | isField='dXY' works with more than 2 layers
+        |/  
+8fa874d * v0.27 ChangeLog before uploading to CRAN
+86b9a85 * Histogram formula interface documented; CMSAF route changed
 0fd125b * strip.names blocks usage of strip.custom
 e7de68a * Use of breaks documented
-56ba0d2 * vectorplot gains new args: scaleSlope, aspX/aspY
+56ba0d2 * v0.26 vectorplot gains new args: scaleSlope, aspX/aspY
 ea43dbc * plot3D examples inside dontrun to pass check OSx
 0b562c2 * plot3D gains new args; color management improved
 899400b * plot3D help page with more examples
@@ -89,17 +106,4 @@ c1f3c91 * Date and version updated
 9e2072a * New streamplot methods
 82ad305 * Added reverse and maxpixels (different from narrows) in vectorplot
 add777f * Completed help page of rasterTheme after new themes
-3f0373c * Fixed bug: nints instead of breaks in histogram
-abcdce3 * New themes added.
-5140dcb * rasterTheme() instead of rasterTheme in Rd
-52507bb * rasterTheme() instead of rasterTheme in par.settings
-af9ac89 * Changed layerNames with names in help pages
-51b9729 * Changed layerNames with names in webpage
-9219e38 * Fixed CRS (latlon to longlat) in webpage
-2ebfa8f * New themes added.
-2cafd62 * Categorical data with histogram (is.factor)
-aee8d48 * Updated ChangeLog. To CRAN.
-a25a9c1 * raster 2.0-12 version required. Updated date and version.
-60e3ea5 * Added ChangeLog
-add9d7b * layerNames is deprecated. Replaced with names
 type "e" to show more history
