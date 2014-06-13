@@ -117,55 +117,55 @@ setMethod('levelplot',
               if (region==FALSE) colorkey=FALSE
               
               has.colorkey <- (is.logical(colorkey) && colorkey) || is.list(colorkey)
-              has.margin <- nlayers(object)==1 && margin
+              colorkey.default <- list(space = 'right')
+
+              has.margin <- (nlayers(object)==1 && margin)
               has.contour <- (contour==TRUE)
 
+              
               ## Build the zscale.components and colorkey paying attention to zscaleLog
               if (!is.null(zscaleLog) && !isFactor){
                   zscale <- zscale.components(zlim, zlogbase)
-                  if (has.colorkey){
-                      colorkey.default=list(labels=zscale, raster=TRUE, interpolate=TRUE)
-                      if (is.logical(colorkey)){
-                          colorkey=colorkey.default
-                      } else {
-                          colorkey=modifyList(colorkey.default, colorkey)
-                      }
-                  }
+                  colorkey.default = modifyList(colorkey.default,
+                      list(labels = zscale, raster = TRUE, interpolate = TRUE))
               }
 
               ## Some fixes for the margin
               if (has.margin){
                   if (is.function(par.settings)) par.settings <- par.settings()
-                  par.settings=modifyList(par.settings,
-                  list(
-                  layout.widths=list(right.padding=10),
-                  layout.heights=list(top.padding=10,
-                  xlab.key.padding=3)
-                  )
-                  )
-                  if (has.colorkey){ ## put the colorkey at the bottom to leave space for the margin
-                      if (is.logical(colorkey)){
-                          colorkey=list(space='bottom')
-                      } else {
-                          colorkey=modifyList(colorkey, list(space='bottom'))
-                      }}
+                  par.settings = modifyList(par.settings,
+                      list(
+                          layout.widths = list(right.padding = 10),
+                          layout.heights = list(top.padding = 10,
+                              xlab.key.padding = 3)))
+                  
+                  ## put the colorkey at the bottom to leave space for the margin
+                  colorkey = modifyList(colorkey, list(space='bottom'))
               }
-
-
+           
               if (isFactor) {
                   ## define the breaks
                   my.at <- seq(0.5, nLevels + 0.5,
                                length = nLevels + 1)
-                  if (has.colorkey){
-                      ## the labels will be placed vertically centered
-                      my.labs.at <- seq_len(nLevels)
-                      colorkey <- modifyList(colorkey,
-                                             list(
-                                             at=my.at,
-                                             height=min(1, 0.05*nLevels),
-                                             labels=
-                                             list(labels=ratLevels,
-                                                  at=my.labs.at)))
+                  ## the labels will be placed vertically centered
+                  my.labs.at <- seq_len(nLevels)
+                  colorkey.default <- modifyList(colorkey.default,
+                                                 list(
+                                                     at = my.at,
+                                                     height = min(1, 0.05*nLevels),
+                                                     labels = list(labels=ratLevels,
+                                                         at=my.labs.at))
+                                                 )
+              }
+
+              ## Finally construct colorkey with user definition
+              ## (colorkey) and defaults defined by zscale, and
+              ## isFactor
+              if (has.colorkey) {
+                  if (is.logical(colorkey)){
+                      colorkey = colorkey.default
+                  } else {
+                      colorkey = modifyList(colorkey.default, colorkey)
                   }
               }
 
@@ -200,6 +200,13 @@ setMethod('levelplot',
                   }
               }
 
+              ## Finally, the panel function depends on zscaleLog and contour
+              panel <- if (!is.null(zscaleLog) && has.contour && !isFactor) {
+                  panelMixed
+              } else {
+                  requestedPanel
+              }
+              
               ## Names of each panel
               if (missing(names.attr)){
                   names.attr <- names(object)
@@ -228,25 +235,19 @@ setMethod('levelplot',
                   }
 
               ## And finally, the levelplot call
-              p <- levelplot(form, data=df,
-                             scales=scales,
-                             aspect=aspect,
-                             xlab=xlab, ylab=ylab, main = main,
-                             par.settings=par.settings,
-                             between=between,
-                             as.table=as.table,
-                             xscale.components=xscale.components,
-                             yscale.components=yscale.components,
+              p <- levelplot(form, data = df,
+                             scales = scales,
+                             aspect = aspect,
+                             xlab = xlab, ylab = ylab, main  =  main,
+                             par.settings = par.settings,
+                             between = between,
+                             as.table = as.table,
+                             xscale.components = xscale.components,
+                             yscale.components = yscale.components,
                              colorkey = colorkey,
-                             contour=contour, region=region, labels=labels,
-                             strip=strip.custom(factor.levels=names.attr),
-                             ## The panel depends on zscaleLog and contour
-                             panel=if (!is.null(zscaleLog) && has.contour && !isFactor) {
-                                 panelMixed
-                             } else {
-                                 requestedPanel
-                             },
-                             ...)
+                             contour = contour, region = region, labels = labels,
+                             strip = strip.custom(factor.levels = names.attr),
+                             panel = panel, ...)
               ## panel.levelplot uses level.colors to encode values
               ## with colors. It does not work properly with
               ## categorical data and col.regions
