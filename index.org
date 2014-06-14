@@ -34,27 +34,27 @@ The stable release of =rasterVis= can be found at [[http://cran.r-project.org/we
 The development version is at [[https://github.com/oscarperpinan/rastervis][GitHub]].
 
 Let's show some of its functionalities with some examples, using
-data from the [[http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet][CMSAF]] project as described [[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]] ([[http://www.box.net/shared/rl51y1t9sldxk54ogd44][download data]]).
+data from the [[http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001][CM SAF]] project as described [[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]].
 
 #+begin_src R
   library(raster)
   library(rasterVis)
   
-  ##change to your folder...
-  old <- setwd('~/Datos/CMSAF')
-  listFich <- dir(pattern='2008')
+  ##Solar irradiation data from CMSAF 
+  setwd(tempdir())
+  download.file('https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip',
+                'SISmm2008_CMSAF.zip', method='wget')
+  unzip('SISmm2008_CMSAF.zip')
+  
+  listFich <- dir(pattern='\.nc')
   stackSIS <- stack(listFich)
   stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
-  setwd(old)
   
   idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
   
   SISmm <- setZ(stackSIS, idx)
   names(SISmm) <- month.abb
-  
 #+end_src
-
-
 
 * Level plots
   :PROPERTIES:

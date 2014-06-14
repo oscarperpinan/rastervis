@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>rasterVis</title>
-<!-- 2013-11-18 lun 11:17 -->
+<!-- 2014-06-14 sáb 15:18 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Oscar Perpiñán Lamigueiro" />
@@ -171,8 +171,8 @@ The development version is at <a href="https://github.com/oscarperpinan/rastervi
 </p>
 
 <p>
-Let's show some of its functionalities with some examples, using
-data from the <a href="http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet">CMSAF</a> project as described <a href="http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/">here</a> (<a href="http://www.box.net/shared/rl51y1t9sldxk54ogd44">download data</a>).
+Let&rsquo;s show some of its functionalities with some examples, using
+data from the <a href="http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001">CM SAF</a> project as described <a href="http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/">here</a>.
 </p>
 
 <div class="org-src-container">
@@ -180,12 +180,15 @@ data from the <a href="http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet">C
 <pre class="src src-R"><span class="org-constant">library</span>(raster)
 <span class="org-constant">library</span>(rasterVis)
 
-<span class="org-comment-delimiter">##</span><span class="org-comment">change to your folder...</span>
-old <span class="org-constant">&lt;-</span> setwd(<span class="org-string">'~/Datos/CMSAF'</span>)
-listFich <span class="org-constant">&lt;-</span> dir(pattern=<span class="org-string">'2008'</span>)
+<span class="org-comment-delimiter">##</span><span class="org-comment">Solar irradiation data from CMSAF </span>
+setwd(tempdir())
+download.file(<span class="org-string">'https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip'</span>,
+              <span class="org-string">'SISmm2008_CMSAF.zip'</span>, method=<span class="org-string">'wget'</span>)
+unzip(<span class="org-string">'SISmm2008_CMSAF.zip'</span>)
+
+listFich <span class="org-constant">&lt;-</span> dir(pattern=<span class="org-string">'\.nc'</span>)
 stackSIS <span class="org-constant">&lt;-</span> stack(listFich)
 stackSIS <span class="org-constant">&lt;-</span> stackSIS*24 <span class="org-comment-delimiter">##</span><span class="org-comment">from irradiance (W/m2) to irradiation Wh/m2</span>
-setwd(old)
 
 idx <span class="org-constant">&lt;-</span> seq(as.Date(<span class="org-string">'2008-01-15'</span>), as.Date(<span class="org-string">'2008-12-15'</span>), <span class="org-string">'month'</span>)
 
@@ -195,8 +198,6 @@ names(SISmm) <span class="org-constant">&lt;-</span> month.abb
 </div>
 </div>
 </div>
-
-
 <div id="outline-container-levelplot" class="outline-2">
 <h2 id="levelplot"><a id="sec-2" name="sec-2"></a>Level plots</h2>
 <div class="outline-text-2" id="text-levelplot">
@@ -235,7 +236,7 @@ of a function across each coordinate:
 
 <p>
 The result of this call is a <code>trellis</code> object. The <a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a> package
-provides the <code>layer</code> function to add contents. For example, let's add the administrative borders. 
+provides the <code>layer</code> function to add contents. For example, let&rsquo;s add the administrative borders. 
 This information is available at the <a href="http://www.gadm.org/data/shp/ESP_adm.zip">GADM service</a>.
 </p>
 
@@ -266,7 +267,7 @@ The <code>zscaleLog</code> argument controls whether the object will be log
 transformed before being passed to the panel function.  Defaults to
 ‘NULL’, in which case the Raster* is not transformed.  Other possible
 values are any number that works as a base for taking logarithm,
-‘TRUE’ (which is equivalent to 10), and ‘"e"’ (for the natural
+‘TRUE’ (which is equivalent to 10), and ‘"e&rdquo;’ (for the natural
 logarithm).  As a side effect, the colorkey is labeled differently.
 </p>
 
