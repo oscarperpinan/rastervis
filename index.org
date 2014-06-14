@@ -113,6 +113,8 @@ r <- raster(f)
 levelplot(r^2, zscaleLog=TRUE, contour=TRUE)
 #+end_src
 
+[[file:figs/levelplot_logscale.png]]
+
 * Themes
   :PROPERTIES:
   :CUSTOM_ID: themes
