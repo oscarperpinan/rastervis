@@ -69,8 +69,9 @@ levelplot(SISmm)
 
 [[file:figs/levelplot.png]]
 
-If only one layer is chosen, this method displays a marginal plot
-of a function across each coordinate:
+If only one layer is chosen, this method displays [[http://stackoverflow.com/a/18594679/964866][two marginal plots]],
+the row and column summaries of the =RasterLayer=, computed with the
+function defined by =FUN.margin= (which uses =mean= as default value):
 
 #+begin_src R :results output graphics :exports both :file "figs/levelplot_layer1.pdf"
 levelplot(SISmm, layers=1, FUN.margin=median, contour=TRUE)

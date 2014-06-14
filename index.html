@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>rasterVis</title>
-<!-- 2014-06-14 sáb 15:25 -->
+<!-- 2014-06-14 sáb 15:31 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Oscar Perpiñán Lamigueiro" />
@@ -218,8 +218,9 @@ The first step is to display the content with a <code>levelplot</code>:
 </div>
 
 <p>
-If only one layer is chosen, this method displays a marginal plot
-of a function across each coordinate:
+If only one layer is chosen, this method displays <a href="http://stackoverflow.com/a/18594679/964866">two marginal plots</a>,
+the row and column summaries of the <code>RasterLayer</code>, computed with the
+function defined by <code>FUN.margin</code> (which uses <code>mean</code> as default value):
 </p>
 
 <div class="org-src-container">
