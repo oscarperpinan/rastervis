@@ -25,16 +25,61 @@
 # This page has been generated with [[http://orgmode.org/][org-mode]]. You can download the [[http://rastervis.r-forge.r-project.org/index.org][org file]] and the [[http://rastervis.r-forge.r-project.org/index.R][R code]].
 
 * Introduction
-The [[http://cran.r-project.org/web/packages/raster/index.html][raster]] package defines classes and methods for spatial raster data
-access and manipulation. The =rasterVis= package complements
-raster providing a set of methods for enhanced visualization and
-interaction. 
 
-The stable release of =rasterVis= can be found at [[http://cran.r-project.org/web/packages/rasterVis/][CRAN]]. 
-The development version is at [[https://github.com/oscarperpinan/rastervis][GitHub]].
+The =rasterVis= package complements the [[http://cran.r-project.org/web/packages/raster][=raster=]] package, providing a
+set of methods for enhanced visualization and interaction. 
 
-Let's show some of its functionalities with some examples, using
-data from the [[http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001][CM SAF]] project as described [[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]].
+It defines visualization methods for [[#levelplot][quantitative data]] and categorical
+data, with =levelplot=, both for univariate and multivariate rasters.
+
+It also includes several methods in the frame of the [[#scatterplot][Exploratory Data
+Analysis]] approach: scatterplots with =xyplot=, histograms and density
+plots with =histogram= and =densityplot=, violin and boxplots with
+=bwplot=, and a matrix of scatterplots with =splom=.
+
+On the other hand, =rasterVis= provides three methods to display
+[[#spacetime][spatiotemporal rasters]]: =hovmoller= produces [[http://en.wikipedia.org/wiki/Hovm%25C3%25B6ller_diagram][Hovmöller diagrams]],
+=horizonplot= creates [[http://www.perceptualedge.com/blog/?p%3D390][horizon graphs]], with many time series displayed
+in parallel, and =xyplot= displays conventional time series plots
+extracted from a multilayer raster.
+
+Finally, this package is able to display [[#vectorplot][vector fields]] using arrows,
+=vectorplot=, or with streamlines, =streamplot=.
+
+This webpage illustrates some its functionalities with examples. If
+you need more information, you may be interested in my book
+"[[http://oscarperpinan.github.io/spacetime-vis/][*Displaying Time Series, Spatial, and Space-Time Data with R*]]". It
+includes four chapters devoted to the visualization of spatial and
+spatiotemporal raster data. Along with the [[https://github.com/oscarperpinan/spacetime-vis/tree/gh-pages/images][main graphics]] from the
+text, its website offers access to the [[https://github.com/oscarperpinan/spacetime-vis/tree/master/data][datasets]] used in the examples
+as well as the [[https://github.com/oscarperpinan/spacetime-vis][full R code]].
+
+** Installation 
+
+The stable release of =rasterVis= can be found at [[http://cran.r-project.org/web/packages/rasterVis/][CRAN]].  The
+development version is at [[https://github.com/oscarperpinan/rastervis][GitHub]].
+
+Install the stable version with:
+
+#+begin_src R
+install.packages('rasterVis')
+#+end_src
+
+To install the development version you need the devtools package:
+
+#+begin_src R
+install.packages('devtools')
+devtools::install_github('rasterVis', 'oscarperpinan')
+#+end_src
+
+* Level plots
+  :PROPERTIES:
+  :CUSTOM_ID: levelplot
+  :END:
+
+This section discusses how to display quantitative data with
+=levelplot= with an example using data from the [[http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001][CM SAF]] project, as
+described [[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]].
 
 #+begin_src R
   library(raster)
@@ -56,12 +101,10 @@ data from the [[http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001][CM SAF]] pr
   names(SISmm) <- month.abb
 #+end_src
 
-* Level plots
-  :PROPERTIES:
-  :CUSTOM_ID: levelplot
-  :END:
-
-The first step is to display the content with a =levelplot=:
+Once the =Rasterstack= has been defined, it can be displayed easily
+with =levelplot=. Each panel of the graphic shows a layer of the
+=RasterStack= object using a trellis chart or [[http://en.wikipedia.org/wiki/Small_multiple][small-multiple
+technique]].
 
 #+begin_src R :results output graphics :exports both :file "figs/levelplot.pdf"
 levelplot(SISmm)

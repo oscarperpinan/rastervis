@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>rasterVis</title>
-<!-- 2014-06-14 sáb 15:33 -->
+<!-- 2014-06-14 sáb 16:24 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Oscar Perpiñán Lamigueiro" />
@@ -159,20 +159,84 @@ for the JavaScript code in this tag.
 <h2 id="sec-1">Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-The <a href="http://cran.r-project.org/web/packages/raster/index.html">raster</a> package defines classes and methods for spatial raster data
-access and manipulation. The <code>rasterVis</code> package complements
-raster providing a set of methods for enhanced visualization and
-interaction. 
+The <code>rasterVis</code> package complements the <a href="http://cran.r-project.org/web/packages/raster"><code>raster</code></a> package, providing a
+set of methods for enhanced visualization and interaction. 
 </p>
 
 <p>
-The stable release of <code>rasterVis</code> can be found at <a href="http://cran.r-project.org/web/packages/rasterVis/">CRAN</a>. 
-The development version is at <a href="https://github.com/oscarperpinan/rastervis">GitHub</a>.
+It defines visualization methods for <a href="#levelplot">quantitative data</a> and categorical
+data, with <code>levelplot</code>, both for univariate and multivariate rasters.
 </p>
 
 <p>
-Let&rsquo;s show some of its functionalities with some examples, using
-data from the <a href="http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001">CM SAF</a> project as described <a href="http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/">here</a>.
+It also includes several methods in the frame of the <a href="#scatterplot">Exploratory Data
+Analysis</a> approach: scatterplots with <code>xyplot</code>, histograms and density
+plots with <code>histogram</code> and <code>densityplot</code>, violin and boxplots with
+<code>bwplot</code>, and a matrix of scatterplots with <code>splom</code>.
+</p>
+
+<p>
+On the other hand, <code>rasterVis</code> provides three methods to display
+<a href="#spacetime">spatiotemporal rasters</a>: <code>hovmoller</code> produces <a href="http://en.wikipedia.org/wiki/Hovm%25C3%25B6ller_diagram">Hovmöller diagrams</a>,
+<code>horizonplot</code> creates <a href="http://www.perceptualedge.com/blog/?p%3D390">horizon graphs</a>, with many time series displayed
+in parallel, and <code>xyplot</code> displays conventional time series plots
+extracted from a multilayer raster.
+</p>
+
+<p>
+Finally, this package is able to display <a href="#vectorplot">vector fields</a> using arrows,
+<code>vectorplot</code>, or with streamlines, <code>streamplot</code>.
+</p>
+
+<p>
+This webpage illustrates some its functionalities with examples. If
+you need more information, you may be interested in my book
+&ldquo;<a href="http://oscarperpinan.github.io/spacetime-vis/"><b>Displaying Time Series, Spatial, and Space-Time Data with R</b></a>&rdquo;. It
+includes four chapters devoted to the visualization of spatial and
+spatiotemporal raster data. Along with the <a href="https://github.com/oscarperpinan/spacetime-vis/tree/gh-pages/images">main graphics</a> from the
+text, its website offers access to the <a href="https://github.com/oscarperpinan/spacetime-vis/tree/master/data">datasets</a> used in the examples
+as well as the <a href="https://github.com/oscarperpinan/spacetime-vis">full R code</a>.
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Installation</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The stable release of <code>rasterVis</code> can be found at <a href="http://cran.r-project.org/web/packages/rasterVis/">CRAN</a>.  The
+development version is at <a href="https://github.com/oscarperpinan/rastervis">GitHub</a>.
+</p>
+
+<p>
+Install the stable version with:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">install.packages(<span class="org-string">'rasterVis'</span>)
+</pre>
+</div>
+
+<p>
+To install the development version you need the devtools package:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">install.packages(<span class="org-string">'devtools'</span>)
+devtools::install_github(<span class="org-string">'rasterVis'</span>, <span class="org-string">'oscarperpinan'</span>)
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-levelplot" class="outline-2">
+<h2 id="levelplot"><a id="sec-2" name="sec-2"></a>Level plots</h2>
+<div class="outline-text-2" id="text-levelplot">
+<p>
+This section discusses how to display quantitative data with
+<code>levelplot</code> with an example using data from the <a href="http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001">CM SAF</a> project, as
+described <a href="http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/">here</a>.
 </p>
 
 <div class="org-src-container">
@@ -196,13 +260,12 @@ SISmm <span class="org-constant">&lt;-</span> setZ(stackSIS, idx)
 names(SISmm) <span class="org-constant">&lt;-</span> month.abb
 </pre>
 </div>
-</div>
-</div>
-<div id="outline-container-levelplot" class="outline-2">
-<h2 id="levelplot"><a id="sec-2" name="sec-2"></a>Level plots</h2>
-<div class="outline-text-2" id="text-levelplot">
+
 <p>
-The first step is to display the content with a <code>levelplot</code>:
+Once the <code>Rasterstack</code> has been defined, it can be displayed easily
+with <code>levelplot</code>. Each panel of the graphic shows a layer of the
+<code>RasterStack</code> object using a trellis chart or <a href="http://en.wikipedia.org/wiki/Small_multiple">small-multiple
+technique</a>.
 </p>
 
 <div class="org-src-container">
