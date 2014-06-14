@@ -246,14 +246,13 @@ dirXY
 #+end_src
 
 For example, the next code builds a hovmoller diagram showing the
-time evolution of the mean value along the latitude (data
-available at
-[[ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/]]):
+time evolution of the mean value along the latitude using data
+from the book "[[http://eu.wiley.com/WileyCDA/WileyTitle/productCd-EHEP002348.html][Statistics for Spatio-Temporal Data]]":
 
 #+begin_src R :results output graphics :exports both :file "figs/hovmoller.pdf" 
   library(zoo)
   
-  url <- "~/Datos/Cressie/"
+  url <- "ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"
   sst.dat = read.table(paste(url, "SST011970_032003.dat", sep=''), header = FALSE) 
   sst.ll = read.table(paste(url, "SSTlonlat.dat", sep=''), header = FALSE)
   
@@ -266,9 +265,9 @@ available at
   idx <- as.yearmon(idx)
   SST <- setZ(SST, idx)
   names(SST) <- as.character(idx)
-  hovmoller(SST, contour=FALSE, panel=panel.levelplot.raster,
-            yscale.components=yscale.raster.subticks,
-            interpolate=TRUE, par.settings=RdBuTheme)
+  hovmoller(SST, contour=FALSE, panel = panel.levelplot.raster,
+            yscale.components = yscale.raster.subticks,
+            interpolate = TRUE, par.settings = RdBuTheme)
 #+end_src
 
 [[file:figs/hovmoller.png]]

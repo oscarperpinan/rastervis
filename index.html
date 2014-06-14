@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>rasterVis</title>
-<!-- 2014-06-14 sáb 15:18 -->
+<!-- 2014-06-14 sáb 15:25 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Oscar Perpiñán Lamigueiro" />
@@ -502,16 +502,15 @@ dirXY
 
 <p>
 For example, the next code builds a hovmoller diagram showing the
-time evolution of the mean value along the latitude (data
-available at
-<a href="ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/">ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/</a>):
+time evolution of the mean value along the latitude using data
+from the book &ldquo;<a href="http://eu.wiley.com/WileyCDA/WileyTitle/productCd-EHEP002348.html">Statistics for Spatio-Temporal Data</a>&rdquo;:
 </p>
 
 <div class="org-src-container">
 
 <pre class="src src-R"><span class="org-constant">library</span>(zoo)
 
-url <span class="org-constant">&lt;-</span> <span class="org-string">"~/Datos/Cressie/"</span>
+url <span class="org-constant">&lt;-</span> <span class="org-string">"ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"</span>
 sst.dat = read.table(paste(url, <span class="org-string">"SST011970_032003.dat"</span>, sep=<span class="org-string">''</span>), header = <span class="org-type">FALSE</span>) 
 sst.ll = read.table(paste(url, <span class="org-string">"SSTlonlat.dat"</span>, sep=<span class="org-string">''</span>), header = <span class="org-type">FALSE</span>)
 
@@ -524,9 +523,9 @@ idx <span class="org-constant">&lt;-</span> seq(as.Date(<span class="org-string"
 idx <span class="org-constant">&lt;-</span> as.yearmon(idx)
 SST <span class="org-constant">&lt;-</span> setZ(SST, idx)
 names(SST) <span class="org-constant">&lt;-</span> as.character(idx)
-hovmoller(SST, contour=<span class="org-type">FALSE</span>, panel=panel.levelplot.raster,
-          yscale.components=yscale.raster.subticks,
-          interpolate=<span class="org-type">TRUE</span>, par.settings=RdBuTheme)
+hovmoller(SST, contour=<span class="org-type">FALSE</span>, panel = panel.levelplot.raster,
+          yscale.components = yscale.raster.subticks,
+          interpolate = <span class="org-type">TRUE</span>, par.settings = RdBuTheme)
 </pre>
 </div>
 
