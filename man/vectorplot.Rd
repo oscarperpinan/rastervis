@@ -25,14 +25,16 @@
 
 \usage{
 \S4method{vectorplot}{Raster}(object, layers,
-            narrows=2e3, lwd.arrows=0.6, length=unit(5e-2, 'npc'),
+            narrows=2e3, lwd.arrows=0.6, col.arrows='black',
+            length=unit(5e-2, 'npc'),
             maxpixels=1e5, region=TRUE, margin=FALSE,  
             isField=FALSE, reverse=FALSE,
             unit='radians', scaleSlope=TRUE,
             aspX=0.08, aspY=aspX, ...)
 
 \S4method{vectorplot}{RasterStack}(object, layers,
-            narrows=2e3, lwd.arrows=0.6, length=unit(5e-2, 'npc'),
+            narrows=2e3, lwd.arrows=0.6, col.arrows='black',
+            length=unit(5e-2, 'npc'),
             maxpixels=1e5, region=TRUE, margin=FALSE,
             isField=FALSE, reverse=FALSE,
             unit='radians', scaleSlope=TRUE,
@@ -67,6 +69,7 @@
 \item{narrows}{A numeric, number of arrows.}
 
 \item{lwd.arrows}{Numeric, width of the lines of the arrows}
+\item{col.arrows}{character, color of the arrows}
 
 \item{length}{Unit, extent of the arrow head.}
 

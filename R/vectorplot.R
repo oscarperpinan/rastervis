@@ -1,9 +1,49 @@
+## Compute slope and aspect layers
+fooSlopeAspect <- function(s, skip, dXY=FALSE,
+                           unit, reverse, scaleSlope, aspX, aspY){
+    if (!skip){s <- terrain(s, opt=c('slope', 'aspect'))}
+    ## If s is a vector field, the first layer is the
+    ## magnitude (slope) and the second is the angle
+    ## (aspect)
+    x <- getValues(init(s, v='x'))
+    y <- getValues(init(s, v='y'))
+
+    if (!dXY) {
+        slope <- getValues(subset(s, 1))
+        aspect <- getValues(subset(s, 2))
+                                        
+        if (unit=='degrees' & skip) {
+            aspect <- aspect/180*pi
+        }
+        if (isTRUE(reverse)) aspect <- aspect + pi
+        ##center=FALSE to get only positive values of
+        ##slope
+        if (is.logical(scaleSlope) & isTRUE(scaleSlope)){
+            slope <- scale(slope, center=FALSE)
+        } else {
+            if (is.numeric(scaleSlope)) {
+                slope <- slope/scaleSlope
+            }
+        }
+        ##sin due to the angular definition of aspect
+        dx <- slope * sin(aspect) * aspX 
+        dy <- slope * cos(aspect) * aspY
+    } else {
+        dx <- getValues(subset(s, 1)) * aspX
+        dy <- getValues(subset(s, 2)) * aspY
+    }
+    data.frame(x, y, dx, dy)
+}
+
 setGeneric('vectorplot', function(object, ...){standardGeneric('vectorplot')})
 
 setMethod('vectorplot',
           signature(object='Raster'),
           definition = function(object, layers,
-              narrows=2e3, lwd.arrows=0.6, length=unit(5e-2, 'npc'),
+              narrows = 2e3,
+              lwd.arrows = 0.6,
+              col.arrows = 'black',
+              length=unit(5e-2, 'npc'),
               maxpixels=1e5, region=TRUE, margin=FALSE,
               isField=FALSE, reverse=FALSE,
               unit='radians', scaleSlope=TRUE,
@@ -25,51 +65,19 @@ setMethod('vectorplot',
                       dXY=FALSE
                       }
               
-              ## Compute slope and aspect layers
-              fooSlopeAspect <- function(s, skip, dXY=FALSE,
-                                         unit, reverse){
-                  if (!skip){s <- terrain(s, opt=c('slope', 'aspect'))}
-                  ## If s is a vector field, the first layer is the
-                  ## magnitude (slope) and the second is the angle
-                  ## (aspect)
-                  x <- getValues(init(s, v='x'))
-                  y <- getValues(init(s, v='y'))
-
-                  if (!dXY) {
-                      slope <- getValues(subset(s, 1))
-                      aspect <- getValues(subset(s, 2))
-                                        
-                      if (unit=='degrees' & skip) {
-                          aspect <- aspect/180*pi
-                      }
-                      if (reverse) aspect <- aspect + pi
-                      ##center=FALSE to get only positive values of
-                      ##slope
-                      if (is.logical(scaleSlope) & isTRUE(scaleSlope)){
-                          slope <- scale(slope, center=FALSE)
-                          } else {
-                              if (is.numeric(scaleSlope)) {
-                                  slope <- slope/scaleSlope
-                                  }
-                              }
-                      ##sin due to the angular definition of aspect
-                      dx <- slope * sin(aspect) * aspX 
-                      dy <- slope * cos(aspect) * aspY
-                  } else {
-                      dx <- getValues(subset(s, 1)) * aspX
-                      dy <- getValues(subset(s, 2)) * aspY
-                  }
-                  data.frame(x, y, dx, dy)
-              }
 
               if (nlayers(object)>1 && !isField){ ##slopeAspect works
                   ## only for RasterLayer
                   sa <- lapply(unstack(dat), fooSlopeAspect,
-                               skip=FALSE, unit=unit, reverse=reverse)
+                               skip=FALSE, unit=unit, reverse=reverse,
+                               scaleSlope = scaleSlope,
+                               aspX = aspX, aspY = aspY)
                   sa <- do.call(rbind, sa)
               } else {
                   sa <- fooSlopeAspect(dat, skip=isField, dXY=dXY,
-                                       unit=unit, reverse=reverse)
+                                       unit=unit, reverse=reverse,
+                                       scaleSlope = scaleSlope,
+                                       aspX = aspX, aspY = aspY)
               }
               
               ##only uses the magnitude for the region
@@ -88,13 +96,18 @@ setMethod('vectorplot',
                         region = region,
                         margin = margin,
                         ...) +
-                  xyplot(y~x, data=sa, dx=sa$dx, dy=sa$dy,
-                         length=length, lwd.arrows=lwd.arrows,
+                  xyplot(y~x, data = sa,
+                         dx = sa$dx, dy = sa$dy,
+                         length = length,
+                         lwd.arrows = lwd.arrows,
+                         col.arrows = col.arrows,
                          panel=function(x, y, dx, dy,
                              length, lwd.arrows, ...){
                              panel.arrows(x, y, x+dx, y+dy,
-                                          length=length,
-                                          lwd=lwd.arrows, ...)
+                                          length = length,
+                                          lwd=lwd.arrows,
+                                          col = col.arrows,
+                                          ...)
                          }, ...)
           }
           )
@@ -103,7 +116,8 @@ setMethod('vectorplot',
 setMethod('vectorplot',
           signature(object='RasterStack'),
           definition = function(object, layers,
-              narrows=2e3, lwd.arrows=0.6, length=unit(5e-2, 'npc'),
+              narrows=2e3, lwd.arrows=0.6, col.arrows = 'black',
+              length=unit(5e-2, 'npc'),
               maxpixels=1e5, region=TRUE, margin=FALSE,
               isField=FALSE, reverse=FALSE,
               unit='radians', scaleSlope=TRUE,
@@ -112,12 +126,19 @@ setMethod('vectorplot',
               ...){
               if (isField!='dXY' | (isField=='dXY' & nlayers(object)==2)) {
                   if (missing(layers)) layers=seq_len(nlayers(object))
-                  callNextMethod(object, layers,
-                                 narrows, lwd.arrows, length,
-                                 maxpixels, region, margin,
-                                 isField, reverse, unit,
-                                 scaleSlope, aspX, aspY,
+                  callNextMethod(object, layers = layers,
+                                 narrows = narrows,
+                                 lwd.arrows = lwd.arrows,
+                                 col.arrows = col.arrows,
+                                 length = length,
+                                 maxpixels = maxpixels,
+                                 region = region, margin = margin,
+                                 isField = isField,
+                                 reverse = reverse, unit = unit,
+                                 scaleSlope = scaleSlope,
+                                 aspX = aspX, aspY = aspY,
                                  ...)
+                  
               } else {## RasterStack with dXY
                   ## nlayers must be even
                   ## Maybe it should not be compulsory...
@@ -153,7 +174,10 @@ setMethod('vectorplot',
                   ## levelplot.
                   removeNmsAttr <- function(..., names.attr){
                       xyplot.list(objectList, FUN=vectorplot,
-                                  narrows=narrows, lwd.arrows=lwd.arrows, length=length,
+                                  narrows=narrows,
+                                  lwd.arrows=lwd.arrows,
+                                  col.arrows=col.arrows,
+                                  length=length,
                                   maxpixels=maxpixels, region=region, margin=margin,
                                   isField='dXY', reverse=reverse, unit=unit,
                                   scaleSlope=scaleSlope, aspX=aspX, aspY=aspY,
