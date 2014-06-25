@@ -221,18 +221,17 @@ setMethod('levelplot',
               ## Update the data content of the original data.frame
               df[, -c(1, 2)] <- dat
 
-              ## For each layer: is the raster completely filled with NA?
-              isNA <- cellStats(is.na(object), all)
-              ## If the object is a multilayer Raster and there is at
-              ## least one layer that !isNA, levelplot works
-              ## correctly. If it is a RasterLayer and isNA or if all
-              ## the layers are isNA then we have to provide an empty
-              ## panel.
-              if (all(isNA)) {
+              ## For each layer: is the raster completely filled with
+              ## NA?  If the object is a multilayer Raster and
+              ## there is at least one layer that !isNA, levelplot
+              ## works correctly. If it is a RasterLayer and isNA or
+              ## if all the layers are isNA then we have to provide an
+              ## empty panel.
+              if (all(is.na(dat))) {
                   region <- FALSE
                   colorkey <- FALSE
                   margin <- FALSE
-                  }
+              }
 
               ## And finally, the levelplot call
               p <- levelplot(form, data = df,
