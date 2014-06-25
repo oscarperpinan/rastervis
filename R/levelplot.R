@@ -17,7 +17,7 @@ setMethod('levelplot',
           yscale.components=yscale.raster,
           zscaleLog=NULL,
           colorkey=list(space='right'),
-          panel=panel.levelplot,
+          panel=panel.levelplot, pretty = FALSE, 
           contour=FALSE, region=TRUE, labels=FALSE,
           ..., att=1L) {
 
@@ -222,15 +222,16 @@ setMethod('levelplot',
               df[, -c(1, 2)] <- dat
 
               ## For each layer: is the raster completely filled with
-              ## NA?  If the object is a multilayer Raster and
-              ## there is at least one layer that !isNA, levelplot
-              ## works correctly. If it is a RasterLayer and isNA or
-              ## if all the layers are isNA then we have to provide an
-              ## empty panel.
+              ## NA?  If the object is a multilayer Raster and there
+              ## is at least one layer that with non-missing values,
+              ## levelplot works correctly. If it is a RasterLayer and
+              ## is filled with NA or if all the layers are NA then we
+              ## have to provide an empty panel.
               if (all(is.na(dat))) {
                   region <- FALSE
                   colorkey <- FALSE
                   margin <- FALSE
+                  pretty <-  TRUE
               }
 
               ## And finally, the levelplot call
@@ -246,7 +247,7 @@ setMethod('levelplot',
                              colorkey = colorkey,
                              contour = contour, region = region, labels = labels,
                              strip = strip.custom(factor.levels = names.attr),
-                             panel = panel, ...)
+                             panel = panel, pretty = pretty, ...)
               ## panel.levelplot uses level.colors to encode values
               ## with colors. It does not work properly with
               ## categorical data and col.regions
