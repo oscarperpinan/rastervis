@@ -123,7 +123,7 @@ setMethod('levelplot',
               colorkey.default <- list(space = 'right')
 
               has.margin <- (nlayers(object)==1 && margin)
-              has.contour <- (contour==TRUE)
+              has.contour <- isTRUE(colorkey)
 
               
               ## Build the zscale.components and colorkey paying attention to zscaleLog
@@ -143,7 +143,7 @@ setMethod('levelplot',
                               xlab.key.padding = 3)))
                   
                   ## put the colorkey at the bottom to leave space for the margin
-                  colorkey = modifyList(colorkey, list(space='bottom'))
+                  colorkey.default = modifyList(colorkey.default, list(space='bottom'))
               }
            
               if (isFactor) {
