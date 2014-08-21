@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/1928/oscarperpinan/rastervis.png)](http://dx.doi.org/10.5281/zenodo.11359)
+
 rasterVis
 =========
 
