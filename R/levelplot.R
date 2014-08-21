@@ -118,13 +118,16 @@ setMethod('levelplot',
               }
                             
               if (region==FALSE) colorkey=FALSE
-              
-              has.colorkey <- (is.logical(colorkey) && colorkey) || is.list(colorkey)
+
               colorkey.default <- list(space = 'right')
+              if (isTRUE(colorkey)) {
+                  has.colorkey <-  TRUE
+                  colorkey <- colorkey.default
+              } else {
+                  has.colorkey <- is.list(colorkey)
+              }
 
               has.margin <- (nlayers(object)==1 && margin)
-              has.contour <- isTRUE(colorkey)
-
               
               ## Build the zscale.components and colorkey paying attention to zscaleLog
               if (!is.null(zscaleLog) && !isFactor){
@@ -143,7 +146,9 @@ setMethod('levelplot',
                               xlab.key.padding = 3)))
                   
                   ## put the colorkey at the bottom to leave space for the margin
-                  colorkey.default = modifyList(colorkey.default, list(space='bottom'))
+                  if (has.colorkey) {
+                      colorkey = modifyList(colorkey, list(space='bottom'))
+                  } else colorkey = FALSE
               }
            
               if (isFactor) {
@@ -204,7 +209,7 @@ setMethod('levelplot',
               }
 
               ## Finally, the panel function depends on zscaleLog and contour
-              panel <- if (!is.null(zscaleLog) && has.contour && !isFactor) {
+              panel <- if (!is.null(zscaleLog) && isTRUE(contour) && !isFactor) {
                   panelMixed
               } else {
                   requestedPanel
