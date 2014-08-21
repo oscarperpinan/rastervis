@@ -7,6 +7,8 @@ importFrom(grid,
            gpar,
            viewport,
            polygonGrob,
+           linesGrob, segmentsGrob, textGrob,
+           grid.layout, frameGrob, placeGrob,
            grid.locator,
            convertX, convertY,
            unit)
