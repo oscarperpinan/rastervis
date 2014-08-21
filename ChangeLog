@@ -1,6 +1,15 @@
 Commits in HEAD
-78a318e * HEAD master v0.28
-11342bd *   origin/master Merge branch 'master' of github.com:oscarperpinan/rastervis
+ec13c5f * HEAD origin/master origin/HEAD master Fix colorkey check again.
+2e375cc * Fix colorkey check when margin is FALSE
+e216e4b * Axis for marginal graphics in levelplot
+71c843b * New argument `col.arrows` in vectorplot. Fixes #9
+3401b2c * pretty=TRUE is needed in levelplot with NA Raster*
+bfe0ad0 * Test complete NA without cellStats (fails with large rasters ) https://stat.ethz.ch/pipermail/r-sig-geo/2014-June/021233.html
+934a25c * Modify colorkey strategy to allow for changes
+016a73a * BugReports url in Description
+9e7ba3c * v0.28 v0.28
+78a318e * v0.28
+11342bd *   Merge branch 'master' of github.com:oscarperpinan/rastervis
         |\  
 6d8273b | * Fixes #4: vectorplot for >2layers, dXY, names.attr
 3f4ecd1 * | Problem with unequal spaced factors, fixes #6
@@ -97,13 +106,4 @@ d096d33 * degreeLabels copied from sp
 4232e4f * Added parallel cluster in streamplot
 81ebeb3 * vectorplot examples under dontrun
 36fdc07 * streamplot examples added in webpage
-4bc0e2c * streamplot examples added in webpage
-93fa192 * streamplot examples added in webpage
-beeb8c5 * 
-a661ea6 * streamplot examples enclosed under dontrun
-32d6b94 * streamplot: parallel disabled in windows
-c1f3c91 * Date and version updated
-9e2072a * New streamplot methods
-82ad305 * Added reverse and maxpixels (different from narrows) in vectorplot
-add777f * Completed help page of rasterTheme after new themes
 type "e" to show more history
