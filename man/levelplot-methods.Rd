@@ -20,7 +20,8 @@
             ylab=if(isLonLat(x)) 'Latitude' else NULL,
             main=NULL,
             names.attr,
-            scales=list(), scales.margin=NULL,
+            scales=list(),
+            scales.margin=NULL, axis.margin = FALSE,
             xscale.components=xscale.raster,
             yscale.components=yscale.raster,
             zscaleLog=NULL,
@@ -53,6 +54,9 @@
     \code{y} (rows). Each of these components is a numeric vector of
     length 2 defining the range for each marginal plot. If
     \code{scales.margin=NULL} the range is internally computed.}
+
+  \item{axis.margin}{Logical, if \code{TRUE} two simple axis are drawn
+    with the marginal graphics. Its default value is \code{FALSE}.}
 
   \item{maxpixels}{A positive integer giving the number of cells to
     display, for \code{\link{sampleRegular}}.

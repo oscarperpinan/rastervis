@@ -1,32 +1,35 @@
 setGeneric('levelplot')
 
 setMethod('levelplot',
-          signature(x='Raster', data='missing'),
-          definition = function(x, data=NULL, layers,
-          margin=!(any(is.factor(x))), FUN.margin=mean,
-          maxpixels=1e5,
-          par.settings=rasterTheme(),
-          between=list(x=0.5, y=0.2),
-          as.table=TRUE,
-          xlab=if(isLonLat(x)) 'Longitude' else NULL,
-          ylab=if(isLonLat(x)) 'Latitude' else NULL,
-          main=NULL,
-          names.attr,
-          scales=list(), scales.margin=NULL,
-          xscale.components=xscale.raster,
-          yscale.components=yscale.raster,
-          zscaleLog=NULL,
-          colorkey=list(space='right'),
-          panel=panel.levelplot, pretty = FALSE, 
-          contour=FALSE, region=TRUE, labels=FALSE,
-          ..., att=1L) {
+          signature(x = 'Raster', data = 'missing'),
+          definition = function(x, data = NULL, layers,
+              margin=!(any(is.factor(x))), FUN.margin=mean,
+              maxpixels = 1e5,
+              par.settings = rasterTheme(),
+              between = list(x = 0.5, y = 0.2),
+              as.table = TRUE,
+              xlab = if(isLonLat(x)) 'Longitude' else NULL,
+              ylab = if(isLonLat(x)) 'Latitude' else NULL,
+              main = NULL,
+              names.attr,
+              scales = list(),
+              scales.margin = NULL, axis.margin = FALSE,
+              xscale.components = xscale.raster,
+              yscale.components = yscale.raster,
+              zscaleLog = NULL,
+              colorkey = list(space = 'right'),
+              panel = panel.levelplot, pretty = FALSE, 
+              contour = FALSE, region = TRUE, labels = FALSE,
+              ..., att = 1L) {
 
               if (!missing(layers)) {
                   object <- subset(x, subset=layers)
               } else {object <- x}
 
-              ## The plot display a sample of the whole object defined with maxpixels
-              objectSample <- sampleRegular(object, size=maxpixels, asRaster=TRUE)
+              ## The plot display a sample of the whole object defined
+              ## with maxpixels
+              objectSample <- sampleRegular(object, size=maxpixels,
+                                            asRaster=TRUE)
 
               ## Is factor?
               factorLayers <- is.factor(object)
@@ -251,16 +254,20 @@ setMethod('levelplot',
               ## panel.levelplot uses level.colors to encode values
               ## with colors. It does not work properly with
               ## categorical data and col.regions
-              if (isFactor) p <- update(p, at=my.at)
+              if (isFactor) p <- update(p, at = my.at)
 
               ## Plot the margins if required
               if (nlayers(object)==1 && margin) {
                   marginsLegend <- list(right=list(
-                                        fun=legendY,
-                                        args=list(p, FUN=FUN.margin, scale.y=scales.margin$y)),
+                                            fun=legendY,
+                                            args=list(p, FUN = FUN.margin,
+                                                scale.y = scales.margin$y,
+                                                add.axis = axis.margin)),
                                         top=list(
-                                        fun=legendX,
-                                        args=list(p, FUN=FUN.margin, scale.x=scales.margin$x))
+                                            fun=legendX,
+                                            args=list(p, FUN=FUN.margin,
+                                                scale.x = scales.margin$x,
+                                                add.axis = axis.margin))
                                         )
                   if (is.null(p$legend)) p$legend <- list()
                   p$legend <- modifyList(p$legend, marginsLegend)
