@@ -19,19 +19,22 @@ legendX <- function(p, FUN, scale.x, add.axis, ...){
                      name = 'polX',
                      gp = gpar(col = "black", fill = 'grey'))
 
-  axis <- linesGrob(rRef[1], rVals,
+  axis <- linesGrob(rRef[1], c(0, 1),
                     name = "axisLegendX",
                     gp = gpar(col = 'darkgrey'))
 
-  ticks <- segmentsGrob(x0 = rRef[1], y0 = rVals,
+  ticks <- segmentsGrob(x0 = rRef[1], y0 = c(0,1),
                         x1 = unit(rRef[1], 'npc') - unit(.5, 'char'),
-                        y1 = rVals,
+                        y1 = c(0, 1),
                         name = "ticksLegendX",
                         gp = gpar(col = 'darkgrey'))
 
-  labs <- textGrob(round(scale.x, 1),
-                   x = rRef[1], y = rVals,
-                   hjust = unit(1.7, 'char'), name = 'ticksLegendX',
+  labText <- prettyNum(scale.x, digits = 2)##round(scale.x, 3)
+  labs <- textGrob(labText,
+                   x = unit(rRef[1], 'npc') - unit(1, 'lines'),
+                   y = unit(c(0, 1), 'npc'),
+                   just = 'right',
+                   name = 'ticksLegendX',
                    gp = gpar(fontsize = 7, col = 'darkgrey'))
   
   lg <- grid.layout(nrow = 1, ncol = 1,
@@ -72,18 +75,19 @@ legendY <- function(p, FUN, scale.y, add.axis, ...){
                      name = 'polY',
                      gp = gpar(col = "black", fill = 'grey'))
 
-  axis <- linesGrob(rVals, rRef[2],
+  axis <- linesGrob(c(0, 1), rRef[2],
                     name = "axisLegendY",
                     gp = gpar(col = 'darkgrey'))
 
-  ticks <- segmentsGrob(rVals, rRef[2],
-                        rVals, unit(rRef[2], 'native') + unit(.5, 'char'),
+  ticks <- segmentsGrob(c(0, 1), rRef[2],
+                        c(0, 1), unit(rRef[2], 'native') + unit(.5, 'char'),
                         name = "ticksLegendY",
                         gp = gpar(col = 'darkgrey'))
 
-  labs <- textGrob(round(scale.y, 1),
-                   x = rVals, y = rRef[2],
-                   vjust = unit(-1.5, 'char'), hjust = 0,
+  labText <- prettyNum(scale.y, digits = 2)##round(scale.y, 3)
+  labs <- textGrob(labText,
+                   x = c(0, 1), y = unit(rRef[2], 'npc') + unit(1.5, 'lines'),
+                   just = 'left',
                    name = 'ticksLegendY',
                    gp = gpar(fontsize = 7, col = 'darkgrey'))
   
