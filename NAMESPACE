@@ -15,13 +15,13 @@ importFrom(grid,
 
 import(lattice)
 
-
-
 importFrom(latticeExtra,
            horizonplot,
            layer, glayer,
            custom.theme,
-           custom.theme.2
+           custom.theme.2,
+           xscale.components.subticks,
+           yscale.components.subticks
            )
 
 importFrom(hexbin,
@@ -34,16 +34,15 @@ importClassesFrom(sp, SpatialPoints)
 importFrom(sp,
            SpatialPoints,
            degreeLabelsNS,
-           degreeLabelsEW)
+           degreeLabelsEW,
+           CRS,
+           point.in.polygon)
 
 importFrom(zoo,
            zoo)##,
            ##xyplot)
 
 import(raster)
-
-##importFrom(mgcv, in.out)
-
 
 export(
   'chooseRegion',
@@ -59,7 +58,7 @@ export(
   'yscale.raster',
   'xscale.raster.subticks',
   'yscale.raster.subticks'
-       )
+    )
 
 exportMethods(
               "bwplot",

@@ -39,42 +39,37 @@ setMethod('identifyRaster', signature(object='Raster'),
 
 
 chooseRegion <- function(sp=TRUE, proj=as.character(NA)){
-  if (require(mgcv)){
-  trellis.focus('panel', 1, 1)
-  x <- trellis.panelArgs()$x
-  y <- trellis.panelArgs()$y
-  xy <- xy.coords(x, y, recycle = TRUE)
-  x <- xy$x
-  y <- xy$y
-  px <- convertX(unit(x, "native"), "points", TRUE)
-  py <- convertY(unit(y, "native"), "points", TRUE)
-  pointsData <- cbind(px, py)
-
-  border <- as.numeric()
-
-  while (TRUE){
-    ll <- grid.locator(unit='native')
-    if (!is.null(ll)){
-      lpoints(ll, col='black', cex=0.7, pch=3)
-      lx <- convertX(unit(ll$x, 'native'), 'points', FALSE)
-      ly <- convertY(unit(ll$y, 'native'), 'points', FALSE)
-      border <- rbind(border, c(lx, ly))
-    } else {    
-      break
+    trellis.focus('panel', 1, 1)
+    x <- trellis.panelArgs()$x
+    y <- trellis.panelArgs()$y
+    xy <- xy.coords(x, y, recycle = TRUE)
+    x <- xy$x
+    y <- xy$y
+    px <- convertX(unit(x, "native"), "points", TRUE)
+    py <- convertY(unit(y, "native"), "points", TRUE)
+    bx <- as.numeric()
+    by <- as.numeric()
+    
+    while (TRUE){
+        ll <- grid.locator(unit='native')
+        if (!is.null(ll)){
+            lpoints(ll, col='black', cex=0.7, pch=3)
+            lx <- convertX(unit(ll$x, 'native'), 'points', FALSE)
+            ly <- convertY(unit(ll$y, 'native'), 'points', FALSE)
+            bx <- c(bx, lx)
+            by <- c(by, ly)
+        } else {    
+            break
+        }
     }
-  }
-  trellis.unfocus()  
+    trellis.unfocus()  
+      
+    testPiP<- point.in.polygon(px, py, bx, by)
+    inside <- (testPiP != 0)
+    pointsInside <- data.frame(xin=x[inside], yin=y[inside])
+    spPoints <- SpatialPoints(coords=pointsInside, proj4string=CRS(proj))
+      
+    print(trellis.last.object() + layer(lpoints(xin, yin), data=pointsInside))
 
-  inside <- in.out(border, pointsData)
-  pointsInside <- data.frame(xin=x[inside], yin=y[inside])
-  spPoints <- SpatialPoints(coords=pointsInside, proj4string=CRS(proj))
-
-  ## spPoints <- list('sp.points', pointsInside, cex=0.5)
-  ## print(update(trellis.last.object(), sp.layout=spPoints))
-
-  print(trellis.last.object() + layer(lpoints(xin, yin), data=pointsInside))
-  if (sp) return(spPoints) else return(pointsInside)
-  } else {
-    stop("to use chooseRegion you need to install the 'mgcv' package")
-  }
+    if (isTRUE(sp)) return(spPoints) else return(pointsInside)
 }
