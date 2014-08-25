@@ -1,0 +1,15 @@
+citHeader("To cite package 'rasterVis' in publications use:")
+     
+citEntry(entry="Manual",
+         title ="{rasterVis}",
+         author = personList(as.person("Oscar Perpi{\\~n}{\\'a}n"), as.person("Robert Hijmans")),
+         doi = "10.5281/zenodo.11390",
+         year = "2014",
+         month = "Aug",
+         url ="http://oscarperpinan.github.io/rastervis/",
+         note = "R package version 0.31",
+         textVersion = "Oscar Perpinan Lamigueiro and Robert Hijmans (2014), rasterVis. R package version 0.31. doi:10.5281/zenodo.11390"
+         )
+
+
+
