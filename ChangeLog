@@ -1,5 +1,14 @@
 Commits in HEAD
-ec13c5f * HEAD origin/master origin/HEAD master Fix colorkey check again.
+fb39ea5 * HEAD v0.31 origin/master origin/HEAD master Fixes #10, scale and axis in margin.
+2ba80ff * Travis image
+7dfc345 * Import functions for grid for new legend functions
+799786e *   Merge branch 'travis'
+        |\  
+35514b1 | * origin/travis enable continuous integration via craigcitro/r-travis
+d214c61 * | DOI from zenodo
+        |/  
+04ccc00 * v0.30 ChangeLog for v0.30
+ec13c5f * Fix colorkey check again.
 2e375cc * Fix colorkey check when margin is FALSE
 e216e4b * Axis for marginal graphics in levelplot
 71c843b * New argument `col.arrows` in vectorplot. Fixes #9
@@ -99,11 +108,4 @@ b7ace2b * as.data.frame in levelplot instead of getData
 4a0c86e * parallel included in Suggests
 7e9c93a * Add example with panel.2dsmoother for hovmoller
 e93cd35 * Update package version; depends on R 2.14.0 (parallel); imports sp 1.0-6
-1f8b364 * Import degreeLabelsXX from sp
-7a9a048 * extendrange instead of lattice:::extend.limits
-7e1cf6d * degreeLabelsXX has been exported in sp
-d096d33 * degreeLabels copied from sp
-4232e4f * Added parallel cluster in streamplot
-81ebeb3 * vectorplot examples under dontrun
-36fdc07 * streamplot examples added in webpage
 type "e" to show more history
