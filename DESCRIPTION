@@ -8,7 +8,7 @@ Authors@R: c(person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@gmail.
 Description: The raster package defines classes and methods for spatial raster data access and manipulation. The rasterVis package complements raster providing a set of methods for enhanced visualization and interaction.
 URL: http://oscarperpinan.github.io/rastervis
 BugReports: https://github.com/oscarperpinan/rastervis/issues
-License: GPL-3 | file LICENSE
+License: GPL-3
 LazyLoad: yes
 Depends: R (>= 2.14.0), methods, raster (>= 2.0-12), lattice, latticeExtra, hexbin
 Imports: grid, grDevices, sp (>= 1.0-6), zoo, RColorBrewer
