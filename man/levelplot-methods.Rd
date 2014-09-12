@@ -42,6 +42,10 @@
   \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
 
+  \item{maxpixels}{A positive integer giving the number of cells to
+    display, for \code{\link{sampleRegular}}.
+  }
+
   \item{margin}{logical, if TRUE two marginal graphics show the column
     (x) and row (y) summaries of the \code{Raster*} object. The summary
     is computed with the function defined by \code{FUN.margin} (which
@@ -51,19 +55,24 @@
   and columns (default: \code{mean}).}
 
   \item{scales.margin}{A list with components \code{x} (columns) and
-    \code{y} (rows). Each of these components is a numeric vector of
-    length 2 defining the range for each marginal plot. If
-    \code{scales.margin=NULL} the range is internally computed.}
+    \code{y} (rows). Each of these components must be a numeric vector
+    of length 2 defining the range for each marginal plot.  If
+    \code{scales.margin=NULL} the range is internally computed.  If any
+    of the elements of the vectors is \code{NA}, the corresponding limit
+    of the range will be calculated internally.  If any of the vectors
+    is of length 1, it is assumed that it defines the lower limit of the
+    range, and the upper limit is calculated internally. }
 
-  \item{axis.margin}{Logical, if \code{TRUE} two simple axis are drawn
-    with the marginal graphics. Its default value is \code{FALSE}.}
+  \item{axis.margin}{Logical or a list. Its default value is
+    \code{FALSE}. If it is \code{TRUE} or a list, two simple axis are
+    drawn with the marginal graphics.  If it is a list, its components
+    define the graphical parameters of the axis using
+    \code{grid::\link{gpar}}.  The default value is \code{gpar(col =
+    'darkgrey', fontsize = 7)}}
 
-  \item{maxpixels}{A positive integer giving the number of cells to
-    display, for \code{\link{sampleRegular}}.
-  }
 
-  \item{att}{An integer o character to choose which variable (column) in the RAT table
-    should be used.}
+  \item{att}{Integer or character to choose which variable (column) in
+    the RAT table should be used.}
 
   \item{xlab, ylab, main}{A character string or expression describing
   the axis and title labels. These arguments are used by the underlying
