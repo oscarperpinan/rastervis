@@ -36,10 +36,10 @@ legendGeneric <- function(p, FUN, scaleAxis, axis.margin, side, ...){
     ## Create grobs
     ## Polygon
     pol <- switch(side,
-                  x = polygonGrob(y = c(rVals[1], valsScaled, rVals[1]),
+                  x = polygonGrob(y = c(0, valsScaled, 0),
                       x = c(rRef[1], refScaled, rRef[2]), 
                       gp = gpar(col = "black", fill = 'grey')),
-                  y = polygonGrob(x = c(rVals[1], valsScaled, rVals[1]),
+                  y = polygonGrob(x = c(0, valsScaled, 0),
                       y = c(rRef[1], refScaled, rRef[2]), 
                       gp = gpar(col = "black", fill = 'grey'))
                   )
