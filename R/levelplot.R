@@ -264,15 +264,17 @@ setMethod('levelplot',
               ## Plot the margins if required
               if (nlayers(object)==1 && margin) {
                   marginsLegend <- list(right=list(
-                                            fun=legendY,
+                                            fun=legendGeneric,
                                             args=list(p, FUN = FUN.margin,
-                                                scale.y = scales.margin$y,
-                                                add.axis = axis.margin)),
+                                                scaleAxis = scales.margin$y,
+                                                add.axis = axis.margin,
+                                                side = 'y')),
                                         top=list(
-                                            fun=legendX,
+                                            fun=legendGeneric,
                                             args=list(p, FUN=FUN.margin,
-                                                scale.x = scales.margin$x,
-                                                add.axis = axis.margin))
+                                                scaleAxis = scales.margin$x,
+                                                add.axis = axis.margin,
+                                                side = 'x'))
                                         )
                   if (is.null(p$legend)) p$legend <- list()
                   p$legend <- modifyList(p$legend, marginsLegend)
