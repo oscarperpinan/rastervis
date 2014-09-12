@@ -267,13 +267,13 @@ setMethod('levelplot',
                                             fun=legendGeneric,
                                             args=list(p, FUN = FUN.margin,
                                                 scaleAxis = scales.margin$y,
-                                                add.axis = axis.margin,
+                                                axis.margin = axis.margin,
                                                 side = 'y')),
                                         top=list(
                                             fun=legendGeneric,
                                             args=list(p, FUN=FUN.margin,
                                                 scaleAxis = scales.margin$x,
-                                                add.axis = axis.margin,
+                                                axis.margin = axis.margin,
                                                 side = 'x'))
                                         )
                   if (is.null(p$legend)) p$legend <- list()

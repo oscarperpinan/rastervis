@@ -1,4 +1,4 @@
-legendGeneric <- function(p, FUN, scaleAxis, add.axis, side, ...){
+legendGeneric <- function(p, FUN, scaleAxis, axis.margin, side, ...){
     ## Extract values from the trellis object
     ref <- switch(side,
                   x = p$panel.args.common$x,
@@ -34,6 +34,7 @@ legendGeneric <- function(p, FUN, scaleAxis, add.axis, side, ...){
     rVals <- range(valsScaled, na.rm = TRUE)
     rRef <- range(refScaled, na.rm = TRUE)
     ## Create grobs
+    ## Polygon
     pol <- switch(side,
                   x = polygonGrob(y = c(rVals[1], valsScaled, rVals[1]),
                       x = c(rRef[1], refScaled, rRef[2]), 
@@ -42,38 +43,7 @@ legendGeneric <- function(p, FUN, scaleAxis, add.axis, side, ...){
                       y = c(rRef[1], refScaled, rRef[2]), 
                       gp = gpar(col = "black", fill = 'grey'))
                   )
-    axis <- switch(side,
-                   x = linesGrob(rRef[1], c(0, 1),
-                       gp = gpar(col = 'darkgrey')),
-                   y =   linesGrob(c(0, 1), rRef[2],
-                       gp = gpar(col = 'darkgrey'))
-                   )
-    
-    ticks <- switch(side,
-                    x = segmentsGrob(x0 = rRef[1], y0 = c(0,1),
-                        x1 = unit(rRef[1], 'npc') - unit(.5, 'char'),
-                        y1 = c(0, 1),
-                        gp = gpar(col = 'darkgrey')),
-                    y = segmentsGrob(c(0, 1), rRef[2],
-                        c(0, 1),
-                        unit(rRef[2], 'native') + unit(.5, 'char'),
-                        gp = gpar(col = 'darkgrey'))
-                    )
-
-    labText <- prettyNum(scaleAxis, digits = 2)
-    labs <- switch(side,
-                   x = textGrob(labText,
-                       x = unit(rRef[1], 'npc') - unit(1, 'lines'),
-                       y = unit(c(0, 1), 'npc'),
-                       just = 'right',
-                       gp = gpar(fontsize = 7, col = 'darkgrey')),
-                   y = textGrob(labText,
-                       x = c(0, 1),
-                       y = unit(rRef[2], 'npc') + unit(1.5, 'lines'),
-                       just = 'left',
-                       gp = gpar(fontsize = 7, col = 'darkgrey'))
-                   )
-  
+    ## Layout
     lg <- switch(side,
                  x = grid.layout(nrow = 1, ncol = 1,
                      widths = unit(1, 'null'),
@@ -82,12 +52,49 @@ legendGeneric <- function(p, FUN, scaleAxis, add.axis, side, ...){
                      heights= unit(1, 'null'),
                      widths = unit(3, 'lines'))
                  )
-
+    ## Frame
     fg <- frameGrob(layout = lg,
                     name = paste0('legend', side))
 
     ## Axis is disabled by default
-    if (isTRUE(add.axis)) {
+    gpAxis <- gpar(col = 'darkgrey', fontsize = 7)
+    if (is.list(axis.margin)) {
+        gpAxis <- modifyList(gpAxis, axis.margin)
+        axis.margin <- TRUE
+    }
+    if (isTRUE(axis.margin)) {
+        axis <- switch(side,
+                       x = linesGrob(rRef[1], c(0, 1),
+                           gp = gpAxis),
+                       y =   linesGrob(c(0, 1), rRef[2],
+                           gp = gpAxis)
+                       )
+    
+        ticks <- switch(side,
+                        x = segmentsGrob(x0 = rRef[1], y0 = c(0,1),
+                            x1 = unit(rRef[1], 'npc') - unit(.5, 'char'),
+                            y1 = c(0, 1),
+                            gp = gpAxis),
+                        y = segmentsGrob(c(0, 1), rRef[2],
+                            c(0, 1),
+                            unit(rRef[2], 'native') + unit(.5, 'char'),
+                            gp = gpAxis)
+                        )
+
+        labText <- prettyNum(scaleAxis, digits = 2)
+        labs <- switch(side,
+                       x = textGrob(labText,
+                           x = unit(rRef[1], 'npc') - unit(1, 'lines'),
+                           y = unit(c(0, 1), 'npc'),
+                           just = 'right',
+                           gp = gpAxis),
+                       y = textGrob(labText,
+                           x = c(0, 1),
+                           y = unit(rRef[2], 'npc') + unit(1.5, 'lines'),
+                           just = 'left',
+                           gp = gpAxis)
+                       )
+
         fg <- placeGrob(fg, axis, row = 1, col = 1)
         fg <- placeGrob(fg, ticks, row = 1, col = 1)
         fg <- placeGrob(fg, labs, row = 1, col = 1)
