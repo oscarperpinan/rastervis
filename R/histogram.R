@@ -49,29 +49,37 @@ setMethod('histogram',
 
 setMethod('histogram', signature(x='formula', data='Raster'),
           definition=function(x, data, dirXY, maxpixels=1e+05,
-            strip=TRUE, par.settings=rasterTheme(),
-            ...){
+              strip=TRUE, par.settings=rasterTheme(),
+              ...){
 
-            isFactor <- which(is.factor(data))
-            levelsData <- levels(data)[[isFactor]][[1]][,2]
+              isFactor <- which(is.factor(data))
+              levelsData <- levels(data)[[isFactor]][[1]][,2]
 
-            if (!missing(dirXY)) {
-              dirXY <- xyLayer(data, dirXY=substitute(dirXY))
-              names(dirXY) <- 'dirXY'
-              data <- stack(data, dirXY)
-            }
+              if (!missing(dirXY)) {
+                  dirXY <- xyLayer(data, dirXY=substitute(dirXY))
+                  names(dirXY) <- 'dirXY'
+                  data <- stack(data, dirXY)
+              }
 
-            df <- as.data.frame(sampleRegular(data, maxpixels, xy=TRUE))
+              if (maxpixels < ncell(data)) {
+                  df <- as.data.frame(sampleRegular(data, maxpixels,
+                                                    xy=TRUE))
+              } else {
+                  df <- as.data.frame(data, xy = TRUE)
+              }
 
-            ## Categorical data
-            if (any(isFactor)){
-               df[, isFactor + 2] <- as.factor(levelsData[df[, isFactor + 2]])
-               if (isTRUE(strip)) strip <- strip.custom(strip.levels=TRUE)
-               }
+              ## Categorical data
+              if (any(isFactor)){
+                  df[, isFactor + 2] <- as.factor(
+                      levelsData[df[, isFactor + 2]])
+                  if (isTRUE(strip)) {
+                      strip <- strip.custom(strip.levels=TRUE)
+                  }
+              }
 
-            p <- histogram(x=x, data=df,
-                           strip=strip,
-                           par.settings=par.settings, ...)
-            p
+              p <- histogram(x=x, data=df,
+                             strip=strip,
+                             par.settings=par.settings, ...)
+              p
           }
           )
