@@ -32,7 +32,8 @@ setMethod('xyplot', signature(x='formula', data='Raster'),
             par.settings=rasterTheme(),...){
 
             isFactor <- which(is.factor(data))
-
+            levelsData <- levels(data)[[isFactor]][[1]][,2]
+            
             if (!missing(dirXY)) {
               dirXY <- xyLayer(data, dirXY=substitute(dirXY))
               names(dirXY) <- 'dirXY'
@@ -43,7 +44,7 @@ setMethod('xyplot', signature(x='formula', data='Raster'),
                                               xy=TRUE))
 
             if (any(isFactor)){
-                levelsData <- levels(data)[[isFactor]][[1]][,2]
+
                 df[, isFactor + 2] <- as.factor(
                     levelsData[df[, isFactor + 2]])
             }

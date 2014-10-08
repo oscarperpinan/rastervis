@@ -57,24 +57,23 @@ setMethod('densityplot', signature(x='formula', data='Raster'),
             auto.key = list(space = 'right'), 
             par.settings=rasterTheme(),...){
 
-            nms <- names(data)
-
-            nl <- nlayers(data)
-
-            data <- sampleRegular(data, maxpixels, asRaster=TRUE)
-            df <- getValues(data)
-            df <- as.data.frame(df)
-            names(df) <- make.names(nms)
-
-            xLayer <- getValues(init(data, v='x'))
-            yLayer <- getValues(init(data, v='y'))
-
-            df <- cbind(data.frame(x=xLayer, y=yLayer), df)
+            isFactor <- which(is.factor(data))
+            levelsData <- levels(data)[[isFactor]][[1]][,2]
 
             if (!missing(dirXY)) {
-              dirXY <- getValues(xyLayer(data, dirXY=substitute(dirXY)))
-              df <- cbind(df, dirXY)
+              dirXY <- xyLayer(data, dirXY=substitute(dirXY))
+              names(dirXY) <- 'dirXY'
+              data <- stack(data, dirXY)
             }
+
+            df <- as.data.frame(sampleRegular(data,
+                                              maxpixels,
+                                              xy=TRUE))
+            ## Categorical data
+            if (any(isFactor)){
+               df[, isFactor + 2] <- as.factor(
+                   levelsData[df[, isFactor + 2]])
+                  }
 
             p <- densityplot(x=x, data=df,
                              xscale.components=xscale.components,
@@ -83,4 +82,4 @@ setMethod('densityplot', signature(x='formula', data='Raster'),
                              par.settings=par.settings, ...)
             p
           }
-            )
+          )
