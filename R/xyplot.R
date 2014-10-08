@@ -17,7 +17,8 @@ setMethod('xyplot',
             names(zz) <- z[,1]
             zz <- zoo(zz, order.by=idx)
             p <- xyplot(zz, xlab=xlab, ylab=ylab,
-                        superpose=TRUE, auto.key=FALSE, par.settings=par.settings, ...)
+                        superpose=TRUE, auto.key=FALSE,
+                        par.settings=par.settings, ...)
             p + glayer(panel.text(x[1], y[1], group.value, cex=0.7))
           }
           )
@@ -30,22 +31,21 @@ setMethod('xyplot', signature(x='formula', data='Raster'),
             yscale.components=yscale.raster,
             par.settings=rasterTheme(),...){
 
-            nms <- names(data)
-            nl <- nlayers(data)
-
-            data <- sampleRegular(data, maxpixels, asRaster=TRUE)
-            df <- getValues(data)
-            df <- as.data.frame(df)
-            names(df) <- make.names(nms)
-
-            xLayer <- getValues(init(data, v='x'))
-            yLayer <- getValues(init(data, v='y'))
-
-            df <- cbind(data.frame(x=xLayer, y=yLayer), df)
+            isFactor <- which(is.factor(data))
 
             if (!missing(dirXY)) {
-              dirXY <- getValues(xyLayer(data, dirXY=substitute(dirXY)))
-              df <- cbind(df, dirXY)
+              dirXY <- xyLayer(data, dirXY=substitute(dirXY))
+              names(dirXY) <- 'dirXY'
+              data <- stack(data, dirXY)
+            }
+
+            df <- as.data.frame(sampleRegular(data, maxpixels,
+                                              xy=TRUE))
+
+            if (any(isFactor)){
+                levelsData <- levels(data)[[isFactor]][[1]][,2]
+                df[, isFactor + 2] <- as.factor(
+                    levelsData[df[, isFactor + 2]])
             }
 
             p <- xyplot(x=x, data=df,

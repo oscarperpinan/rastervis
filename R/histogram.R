@@ -52,7 +52,6 @@ setMethod('histogram', signature(x='formula', data='Raster'),
             strip=TRUE, par.settings=rasterTheme(),
             ...){
 
-            nl <- nlayers(data)
             isFactor <- which(is.factor(data))
             levelsData <- levels(data)[[isFactor]][[1]][,2]
 
