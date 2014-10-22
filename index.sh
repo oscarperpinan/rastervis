@@ -1,4 +1,2 @@
 
-# -----
-
-mogrify -density 200 -format png figs/*.pdf
+  mogrify -density 200 -format png figs/*.pdf 

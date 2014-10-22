@@ -1,53 +1,49 @@
 
-## #+CATEGORY: R
-## #+TAGS: 
-## #+DESCRIPTION: rasterVis
-## #+TITLE: rasterVis
-## #+PROPERTY:  session *R:2*
-## #+PROPERTY:  tangle yes
-## #+PROPERTY:  eval no-export
-## #+PROPERTY:  comments org
-## #+LANGUAGE:  en
-## #+STYLE:    <link rel="stylesheet" type="text/css" href="styles.css" />
-## #+OPTIONS:   num:nil toc:1 ^:nil
+## Installation 
 
+## The stable release of =rasterVis= can be found at [[http://cran.r-project.org/web/packages/rasterVis/][CRAN]].  The
+## development version is at [[https://github.com/oscarperpinan/rastervis][GitHub]].
 
-## The [[http://cran.r-project.org/web/packages/raster/index.html][raster]] package defines classes and methods for spatial raster data
-## access and manipulation. The =rasterVis= package complements
-## raster providing a set of methods for enhanced visualization and
-## interaction. The stable release of =rasterVis= can be found at
-## [[http://cran.r-project.org/web/packages/rasterVis/][CRAN]]. The development version is at [[https://r-forge.r-project.org/R/?group_id%3D1129][R-Forge]].
+## Install the stable version with:
 
-## This page has been generated with [[http://orgmode.org/][org-mode]]. You can download the [[http://rastervis.r-forge.r-project.org/index.org][org file]] and the [[http://rastervis.r-forge.r-project.org/index.R][R code]].
+install.packages('rasterVis')
 
-## Let's show some of its functionalities with some examples, using data
-## from the
-## [[http://www.cmsaf.eu/bvbw/appmanager/bvbw/cmsafInternet][CMSAF]]
-## project as described
-## [[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]]
-## ([[http://www.box.net/shared/rl51y1t9sldxk54ogd44][download data]]).
+## To install the development version you need the devtools package:
 
-library(raster)
-library(rasterVis)
-
-##change to your folder...
-old <- setwd('~/Datos/CMSAF')
-listFich <- dir(pattern='2008')
-stackSIS <- stack(listFich)
-stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
-setwd(old)
-
-idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
-
-SISmm <- setZ(stackSIS, idx)
-names(SISmm) <- month.abb
+install.packages('devtools')
+devtools::install_github('rasterVis', 'oscarperpinan')
 
 ## Level plots
 ##   :PROPERTIES:
 ##   :CUSTOM_ID: levelplot
 ##   :END:
 
-## The first step is to display the content with a =levelplot=:
+## This section discusses how to display quantitative data with
+## =levelplot= with an example using data from the [[http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001][CM SAF]] project, as
+## described [[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]].
+
+  library(raster)
+  library(rasterVis)
+  
+  ##Solar irradiation data from CMSAF 
+  setwd(tempdir())
+  download.file('https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip',
+                'SISmm2008_CMSAF.zip', method='wget')
+  unzip('SISmm2008_CMSAF.zip')
+  
+  listFich <- dir(pattern='\.nc')
+  stackSIS <- stack(listFich)
+  stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
+  
+  idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+  
+  SISmm <- setZ(stackSIS, idx)
+  names(SISmm) <- month.abb
+
+## Once the =Rasterstack= has been defined, it can be displayed easily
+## with =levelplot=. Each panel of the graphic shows a layer of the
+## =RasterStack= object using a trellis chart or [[http://en.wikipedia.org/wiki/Small_multiple][small-multiple
+## technique]].
 
 pdf(file="figs/levelplot.pdf")
 levelplot(SISmm)
@@ -55,8 +51,9 @@ dev.off()
 
 ## [[file:figs/levelplot.png]]
 
-## If only one layer is chosen, this method displays a marginal plot
-## of a function across each coordinate:
+## If only one layer is chosen, this method displays [[http://stackoverflow.com/a/18594679/964866][two marginal plots]],
+## the row and column summaries of the =RasterLayer=, computed with the
+## function defined by =FUN.margin= (which uses =mean= as default value):
 
 pdf(file="figs/levelplot_layer1.pdf")
 levelplot(SISmm, layers=1, FUN.margin=median, contour=TRUE)
@@ -69,13 +66,13 @@ dev.off()
 ## This information is available at the [[http://www.gadm.org/data/shp/ESP_adm.zip][GADM service]].
 
 pdf(file="figs/levelplot_layer_borders.pdf")
-library(maptools)
-proj <- CRS('+proj=longlat +ellps=WGS84')
-##Change to your folder
-mapaSHP <- readShapeLines('~/Datos/ESP_adm/ESP_adm2.shp', proj4string=proj)
-
-p <- levelplot(SISmm, layers=1, FUN.margin=median)
-p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
+  library(maptools)
+  proj <- CRS('+proj=longlat +ellps=WGS84')
+  ##Change to your folder
+  mapaSHP <- readShapeLines('~/Datos/ESP_adm/ESP_adm2.shp', proj4string=proj)
+  
+  p <- levelplot(SISmm, layers=1, FUN.margin=median)
+  p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
 dev.off()
 
 ## Log scale
@@ -153,16 +150,16 @@ dev.off()
 ## and coordinates of a =Raster= object:
 
 pdf(file="figs/xyplot_formula.pdf")
-##Relation between the January & February versus July radiation for four
-##differents longitude regions.
-xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space='right'))
+  ##Relation between the January & February versus July radiation for four
+  ##differents longitude regions.
+  xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space='right'))
 dev.off()
 
 ## [[file:figs/xyplot_formula.png]]
 
 pdf(file="figs/hexbinplot_formula.pdf")
-##Faster with hexbinplot
-hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
+  ##Faster with hexbinplot
+  hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 dev.off()
 
 ## [[file:figs/hexbinplot_formula.png]]
@@ -220,29 +217,28 @@ dirXY <-xyLayer(r, sqrt(x^2 + y^2))
 dirXY
 
 ## For example, the next code builds a hovmoller diagram showing the
-## time evolution of the mean value along the latitude (data
-## available at
-## [[ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/]]):
+## time evolution of the mean value along the latitude using data
+## from the book "[[http://eu.wiley.com/WileyCDA/WileyTitle/productCd-EHEP002348.html][Statistics for Spatio-Temporal Data]]":
 
 pdf(file="figs/hovmoller.pdf")
-library(zoo)
-
-url <- "~/Datos/Cressie/"
-sst.dat = read.table(paste(url, "SST011970_032003.dat", sep=''), header = FALSE) 
-sst.ll = read.table(paste(url, "SSTlonlat.dat", sep=''), header = FALSE)
-
-spSST <- SpatialPointsDataFrame(sst.ll, sst.dat)
-gridded(spSST) <- TRUE
-proj4string(spSST) = "+proj=longlat +datum=WGS84"
-SST <- brick(spSST)
-
-idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
-idx <- as.yearmon(idx)
-SST <- setZ(SST, idx)
-names(SST) <- as.character(idx)
-hovmoller(SST, contour=FALSE, panel=panel.levelplot.raster,
-          yscale.components=yscale.raster.subticks,
-          interpolate=TRUE, par.settings=RdBuTheme)
+  library(zoo)
+  
+  url <- "ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"
+  sst.dat = read.table(paste(url, "SST011970_032003.dat", sep=''), header = FALSE) 
+  sst.ll = read.table(paste(url, "SSTlonlat.dat", sep=''), header = FALSE)
+  
+  spSST <- SpatialPointsDataFrame(sst.ll, sst.dat)
+  gridded(spSST) <- TRUE
+  proj4string(spSST) = "+proj=longlat +datum=WGS84"
+  SST <- brick(spSST)
+  
+  idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
+  idx <- as.yearmon(idx)
+  SST <- setZ(SST, idx)
+  names(SST) <- as.character(idx)
+  hovmoller(SST, contour=FALSE, panel = panel.levelplot.raster,
+            yscale.components = yscale.raster.subticks,
+            interpolate = TRUE, par.settings = RdBuTheme)
 dev.off()
 
 ## [[file:figs/hovmoller.png]]
@@ -266,16 +262,16 @@ dev.off()
 ## =rasterVis= includes a method, =vectorplot=, to calculate and display
 ## this vector field.
 
-proj <- CRS('+proj=longlat +datum=WGS84')
-df <- expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
-
-df$z <- with(df, (3*x^2 + y)*exp(-x^2-y^2))
-r <- rasterFromXYZ(df, crs=proj)
+  proj <- CRS('+proj=longlat +datum=WGS84')
+  df <- expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
+  
+  df$z <- with(df, (3*x^2 + y)*exp(-x^2-y^2))
+  r <- rasterFromXYZ(df, crs=proj)
 
 ## #+RESULTS:
 
 png(filename="figs/vectorplot.png")
-vectorplot(r, par.settings=RdBuTheme())
+  vectorplot(r, par.settings=RdBuTheme())
 dev.off()
 
 ## #+RESULTS:
@@ -289,7 +285,7 @@ dev.off()
 ## along the field lines. Streamlines, a family of curves that are
 ## tangent to the vector field, show the direction an element
 ## (/droplet/) will follow under the effect of the field.
-## \code{streamplot} displays streamlines with a procedure inspired
+## =streamplot= displays streamlines with a procedure inspired
 ## by the [[http://christl.cg.tuwien.ac.at/research/vis/dynsys/frolic/frolic_crc.pdf][FROLIC algorithm]]: for each point
 ## (/droplet/) of a jittered regular grid, a short streamline
 ## portion (/streamlet/) is calculated by integrating the
@@ -300,7 +296,7 @@ dev.off()
 ## (=aspect=).
 
 png(filename="figs/streamplot.png")
-streamplot(r)
+  streamplot(r)
 dev.off()
 
 ## #+RESULTS:
@@ -314,13 +310,13 @@ dev.off()
 ## options can be changed easily:
 
 png(filename="figs/streamplotReds.png")
-df$z <- with(df, sqrt(x^2 + y^2))
-df$phi <- with(df, atan2(-y, x))
-r2 <- rasterFromXYZ(df, crs=proj)
-
-streamplot(r2, isField=TRUE, streamlet=list(L=30), droplet=list(pc=.3),
-           par.settings=streamTheme(symbol=brewer.pal(n=5, name='Reds')))
-
+  df$z <- with(df, sqrt(x^2 + y^2))
+  df$phi <- with(df, atan2(-y, x))
+  r2 <- rasterFromXYZ(df, crs=proj)
+  
+  streamplot(r2, isField=TRUE, streamlet=list(L=30), droplet=list(pc=.3),
+             par.settings=streamTheme(symbol=brewer.pal(n=5, name='Reds')))
+  
 dev.off()
 
 ## Interaction
