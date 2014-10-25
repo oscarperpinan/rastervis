@@ -1,5 +1,22 @@
 Commits in HEAD
-fb39ea5 * HEAD v0.31 origin/master origin/HEAD master Fixes #10, scale and axis in margin.
+0e51677 * HEAD origin/master origin/HEAD master sampleRegular doesn't provide xy when maxpixels>ncell
+c098541 * Idem, now with densityplot.
+05157b7 * Improve xyplot to work with mixed rasters (categorical and numeric)
+59d0f2d * In margin plot polygon starts from the baseline
+604baa0 * Documents recent changes in scales.margin and axis.margin
+9ca2991 * Update version and date in DESCRIPTION
+5820932 * axis.margin may be a list to allow for different graphical parameters, fixes #12
+5b79b86 * Increased flexibility to define scales in margin plots, fixes #11
+beeb46b * Do not include LICENSE file when building
+0ec2702 * Do not include LICENSE file when building
+28f9573 * Fix functions import; mgcv is no longer needed
+a026f27 *   Zenodo and CITATION
+        |\  
+b823abe | * Update zenodo badge
+0d0cf7a * | CITATION file
+        |/  
+99510d1 * Ready for CRAN
+fb39ea5 * v0.31 Fixes #10, scale and axis in margin.
 2ba80ff * Travis image
 7dfc345 * Import functions for grid for new legend functions
 799786e *   Merge branch 'travis'
@@ -93,19 +110,4 @@ a2043ae * version and date updated
 47d1b32 * layerNames by names in splom
 72b0b94 * Added new example to show use of 'att'
 8bfbd88 * Improved management of layer names in levelplot
-9daffd8 * levelplot is able to work with multivariable RATs. New argument "att".
-7fdfdff * In xyplot added stat='mean'
-291b317 * Version and Date updated in DESCRIPTION
-1ecf8aa * layerNames in histogram is not needed
-d00f9f1 * Improved histogram with formula, RasterStack with a mixture of numerical and factor data
-7c6d1fe * deleted rastervis.cfg
-255462f * NULL as default value for cl in streamplot
-0017c75 * Added legend key for categorical data in levelplot
-c31e642 * names.attr coerced to as.character
-9096de3 * Fix NA usage with categorical data in levelplot
-bbc7b61 * levelplot improved for categorical data (thanks to https://stat.ethz.ch/pipermail/r-sig-geo/2013-February/017632.html)
-b7ace2b * as.data.frame in levelplot instead of getData
-4a0c86e * parallel included in Suggests
-7e9c93a * Add example with panel.2dsmoother for hovmoller
-e93cd35 * Update package version; depends on R 2.14.0 (parallel); imports sp 1.0-6
 type "e" to show more history

@@ -1,6 +1,4 @@
-[![DOI](https://zenodo.org/badge/1928/oscarperpinan/rastervis.png)](http://dx.doi.org/10.5281/zenodo.11390)
-
-
+[![DOI](https://zenodo.org/badge/1928/oscarperpinan/rastervis.png)](http://dx.doi.org/10.5281/zenodo.12394)
 
 [![Build Status](https://travis-ci.org/oscarperpinan/rastervis.svg?branch=master)](https://travis-ci.org/oscarperpinan/rastervis)
 
