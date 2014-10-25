@@ -3,7 +3,7 @@ citHeader("To cite package 'rasterVis' in publications use:")
 citEntry(entry="Manual",
          title ="{rasterVis}",
          author = personList(as.person("Oscar Perpi{\\~n}{\\'a}n"), as.person("Robert Hijmans")),
-         doi = "10.5281/zenodo.12394"
+         doi = "10.5281/zenodo.12394",
          year = "2014",
          month = "Oct",
          url ="http://oscarperpinan.github.io/rastervis/",
