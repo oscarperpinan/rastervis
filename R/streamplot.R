@@ -105,7 +105,8 @@ setMethod('streamplot',
             ## Add jitter to regular grid
             crdsNoise <- cbind(jitter(crds[,1]), jitter(crds[,2]))
             ## "Grid" of droplets
-            texture <- SpatialPointsDataFrame(crdsNoise, data.frame(extract(field, crdsNoise)))
+            texture <- SpatialPointsDataFrame(crdsNoise,
+                                              data.frame(extract(field, crdsNoise)))
             pts <- data.frame(t(coordinates(texture)))
             npts <- length(texture)
 
@@ -120,8 +121,6 @@ setMethod('streamplot',
             colClasses <- pretty(slopeVals, n=nClasses)
             indCol <- findInterval(slopeVals, colClasses,
                                    rightmost.closed=TRUE, all.inside=TRUE)
-            ## colClasses <- cut(slopeVals, nClasses)
-            ## indCol <- as.numeric(colClasses)
 
             ## Stream Lines Calculation
             pts <- rbind(pts, indCol)
@@ -149,32 +148,14 @@ setMethod('streamplot',
             idOrdered <- order(slopeVals)
             streamList <- streamList[order(slopeVals)]
 
-            ## key <- list(space='right', at=colClasses, col=pal)
-
             p <- levelplot(object, layers=1,
                            margin=FALSE, colorkey=FALSE,
-                           par.settings=par.settings, ...) + ##,
-                           ##colorkey=key) +
+                           par.settings=par.settings, ...) + 
                              layer(lapply(streamList, function(streamlet){
                                panel.points(streamlet$x, streamlet$y,
                                             col=streamlet$colors, cex=streamlet$cexs)
                                }), data= list(streamList=streamList))
-                               ##{
-                               ## pointPars <- trellis.par.get("superpose.symbol")
-                               ## pal <- pointPars$col
-                               ## for (i in seq_along(streamList)) {
-                               ##   streamlet <- streamList[[i]]
-                                 ## ## Assign colors to slope classes
-                                 ## color <- pal[streamlet$cl]
-                                 ## ncolors <- length(streamlet$x)
-                                 ## colors <- rev(colorRampPalette(c(color, 'gray50'))(ncolors))
-                                 ## cexs <- seq(.3, pointPars$cex, length=ncolors)
-                                 ## panel.points(streamlet$x, streamlet$y,
-                                 ##              col=colors, cex=cexs)
-                                 ## panel.points(streamlet$x, streamlet$y,
-                                 ##              col=streamlet$colors, cex=streamlet$cexs)
-                             ##   }
-                             ## }, data= list(streamList=streamList))
+
             p
           }
           )
@@ -189,13 +170,25 @@ setMethod('streamplot',
             parallel=TRUE, mc.cores=detectCores(), cl=NULL,
             ...){
               if (missing(layers)) layers=seq_len(nlayers(object))
-              if (isField) callNextMethod(object, layers, droplet,
-                                          streamlet,
-                                          par.settings,
-                                          isField=TRUE,
-                                          reverse,
-                                          parallel,
-                                          mc.cores, cl, ...)
+
+              if (isField == 'dXY'){
+                  isField <- TRUE
+                  u <- subset(object, 1)
+                  v <- subset(object, 2)
+                  slope <- sqrt(u^2 + v^2)
+                  aspect <- atan2(v, u)
+                  aspect <- (pi/2 - aspect) %% (2 * pi)
+                  object <- stack(slope, aspect)
+              }
+              
+              if (isTRUE(isField))
+                  callNextMethod(object, layers, droplet,
+                                 streamlet,
+                                 par.settings,
+                                 isField=TRUE,
+                                 reverse,
+                                 parallel,
+                                 mc.cores, cl, ...)
             else {
               if (!missing(layers)) {
                   object <- subset(object, subset=layers)
