@@ -77,9 +77,10 @@
 \item{margin}{Logical, if TRUE two marginal graphics show the summaries
   of the object.}
 
-\item{scaleSlope}{Logical or numeric. If TRUE the slope is scaled (but
-  not centered) with its standard deviation. If it is a numeric, the
-  slope is scaled with this value. It is not used if \code{isField='dXY'}.}
+\item{scaleSlope}{Logical or numeric. If TRUE the slope (vector
+  magnitude) is scaled (but not centered) with its standard
+  deviation. If it is a numeric, the slope is scaled with this value.
+  It is not used if \code{isField='dXY'}.}
 
 \item{aspX, aspY}{Numeric. Multipliers to convert the slope values into
   horizontal (\code{aspX}) and vertical (\code{aspY}) displacements.}
@@ -124,12 +125,17 @@ produce 324 droplets.}}}
 \item{reverse}{Logical, TRUE if arrows or streamlets go against the direction
   of the gradient.}
 
-\item{isField}{If \code{TRUE} (the object is a vector field),
-  \code{object} must be a Raster* with two layers, slope and aspect (in
-  this order), following the philosophy of \code{\link{terrain}}. If
-  \code{isField='dXY'} \code{object} must be a Raster* with two layers
-  representing the horizontal and the vertical components,
-  respectively.
+\item{isField}{If \code{TRUE} the object is a vector field. Thus,
+  \code{object} must be a Raster* with two layers, slope (local vector
+  magnitude) and aspect (local vector direction), in
+  this order, following the philosophy of \code{\link{terrain}}. The
+  slope layer will be used as the background if \code{region} is
+  \code{TRUE}. 
+
+  If \code{isField='dXY'} \code{object} must be a Raster* with two
+  layers representing the horizontal and the vertical components,
+  respectively. The slope is computed and used as the background if
+  \code{region} is TRUE.
 }
 
 \item{unit}{Character, angle units of the \code{aspect} layer if
@@ -190,12 +196,6 @@ vectorplot(field, isField='dXY', narrows=5e2)
 
 ## We can display both components as the background
 vectorplot(field, isField='dXY', narrows=5e2, region=field)
-
-## Or even compute the slope and use it as the background region
-slope <- sqrt(u^2 + y^2)
-vectorplot(field, isField='dXY', narrows=5e2,
-           region=slope, par.settings=BTCTheme())
-
 
 ## It is also possible to use a RasterStack
 ## with more than 2 layers when isField='dXY'

@@ -80,23 +80,30 @@ setMethod('vectorplot',
                                        aspX = aspX, aspY = aspY)
               }
               
-              ##only uses the magnitude for the region
-              if (isField) object <- subset(object, 1)
-
-              ## If region is a Raster, it is used as the background
-              ## instead of the magnitude of the object
+              ## If 'region' is a Raster, it is used as the background
               if (is(region, 'Raster')) {
                   compareRaster(object, region, rowcol=FALSE)
                   object <- region
                   region <- TRUE
-                  }
+              } else if (isTRUE(isField)) {
+                  if (isTRUE(dXY)) {
+                      ## Computes slope and uses it as the background
+                      u <- subset(object, 1)
+                      v <- subset(object, 2)
+                      object <- sqrt(u^2 + v^2)
+                  } else {
+                      ##only uses the magnitude for the region
+                      object <- subset(object, 1)
+              }
+              }
 
+              ## Ready to plot
               levelplot(object,
                         maxpixels = maxpixels, 
                         region = region,
                         margin = margin,
                         ...) +
-                  xyplot(y~x, data = sa,
+                  xyplot(y ~ x, data = sa,
                          dx = sa$dx, dy = sa$dy,
                          length = length,
                          lwd.arrows = lwd.arrows,
