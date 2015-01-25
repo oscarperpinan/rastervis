@@ -1,41 +1,74 @@
 ## Compute slope and aspect layers
-fooSlopeAspect <- function(s, skip, dXY=FALSE,
-                           unit, reverse, scaleSlope, aspX, aspY){
-    if (!skip){s <- terrain(s, opt=c('slope', 'aspect'))}
-    ## If s is a vector field, the first layer is the
-    ## magnitude (slope) and the second is the angle
-    ## (aspect)
-    x <- getValues(init(s, v='x'))
-    y <- getValues(init(s, v='y'))
-
-    if (!dXY) {
-        slope <- getValues(subset(s, 1))
-        aspect <- getValues(subset(s, 2))
-                                        
-        if (unit=='degrees' & skip) {
-            aspect <- aspect/180*pi
+extractSA <- function(s, skip, dXY = FALSE,
+                      unit, reverse){
+    if (!skip){
+        sa <- terrain(s, opt=c('slope', 'aspect'))
+    } else {
+        if (!dXY) {
+            ## If s is a vector field, the first layer is the
+            ## magnitude (slope) and the second is the angle
+            ## (aspect)
+            slope <- subset(s, 1)
+            aspect <- subset(s, 2)
+            
+            if (unit=='degrees') {
+                aspect <- aspect/180*pi
+            }
+            if (isTRUE(reverse)) {
+                aspect <- aspect + pi
+            }
+            sa <- stack(slope, aspect)
+        } else {
+            sa <- s
         }
-        if (isTRUE(reverse)) aspect <- aspect + pi
+    }
+    sa
+}
+
+## Compute x, y and, dx, dy for panel.arrows
+sa2xy <- function(sa, dXY = FALSE,
+                  scaleSlope, aspX, aspY){
+    if (!dXY) {
+        slope <- subset(sa, 1)
+        aspect <- subset(sa, 2)
         ##center=FALSE to get only positive values of
         ##slope
         if (is.logical(scaleSlope) & isTRUE(scaleSlope)){
-            slope <- scale(slope, center=FALSE)
+            slope <- scale(slope, center = FALSE)
         } else {
             if (is.numeric(scaleSlope)) {
                 slope <- slope/scaleSlope
             }
         }
         ##sin due to the angular definition of aspect
-        dx <- slope * sin(aspect) * aspX 
-        dy <- slope * cos(aspect) * aspY
+        dx <- slope * sin(aspect) 
+        dy <- slope * cos(aspect)
     } else {
-        dx <- getValues(subset(s, 1)) * aspX
-        dy <- getValues(subset(s, 2)) * aspY
+        dx <- subset(sa, 1)
+        dy <- subset(sa, 2)
     }
+    ## Returns a data.frame for panel.arrows
+    dx <- getValues(dx) * aspX
+    dy <- getValues(dy) * aspY
+    x <- getValues(init(sa, v='x'))
+    y <- getValues(init(sa, v='y'))
     data.frame(x, y, dx, dy)
 }
 
-setGeneric('vectorplot', function(object, ...){standardGeneric('vectorplot')})
+fooSlopeAspect <- function(s, skip, dXY = FALSE,
+                           unit, reverse,
+                           scaleSlope, aspX, aspY){
+    sa <- extractSA(s, skip = skip, dXY = dXY,
+                    unit = unit, reverse = reverse)
+    sa2xy(sa, dXY = dXY,
+          scaleSlope = scaleSlope,
+          aspX = aspX, aspY = aspY)
+}
+    
+setGeneric('vectorplot',
+           function(object, ...){
+               standardGeneric('vectorplot')
+           })
 
 setMethod('vectorplot',
           signature(object='Raster'),
@@ -48,6 +81,7 @@ setMethod('vectorplot',
               isField=FALSE, reverse=FALSE,
               unit='radians', scaleSlope=TRUE,
               aspX=0.08, aspY=aspX,
+              key.arrow = NULL,
               ...){
               
               if (!missing(layers)) {
@@ -55,8 +89,6 @@ setMethod('vectorplot',
               }
               
               dat <- sampleRegular(object, size=narrows, asRaster=TRUE)
-              x <- getValues(init(dat, v='x'))
-              y <- getValues(init(dat, v='y'))
 
               if (isField=='dXY') {
                   isField=TRUE
@@ -98,24 +130,41 @@ setMethod('vectorplot',
               }
 
               ## Ready to plot
-              levelplot(object,
-                        maxpixels = maxpixels, 
-                        region = region,
-                        margin = margin,
-                        ...) +
-                  xyplot(y ~ x, data = sa,
-                         dx = sa$dx, dy = sa$dy,
-                         length = length,
-                         lwd.arrows = lwd.arrows,
-                         col.arrows = col.arrows,
-                         panel=function(x, y, dx, dy,
-                             length, lwd.arrows, ...){
-                             panel.arrows(x, y, x+dx, y+dy,
-                                          length = length,
-                                          lwd=lwd.arrows,
-                                          col = col.arrows,
-                                          ...)
-                         }, ...)
+              p <- levelplot(object,
+                             maxpixels = maxpixels, 
+                             region = region,
+                             margin = margin,
+                             ...) +
+                                 xyplot(y ~ x, data = sa,
+                                        dx = sa$dx, dy = sa$dy,
+                                        length = length,
+                                        lwd.arrows = lwd.arrows,
+                                        col.arrows = col.arrows,
+                                        panel=function(x, y, dx, dy,
+                                            length, lwd.arrows, ...){
+                                            panel.arrows(x, y, x+dx, y+dy,
+                                                         length = length,
+                                                         lwd=lwd.arrows,
+                                                         col = col.arrows,
+                                                         ...)
+                                        }, ...)
+              if (!is.null(key.arrow)) {
+                  default.key.arrow <- list(size = 1, label = '')
+                  key.arrow <- modifyList(default.key.arrow, key.arrow)
+                  rgAxis <- diff(p$x.limits)
+                  if (isField && !dXY){
+                      if (isTRUE(scaleSlope)) {
+                          scaleSlope <- cellStats(subset(object, 1), 'rms')
+                      } else {}
+                  } else {
+                      scaleSlope <- 1
+                  }
+                  p$legend$top <- list(fun = legendArrow,
+                                       args = list(size = key.arrow$size,
+                                           unitLab = key.arrow$label,
+                                           keyScale= aspX/(rgAxis*scaleSlope)))
+              }
+              p
           }
           )
 
@@ -129,6 +178,7 @@ setMethod('vectorplot',
               isField=FALSE, reverse=FALSE,
               unit='radians', scaleSlope=TRUE,
               aspX=0.08, aspY=aspX,
+              key.arrow = NULL,
               uLayers, vLayers,
               ...){
               if (isField!='dXY' | (isField=='dXY' & nlayers(object)==2)) {
@@ -144,6 +194,7 @@ setMethod('vectorplot',
                                  reverse = reverse, unit = unit,
                                  scaleSlope = scaleSlope,
                                  aspX = aspX, aspY = aspY,
+                                 key.arrow = key.arrow,
                                  ...)
                   
               } else {## RasterStack with dXY
@@ -188,6 +239,7 @@ setMethod('vectorplot',
                                   maxpixels=maxpixels, region=region, margin=margin,
                                   isField='dXY', reverse=reverse, unit=unit,
                                   scaleSlope=scaleSlope, aspX=aspX, aspY=aspY,
+                                  key.arrow = key.arrow,
                                   ...)
                   }
                   p <- removeNmsAttr(...)

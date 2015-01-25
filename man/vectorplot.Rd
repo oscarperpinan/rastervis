@@ -30,7 +30,9 @@
             maxpixels=1e5, region=TRUE, margin=FALSE,  
             isField=FALSE, reverse=FALSE,
             unit='radians', scaleSlope=TRUE,
-            aspX=0.08, aspY=aspX, ...)
+            aspX=0.08, aspY=aspX,
+            key.arrow = NULL,
+            ...)
 
 \S4method{vectorplot}{RasterStack}(object, layers,
             narrows=2e3, lwd.arrows=0.6, col.arrows='black',
@@ -39,6 +41,7 @@
             isField=FALSE, reverse=FALSE,
             unit='radians', scaleSlope=TRUE,
             aspX=0.08, aspY=aspX,
+            key.arrow = NULL,
             uLayers, vLayers, ...)
 
 \S4method{streamplot}{Raster}(object, layers,
@@ -84,6 +87,12 @@
 
 \item{aspX, aspY}{Numeric. Multipliers to convert the slope values into
   horizontal (\code{aspX}) and vertical (\code{aspY}) displacements.}
+
+
+\item{key.arrow}{A reference (or legend) vector. If is not NULL, it is a list with two named
+  components, \code{size}, a numeric to define the length of the arrow
+  (default 1), and \code{label}, a character to define the label
+  (default \code{''}).} 
 
 \item{uLayers, vLayers}{Numeric, indexes of layers with horizontal and
   vertical components, respectively, when \code{isField='dXY'} and the
@@ -182,6 +191,14 @@ vectorplot(r1, scaleSlope=1e-5)
 vectorplot(r1, scaleSlope=5e-6, alpha=0.6)
 vectorplot(r1, scaleSlope=TRUE, aspX=0.1, alpha=0.6)
 vectorplot(r1, scaleSlope=TRUE, aspX=0.3, alpha=0.3)
+
+
+## Reference vector
+# Default size (1)
+vectorplot(r1, region = FALSE,
+           key.arrow = list(label = 'm/s'))
+vectorplot(r1, region = FALSE,
+           key.arrow = list(size = 2, label = 'm/s'))
 
 ## A vector field defined with horizontal and vertical components
 u <- v <- raster(xmn=0, xmx=2, ymn=0, ymx=2, ncol=1e3, nrow=1e3)

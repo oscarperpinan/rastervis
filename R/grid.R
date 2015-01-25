@@ -103,3 +103,29 @@ legendGeneric <- function(p, FUN, scaleAxis, axis.margin, side, ...){
     fg <- placeGrob(fg, pol, row = 1, col = 1)
     fg
 }
+
+legendArrow <- function(size = 1, unitLab='', keyScale)
+{
+    ## Layout
+    lg <- grid.layout(nrow = 1, ncol = 1,
+                      widths = unit(1, 'null'),
+                      heights = unit(3, 'lines'))
+    ## Frame
+    fg <- frameGrob(layout = lg,
+                    name = 'arrowKey')
+    ## Label
+    labGrob <-  textGrob(paste(size, unitLab),
+                           x = 0, y = 0.1,
+                           just = c('left', 'bottom'),
+                         gp = gpar(col = 'black', cex = 0.8))
+    ## Arrow
+    arrGrob <- segmentsGrob(x0 = 0, y0 = 0.05,
+                            x1 = size * keyScale, y1 = 0.05,
+                            arrow = arrow(length=unit(5e-2, 'npc')),
+                            default.units = 'native')
+    ## Place objects
+    fg <- placeGrob(fg, arrGrob, row = 1, col = 1)
+    fg <- placeGrob(fg, labGrob, row = 1, col = 1)
+    fg
+}
+
