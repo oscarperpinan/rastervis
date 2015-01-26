@@ -9,7 +9,7 @@ importFrom(grid,
            polygonGrob,
            linesGrob, segmentsGrob, textGrob,
            grid.layout, frameGrob, placeGrob,
-           grid.locator,
+           grid.locator, arrow,
            convertX, convertY,
            unit)
 
