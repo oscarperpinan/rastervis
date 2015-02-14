@@ -45,7 +45,7 @@ devtools::install_github('rasterVis', 'oscarperpinan')
 ## =RasterStack= object using a trellis chart or [[http://en.wikipedia.org/wiki/Small_multiple][small-multiple
 ## technique]].
 
-pdf(file="figs/levelplot.pdf")
+png(filename="figs/levelplot.png")
 levelplot(SISmm)
 dev.off()
 
@@ -55,7 +55,7 @@ dev.off()
 ## the row and column summaries of the =RasterLayer=, computed with the
 ## function defined by =FUN.margin= (which uses =mean= as default value):
 
-pdf(file="figs/levelplot_layer1.pdf")
+png(filename="figs/levelplot_layer1.png")
 levelplot(SISmm, layers=1, FUN.margin=median, contour=TRUE)
 dev.off()
 
@@ -65,7 +65,7 @@ dev.off()
 ## provides the =layer= function to add contents. For example, let's add the administrative borders. 
 ## This information is available at the [[http://www.gadm.org/data/shp/ESP_adm.zip][GADM service]].
 
-pdf(file="figs/levelplot_layer_borders.pdf")
+png(filename="figs/levelplot_layer_borders.png")
   library(maptools)
   proj <- CRS('+proj=longlat +ellps=WGS84')
   ##Change to your folder
@@ -87,7 +87,7 @@ dev.off()
 ## ‘TRUE’ (which is equivalent to 10), and ‘"e"’ (for the natural
 ## logarithm).  As a side effect, the colorkey is labeled differently.
 
-pdf(file="figs/levelplot_logscale.pdf")
+png(filename="figs/levelplot_logscale.png")
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 levelplot(r^2, zscaleLog=TRUE, contour=TRUE)
@@ -115,7 +115,7 @@ meanAug <- cellStats(Aug, mean)
 
 ## The diverging palette is specially well suited to this data:
 
-pdf(file="figs/levelplotAug.pdf")
+png(filename="figs/levelplotAug.png")
 levelplot(Aug-meanAug, par.settings=RdBuTheme)
 dev.off()
 
@@ -125,7 +125,7 @@ dev.off()
 ## palette. For example, using a sequential palette from
 ## [[http://cran.r-project.org/web/packages/colorspace][colorspace]]:
 
-pdf(file="figs/levelplot_colorspace.pdf")
+png(filename="figs/levelplot_colorspace.png")
 library(colorspace)
 myTheme=rasterTheme(region=sequential_hcl(10, power=2.2))
 levelplot(Aug, par.settings=myTheme, contour=TRUE)
@@ -135,7 +135,7 @@ dev.off()
 
 ## or with the colour-blindness corrections from the [[http://cran.r-project.org/web/packages/dichromat/][dichromat]] package:
 
-pdf(file="figs/levelplot_dichromat.pdf")
+png(filename="figs/levelplot_dichromat.png")
 library(dichromat)
 myTheme <- rasterTheme(region=dichromat(terrain.colors(15)))
 levelplot(Aug, par.settings=myTheme)
@@ -149,7 +149,7 @@ dev.off()
 ## There are methods to show scatter plots and hexbin plots of the layers
 ## and coordinates of a =Raster= object:
 
-pdf(file="figs/xyplot_formula.pdf")
+png(filename="figs/xyplot_formula.png")
   ##Relation between the January & February versus July radiation for four
   ##differents longitude regions.
   xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space='right'))
@@ -157,7 +157,7 @@ dev.off()
 
 ## [[file:figs/xyplot_formula.png]]
 
-pdf(file="figs/hexbinplot_formula.pdf")
+png(filename="figs/hexbinplot_formula.png")
   ##Faster with hexbinplot
   hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 dev.off()
@@ -166,7 +166,7 @@ dev.off()
 
 ## ...a method for scatter plot matrices:
 
-pdf(file="figs/splom.pdf")
+png(filename="figs/splom.png")
 splom(SISmm)
 dev.off()
 
@@ -174,19 +174,19 @@ dev.off()
 
 ## ..and methods for histograms, [[http://procomun.wordpress.com/2011/04/02/violin-plot/][box-and-whisker and violin]] plots or density estimates:
 
-pdf(file="figs/histogram.pdf")
+png(filename="figs/histogram.png")
 histogram(SISmm)
 dev.off()
 
 ## [[file:figs/histogram.png]]
 
-pdf(file="figs/density.pdf")
+png(filename="figs/density.png")
 densityplot(SISmm)
 dev.off()
 
 ## [[file:figs/density.png]]
 
-pdf(file="figs/bwplot.pdf")
+png(filename="figs/bwplot.png")
 bwplot(SISmm)
 dev.off()
 
@@ -196,7 +196,7 @@ dev.off()
 ## the =Raster= object. The result of this function is used as the grouping
 ## variable of the plot:
 
-pdf(file="figs/histogram_FUN.pdf")
+png(filename="figs/histogram_FUN.png")
 histogram(SISmm, FUN=as.yearqtr)
 dev.off()
 
@@ -216,37 +216,54 @@ r <- raster(f)
 dirXY <-xyLayer(r, sqrt(x^2 + y^2))
 dirXY
 
-## For example, the next code builds a hovmoller diagram showing the
-## time evolution of the mean value along the latitude using data
-## from the book "[[http://eu.wiley.com/WileyCDA/WileyTitle/productCd-EHEP002348.html][Statistics for Spatio-Temporal Data]]":
+## For example, the next code builds a hovmoller diagram showing the time evolution of the anomalies of Sea Surface Temperature data available from the Climate Analysis Center ([[http://iridl.ldeo.columbia.edu/SOURCES/.CAC/][more information here]]):
 
-pdf(file="figs/hovmoller.pdf")
-  library(zoo)
-  
-  url <- "ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"
-  sst.dat = read.table(paste(url, "SST011970_032003.dat", sep=''), header = FALSE) 
-  sst.ll = read.table(paste(url, "SSTlonlat.dat", sep=''), header = FALSE)
-  
-  spSST <- SpatialPointsDataFrame(sst.ll, sst.dat)
-  gridded(spSST) <- TRUE
-  proj4string(spSST) = "+proj=longlat +datum=WGS84"
-  SST <- brick(spSST)
-  
-  idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
-  idx <- as.yearmon(idx)
-  SST <- setZ(SST, idx)
-  names(SST) <- as.character(idx)
-  hovmoller(SST, contour=FALSE, panel = panel.levelplot.raster,
-            yscale.components = yscale.raster.subticks,
-            interpolate = TRUE, par.settings = RdBuTheme)
+library(zoo)
+
+old <- setwd(tempdir())
+download.file('http://iridl.ldeo.columbia.edu/SOURCES/.CAC/.sst/data.nc', destfile = 'SST.nc')
+SST <- stack('SST.nc')
+idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
+tt <- as.yearmon(idx)
+SST <- setZ(SST, tt)
+names(SST) <- as.character(tt)
+
+## Extract month value from a Date or yearmon object
+month <- function(x)format(x, '%m')
+## Compute anomaly using monthly grouping with ave  
+anomaly <- function(x){
+    ## Monthly means
+    mm <- ave(x, month(tt), FUN = mean)
+    ## Monthly standard deviation
+    msd <- ave(x, month(tt), FUN = sd)
+    ## anomaly
+    (x - mm)/msd
+}
+
+## Use anomaly with calc
+SSTanom <- calc(SST, anomaly)
+SSTanom <- setZ(SSTanom, tt)
+setwd(old)
+
+png(filename="figs/hovmoller.png")
+## Ok, let's see the result
+hovmoller(SSTanom,
+          at = seq(-3, 3, .25),
+          panel = panel.levelplot.raster,
+          interpolate = TRUE,
+          yscale.components = yscale.raster.subticks,
+          par.settings = BuRdTheme)
+
 dev.off()
 
+## #+RESULTS:
 ## [[file:figs/hovmoller.png]]
 
 ## The =horizonplot= and =xyplot= methods also are useful for the space-time =Raster= objects:
 
-pdf(file="figs/horizon.pdf")
-horizonplot(SST)
+png(filename="figs/horizon.png")
+horizonplot(SSTanom,
+            col.regions = rev(brewer.pal(n = 10, 'RdBu')))
 dev.off()
 
 ## Vector field plots

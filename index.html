@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>rasterVis</title>
-<!-- 2014-06-14 sáb 16:24 -->
+<!-- 2015-02-14 sáb 13:29 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Oscar Perpiñán Lamigueiro" />
@@ -57,6 +57,8 @@
   pre.src-sql:before   { content: 'SQL'; }
 
   table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
   td, th { vertical-align:top;  }
   th.right  { text-align: center;  }
   th.left   { text-align: center;   }
@@ -95,7 +97,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012  Free Software Foundation, Inc.
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -178,7 +180,7 @@ plots with <code>histogram</code> and <code>densityplot</code>, violin and boxpl
 <p>
 On the other hand, <code>rasterVis</code> provides three methods to display
 <a href="#spacetime">spatiotemporal rasters</a>: <code>hovmoller</code> produces <a href="http://en.wikipedia.org/wiki/Hovm%25C3%25B6ller_diagram">Hovmöller diagrams</a>,
-<code>horizonplot</code> creates <a href="http://www.perceptualedge.com/blog/?p%3D390">horizon graphs</a>, with many time series displayed
+<code>horizonplot</code> creates <a href="http://www.perceptualedge.com/blog/?p=390">horizon graphs</a>, with many time series displayed
 in parallel, and <code>xyplot</code> displays conventional time series plots
 extracted from a multilayer raster.
 </p>
@@ -230,9 +232,11 @@ devtools::install_github(<span class="org-string">'rasterVis'</span>, <span clas
 </div>
 </div>
 </div>
+
 <div id="outline-container-levelplot" class="outline-2">
 <h2 id="levelplot"><a id="sec-2" name="sec-2"></a>Level plots</h2>
 <div class="outline-text-2" id="text-levelplot">
+
 <p>
 This section discusses how to display quantitative data with
 <code>levelplot</code> with an example using data from the <a href="http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001">CM SAF</a> project, as
@@ -241,23 +245,23 @@ described <a href="http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-sol
 
 <div class="org-src-container">
 
-<pre class="src src-R"><span class="org-constant">library</span>(raster)
-<span class="org-constant">library</span>(rasterVis)
-
-<span class="org-comment-delimiter">##</span><span class="org-comment">Solar irradiation data from CMSAF </span>
-setwd(tempdir())
-download.file(<span class="org-string">'https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip'</span>,
-              <span class="org-string">'SISmm2008_CMSAF.zip'</span>, method=<span class="org-string">'wget'</span>)
-unzip(<span class="org-string">'SISmm2008_CMSAF.zip'</span>)
-
-listFich <span class="org-constant">&lt;-</span> dir(pattern=<span class="org-string">'\.nc'</span>)
-stackSIS <span class="org-constant">&lt;-</span> stack(listFich)
-stackSIS <span class="org-constant">&lt;-</span> stackSIS*24 <span class="org-comment-delimiter">##</span><span class="org-comment">from irradiance (W/m2) to irradiation Wh/m2</span>
-
-idx <span class="org-constant">&lt;-</span> seq(as.Date(<span class="org-string">'2008-01-15'</span>), as.Date(<span class="org-string">'2008-12-15'</span>), <span class="org-string">'month'</span>)
-
-SISmm <span class="org-constant">&lt;-</span> setZ(stackSIS, idx)
-names(SISmm) <span class="org-constant">&lt;-</span> month.abb
+<pre class="src src-R">  <span class="org-constant">library</span>(raster)
+  <span class="org-constant">library</span>(rasterVis)
+  
+  <span class="org-comment-delimiter">##</span><span class="org-comment">Solar irradiation data from CMSAF </span>
+  setwd(tempdir())
+  download.file(<span class="org-string">'https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip'</span>,
+                <span class="org-string">'SISmm2008_CMSAF.zip'</span>, method=<span class="org-string">'wget'</span>)
+  unzip(<span class="org-string">'SISmm2008_CMSAF.zip'</span>)
+  
+  listFich <span class="org-constant">&lt;-</span> dir(pattern=<span class="org-string">'\.nc'</span>)
+  stackSIS <span class="org-constant">&lt;-</span> stack(listFich)
+  stackSIS <span class="org-constant">&lt;-</span> stackSIS*24 <span class="org-comment-delimiter">##</span><span class="org-comment">from irradiance (W/m2) to irradiation Wh/m2</span>
+  
+  idx <span class="org-constant">&lt;-</span> seq(as.Date(<span class="org-string">'2008-01-15'</span>), as.Date(<span class="org-string">'2008-12-15'</span>), <span class="org-string">'month'</span>)
+  
+  SISmm <span class="org-constant">&lt;-</span> setZ(stackSIS, idx)
+  names(SISmm) <span class="org-constant">&lt;-</span> month.abb
 </pre>
 </div>
 
@@ -306,13 +310,13 @@ This information is available at the <a href="http://www.gadm.org/data/shp/ESP_a
 
 <div class="org-src-container">
 
-<pre class="src src-R"><span class="org-constant">library</span>(maptools)
-proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=longlat +ellps=WGS84'</span>)
-<span class="org-comment-delimiter">##</span><span class="org-comment">Change to your folder</span>
-mapaSHP <span class="org-constant">&lt;-</span> readShapeLines(<span class="org-string">'~/Datos/ESP_adm/ESP_adm2.shp'</span>, proj4string=proj)
-
-p <span class="org-constant">&lt;-</span> levelplot(SISmm, layers=1, FUN.margin=median)
-p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span class="org-string">'darkgray'</span>))
+<pre class="src src-R">  <span class="org-constant">library</span>(maptools)
+  proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=longlat +ellps=WGS84'</span>)
+  <span class="org-comment-delimiter">##</span><span class="org-comment">Change to your folder</span>
+  mapaSHP <span class="org-constant">&lt;-</span> readShapeLines(<span class="org-string">'~/Datos/ESP_adm/ESP_adm2.shp'</span>, proj4string=proj)
+  
+  p <span class="org-constant">&lt;-</span> levelplot(SISmm, layers=1, FUN.margin=median)
+  p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span class="org-string">'darkgray'</span>))
 </pre>
 </div>
 
@@ -326,6 +330,7 @@ p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span class="org-string">'darkgray'</sp
 <div id="outline-container-levelplot_logscale" class="outline-3">
 <h3 id="levelplot_logscale"><a id="sec-2-1" name="sec-2-1"></a>Log scale</h3>
 <div class="outline-text-3" id="text-levelplot_logscale">
+
 <p>
 The <code>zscaleLog</code> argument controls whether the object will be log
 transformed before being passed to the panel function.  Defaults to
@@ -351,9 +356,11 @@ levelplot(r^2, zscaleLog=<span class="org-type">TRUE</span>, contour=<span class
 </div>
 </div>
 </div>
+
 <div id="outline-container-themes" class="outline-2">
 <h2 id="themes"><a id="sec-3" name="sec-3"></a>Themes</h2>
 <div class="outline-text-2" id="text-themes">
+
 <p>
 The previous plots used the default theme of rasterVis,
 <code>rasterTheme</code>. This theme defines a sequential palette with yellow,
@@ -438,9 +445,11 @@ levelplot(Aug, par.settings=myTheme)
 </div>
 </div>
 </div>
+
 <div id="outline-container-scatterplot" class="outline-2">
 <h2 id="scatterplot"><a id="sec-4" name="sec-4"></a>Scatterplots and histograms</h2>
 <div class="outline-text-2" id="text-scatterplot">
+
 <p>
 There are methods to show scatter plots and hexbin plots of the layers
 and coordinates of a <code>Raster</code> object:
@@ -448,9 +457,9 @@ and coordinates of a <code>Raster</code> object:
 
 <div class="org-src-container">
 
-<pre class="src src-R"><span class="org-comment-delimiter">##</span><span class="org-comment">Relation between the January &amp; February versus July radiation for four</span>
-<span class="org-comment-delimiter">##</span><span class="org-comment">differents longitude regions.</span>
-xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space=<span class="org-string">'right'</span>))
+<pre class="src src-R">  <span class="org-comment-delimiter">##</span><span class="org-comment">Relation between the January &amp; February versus July radiation for four</span>
+  <span class="org-comment-delimiter">##</span><span class="org-comment">differents longitude regions.</span>
+  xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space=<span class="org-string">'right'</span>))
 </pre>
 </div>
 
@@ -462,8 +471,8 @@ xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space=<span class="org-s
 
 <div class="org-src-container">
 
-<pre class="src src-R"><span class="org-comment-delimiter">##</span><span class="org-comment">Faster with hexbinplot</span>
-hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
+<pre class="src src-R">  <span class="org-comment-delimiter">##</span><span class="org-comment">Faster with hexbinplot</span>
+  hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
 </pre>
 </div>
 
@@ -548,9 +557,11 @@ variable of the plot:
 </div>
 </div>
 </div>
+
 <div id="outline-container-spacetime" class="outline-2">
 <h2 id="spacetime"><a id="sec-5" name="sec-5"></a>Space-time plots</h2>
 <div class="outline-text-2" id="text-spacetime">
+
 <p>
 The <code>z</code> slot of this <code>Raster</code> object stores a time index. This 3D
 space-time <code>Raster</code> object can be displayed with a <a href="http://en.wikipedia.org/wiki/Hovmoller_diagram">hovmoller diagram</a>.
@@ -571,31 +582,49 @@ dirXY
 </div>
 
 <p>
-For example, the next code builds a hovmoller diagram showing the
-time evolution of the mean value along the latitude using data
-from the book &ldquo;<a href="http://eu.wiley.com/WileyCDA/WileyTitle/productCd-EHEP002348.html">Statistics for Spatio-Temporal Data</a>&rdquo;:
+For example, the next code builds a hovmoller diagram showing the time evolution of the anomalies of Sea Surface Temperature data available from the Climate Analysis Center (<a href="http://iridl.ldeo.columbia.edu/SOURCES/.CAC/">more information here</a>):
 </p>
 
 <div class="org-src-container">
 
 <pre class="src src-R"><span class="org-constant">library</span>(zoo)
 
-url <span class="org-constant">&lt;-</span> <span class="org-string">"ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"</span>
-sst.dat = read.table(paste(url, <span class="org-string">"SST011970_032003.dat"</span>, sep=<span class="org-string">''</span>), header = <span class="org-type">FALSE</span>) 
-sst.ll = read.table(paste(url, <span class="org-string">"SSTlonlat.dat"</span>, sep=<span class="org-string">''</span>), header = <span class="org-type">FALSE</span>)
-
-spSST <span class="org-constant">&lt;-</span> SpatialPointsDataFrame(sst.ll, sst.dat)
-gridded(spSST) <span class="org-constant">&lt;-</span> <span class="org-type">TRUE</span>
-proj4string(spSST) = <span class="org-string">"+proj=longlat +datum=WGS84"</span>
-SST <span class="org-constant">&lt;-</span> brick(spSST)
-
+old <span class="org-constant">&lt;-</span> setwd(tempdir())
+download.file(<span class="org-string">'http://iridl.ldeo.columbia.edu/SOURCES/.CAC/.sst/data.nc'</span>, destfile = <span class="org-string">'SST.nc'</span>)
+SST <span class="org-constant">&lt;-</span> stack(<span class="org-string">'SST.nc'</span>)
 idx <span class="org-constant">&lt;-</span> seq(as.Date(<span class="org-string">'1970-01-01'</span>), as.Date(<span class="org-string">'2003-03-01'</span>), by=<span class="org-string">'month'</span>)
-idx <span class="org-constant">&lt;-</span> as.yearmon(idx)
-SST <span class="org-constant">&lt;-</span> setZ(SST, idx)
-names(SST) <span class="org-constant">&lt;-</span> as.character(idx)
-hovmoller(SST, contour=<span class="org-type">FALSE</span>, panel = panel.levelplot.raster,
+tt <span class="org-constant">&lt;-</span> as.yearmon(idx)
+SST <span class="org-constant">&lt;-</span> setZ(SST, tt)
+names(SST) <span class="org-constant">&lt;-</span> as.character(tt)
+
+<span class="org-comment-delimiter">## </span><span class="org-comment">Extract month value from a Date or yearmon object</span>
+<span class="org-function-name">month</span> <span class="org-constant">&lt;-</span> <span class="org-keyword">function</span>(x)format(x, <span class="org-string">'%m'</span>)
+<span class="org-comment-delimiter">## </span><span class="org-comment">Compute anomaly using monthly grouping with ave  </span>
+<span class="org-function-name">anomaly</span> <span class="org-constant">&lt;-</span> <span class="org-keyword">function</span>(x){
+    <span class="org-comment-delimiter">## </span><span class="org-comment">Monthly means</span>
+    mm <span class="org-constant">&lt;-</span> ave(x, month(tt), FUN = mean)
+    <span class="org-comment-delimiter">## </span><span class="org-comment">Monthly standard deviation</span>
+    msd <span class="org-constant">&lt;-</span> ave(x, month(tt), FUN = sd)
+    <span class="org-comment-delimiter">## </span><span class="org-comment">anomaly</span>
+    (x - mm)/msd
+}
+
+<span class="org-comment-delimiter">## </span><span class="org-comment">Use anomaly with calc</span>
+SSTanom <span class="org-constant">&lt;-</span> calc(SST, anomaly)
+SSTanom <span class="org-constant">&lt;-</span> setZ(SSTanom, tt)
+setwd(old)
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span class="org-comment-delimiter">## </span><span class="org-comment">Ok, let's see the result</span>
+hovmoller(SSTanom,
+          at = seq(-3, 3, .25),
+          panel = panel.levelplot.raster,
+          interpolate = <span class="org-type">TRUE</span>,
           yscale.components = yscale.raster.subticks,
-          interpolate = <span class="org-type">TRUE</span>, par.settings = RdBuTheme)
+          par.settings = BuRdTheme)
 </pre>
 </div>
 
@@ -611,7 +640,8 @@ The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for
 
 <div class="org-src-container">
 
-<pre class="src src-R">horizonplot(SST)
+<pre class="src src-R">horizonplot(SSTanom,
+            col.regions = rev(brewer.pal(n = 10, <span class="org-string">'RdBu'</span>)))
 </pre>
 </div>
 
@@ -622,9 +652,11 @@ The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for
 </div>
 </div>
 </div>
+
 <div id="outline-container-vectorplot" class="outline-2">
 <h2 id="vectorplot"><a id="sec-6" name="sec-6"></a>Vector field plots</h2>
 <div class="outline-text-2" id="text-vectorplot">
+
 <p>
 The function <code>terrain</code> from <code>raster</code> provides the vector field
 (gradient) from a scalar field stored in a <code>RasterLayer</code> object. The
@@ -639,18 +671,17 @@ this vector field.
 
 <div class="org-src-container">
 
-<pre class="src src-R">proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=longlat +datum=WGS84'</span>)
-df <span class="org-constant">&lt;-</span> expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
-
-df$z <span class="org-constant">&lt;-</span> with(df, (3*x^2 + y)*exp(-x^2-y^2))
-r <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
+<pre class="src src-R">  proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=longlat +datum=WGS84'</span>)
+  df <span class="org-constant">&lt;-</span> expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
+  
+  df$z <span class="org-constant">&lt;-</span> with(df, (3*x^2 + y)*exp(-x^2-y^2))
+  r <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
 </pre>
 </div>
 
-
 <div class="org-src-container">
 
-<pre class="src src-R">vectorplot(r, par.settings=RdBuTheme())
+<pre class="src src-R">  vectorplot(r, par.settings=RdBuTheme())
 </pre>
 </div>
 
@@ -684,7 +715,7 @@ positions and color degradation encode the local vector direction
 
 <div class="org-src-container">
 
-<pre class="src src-R">streamplot(r)
+<pre class="src src-R">  streamplot(r)
 </pre>
 </div>
 
@@ -705,12 +736,12 @@ options can be changed easily:
 
 <div class="org-src-container">
 
-<pre class="src src-R">df$z <span class="org-constant">&lt;-</span> with(df, sqrt(x^2 + y^2))
-df$phi <span class="org-constant">&lt;-</span> with(df, atan2(-y, x))
-r2 <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
-
-streamplot(r2, isField=<span class="org-type">TRUE</span>, streamlet=list(L=30), droplet=list(pc=.3),
-           par.settings=streamTheme(symbol=brewer.pal(n=5, name=<span class="org-string">'Reds'</span>)))
+<pre class="src src-R">  df$z <span class="org-constant">&lt;-</span> with(df, sqrt(x^2 + y^2))
+  df$phi <span class="org-constant">&lt;-</span> with(df, atan2(-y, x))
+  r2 <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
+  
+  streamplot(r2, isField=<span class="org-type">TRUE</span>, streamlet=list(L=30), droplet=list(pc=.3),
+             par.settings=streamTheme(symbol=brewer.pal(n=5, name=<span class="org-string">'Reds'</span>)))
 </pre>
 </div>
 
@@ -721,9 +752,11 @@ streamplot(r2, isField=<span class="org-type">TRUE</span>, streamlet=list(L=30),
 </div>
 </div>
 </div>
+
 <div id="outline-container-interaction" class="outline-2">
 <h2 id="interaction"><a id="sec-7" name="sec-7"></a>Interaction</h2>
 <div class="outline-text-2" id="text-interaction">
+
 <p>
 This package includes two functions to interact with the <code>trellis</code> objects. 
 </p>
