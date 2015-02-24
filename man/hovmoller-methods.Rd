@@ -44,9 +44,8 @@ for a variety of diagrams with this method.
 \keyword{methods}
 \references{\itemize{
     \item{Hovmoller, E. 1949. The trough and ridge diagram. Tellus 1, 62–66.}
-  \item{\url{http://www.mmm.ucar.edu/episodes/Hovmoller/noJS/hovm200707.htm}}
-  \item{\url{http://www.star.nesdis.noaa.gov/sod/sst/squam/L4/l4_delsst_hovmoller.htm}}
-  \item{\url{http://www.esrl.noaa.gov/psd/map/clim/sst.shtml}}
+    \item{\url{http://www2.mmm.ucar.edu/episodes/Hovmoller/noJS/hovm200707.htm}}
+    \item{\url{http://www.esrl.noaa.gov/psd/map/clim/sst.shtml}}
 }
 }
 
