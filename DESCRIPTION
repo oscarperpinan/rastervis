@@ -1,11 +1,11 @@
 Package: rasterVis
 Type: Package
-Title: Visualization methods for the raster package
+Title: Visualization Methods for Raster Data
 Version: 0.35
-Date: 2015-01-26
+Date: 2015-02-24
 Encoding: UTF-8
 Authors@R: c(person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@gmail.com", role=c('cre', 'aut')), person("Robert", "Hijmans", email= "r.hijmans@gmail.com", role='aut'))
-Description: The raster package defines classes and methods for spatial raster data access and manipulation. The rasterVis package complements raster providing a set of methods for enhanced visualization and interaction.
+Description: Methods for enhanced visualization and interaction with raster data. It implements visualization methods for quantitative data and categorical data, both for univariate and multivariate rasters. It also provides methods to display spatiotemporal rasters, and vector fields. See the website for examples.
 URL: http://oscarperpinan.github.io/rastervis
 BugReports: https://github.com/oscarperpinan/rastervis/issues
 License: GPL-3
