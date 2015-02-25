@@ -46,18 +46,17 @@ setMethod('levelplot',
                   } else {
                       rat <- as.data.frame(rat[[1]])
                       ratID <- rat$ID
-                      nLevels <- length(ratID)
                       ## choose which level to use for the legend
                       if (is.numeric(att)) att = att + 1
-                      ratLevels <- rat[, att]
+                      ratLevels <- factor(rat[, att])
                   }
                   ## Use factor index (position) instead of code (ratID)
-                  dat <- match(objectSample, ratID)
-                  dat <- as.data.frame(getValues(dat))
+                  idxLevels <- as.numeric(ratLevels)
+                  idxRaster <- subs(objectSample, data.frame(ratID, idxLevels))
+                  dat <- as.data.frame(idxRaster)
                   names(dat) <- names(object)
 
                   xy <- xyFromCell(objectSample, 1:ncell(objectSample))
-
                   df <- cbind(xy, dat)
               } else {
                   ## Convert to a data.frame for conventional levelplot
@@ -152,16 +151,19 @@ setMethod('levelplot',
               }
            
               if (isFactor) {
+                  labs <- levels(ratLevels)
+                  nLabs <- nlevels(ratLevels)
                   ## define the breaks
-                  my.at <- seq(0.5, nLevels + 0.5,
-                               length = nLevels + 1)
+                  my.at <- seq(0.5, nLabs + 0.5,
+                               length = nLabs + 1)
                   ## the labels will be placed vertically centered
-                  my.labs.at <- seq_len(nLevels)
+                  my.labs.at <- seq_len(nLabs)
+
                   colorkey.default <- modifyList(colorkey.default,
                                                  list(
                                                      at = my.at,
-                                                     height = min(1, 0.05*nLevels),
-                                                     labels = list(labels=ratLevels,
+                                                     height = min(1, 0.05*nLabs),
+                                                     labels = list(labels = labs,
                                                          at=my.labs.at))
                                                  )
               }
