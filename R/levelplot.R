@@ -84,6 +84,8 @@ setMethod('levelplot',
                       zscale.components <- zscale.components.logpower
                   }
                   dat <- log(dat, zlogbase)
+                  ## Update the data content of the original data.frame
+                  df[, -c(1, 2)] <- dat
               }
               ## Calculate the range (for zscale.components)
               zlim <- extendrange(dat,
@@ -228,8 +230,6 @@ setMethod('levelplot',
               ## Build the formula for levelplot
               form <- as.formula(paste(paste(names(object), collapse='+'), 'x*y', sep='~'))
 
-              ## Update the data content of the original data.frame
-              df[, -c(1, 2)] <- dat
 
               ## For each layer: is the raster completely filled with
               ## NA?  If the object is a multilayer Raster and there
