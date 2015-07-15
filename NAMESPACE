@@ -1,48 +1,55 @@
-import(methods)
+import("methods")
 
-import(grDevices)##needed by RColorBrewer
-importFrom(RColorBrewer, brewer.pal)
+importFrom("stats",
+           "as.formula",
+           "reorder")
+importFrom("utils",
+           "modifyList")
 
-importFrom(grid,
-           gpar,
-           viewport,
-           polygonGrob,
-           linesGrob, segmentsGrob, textGrob,
-           grid.layout, frameGrob, placeGrob,
-           grid.locator, arrow,
-           convertX, convertY,
-           unit)
+import("grDevices")##needed by RColorBrewer
+importFrom("RColorBrewer",
+           "brewer.pal")
 
-import(lattice)
+importFrom("grid",
+           "gpar",
+           "viewport",
+           "polygonGrob",
+           "linesGrob", "segmentsGrob", "textGrob",
+           "grid.layout", "frameGrob", "placeGrob",
+           "grid.locator", "arrow",
+           "convertX", "convertY",
+           "unit")
 
-importFrom(latticeExtra,
-           horizonplot,
-           layer, glayer,
-           custom.theme,
-           custom.theme.2,
-           xscale.components.subticks,
-           yscale.components.subticks
+import("lattice")
+
+importFrom("latticeExtra",
+           "horizonplot",
+           "layer", "glayer",
+           "custom.theme",
+           "custom.theme.2",
+           "xscale.components.subticks",
+           "yscale.components.subticks"
            )
 
-importFrom(hexbin,
-           BTC,
-           panel.hexbinplot,
-           hexbinplot)
+importFrom("hexbin",
+           "BTC",
+           "panel.hexbinplot",
+           "hexbinplot")
 
 
-importClassesFrom(sp, SpatialPoints)
-importFrom(sp,
-           SpatialPoints,
-           degreeLabelsNS,
-           degreeLabelsEW,
-           CRS,
-           point.in.polygon)
+importClassesFrom("sp", "SpatialPoints")
+importFrom("sp",
+           "SpatialPoints",
+           "degreeLabelsNS",
+           "degreeLabelsEW",
+           "CRS",
+           "point.in.polygon")
 
-importFrom(zoo,
-           zoo)##,
+importFrom("zoo",
+           "zoo")##,
            ##xyplot)
 
-import(raster)
+import("raster")
 
 export(
   'chooseRegion',
