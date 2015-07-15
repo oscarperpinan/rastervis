@@ -130,7 +130,7 @@ setMethod('streamplot',
             ## Forking does not work with Windows
             if (.Platform$OS.type == "windows" & is.null(cl)) parallel <- FALSE
 
-            if (parallel && require(parallel)) {
+            if (isTRUE(parallel)) {
               if (!is.null(cl)) { ## parallel with a cluster
                 streamList <- parLapply(cl, pts, streamLine, h=h, L=L,
                                         pal=pars$col, cex=pars$cex)

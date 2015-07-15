@@ -12,20 +12,23 @@ if (!isGeneric("gplot")) {
 
 setMethod("gplot", signature(x='Raster'), 
           function(x, maxpixels=50000, ...)  {
-            stopifnot(require(ggplot2))
-            nl <- nlayers(x)
-            if (ncell(x) > maxpixels) {
-              x <- sampleRegular(x, maxpixels, asRaster=TRUE)
-            }
+              if (requireNamespace("ggplot2", quietly = TRUE))
+              {
+                  nl <- nlayers(x)
+                  if (ncell(x) > maxpixels) {
+                      x <- sampleRegular(x, maxpixels, asRaster=TRUE)
+                  }
+                  
+                  coords <- xyFromCell(x, seq_len(ncell(x)))
+                  ## Extract values 
+                  dat <- stack(as.data.frame(getValues(x)))
+                  names(dat) <- c('value', 'variable')
+                  
+                  dat <- cbind(coords, dat)
 
-            coords <- xyFromCell(x, seq_len(ncell(x)))
-            ## Extract values 
-            dat <- stack(as.data.frame(getValues(x)))
-            names(dat) <- c('value', 'variable')
-
-            dat <- cbind(coords, dat)
-
-            ggplot(aes(x=x, y=y), data=dat, ...) 
+                  ggplot2::ggplot(ggplot2::aes(x=x, y=y),
+                                  data=dat, ...)
+              } else stop("ggplot2 is required for the gplot method.")
           }
           )
 

@@ -11,5 +11,5 @@ BugReports: https://github.com/oscarperpinan/rastervis/issues
 License: GPL-3
 LazyLoad: yes
 Depends: R (>= 2.14.0), methods, raster (>= 2.0-12), lattice, latticeExtra
-Imports: grid, grDevices, stats, utils, sp (>= 1.0-6), zoo, hexbin, RColorBrewer
-Suggests: parallel, rgl, ggplot2, colorspace, dichromat
+Imports: stats, utils, parallel, grid, grDevices, RColorBrewer, hexbin, sp (>= 1.0-6), zoo, 
+Suggests: rgl, ggplot2, colorspace, dichromat

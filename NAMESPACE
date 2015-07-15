@@ -3,10 +3,17 @@ import("methods")
 importFrom("stats",
            "as.formula",
            "reorder")
+
 importFrom("utils",
            "modifyList")
 
+importFrom("parallel",
+           "mclapply",
+           "parLapply",
+           "detectCores")
+
 import("grDevices")##needed by RColorBrewer
+
 importFrom("RColorBrewer",
            "brewer.pal")
 
@@ -24,6 +31,7 @@ import("lattice")
 
 importFrom("latticeExtra",
            "horizonplot",
+           "xyplot.list",
            "layer", "glayer",
            "custom.theme",
            "custom.theme.2",
@@ -40,8 +48,10 @@ importFrom("hexbin",
 importClassesFrom("sp", "SpatialPoints")
 importFrom("sp",
            "SpatialPoints",
+           "SpatialPointsDataFrame",
            "degreeLabelsNS",
            "degreeLabelsEW",
+           "coordinates",
            "CRS",
            "point.in.polygon")
 
