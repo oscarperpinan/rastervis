@@ -57,7 +57,7 @@ download.file('https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SI
    'SISmm2008_CMSAF.zip', method='wget')
 unzip('SISmm2008_CMSAF.zip')
 
-listFich <- dir(pattern='\\.nc')
+listFich <- dir(pattern='\\\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 
@@ -96,7 +96,7 @@ SST <- setZ(SST, tt)
 names(SST) <- as.character(tt)
 
 ## Extract month value from a Date or yearmon object
-month <- function(x)format(x, '%m')
+month <- function(x)format(x, '\%m')
 ## Compute anomaly using monthly grouping with ave  
 anomaly <- function(x){
     ## Monthly means
