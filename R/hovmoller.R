@@ -1,3 +1,5 @@
+globalVariables('y')
+
 ##Create a Layer from a custom function of the coordinates
 xyLayer <- function(object, dirXY=y){
   y <- init(object, v='y')

@@ -1,3 +1,5 @@
+globalVariables('group.value')
+
 ##xyplot for directions created with xyLayer
 setGeneric('xyplot')
 

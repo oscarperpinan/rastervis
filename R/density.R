@@ -1,3 +1,5 @@
+globalVariables('ind')
+
 setGeneric('densityplot')
 
 setMethod('densityplot',
