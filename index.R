@@ -141,6 +141,38 @@ myTheme <- rasterTheme(region=dichromat(terrain.colors(15)))
 levelplot(Aug, par.settings=myTheme)
 dev.off()
 
+## Categorical data
+## A raster that contains categorical data can be defined with the =ratify= function.
+
+     ## Categorical data
+     r <- raster(nrow=10, ncol=10)
+     r[] = 1
+     r[51:100] = 3
+     r[3:6, 1:5] = 5
+     r <- ratify(r)
+
+## The levels are stored in the "Raster Attribute Table" (RAT) that can be manipulated with the =levels= function:
+
+     rat <- levels(r)[[1]]
+     rat$landcover <- c('Pine', 'Oak', 'Meadow')
+     rat$class <- c('A1', 'B2', 'C3')
+     levels(r) <- rat
+
+## Such type of rasters are easily displayed with =levelplot=:
+
+png(filename="figs/levels.png")
+     levelplot(r, col.regions=c('palegreen', 'midnightblue', 'indianred1'))
+dev.off()
+
+## #+RESULTS:
+## [[file:figs/levels.png]]
+
+## There is the =att= argument to choose the variable (column) from the RAT:
+
+png(filename="figs/levelsAtt.png")
+     levelplot(r, att='class', col.regions=c('palegreen', 'midnightblue', 'indianred1'))
+dev.off()
+
 ## Scatterplots and histograms
 ##   :PROPERTIES:
 ##   :CUSTOM_ID: scatterplot
