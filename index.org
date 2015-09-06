@@ -114,10 +114,10 @@ levelplot(SISmm)
 
 If only one layer is chosen, this method displays [[http://stackoverflow.com/a/18594679/964866][two marginal plots]],
 the row and column summaries of the =RasterLayer=, computed with the
-function defined by =FUN.margin= (which uses =mean= as default value):
+function defined by the component =FUN= of the list =margin= (which uses =mean= as default value):
 
 #+begin_src R :results output graphics :exports both :file "figs/levelplot_layer1.png"
-levelplot(SISmm, layers=1, FUN.margin=median, contour=TRUE)
+levelplot(SISmm, layers=1, margin = list(FUN = 'median'), contour=TRUE)
 #+end_src
 
 [[file:figs/levelplot_layer1.png]]
@@ -132,7 +132,7 @@ This information is available at the [[http://www.gadm.org/data/shp/ESP_adm.zip]
   ##Change to your folder
   mapaSHP <- readShapeLines('~/Datos/ESP_adm/ESP_adm2.shp', proj4string=proj)
   
-  p <- levelplot(SISmm, layers=1, FUN.margin=median)
+  p <- levelplot(SISmm, layers=1, margin = list(FUN = median))
   p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
 #+end_src
 

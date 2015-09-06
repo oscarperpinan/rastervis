@@ -53,10 +53,10 @@ dev.off()
 
 ## If only one layer is chosen, this method displays [[http://stackoverflow.com/a/18594679/964866][two marginal plots]],
 ## the row and column summaries of the =RasterLayer=, computed with the
-## function defined by =FUN.margin= (which uses =mean= as default value):
+## function defined by the component =FUN= of the list =margin= (which uses =mean= as default value):
 
 png(filename="figs/levelplot_layer1.png")
-levelplot(SISmm, layers=1, FUN.margin=median, contour=TRUE)
+levelplot(SISmm, layers=1, margin = list(FUN = 'median'), contour=TRUE)
 dev.off()
 
 ## [[file:figs/levelplot_layer1.png]]
@@ -71,7 +71,7 @@ png(filename="figs/levelplot_layer_borders.png")
   ##Change to your folder
   mapaSHP <- readShapeLines('~/Datos/ESP_adm/ESP_adm2.shp', proj4string=proj)
   
-  p <- levelplot(SISmm, layers=1, FUN.margin=median)
+  p <- levelplot(SISmm, layers=1, margin = list(FUN = median))
   p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
 dev.off()
 
@@ -245,7 +245,7 @@ SSTanom <- calc(SST, anomaly)
 SSTanom <- setZ(SSTanom, tt)
 setwd(old)
 
-png(filename="figs/hovmoller.png")
+png(filename="figs/hovmoller.png",res=300,height=2000,width=2000)
 ## Ok, let's see the result
 hovmoller(SSTanom,
           at = seq(-3, 3, .25),
@@ -261,7 +261,7 @@ dev.off()
 
 ## The =horizonplot= and =xyplot= methods also are useful for the space-time =Raster= objects:
 
-png(filename="figs/horizon.png")
+png(filename="figs/horizon.png",res=300,height=2000,width=2000)
 horizonplot(SSTanom,
             col.regions = rev(brewer.pal(n = 10, 'RdBu')))
 dev.off()
@@ -287,7 +287,7 @@ dev.off()
 
 ## #+RESULTS:
 
-png(filename="figs/vectorplot.png")
+png(filename="figs/vectorplot.png",res=300,height=2000,width=2000)
   vectorplot(r, par.settings=RdBuTheme())
 dev.off()
 

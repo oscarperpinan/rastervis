@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>rasterVis</title>
-<!-- 2015-02-14 sáb 13:29 -->
+<!-- 2015-09-06 dom 12:44 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="Oscar Perpiñán Lamigueiro" />
@@ -287,12 +287,12 @@ technique</a>.
 <p>
 If only one layer is chosen, this method displays <a href="http://stackoverflow.com/a/18594679/964866">two marginal plots</a>,
 the row and column summaries of the <code>RasterLayer</code>, computed with the
-function defined by <code>FUN.margin</code> (which uses <code>mean</code> as default value):
+function defined by the component <code>FUN</code> of the list <code>margin</code> (which uses <code>mean</code> as default value):
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-R">levelplot(SISmm, layers=1, FUN.margin=median, contour=<span class="org-type">TRUE</span>)
+<pre class="src src-R">levelplot(SISmm, layers=1, margin = list(FUN = <span class="org-string">'median'</span>), contour=<span class="org-type">TRUE</span>)
 </pre>
 </div>
 
@@ -315,7 +315,7 @@ This information is available at the <a href="http://www.gadm.org/data/shp/ESP_a
   <span class="org-comment-delimiter">##</span><span class="org-comment">Change to your folder</span>
   mapaSHP <span class="org-constant">&lt;-</span> readShapeLines(<span class="org-string">'~/Datos/ESP_adm/ESP_adm2.shp'</span>, proj4string=proj)
   
-  p <span class="org-constant">&lt;-</span> levelplot(SISmm, layers=1, FUN.margin=median)
+  p <span class="org-constant">&lt;-</span> levelplot(SISmm, layers=1, margin = list(FUN = median))
   p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span class="org-string">'darkgray'</span>))
 </pre>
 </div>
