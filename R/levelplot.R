@@ -31,6 +31,7 @@ setMethod('levelplot',
               objectSample <- sampleRegular(object, size=maxpixels,
                                             asRaster=TRUE)
 
+
               ## Is factor?
               factorLayers <- is.factor(object)
               isFactor <- all(factorLayers)
@@ -52,7 +53,8 @@ setMethod('levelplot',
                   }
                   ## Use factor index (position) instead of code (ratID)
                   idxLevels <- as.numeric(ratLevels)
-                  idxRaster <- subs(objectSample, data.frame(ratID, idxLevels))
+                  idxRaster <- subs(objectSample,
+                                    data.frame(ratID, idxLevels))
                   dat <- as.data.frame(idxRaster)
                   names(dat) <- names(object)
 
@@ -63,7 +65,7 @@ setMethod('levelplot',
                   df <- as.data.frame(objectSample, xy=TRUE)
                   dat <- df[, -c(1, 2)]
               }
-
+
               ## If zscaleLog is not NULL, transform the values and
               ## choose a function to calculate the labels
               if (identical(FALSE, zscaleLog)) zscaleLog <- NULL
@@ -90,8 +92,7 @@ setMethod('levelplot',
               ## Calculate the range (for zscale.components)
               zlim <- extendrange(dat,
                                   f=lattice.getOption("axis.padding")$numeric)
-
-
+
               ##aspect and scales(from sp::spplot.grid,
               ##sp::longlat.scales, sp::mapasp)
               bb <- extent(object)
@@ -102,23 +103,29 @@ setMethod('levelplot',
 
                   aspect=(diff(ylim)/diff(xlim))/cos((mean(ylim) * pi)/180)
 
-                  xscale.components <- if (identical(xscale.components, xscale.raster))
-                      xscale.raster.EW
-                  else if (identical(xscale.components, xscale.raster.subticks))
-                      xscale.raster.EWsubticks
-                  else xscale.components
-
-                  yscale.components <- if (identical(yscale.components, yscale.raster))
-                      yscale.raster.NS
-                  else if (identical(yscale.components, yscale.raster.subticks))
-                      yscale.raster.NSsubticks
+                  xscale.components <-
+                      if (identical(xscale.components,
+                                    xscale.raster))
+                          xscale.raster.EW
+                      else if (identical(xscale.components,
+                                         xscale.raster.subticks))
+                          xscale.raster.EWsubticks
+                      else xscale.components
+                  yscale.components <-
+                      if (identical(yscale.components,
+                                    yscale.raster))
+                          yscale.raster.NS
+                      else if (identical(yscale.components,
+                                         yscale.raster.subticks))
+                          yscale.raster.NSsubticks
                   else yscale.components
 
               } else { ## !isLonLat
                   aspect='iso'
               }
-                            
-              if (region==FALSE) colorkey=FALSE
+
+              ## Colorkey 
+              if (region==FALSE) colorkey <- FALSE
 
               colorkey.default <- list(space = 'right')
               if (isTRUE(colorkey)) {
@@ -128,30 +135,16 @@ setMethod('levelplot',
                   has.colorkey <- is.list(colorkey)
               }
 
-              has.margin <- (nlayers(object)==1 && margin)
-              
-              ## Build the zscale.components and colorkey paying attention to zscaleLog
+              ## Build the zscale.components and colorkey paying
+              ## attention to zscaleLog
               if (!is.null(zscaleLog) && !isFactor){
                   zscale <- zscale.components(zlim, zlogbase)
                   colorkey.default = modifyList(colorkey.default,
-                      list(labels = zscale, raster = TRUE, interpolate = TRUE))
+                      list(labels = zscale,
+                           raster = TRUE,
+                           interpolate = TRUE))
               }
-
-              ## Some fixes for the margin
-              if (has.margin){
-                  if (is.function(par.settings)) par.settings <- par.settings()
-                  par.settings = modifyList(par.settings,
-                      list(
-                          layout.widths = list(right.padding = 10),
-                          layout.heights = list(top.padding = 10,
-                              xlab.key.padding = 3)))
-                  
-                  ## put the colorkey at the bottom to leave space for the margin
-                  if (has.colorkey) {
-                      colorkey = modifyList(colorkey, list(space='bottom'))
-                  } else colorkey = FALSE
-              }
-           
+              ## Factor variables need special colorkey
               if (isFactor) {
                   labs <- levels(ratLevels)
                   nLabs <- nlevels(ratLevels)
@@ -169,7 +162,6 @@ setMethod('levelplot',
                                                          at=my.labs.at))
                                                  )
               }
-
               ## Finally construct colorkey with user definition
               ## (colorkey) and defaults defined by zscale, and
               ## isFactor
@@ -180,24 +172,53 @@ setMethod('levelplot',
                       colorkey = modifyList(colorkey.default, colorkey)
                   }
               }
-
-              ## Which panel did the user requested? (panel.levelplot or panel.levelplot.raster)
+
+              ## Some fixes for the margin
+              has.margin <- (nlayers(object)==1 && margin)
+              if (has.margin){
+                  if (is.function(par.settings))
+                      par.settings <- par.settings()
+                  par.settings = modifyList(par.settings,
+                      list(
+                          layout.widths = list(right.padding = 10),
+                          layout.heights = list(top.padding = 10,
+                              xlab.key.padding = 3)))
+                  
+                  ## put the colorkey at the bottom to leave space for
+                  ## the margin
+                  if (has.colorkey) {
+                      colorkey = modifyList(colorkey,
+                          list(space='bottom'))
+                  } else colorkey = FALSE
+              }
+
+              ## Which panel did the user requested? (panel.levelplot
+              ## or panel.levelplot.raster)
               requestedPanel <- panel
 
               ## Build a custom panel useful for zscaleLog with contour
               panelMixed <- function(...,
                                      contour, region,
-                                     at, labels, levelPanel=requestedPanel,
-                                     lwd=c(1, 0.4) # Two line widths, for main and minor contour lines
+                                     at, labels,
+                                     levelPanel=requestedPanel,
+                                     lwd=c(1, 0.4) # Two line widths,
+                                                   # for main and
+                                                   # minor contour
+                                                   # lines
                                      ){
-                  ##Draw the regions with the panel requested by the user
-                  if (region) levelPanel(..., at=at, contour=FALSE, labels=FALSE)
-                  has.labels <- (is.logical(labels) && labels) || is.list(labels)
+                  ##Draw the regions with the panel requested by the
+                  ##user
+                  if (region) levelPanel(..., at=at,
+                                         contour=FALSE, labels=FALSE)
+                  has.labels <- (is.logical(labels) &&
+                                     labels) ||
+                                         is.list(labels)
                   mainTicks=(as.character(zscale$labels)!=FALSE)
-                  mainLabels <- list(labels=zscale$labels[mainTicks], cex=0.8)
+                  mainLabels <- list(labels=zscale$labels[mainTicks],
+                                     cex=0.8)
                   minorTicks=!mainTicks
-                  ## Contour lines for main divisions (log10Ticks or logpower)
-                  ## Their width is lwd[1]
+                  ## Contour lines for main divisions (log10Ticks or
+                  ## logpower) Their width is lwd[1]
                   panel.contourplot(...,
                                     at=zscale$at[mainTicks], lwd=lwd[1],
                                     labels=if (has.labels) {
@@ -207,18 +228,22 @@ setMethod('levelplot',
                   ## Contour lines for minor divisions (only log10Ticks)
                   if (any(minorTicks)) {
                       panel.contourplot(...,
-                                        at=zscale$at[minorTicks], lwd=lwd[2],
+                                        at=zscale$at[minorTicks],
+                                        lwd=lwd[2],
                                         region=FALSE, contour=TRUE)
                   }
               }
 
-              ## Finally, the panel function depends on zscaleLog and contour
-              panel <- if (!is.null(zscaleLog) && isTRUE(contour) && !isFactor) {
+              ## Finally, the panel function depends on zscaleLog and
+              ## contour
+              panel <- if (!is.null(zscaleLog) &&
+                           isTRUE(contour) &&
+                           !isFactor) {
                   panelMixed
               } else {
                   requestedPanel
               }
-              
+
               ## Names of each panel
               if (missing(names.attr)){
                   names.attr <- names(object)
@@ -228,9 +253,11 @@ setMethod('levelplot',
                       stop('Length of names.attr should match number of layers.')
               }
               ## Build the formula for levelplot
-              form <- as.formula(paste(paste(names(object), collapse='+'), 'x*y', sep='~'))
+              form <- as.formula(paste(paste(names(object),
+                                             collapse='+'),
+                                       'x*y', sep='~'))
 
-
+
               ## For each layer: is the raster completely filled with
               ## NA?  If the object is a multilayer Raster and there
               ## is at least one layer that with non-missing values,
@@ -243,7 +270,7 @@ setMethod('levelplot',
                   margin <- FALSE
                   pretty <-  TRUE
               }
-
+
               ## And finally, the levelplot call
               p <- levelplot(form, data = df,
                              scales = scales,
@@ -255,25 +282,30 @@ setMethod('levelplot',
                              xscale.components = xscale.components,
                              yscale.components = yscale.components,
                              colorkey = colorkey,
-                             contour = contour, region = region, labels = labels,
+                             contour = contour, region = region,
+                             labels = labels,
                              strip = strip.custom(factor.levels = names.attr),
                              panel = panel, pretty = pretty, ...)
+
+
               ## panel.levelplot uses level.colors to encode values
               ## with colors. It does not work properly with
               ## categorical data and col.regions
               if (isFactor) p <- update(p, at = my.at)
-
+
               ## Plot the margins if required
               if (nlayers(object)==1 && margin) {
                   marginsLegend <- list(right=list(
                                             fun=legendGeneric,
-                                            args=list(p, FUN = FUN.margin,
+                                            args=list(p,
+                                                FUN = FUN.margin,
                                                 scaleAxis = scales.margin$y,
                                                 axis.margin = axis.margin,
                                                 side = 'y')),
                                         top=list(
                                             fun=legendGeneric,
-                                            args=list(p, FUN=FUN.margin,
+                                            args=list(p,
+                                                FUN=FUN.margin,
                                                 scaleAxis = scales.margin$x,
                                                 axis.margin = axis.margin,
                                                 side = 'x'))
