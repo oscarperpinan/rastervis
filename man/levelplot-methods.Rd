@@ -10,24 +10,26 @@
   and marginal plots with \code{grid} objects.
 }
 \usage{
-\S4method{levelplot}{Raster,missing}(x, data=NULL, layers,
-            margin=!(any(is.factor(x))), FUN.margin=mean, 
-            maxpixels=1e5, 
-            par.settings=rasterTheme(),
-            between=list(x=0.5, y=0.2),
-            as.table=TRUE,
+\S4method{levelplot}{Raster,missing}(x, data = NULL, layers,
+            margin = list(), 
+            maxpixels = 1e5, 
+            par.settings = rasterTheme(),
+            between = list(x=0.5, y=0.2),
+            as.table = TRUE,
             xlab=if(isLonLat(x)) 'Longitude' else NULL,
             ylab=if(isLonLat(x)) 'Latitude' else NULL,
             main=NULL,
             names.attr,
-            scales=list(),
-            scales.margin=NULL, axis.margin = FALSE,
-            xscale.components=xscale.raster,
-            yscale.components=yscale.raster,
-            zscaleLog=NULL,
-            colorkey=list(space='right'),
-            panel=panel.levelplot, pretty = FALSE, 
-            contour=FALSE, region=TRUE, labels=FALSE,
+            scales  =list(),
+            xscale.components = xscale.raster,
+            yscale.components = yscale.raster,
+            zscaleLog = NULL,
+            colorkey = list(space='right'),
+            panel = panel.levelplot,
+            pretty = FALSE, 
+            contour = FALSE, region = TRUE, labels = FALSE,
+            FUN.margin = NULL, 
+            scales.margin = NULL, axis.margin = NULL,
             ..., att=1L)
 
 \S4method{contourplot}{Raster,missing}(x, data=NULL, layers, ...)
@@ -46,74 +48,86 @@
     display, for \code{\link{sampleRegular}}.
   }
 
-  \item{margin}{logical, if TRUE two marginal graphics show the column
-    (x) and row (y) summaries of the \code{Raster*} object. The summary
-    is computed with the function defined by \code{FUN.margin} (which
-    uses \code{mean} as default value).}
+  \item{margin}{A list or a logical. If it is TRUE, two marginal
+    graphics show the column (x) and row (y) summaries of the
+    \code{Raster*} object. The summary is computed with the function
+    \code{mean}. If it is a list, it contains parameters in ‘name=value’
+    form that define both margins, and may contain two other lists
+    called ‘x’ and ‘y’ whose components affect the respective margins
+    only: \itemize{
 
-  \item{FUN.margin}{A function to summarise the \code{Raster*} by rows
-  and columns (default: \code{mean}).}
+      \item{draw: A logical. If TRUE (default) the marginal graphics are
+      drawn.}
 
-  \item{scales.margin}{A list with components \code{x} (columns) and
-    \code{y} (rows). Each of these components must be a numeric vector
-    of length 2 defining the range for each marginal plot.  If
-    \code{scales.margin=NULL} the range is internally computed.  If any
-    of the elements of the vectors is \code{NA}, the corresponding limit
-    of the range will be calculated internally.  If any of the vectors
-    is of length 1, it is assumed that it defines the lower limit of the
-    range, and the upper limit is calculated internally. }
+      \item{FUN: A function to summarise the \code{Raster*} by rows and
+	columns (default: \code{mean}).}
 
-  \item{axis.margin}{Logical or a list. Its default value is
-    \code{FALSE}. If it is \code{TRUE} or a list, two simple axis are
-    drawn with the marginal graphics.  If it is a list, its components
-    define the graphical parameters of the axis using
-    \code{grid::\link{gpar}}.  The default value is \code{gpar(col =
-    'darkgrey', fontsize = 7)}}
+      \item{scales: A list with components \code{x} (columns) and
+	\code{y} (rows). Each of these components must be a numeric
+	vector of length 2 defining the range for each marginal plot.
+	If \code{scales = NULL} (default) the range is internally computed.
+	If any of the elements of the vectors is \code{NA}, the
+	corresponding limit of the range will be calculated internally.
+	If any of the vectors is of length 1, it is assumed that it
+	defines the lower limit of the range, and the upper limit is
+	calculated internally. }
 
+      \item{axis: Logical or a list. Its default value is
+	\code{FALSE}. If it is \code{TRUE} or a list, a simple axis is
+	drawn with the marginal graphic.  If it is a list, its
+	components define the graphical parameters of the axis using
+	\code{grid::\link{gpar}}.  The default value is \code{gpar(col =
+	  'darkgrey', fontsize = 7)}}
 
+    }
+  }
+  
+  \item{FUN.margin, scales.margin, axis.margin}{Deprecated
+    arguments. Use \code{margin} as a list instead}
+  
   \item{att}{Integer or character to choose which variable (column) in
     the RAT table should be used.}
-
-  \item{xlab, ylab, main}{A character string or expression describing
-  the axis and title labels. These arguments are used by the underlying
-  \code{lattice::\link[lattice]{xyplot}} function, which provides this
-  information in its help page:
-
-  \dQuote{\code{main}, \code{xlab} and \code{ylab} are usually a
-  character string or an expression that gets used as the
-  label, but can also be a list that controls further
-  details.  Expressions are treated as specification of
-  LaTeX-like markup as described in \code{\link{plotmath}}.  The label
-  can be a vector, in which case the components will be
-  spaced out horizontally (or vertically for \code{ylab}).  This
-  feature can be used to provide column or row labels rather
-  than a single axis label.
-
-  When \code{main} (etc.) is a list, the actual label should
-  be specified as the \code{xlab} component (which may be
-  unnamed if it is the first component).  The label can be
-  missing, in which case the default will be used.  Further
-  named arguments are passed on to \code{\link{textGrob}}; this can
-  include arguments controlling positioning like \code{just} and
-  \code{rot} as well as graphical parameters such as \code{col} and
-  \code{font} (see \code{\link{gpar}} for a full list).
   
-  \code{main}, \code{xlab} and \code{ylab} can also be
-  arbitrary ‘"grob"’s (grid graphical objects).}
+  \item{xlab, ylab, main}{A character string or expression describing
+    the axis and title labels. These arguments are used by the underlying
+    \code{lattice::\link[lattice]{xyplot}} function, which provides this
+    information in its help page:
+    
+    \dQuote{\code{main}, \code{xlab} and \code{ylab} are usually a
+      character string or an expression that gets used as the
+      label, but can also be a list that controls further
+      details.  Expressions are treated as specification of
+      LaTeX-like markup as described in \code{\link{plotmath}}.  The label
+      can be a vector, in which case the components will be
+      spaced out horizontally (or vertically for \code{ylab}).  This
+      feature can be used to provide column or row labels rather
+      than a single axis label.
+      
+      When \code{main} (etc.) is a list, the actual label should
+      be specified as the \code{xlab} component (which may be
+      unnamed if it is the first component).  The label can be
+      missing, in which case the default will be used.  Further
+      named arguments are passed on to \code{\link{textGrob}}; this can
+      include arguments controlling positioning like \code{just} and
+      \code{rot} as well as graphical parameters such as \code{col} and
+      \code{font} (see \code{\link{gpar}} for a full list).
+      
+      \code{main}, \code{xlab} and \code{ylab} can also be
+      arbitrary ‘"grob"’s (grid graphical objects).}
   }
-
-
+  
+  
   \item{names.attr}{Character, names to use in each panel. If missing its
     default value is the result of \code{names(x)} (after subsetting
     the layers to be displayed).}
-
+  
   \item{xscale.components, yscale.components}{See
     \code{\link{xscale.raster}} and \code{\link{yscale.raster}}.}
-
+  
   \item{between, as.table, par.settings, scales, panel}{Graphical parameters used by
     \code{lattice::\link[lattice]{xyplot}}. Adapted from the help page
     of this function: \itemize{
-
+      
       \item{between: }{A list with components \code{code} and \code{code} (both usually 0 by
         default), numeric vectors specifying the space between the
         panels (units are character heights). \code{x} and \code{y} are
@@ -341,10 +355,12 @@ levelplot(s, layout=c(1, 1))
 ## names.attr to change the labels of each panel
 levelplot(s, names.attr=c('R', 'R + 500', 'R - 500'))
 
-## defining the scales for the marginal plot
-levelplot(r, scales.margin=list(x=c(100, 600), y=c(100, 1000)))
+## Defining the scales for the marginal plot
+levelplot(r, margin = list(axis = TRUE,
+                           scales = list(x=c(100, 600),
+                                         y=c(100, 1000))))
 ## if a component of the list is null, it is internally calculated
-levelplot(r, scales.margin=list(x=c(100, 1000)))
+levelplot(r, margin=list(axis = TRUE, scales = list(x=c(100, 1000))))
 
 ## Add a layer of sampling points
 ## and change the theme
@@ -415,7 +431,8 @@ names(SISmm) <- month.abb
 
 levelplot(SISmm)
 
-levelplot(SISmm, layers=1, FUN.margin=median, contour=TRUE)
+levelplot(SISmm, layers=1, margin = list(FUN = 'median'), contour=TRUE)
+
 setwd(old)
 }}
 \keyword{methods}

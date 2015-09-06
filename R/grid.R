@@ -1,3 +1,32 @@
+constructMargin <- function(draw = TRUE, FUN = 'mean',
+                            scales = NULL, axis = FALSE,
+                            ..., x = NULL, y = NULL){
+    x.margin <- y.margin <- list(draw = draw, FUN = FUN,
+                                 axis = axis)
+    if (!is.null(scales)){
+        x.margin$scales <- scales$x
+        y.margin$scales <- scales$y
+    }
+    if (!is.null(x)){
+        if (is.logical(x))
+            x <- list(draw = x)
+        x.margin[names(x)] <- x
+    }
+    if (!is.null(y)){
+        if (is.logical(y))
+            y <- list(draw = y)
+        y.margin[names(y)] <- y
+    }
+    list(x = x.margin, y = y.margin)
+}
+
+drawMargin <- function(draw = FALSE){
+    margin <- list(x = list(draw = draw),
+                   y = list(draw = draw)
+                   )
+}
+    
+
 legendGeneric <- function(p, FUN, scaleAxis, axis.margin, side, ...){
     ## Extract values from the trellis object
     ref <- switch(side,

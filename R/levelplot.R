@@ -3,7 +3,7 @@ setGeneric('levelplot')
 setMethod('levelplot',
           signature(x = 'Raster', data = 'missing'),
           definition = function(x, data = NULL, layers,
-              margin=!(any(is.factor(x))), FUN.margin=mean,
+              margin = list(), 
               maxpixels = 1e5,
               par.settings = rasterTheme(),
               between = list(x = 0.5, y = 0.2),
@@ -13,24 +13,30 @@ setMethod('levelplot',
               main = NULL,
               names.attr,
               scales = list(),
-              scales.margin = NULL, axis.margin = FALSE,
               xscale.components = xscale.raster,
               yscale.components = yscale.raster,
               zscaleLog = NULL,
               colorkey = list(space = 'right'),
               panel = panel.levelplot, pretty = FALSE, 
               contour = FALSE, region = TRUE, labels = FALSE,
+              FUN.margin = NULL,
+              scales.margin = NULL, axis.margin = NULL,
               ..., att = 1L) {
-
+              
+              ## Extract components from par.settings              
+              if (is.function(par.settings))
+                  par.settings <- par.settings()
+              ## Subset the object if layers are defined
               if (!missing(layers)) {
                   object <- subset(x, subset=layers)
-              } else {object <- x}
-
+              } else {
+                  object <- x
+              }
+              
               ## The plot display a sample of the whole object defined
               ## with maxpixels
               objectSample <- sampleRegular(object, size=maxpixels,
                                             asRaster=TRUE)
-
 
               ## Is factor?
               factorLayers <- is.factor(object)
@@ -173,23 +179,50 @@ setMethod('levelplot',
                   }
               }
 
-              ## Some fixes for the margin
-              has.margin <- (nlayers(object)==1 && margin)
-              if (has.margin){
-                  if (is.function(par.settings))
-                      par.settings <- par.settings()
-                  par.settings = modifyList(par.settings,
-                      list(
-                          layout.widths = list(right.padding = 10),
-                          layout.heights = list(top.padding = 10,
-                              xlab.key.padding = 3)))
-                  
+              ## Construct the margins
+              if (is.logical(margin))
+                  margin <- drawMargin(margin)
+
+              if (!is.null(FUN.margin)) {
+                  warning('FUN.margin is deprecated. Use margin as a list instead.')
+                  margin <- modifyList(margin, list(margin = FUN.margin))
+              }
+              if (!is.null(axis.margin)) {
+                  warning('axis.margin is deprecated. Use margin as a list instead.')
+                  margin <- modifyList(margin, list(axis = axis.margin))
+              }
+              if (!is.null(scales.margin)) {
+                  warning('scales.margin is deprecated. Use margin as a list instead.')
+                  margin <- modifyList(margin, list(scales = scales.margin))
+              }
+
+              margin <- do.call('constructMargin', margin)
+              ## Disable margins for multilayer and categorical
+              ## rasters
+              if (nlayers(object) > 1 | any(is.factor(x)))
+                  margin <- drawMargin(FALSE)
+              if (isTRUE(margin$x$draw)){
+                  par.settings <-
+                      modifyList(par.settings,
+                                 list(
+                                     layout.heights = list(
+                                         top.padding = 10,
+                                         xlab.key.padding = 3))
+                                 )
+              }
+              if (isTRUE(margin$y$draw)){
                   ## put the colorkey at the bottom to leave space for
                   ## the margin
                   if (has.colorkey) {
-                      colorkey = modifyList(colorkey,
+                      colorkey <- modifyList(colorkey,
                           list(space='bottom'))
-                  } else colorkey = FALSE
+                  }
+                  par.settings <-
+                      modifyList(par.settings,
+                                 list(
+                                     layout.widths = list(
+                                         right.padding = 10))
+                                 )
               }
 
               ## Which panel did the user requested? (panel.levelplot
@@ -267,7 +300,7 @@ setMethod('levelplot',
               if (all(is.na(dat))) {
                   region <- FALSE
                   colorkey <- FALSE
-                  margin <- FALSE
+                  margin <- drawMargin(FALSE)
                   pretty <-  TRUE
               }
 
@@ -294,25 +327,27 @@ setMethod('levelplot',
               if (isFactor) p <- update(p, at = my.at)
 
               ## Plot the margins if required
-              if (nlayers(object)==1 && margin) {
-                  marginsLegend <- list(right=list(
-                                            fun=legendGeneric,
-                                            args=list(p,
-                                                FUN = FUN.margin,
-                                                scaleAxis = scales.margin$y,
-                                                axis.margin = axis.margin,
-                                                side = 'y')),
-                                        top=list(
-                                            fun=legendGeneric,
-                                            args=list(p,
-                                                FUN=FUN.margin,
-                                                scaleAxis = scales.margin$x,
-                                                axis.margin = axis.margin,
-                                                side = 'x'))
-                                        )
-                  if (is.null(p$legend)) p$legend <- list()
-                  p$legend <- modifyList(p$legend, marginsLegend)
-
+              if (is.null(p$legend)) p$legend <- list()
+              if (isTRUE(margin$y$draw)) {
+                  right <- list(
+                      fun = legendGeneric,
+                      args = list(p,
+                          FUN = margin$y$FUN,
+                          scaleAxis = margin$y$scales,
+                          axis.margin = margin$y$axis,
+                          side = 'y'))
+                  p$legend <- modifyList(p$legend, list(right = right))
+              }
+              
+              if (isTRUE(margin$x$draw)){
+                  top <- list(
+                      fun = legendGeneric,
+                      args = list(p,
+                          FUN = margin$x$FUN,
+                          scaleAxis = margin$x$scales,
+                          axis.margin = margin$x$axis, 
+                          side = 'x'))
+                  p$legend <- modifyList(p$legend, list(top = top))
               }
               ## Here is the result!
               p
