@@ -15,10 +15,7 @@ setMethod("gplot", signature(x='Raster'),
               if (requireNamespace("ggplot2", quietly = TRUE))
               {
                   nl <- nlayers(x)
-                  if (ncell(x) > maxpixels) {
-                      x <- sampleRegular(x, maxpixels, asRaster=TRUE)
-                  }
-                  
+                  x <- sampleRegular(x, maxpixels, asRaster=TRUE)
                   coords <- xyFromCell(x, seq_len(ncell(x)))
                   ## Extract values 
                   dat <- stack(as.data.frame(getValues(x)))

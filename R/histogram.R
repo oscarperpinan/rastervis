@@ -61,13 +61,9 @@ setMethod('histogram', signature(x='formula', data='Raster'),
                   data <- stack(data, dirXY)
               }
 
-              if (maxpixels < ncell(data)) {
-                  df <- as.data.frame(sampleRegular(data, maxpixels,
-                                                    xy=TRUE))
-              } else {
-                  df <- as.data.frame(data, xy = TRUE)
-              }
-
+              df <- as.data.frame(sampleRegular(data,
+                                                maxpixels,
+                                                xy=TRUE))
               ## Categorical data
               if (any(isFactor)){
                   df[, isFactor + 2] <- as.factor(

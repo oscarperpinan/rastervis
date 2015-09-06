@@ -42,12 +42,9 @@ setMethod('xyplot', signature(x='formula', data='Raster'),
               data <- stack(data, dirXY)
             }
 
-            if (maxpixels < ncell(data)) {
-                df <- as.data.frame(sampleRegular(data, maxpixels,
-                                    xy=TRUE))
-            } else {
-                df <- as.data.frame(data, xy = TRUE)
-            }
+            df <- as.data.frame(sampleRegular(data,
+                                              maxpixels,
+                                              xy=TRUE))
 
             if (any(isFactor)){
 
