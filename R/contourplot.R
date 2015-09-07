@@ -6,9 +6,8 @@ setMethod('contourplot',
               ...){
               dots <- list(...)
               settings <- list(
-                  margin=TRUE, FUN.margin=mean,
+                  margin=list(), 
                   scales=list(),
-                  scales.margin = NULL, axis.margin = FALSE,
                   maxpixels=1e5,            
                   between=list(x=0.5, y=0.2),
                   as.table=TRUE,
@@ -21,8 +20,9 @@ setMethod('contourplot',
                   contour = TRUE,
                   pretty = TRUE,
                   region = FALSE,
-                  colorkey = FALSE
-                  )
+                  colorkey = FALSE,
+                  FUN.margin=NULL,
+                  scales.margin = NULL, axis.margin = NULL)
               call <- modifyList(settings, list(...))
               call$x <- x
               call$data <- NULL
