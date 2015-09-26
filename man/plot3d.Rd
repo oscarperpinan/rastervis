@@ -52,7 +52,11 @@ Make an interactive 3D plot (map) of a RasterLayer. This is a wrapper around \co
 
 }
 
-
+\note{
+Previous versions opened a new device with each call of
+\code{plot3D}. This behaviour has been modified, and now a new device is
+opened only if none is active. Thus, you should use \code{rgl::open3d()}
+if you need to display a new scene without modifying the current one.}
 
 \author{ Robert J. Hijmans and Oscar Perpiñán}
 
