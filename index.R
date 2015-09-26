@@ -10,8 +10,8 @@ install.packages('rasterVis')
 
 ## To install the development version you need the devtools package:
 
-install.packages('devtools')
-devtools::install_github('rasterVis', 'oscarperpinan')
+## install.packages('devtools')
+devtools::install_github('oscarperpinan/rasterVis') 
 
 ## Level plots
 ##   :PROPERTIES:
@@ -142,9 +142,11 @@ levelplot(Aug, par.settings=myTheme)
 dev.off()
 
 ## Categorical data
+##   :PROPERTIES:
+##   :CUSTOM_ID: factor
+##   :END:
 ## A raster that contains categorical data can be defined with the =ratify= function.
 
-     ## Categorical data
      r <- raster(nrow=10, ncol=10)
      r[] = 1
      r[51:100] = 3

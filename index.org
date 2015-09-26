@@ -68,8 +68,8 @@ install.packages('rasterVis')
 To install the development version you need the devtools package:
 
 #+begin_src R
-install.packages('devtools')
-devtools::install_github('rasterVis', 'oscarperpinan')
+## install.packages('devtools')
+devtools::install_github('oscarperpinan/rasterVis') 
 #+end_src
 
 * Level plots
