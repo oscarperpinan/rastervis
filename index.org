@@ -12,23 +12,9 @@
 #+HTML_HEAD: <META NAME="viewport" CONTENT="width=device-width, initial-scale=1">
 #+BIND: org-html-postamble "<p><a href=\"http://oscarperpinan.github.io/rastervis/FAQ.html\">FAQs</a></p><p><a href=\"https://github.com/oscarperpinan/rastervis\">View the Project on GitHub</a></p><p>Maintained by <a href=\"http://oscarperpinan.github.io/\">Oscar Perpiñán</a>.</script></p>"
 
-# #+BEGIN_header
-# The [[http://cran.r-project.org/web/packages/raster/index.html][raster]] package defines classes and methods for spatial raster data
-# access and manipulation. The =rasterVis= package complements
-# raster providing a set of methods for enhanced visualization and
-# interaction. 
-
-# The stable release of =rasterVis= can be found at [[http://cran.r-project.org/web/packages/rasterVis/][CRAN]]. 
-# The development version is at [[https://r-forge.r-project.org/R/?group_id%3D1129][R-Forge]].
-# #+END_header
- 
-# This page has been generated with [[http://orgmode.org/][org-mode]]. You can download the [[http://rastervis.r-forge.r-project.org/index.org][org file]] and the [[http://rastervis.r-forge.r-project.org/index.R][R code]].
-
 * Introduction
-
 The =rasterVis= package complements the [[http://cran.r-project.org/web/packages/raster][=raster=]] package, providing a
 set of methods for enhanced visualization and interaction. 
-
 It defines visualization methods for [[#levelplot][quantitative data]] and categorical
 data, with =levelplot=, both for univariate and multivariate rasters.
 
@@ -72,6 +58,8 @@ To install the development version you need the devtools package:
 devtools::install_github('oscarperpinan/rasterVis') 
 #+end_src
 
+#+ATTR_HTML: :class badge
+[[https://zenodo.org/badge/latestdoi/1928/oscarperpinan/rastervis][https://zenodo.org/badge/1928/oscarperpinan/rastervis.svg]]
 * Level plots
   :PROPERTIES:
   :CUSTOM_ID: levelplot
