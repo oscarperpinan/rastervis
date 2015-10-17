@@ -117,7 +117,7 @@
   }
   
   
-  \item{names.attr}{Character, names to use in each panel. If missing its
+  \item{names.attr}{Character or expression, names to use in each panel. If missing its
     default value is the result of \code{names(x)} (after subsetting
     the layers to be displayed).}
   

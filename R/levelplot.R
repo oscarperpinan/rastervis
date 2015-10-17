@@ -281,7 +281,7 @@ setMethod('levelplot',
               if (missing(names.attr)){
                   names.attr <- names(object)
               } else {
-                  names.attr <- as.character(names.attr)
+                  ## names.attr <- as.character(names.attr)
                   if (length(names.attr) != nlayers(object))
                       stop('Length of names.attr should match number of layers.')
               }
