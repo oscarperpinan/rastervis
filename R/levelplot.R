@@ -95,9 +95,17 @@ setMethod('levelplot',
                   ## Update the data content of the original data.frame
                   df[, -c(1, 2)] <- dat
               }
-              ## Calculate the range (for zscale.components)
+              ## Calculate the range (for zscale.components). This
+              ## sapply/range combination is needed for logical
+              ## RasterStacks, see issue #31
+              rangeZ <- if (NCOL(dat) > 1) {
+                      range(sapply(dat, range, na.rm = TRUE))
+                  } else {
+                      range(dat, na.rm = TRUE)
+                  }
               zlim <- extendrange(dat,
-                                  f=lattice.getOption("axis.padding")$numeric)
+                                  r = rangeZ,
+                                  f = lattice.getOption("axis.padding")$numeric)
 
               ##aspect and scales(from sp::spplot.grid,
               ##sp::longlat.scales, sp::mapasp)
