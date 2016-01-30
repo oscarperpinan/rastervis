@@ -23,6 +23,7 @@ Histogram of Raster objects.
             scales=list(x=list(relation='free'),
               y=list(relation='free',
                 draw=FALSE)),
+            names.attr,
             par.settings=rasterTheme(),
             ...)
 
@@ -46,6 +47,9 @@ Histogram of Raster objects.
             \code{lattice::\link[lattice]{histogram}} at lattice for details.}
   \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
   \item{xlab, ylab, main, col}{Arguments for \code{\link{histogram}}.}
+  \item{names.attr}{Character or expression, names to use in each
+    panel. If missing its default value is the result of \code{names(x)}
+    (after subsetting the layers to be displayed).}
   \item{between, as.table, scales,
     strip, par.settings}{Graphical parameters of \code{lattice}. See \code{lattice::\link[lattice]{xyplot}} for details.}
   \item{\dots}{Additional arguments for \code{lattice::\link[lattice]{histogram}}}

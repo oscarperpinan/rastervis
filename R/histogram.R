@@ -24,24 +24,36 @@ setMethod('histogram',
             as.table=TRUE,
             scales=list(x=list(relation='free'),
               y=list(relation='free',
-                draw=FALSE)),
+                     draw=FALSE)),
+            names.attr,
             par.settings=rasterTheme(),
             ...) {
             if (!missing(layers)) x <- subset(x, layers)
             nl=nlayers(x)
             if (nl > 1) {
+                ## Names of each panel
+                if (missing(names.attr)){
+                    names.attr <- names(x)
+                } else {
+                    ## Do not coerce with as.character to allow formulas 
+                    if (length(names.attr) != nlayers(x))
+                        stop('Length of names.attr should match number of layers.')
+                }
+
               dat <- raster2dat(x, FUN, maxpixels)
-              p <- histogram(~values|ind, data=dat,
-                             as.table=as.table,
-                             par.settings=par.settings,
-                             between=between,
-                             scales=scales,
-                             nint=nint, col=col,
-                             xlab=xlab, ylab=ylab, main=main,
+              p <- histogram(~values|ind, data = dat,
+                             as.table = as.table,
+                             par.settings = par.settings,
+                             between = between,
+                             scales = scales,
+                             nint = nint, col = col,
+                             xlab = xlab, ylab = ylab, main = main,
+                             strip = strip.custom(factor.levels = names.attr),
+
                              ...)
             } else {
-              p <- histogram(x, maxpixels = maxpixels, nint=nint,
-                             main = main, ylab=ylab, xlab=xlab, col=col,...)
+              p <- histogram(x, maxpixels = maxpixels, nint = nint,
+                             main = main, ylab = ylab, xlab = xlab, col = col,...)
             }
             p
           }
