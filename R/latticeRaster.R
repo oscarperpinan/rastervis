@@ -78,50 +78,6 @@ yscale.raster.NSsubticks <- function(lim, ...){
   ans}
 
 
-rasterTheme <- function(pch=19, cex=0.7, region=rev(brewer.pal(9, 'YlOrRd')), ...) {
-  theme <- custom.theme.2(pch=pch, cex=cex, region=region, ...)
-  theme$strip.background$col='transparent'
-  theme$strip.shingle$col='transparent'
-  theme$strip.border$col='transparent'
-  theme$add.line$lwd=.4
-  theme
-}
-
-RdBuTheme <- function(region=brewer.pal(9, 'RdBu'), ...) {
-  theme <- rasterTheme(region=region, ...)
-  theme
-}
-
-BuRdTheme <- function(region=rev(brewer.pal(9, 'RdBu')), ...) {
-  theme <- rasterTheme(region=region, ...)
-  theme
-}
-
-PuOrTheme <- function(region=brewer.pal(9, 'PuOr'), ...) {
-  theme <- rasterTheme(region=region, ...)
-  theme
-}
-
-GrTheme <- function(region=rev(brewer.pal(9, 'Greys')), ...) {
-  theme <- rasterTheme(region=region, ...)
-  theme
-}
-
-BTCTheme <- function(region=BTC(n=9), ...) {
-  theme <- rasterTheme(region=region, ...)
-  theme
-}
-
-streamTheme <- function(region='black',
-                        symbol=brewer.pal(n=5, name='Blues'),
-                        alpha=0.6, 
-                        panel.background=list(col='gray20'),
-                        ...){
-  theme <- rasterTheme(region=region, symbol=symbol, ...)
-  theme <- modifyList(theme, list(panel.background=panel.background))
-  theme
-}
-
 ##Auxiliary function for densityplot, histogram and bwplot
 raster2dat <- function(x, FUN, maxpixels){
   nl <- nlayers(x)

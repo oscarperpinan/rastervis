@@ -1,12 +1,14 @@
 [![DOI](https://zenodo.org/badge/1928/oscarperpinan/rastervis.svg)](https://zenodo.org/badge/latestdoi/1928/oscarperpinan/rastervis)
 
+[![DOI](https://zenodo.org/badge/1928/oscarperpinan/rastervis.svg)](https://zenodo.org/badge/latestdoi/1928/oscarperpinan/rastervis)
+
 [![Build Status](https://travis-ci.org/oscarperpinan/rastervis.svg?branch=master)](https://travis-ci.org/oscarperpinan/rastervis)
 
 rasterVis
 =========
 
 The
-[`raster`](http://cran.r-project.org/web/packages/raster/index.html)
+[`raster`](http://cran.r-project.org/package=raster)
 package defines classes and methods for spatial raster data access and
 manipulation. The `rasterVis` package complements raster providing a
 set of methods for enhanced visualization and interaction.

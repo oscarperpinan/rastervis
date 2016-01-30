@@ -245,11 +245,11 @@ streamplot(r1)
 
 ## With a cluster
 hosts <- rep('localhost', 4)
-cl <- makeCluster(hosts)
+cl <- parallel::makeCluster(hosts)
 streamplot(r2, cl=cl,
            par.settings=streamTheme(symbol=brewer.pal(n=5,
                                                       name='Reds')))
-stopCluster(cl)
+parallel::stopCluster(cl)
 
 ## Without parallel
 streamplot(r3, parallel=FALSE,

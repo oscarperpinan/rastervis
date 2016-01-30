@@ -17,6 +17,12 @@ import("grDevices")##needed by RColorBrewer
 importFrom("RColorBrewer",
            "brewer.pal")
 
+importFrom("viridis",
+           "viridis",
+           "magma",
+           "inferno",
+           "plasma")
+
 importFrom("grid",
            "gpar",
            "viewport",
@@ -65,11 +71,16 @@ export(
   'chooseRegion',
   'xyLayer',
   'rasterTheme',
+  'YlOrRdTheme',
   'BTCTheme',
   'GrTheme',
   'RdBuTheme',
   'BuRdTheme',
   'PuOrTheme',
+  'viridisTheme',
+  'magmaTheme',
+  'infernoTheme',
+  'plasmaTheme',
   'streamTheme',
   'xscale.raster',
   'yscale.raster',

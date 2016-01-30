@@ -1,8 +1,8 @@
 Package: rasterVis
 Type: Package
 Title: Visualization Methods for Raster Data
-Version: 0.38
-Date: 2015-09-26
+Version: 0.40
+Date: 2016-01-30
 Encoding: UTF-8
 Authors@R: c(person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@gmail.com", role=c('cre', 'aut')), person("Robert", "Hijmans", email= "r.hijmans@gmail.com", role='aut'))
 Description: Methods for enhanced visualization and interaction with raster data. It implements visualization methods for quantitative data and categorical data, both for univariate and multivariate rasters. It also provides methods to display spatiotemporal rasters, and vector fields. See the website for examples.
@@ -11,5 +11,5 @@ BugReports: https://github.com/oscarperpinan/rastervis/issues
 License: GPL-3
 LazyLoad: yes
 Depends: R (>= 2.14.0), methods, raster (>= 2.0-12), lattice, latticeExtra
-Imports: stats, utils, parallel, grid, grDevices, RColorBrewer, hexbin, sp (>= 1.0-6), zoo, 
+Imports: stats, utils, parallel, grid, grDevices, RColorBrewer, hexbin, sp (>= 1.0-6), zoo, viridis 
 Suggests: rgl, ggplot2, colorspace, dichromat
