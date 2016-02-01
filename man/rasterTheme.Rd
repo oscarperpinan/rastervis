@@ -60,7 +60,7 @@ infernoTheme(region = inferno(10), ...)
 plasmaTheme(region = plasma(10), ...)
 viridisTheme(region = viridis(10), ...)
  
-YlOrRdTheme(region = (brewer.pal(9, 'YlOrRd')), ...)
+YlOrRdTheme(region = brewer.pal(9, 'YlOrRd'), ...)
 RdBuTheme(region = brewer.pal(9, 'RdBu'), ...)
 BuRdTheme(region = rev(brewer.pal(9, 'RdBu')), ...)
 PuOrTheme(region = brewer.pal(9, 'PuOr'), ...)
