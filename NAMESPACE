@@ -17,7 +17,7 @@ import("grDevices")##needed by RColorBrewer
 importFrom("RColorBrewer",
            "brewer.pal")
 
-importFrom("viridis",
+importFrom("viridisLite",
            "viridis",
            "magma",
            "inferno",
