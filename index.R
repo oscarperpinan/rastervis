@@ -1,4 +1,3 @@
-
 ## Installation 
 
 ## The stable release of =rasterVis= can be found at [[http://cran.r-project.org/web/packages/rasterVis/][CRAN]].  The
@@ -6,11 +5,21 @@
 
 ## Install the stable version with:
 
+
 install.packages('rasterVis')
 
-## To install the development version you need the devtools package:
 
-## install.packages('devtools')
+
+## You can install the development version with the [[https://github.com/MangoTheCat/remotes#installation][remotes]] package:
+
+
+remotes::install_github('oscarperpinan/rasterVis') 
+
+
+
+## or with the [[https://github.com/hadley/devtools][devtools]] package:
+
+
 devtools::install_github('oscarperpinan/rasterVis') 
 
 ## Level plots
@@ -22,58 +31,66 @@ devtools::install_github('oscarperpinan/rasterVis')
 ## =levelplot= with an example using data from the [[http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001][CM SAF]] project, as
 ## described [[http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-solar/][here]].
 
-  library(raster)
-  library(rasterVis)
-  
-  ##Solar irradiation data from CMSAF 
-  setwd(tempdir())
-  download.file('https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip',
-                'SISmm2008_CMSAF.zip', method='wget')
-  unzip('SISmm2008_CMSAF.zip')
-  
-  listFich <- dir(pattern='\.nc')
-  stackSIS <- stack(listFich)
-  stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
-  
-  idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
-  
-  SISmm <- setZ(stackSIS, idx)
-  names(SISmm) <- month.abb
+
+library(raster)
+library(rasterVis)
+
+##Solar irradiation data from CMSAF 
+old <- setwd(tempdir())
+download.file('https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip',
+              'SISmm2008_CMSAF.zip', method='wget')
+unzip('SISmm2008_CMSAF.zip')
+
+listFich <- dir(pattern='\\.nc')
+stackSIS <- stack(listFich)
+stackSIS <- stackSIS * 24 ##from irradiance (W/m2) to irradiation Wh/m2
+
+idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
+
+SISmm <- setZ(stackSIS, idx)
+names(SISmm) <- month.abb
+
+setwd(old)
+
+
 
 ## Once the =Rasterstack= has been defined, it can be displayed easily
 ## with =levelplot=. Each panel of the graphic shows a layer of the
 ## =RasterStack= object using a trellis chart or [[http://en.wikipedia.org/wiki/Small_multiple][small-multiple
 ## technique]].
 
-png(filename="figs/levelplot.png")
-levelplot(SISmm)
-dev.off()
 
+levelplot(SISmm)
+
+
+
+## #+RESULTS:
 ## [[file:figs/levelplot.png]]
 
 ## If only one layer is chosen, this method displays [[http://stackoverflow.com/a/18594679/964866][two marginal plots]],
 ## the row and column summaries of the =RasterLayer=, computed with the
 ## function defined by the component =FUN= of the list =margin= (which uses =mean= as default value):
 
-png(filename="figs/levelplot_layer1.png")
-levelplot(SISmm, layers=1, margin = list(FUN = 'median'), contour=TRUE)
-dev.off()
 
+levelplot(SISmm, layers = 1, margin = list(FUN = 'median'), contour=TRUE)
+
+
+
+## #+RESULTS:
 ## [[file:figs/levelplot_layer1.png]]
 
 ## The result of this call is a =trellis= object. The [[http://latticeextra.r-forge.r-project.org/][latticeExtra]] package
 ## provides the =layer= function to add contents. For example, let's add the administrative borders. 
 ## This information is available at the [[http://www.gadm.org/data/shp/ESP_adm.zip][GADM service]].
 
-png(filename="figs/levelplot_layer_borders.png")
-  library(maptools)
-  proj <- CRS('+proj=longlat +ellps=WGS84')
-  ##Change to your folder
-  mapaSHP <- readShapeLines('~/Datos/ESP_adm/ESP_adm2.shp', proj4string=proj)
-  
-  p <- levelplot(SISmm, layers=1, margin = list(FUN = median))
-  p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
-dev.off()
+
+library(maptools)
+proj <- CRS('+proj=longlat +ellps=WGS84')
+##Modify next line to your folder
+mapaSHP <- readShapeLines('/home/datos/ESP_adm/ESP_adm2.shp', proj4string=proj)
+
+p <- levelplot(SISmm, layers=1, margin = list(FUN = median))
+p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
 
 ## Log scale
 ##    :PROPERTIES:
@@ -87,11 +104,10 @@ dev.off()
 ## ‘TRUE’ (which is equivalent to 10), and ‘"e"’ (for the natural
 ## logarithm).  As a side effect, the colorkey is labeled differently.
 
-png(filename="figs/levelplot_logscale.png")
+
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 levelplot(r^2, zscaleLog=TRUE, contour=TRUE)
-dev.off()
 
 ## Themes
 ##   :PROPERTIES:
@@ -99,47 +115,59 @@ dev.off()
 ##   :END:
 
 ## The previous plots used the default theme of rasterVis,
-## =rasterTheme=. This theme defines a sequential palette with yellow,
-## orange and red. There are three more themes in =rasterVis=: =GrTheme=
-## (with a grey palette), =BTCTheme= (defined with the =BTC= palette of
-## the =hexbin= package) and =RdBuTheme= (with a diverging palette with
-## red and blue). 
+## =rasterTheme=, using the =magma= palette provided by the [[https://github.com/sjmgarnier/viridisLite][=viridisLite= package]]. The other palettes provided by this package are available
+## through the =viridisTheme=, =infernoTheme=, and =plasmaTheme= functions. Besides, =YlOrRdTheme=, =BuRdTheme=, =RdBuTheme=, =GrTheme=, and =BTCTheme= are variations of =rasterTheme= using palettes
+## of the =RColorBrewer= and =hexbin= packages. Let's try them with an example:
 
 ## The irradiation of August is:
 
+
 Aug <- raster(SISmm, 8)
+
+
+
+## #+RESULTS:
 
 ## and its overall mean is calculated with cellStats:
 
+
 meanAug <- cellStats(Aug, mean)
 
-## The diverging palette is specially well suited to this data:
 
-png(filename="figs/levelplotAug.png")
-levelplot(Aug-meanAug, par.settings=RdBuTheme)
-dev.off()
 
+## #+RESULTS:
+## : 6604.55993950454
+
+## The =RdBuTheme= diverging palette is specially well suited to this data:
+
+
+levelplot(Aug - meanAug, par.settings = RdBuTheme)
+
+
+
+## #+RESULTS:
 ## [[file:figs/levelplotAug.png]]
 
 ## Besides, it is easy to define a new theme with a different
 ## palette. For example, using a sequential palette from
 ## [[http://cran.r-project.org/web/packages/colorspace][colorspace]]:
 
-png(filename="figs/levelplot_colorspace.png")
-library(colorspace)
-myTheme=rasterTheme(region=sequential_hcl(10, power=2.2))
-levelplot(Aug, par.settings=myTheme, contour=TRUE)
-dev.off()
 
+library(colorspace)
+myTheme <- rasterTheme(region=sequential_hcl(10, power=2.2))
+levelplot(Aug, par.settings = myTheme, contour = TRUE)
+
+
+
+## #+RESULTS:
 ## [[file:figs/levelplot_colorspace.png]]
 
 ## or with the colour-blindness corrections from the [[http://cran.r-project.org/web/packages/dichromat/][dichromat]] package:
 
-png(filename="figs/levelplot_dichromat.png")
+
 library(dichromat)
-myTheme <- rasterTheme(region=dichromat(terrain.colors(15)))
-levelplot(Aug, par.settings=myTheme)
-dev.off()
+myTheme <- rasterTheme(region = dichromat(terrain.colors(15)))
+levelplot(Aug, par.settings = myTheme)
 
 ## Categorical data
 ##   :PROPERTIES:
@@ -147,33 +175,42 @@ dev.off()
 ##   :END:
 ## A raster that contains categorical data can be defined with the =ratify= function.
 
-     r <- raster(nrow=10, ncol=10)
-     r[] = 1
-     r[51:100] = 3
-     r[3:6, 1:5] = 5
-     r <- ratify(r)
+r <- raster(nrow=10, ncol=10)
+r[] = 1
+r[51:100] = 3
+r[3:6, 1:5] = 5
+r <- ratify(r)
+
+
+
+## #+RESULTS:
 
 ## The levels are stored in the "Raster Attribute Table" (RAT) that can be manipulated with the =levels= function:
 
-     rat <- levels(r)[[1]]
-     rat$landcover <- c('Pine', 'Oak', 'Meadow')
-     rat$class <- c('A1', 'B2', 'C3')
-     levels(r) <- rat
+rat <- levels(r)[[1]]
+rat$landcover <- c('Pine', 'Oak', 'Meadow')
+rat$class <- c('A1', 'B2', 'C3')
+levels(r) <- rat
+
+
+
+## #+RESULTS:
+## | 1 | Pine   | A1 |
+## | 3 | Oak    | B2 |
+## | 5 | Meadow | C3 |
 
 ## Such type of rasters are easily displayed with =levelplot=:
 
-png(filename="figs/levels.png")
-     levelplot(r, col.regions=c('palegreen', 'midnightblue', 'indianred1'))
-dev.off()
+levelplot(r, col.regions=c('palegreen', 'midnightblue', 'indianred1'))
+
+
 
 ## #+RESULTS:
 ## [[file:figs/levels.png]]
 
-## There is the =att= argument to choose the variable (column) from the RAT:
+## You can choose the variable (column) from the RAT with the =att= argument:
 
-png(filename="figs/levelsAtt.png")
-     levelplot(r, att='class', col.regions=c('palegreen', 'midnightblue', 'indianred1'))
-dev.off()
+levelplot(r, att='class', col.regions=c('palegreen', 'midnightblue', 'indianred1'))
 
 ## Scatterplots and histograms
 ##   :PROPERTIES:
@@ -183,56 +220,68 @@ dev.off()
 ## There are methods to show scatter plots and hexbin plots of the layers
 ## and coordinates of a =Raster= object:
 
-png(filename="figs/xyplot_formula.png")
+
   ##Relation between the January & February versus July radiation for four
   ##differents longitude regions.
-  xyplot(Jan+Feb~Jul|cut(x, 4), data=SISmm, auto.key=list(space='right'))
-dev.off()
+  xyplot(Jan+Feb~Jul|cut(x, 4), data = SISmm, auto.key = list(space='right'))
 
+
+
+## #+RESULTS:
 ## [[file:figs/xyplot_formula.png]]
 
-png(filename="figs/hexbinplot_formula.png")
-  ##Faster with hexbinplot
-  hexbinplot(Jan~Jul|cut(x, 6), data=SISmm)
-dev.off()
 
+  ##Faster with hexbinplot
+  hexbinplot(Jan~Jul|cut(x, 6), data = SISmm)
+
+
+
+## #+RESULTS:
 ## [[file:figs/hexbinplot_formula.png]]
+
 
 ## ...a method for scatter plot matrices:
 
-png(filename="figs/splom.png")
-splom(SISmm)
-dev.off()
 
+splom(SISmm)
+
+
+
+## #+RESULTS:
 ## [[file:figs/splom.png]]
 
 ## ..and methods for histograms, [[http://procomun.wordpress.com/2011/04/02/violin-plot/][box-and-whisker and violin]] plots or density estimates:
 
-png(filename="figs/histogram.png")
-histogram(SISmm)
-dev.off()
 
+histogram(SISmm)
+
+
+
+## #+RESULTS:
 ## [[file:figs/histogram.png]]
 
-png(filename="figs/density.png")
-densityplot(SISmm)
-dev.off()
 
+densityplot(SISmm)
+
+
+
+## #+RESULTS:
 ## [[file:figs/density.png]]
 
-png(filename="figs/bwplot.png")
-bwplot(SISmm)
-dev.off()
 
+bwplot(SISmm)
+
+
+
+## #+RESULTS:
 ## [[file:figs/bwplot.png]]
 
 ## These methods accept a =FUN= argument to be applied to the =z= slot of
 ## the =Raster= object. The result of this function is used as the grouping
 ## variable of the plot:
 
-png(filename="figs/histogram_FUN.png")
-histogram(SISmm, FUN=as.yearqtr)
-dev.off()
+
+histogram(SISmm, FUN = as.yearqtr)
 
 ## Space-time plots
 ##   :PROPERTIES:
@@ -245,17 +294,24 @@ dev.off()
 ## The =hovmoller= method uses the function =xyLayer=, which creates a
 ## =RasterLayer= from a function of the coordinates.
 
-f <- system.file("external/test.grd", package="raster")
+
+f <- system.file("external/test.grd", package = "raster")
 r <- raster(f)
-dirXY <-xyLayer(r, sqrt(x^2 + y^2))
+dirXY <- xyLayer(r, sqrt(x^2 + y^2))
 dirXY
 
+
+
+## #+RESULTS:
+
 ## For example, the next code builds a hovmoller diagram showing the time evolution of the anomalies of Sea Surface Temperature data available from the Climate Analysis Center ([[http://iridl.ldeo.columbia.edu/SOURCES/.CAC/][more information here]]):
+
 
 library(zoo)
 
 old <- setwd(tempdir())
-download.file('http://iridl.ldeo.columbia.edu/SOURCES/.CAC/.sst/data.nc', destfile = 'SST.nc')
+download.file('http://iridl.ldeo.columbia.edu/SOURCES/.CAC/.sst/data.nc', 
+destfile = 'SST.nc')
 SST <- stack('SST.nc')
 idx <- seq(as.Date('1970-01-01'), as.Date('2003-03-01'), by='month')
 tt <- as.yearmon(idx)
@@ -279,7 +335,6 @@ SSTanom <- calc(SST, anomaly)
 SSTanom <- setZ(SSTanom, tt)
 setwd(old)
 
-png(filename="figs/hovmoller.png",res=300,height=2000,width=2000)
 ## Ok, let's see the result
 hovmoller(SSTanom,
           at = seq(-3, 3, .25),
@@ -288,17 +343,16 @@ hovmoller(SSTanom,
           yscale.components = yscale.raster.subticks,
           par.settings = BuRdTheme)
 
-dev.off()
+
 
 ## #+RESULTS:
 ## [[file:figs/hovmoller.png]]
 
 ## The =horizonplot= and =xyplot= methods also are useful for the space-time =Raster= objects:
 
-png(filename="figs/horizon.png",res=300,height=2000,width=2000)
+
 horizonplot(SSTanom,
             col.regions = rev(brewer.pal(n = 10, 'RdBu')))
-dev.off()
 
 ## Vector field plots
 ##   :PROPERTIES:
@@ -311,19 +365,23 @@ dev.off()
 ## usually displayed with a set of arrows (e.g. =quiver= in Matlab).
 
 ## =rasterVis= includes a method, =vectorplot=, to calculate and display
-## this vector field.
+## this vector field. 
 
-  proj <- CRS('+proj=longlat +datum=WGS84')
-  df <- expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))
+
+proj <- CRS('+proj=longlat +datum=WGS84')
+df <- expand.grid(x = seq(-2, 2, .01), y = seq(-2, 2, .01))
   
-  df$z <- with(df, (3*x^2 + y)*exp(-x^2-y^2))
-  r <- rasterFromXYZ(df, crs=proj)
+df$z <- with(df, (3*x^2 + y)*exp(-x^2-y^2))
+r <- rasterFromXYZ(df, crs=proj)
+
+
 
 ## #+RESULTS:
 
-png(filename="figs/vectorplot.png",res=300,height=2000,width=2000)
-  vectorplot(r, par.settings=RdBuTheme())
-dev.off()
+
+vectorplot(r, par.settings=RdBuTheme())
+
+
 
 ## #+RESULTS:
 ## [[file:figs/vectorplot.png]]
@@ -346,9 +404,10 @@ dev.off()
 ## positions and color degradation encode the local vector direction
 ## (=aspect=).
 
-png(filename="figs/streamplot.png")
-  streamplot(r)
-dev.off()
+
+streamplot(r)
+
+
 
 ## #+RESULTS:
 ## [[file:figs/streamplot.png]]
@@ -360,15 +419,14 @@ dev.off()
 ## specific theme for =streamplot=, =streamTheme=. The default
 ## options can be changed easily:
 
-png(filename="figs/streamplotReds.png")
-  df$z <- with(df, sqrt(x^2 + y^2))
-  df$phi <- with(df, atan2(-y, x))
-  r2 <- rasterFromXYZ(df, crs=proj)
+
+df$z <- with(df, sqrt(x^2 + y^2))
+df$phi <- with(df, atan2(-y, x))
+r2 <- rasterFromXYZ(df, crs=proj)
   
-  streamplot(r2, isField=TRUE, streamlet=list(L=30), droplet=list(pc=.3),
-             par.settings=streamTheme(symbol=brewer.pal(n=5, name='Reds')))
+streamplot(r2, isField=TRUE, streamlet=list(L=30), droplet=list(pc=.3),
+           par.settings=streamTheme(symbol=brewer.pal(n=5, name='Reds')))
   
-dev.off()
 
 ## Interaction
 ##   :PROPERTIES:
@@ -381,6 +439,7 @@ dev.off()
 ## according to mouse clicks. It is commonly used after =levelplot=,
 ## although it can be also used after =xyplot=, =hexbinplot= or even =splom=:
 
+
 levelplot(SISmm)
 
 ## Do not close the last graphical window.  Use the left button of the
@@ -388,10 +447,13 @@ levelplot(SISmm)
 
 chosen <- identifyRaster(SISmm, layer=3, values=TRUE)
 
+
+
 ## The =chooseRegion= function provides a set of points (in the form of a
 ## =SpatialPoints= object) inside a region defined by several mouse
 ## clicks. Use the left button of the mouse to build a border with points, and
 ## the right button to finish.  The points enclosed by the border will
 ## be highlighted and returned as a SpatialPoints object.
+
 
 reg <- chooseRegion()

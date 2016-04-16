@@ -5,7 +5,7 @@
 #+AUTHOR: Oscar Perpiñán Lamigueiro
 #+PROPERTY:  session *R*
 #+PROPERTY:  tangle yes
-#+PROPERTY:  eval no-export
+#+PROPERTY: eval no-export
 #+PROPERTY:  comments org
 #+PROPERTY:  exports both 
 #+LANGUAGE:  en
@@ -15,22 +15,20 @@
 #+HTML_HEAD: <META NAME="viewport" CONTENT="width=device-width, initial-scale=1">
 #+BIND: org-export-html-postamble "<p><a href=\"http://oscarperpinan.github.io/rastervis\">HOME</a></p>"
 
-
 #+begin_src R :exports none
-  setwd('~/R/rastervis/www/')
+library(rasterVis)
 #+end_src
-
 
 * How to define the breaks
 
 Use the =at= argument to define the breaks.
 
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_at.png"
-  f <- system.file("external/test.grd", package="raster")
-  r <- raster(f)
-  
-  my.at <- seq(100, 1850, 500)
-  levelplot(r, at=my.at)
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_at.png"
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+
+my.at <- seq(100, 1850, by = 250)
+levelplot(r, at=my.at)
 #+end_src
 
 #+RESULTS:
@@ -39,10 +37,10 @@ Use the =at= argument to define the breaks.
 Moreover, if you want to define where the labels are located
 define the components of =colorkey=:
 
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_at2.png" 
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_at2.png" 
 myColorkey <- list(at=my.at, ## where the colors change
                    labels=list(
-                     at=my.at ## where to print labels
+                       at=my.at ## where to print labels
                      ))
 levelplot(r, at=my.at, colorkey=myColorkey)
 #+end_src
@@ -52,7 +50,7 @@ levelplot(r, at=my.at, colorkey=myColorkey)
 
 Last, you can even define the contents of the labels:
 
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_at3.png" 
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_at3.png" 
 myColorkey <- list(at=my.at, ## where the colors change
                    labels=list(
                      labels=letters[seq_along(my.at)], ## labels
@@ -69,7 +67,7 @@ levelplot(r, at=my.at, colorkey=myColorkey)
 
 Use =xlab=NULL=, =ylab=NULL= and =draw=FALSE= inside =scale=.
 
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_axis_labels.png" 
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_axis_labels.png" 
   r <- raster()
   r <- init(r, runif)
   
@@ -79,14 +77,14 @@ Use =xlab=NULL=, =ylab=NULL= and =draw=FALSE= inside =scale=.
 #+RESULTS:
 [[file:figs/FAQ_axis_labels.png]]
 
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_axis_labelsX.png" 
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_axis_labelsX.png" 
   levelplot(r, xlab=NULL, scales=list(x=list(draw=FALSE)))
 #+end_src
 
 #+RESULTS:
 [[file:figs/FAQ_axis_labelsX.png]]
 
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_axis_labelsY.png" 
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_axis_labelsY.png" 
   levelplot(r, ylab=NULL, scales=list(y=list(draw=FALSE)))
 #+end_src
 
@@ -99,7 +97,7 @@ Use =xlab=NULL=, =ylab=NULL= and =draw=FALSE= inside =scale=.
 Define =main=, =xlab= and =ylab= as vectors or lists with
 arguments to be passed to =grid::gpar=.
 
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_label_color.png" 
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_label_color.png" 
   r <- raster(nrow=10, ncol=10)
   r[] <- runif(100)
   
@@ -114,22 +112,9 @@ arguments to be passed to =grid::gpar=.
 [[file:figs/FAQ_label_color.png]]
 
 
-* How to plot a geographical subset of a raster
-
-Use =xlim= and =ylim=
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_subset.png"
-  r <- raster(nrow=10, ncol=10)
-  r[] = 1:10
-  levelplot(r, xlim=c(-100, 100), ylim=c(-50, 50))
-#+end_src
-
-#+RESULTS:
-[[file:figs/FAQ_subset.png]]
-
-
 * How to add an arrow
 Use =sp::layout.north.arrow= with =latticeExtra::layer=.
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_arrow.png" 
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_arrow.png" 
   f <- system.file("external/test.grd", package="raster")
   r <- raster(f)
   
@@ -149,7 +134,7 @@ Use =sp::layout.north.arrow= with =latticeExtra::layer=.
 * How to add an scale
 Use =grid.rect=, =grid.text= and =latticeExtra::layer=.
 
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_scale.png" 
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_scale.png" 
   f <- system.file("external/test.grd", package="raster")
   r <- raster(f)
 
@@ -177,11 +162,6 @@ Several layers can be combined using the =+.trellis= and =layer=
 functions from the =latticeExtra= package (which is automatically
 loaded with =rasterVis=).
 
-#+begin_src R
-library(raster)
-library(rasterVis)
-#+end_src
-
 Let's build some data to play. You can skip this part if you already have a raster file and a shapefile.
 
 #+begin_src R
@@ -206,10 +186,12 @@ bPols <- map2SpatialPolygons(boundaries, IDs=IDs,
                               proj4string=CRS(projection(myRaster)))
 #+end_src
 
+#+RESULTS:
+
 The polygons are printed with =sp::sp.polygons= using =+.trellis= and
 =layer= to display them over the result of =levelplot=.
 
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_overlay.png" 
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_overlay.png" 
 levelplot(myRaster) + layer(sp.polygons(bPols))
 #+end_src
 
@@ -225,7 +207,7 @@ options.
 Use =print.trellis= and its argument =split=. 
 
 For two different =RasterLayer=.
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_print_split.png" 
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_print_split.png" 
   r <- r2 <- raster()
   r[] <- runif(ncell(r))
   r2[] <- 1:10
@@ -243,7 +225,7 @@ For two different =RasterLayer=.
 [[file:figs/FAQ_print_split.png]]
 
 A more sophisticated solution to print more than two layers.
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_print_split4.png" 
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_print_split4.png" 
   s <- stack(r, r2, 10*r+r2, 10*r-r2)
   nl <- nlayers(s)
   m <- matrix(1:nl, nrow=2)
@@ -264,7 +246,7 @@ A more sophisticated solution to print more than two layers.
 * How to label each panel with a different label from the layer name
 Use =names.attr=.
 
-#+begin_src R :results output graphics :exports both :file "figs/FAQ_namesattr.png" 
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_namesattr.png" 
   r <- raster(nrow=10, ncol=10)
   r[] <- runif(100)
   s <- stack(lapply(1:8, function(i)r))
@@ -277,3 +259,7 @@ Use =names.attr=.
 
 #+RESULTS:
 [[file:figs/FAQ_namesattr.png]]
+
+#+begin_src bash :exports none
+mogrify -trim figs/*.png
+#+end_src
