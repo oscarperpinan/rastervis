@@ -2,7 +2,7 @@ Package: rasterVis
 Type: Package
 Title: Visualization Methods for Raster Data
 Version: 0.40
-Date: 2016-01-30
+Date: 2016-04-16
 Encoding: UTF-8
 Authors@R: c(person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@gmail.com", role=c('cre', 'aut')), person("Robert", "Hijmans", email= "r.hijmans@gmail.com", role='aut'))
 Description: Methods for enhanced visualization and interaction with raster data. It implements visualization methods for quantitative data and categorical data, both for univariate and multivariate rasters. It also provides methods to display spatiotemporal rasters, and vector fields. See the website for examples.
