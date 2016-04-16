@@ -1,14 +1,16 @@
 citHeader("To cite package 'rasterVis' in publications use:")
-     
+
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
+vers <- paste("R package version", meta$Version)
+
 citEntry(entry="Manual",
          title ="{rasterVis}",
          author = personList(as.person("Oscar Perpi{\\~n}{\\'a}n"), as.person("Robert Hijmans")),
-         doi = "10.5281/zenodo.12394",
-         year = "2014",
-         month = "Oct",
+         year = year,
          url ="http://oscarperpinan.github.io/rastervis/",
-         note = "R package version 0.32",
-         textVersion = "Oscar Perpinan Lamigueiro and Robert Hijmans (2014), rasterVis. R package version 0.31. doi:10.5281/zenodo.12394"
+         note = vers,
+         textVersion = paste0("Oscar Perpinan Lamigueiro and Robert Hijmans (",
+                              year, "), meteoForecast. ", vers, ".")
          )
 
 
