@@ -65,12 +65,12 @@
       \item{scales: A list with components \code{x} (columns) and
 	\code{y} (rows). Each of these components must be a numeric
 	vector of length 2 defining the range for each marginal plot.
-	If \code{scales = NULL} (default) the range is internally computed.
-	If any of the elements of the vectors is \code{NA}, the
-	corresponding limit of the range will be calculated internally.
-	If any of the vectors is of length 1, it is assumed that it
-	defines the lower limit of the range, and the upper limit is
-	calculated internally. }
+	If \code{scales = NULL} (default) the range is internally
+	computed.  If any of the elements of the vectors is \code{NA},
+	the corresponding limit of the range will be calculated
+	internally.  If any of the vectors is of length 1, it is assumed
+	that it defines the lower limit of the range, and the upper
+	limit is calculated internally. }
 
       \item{axis: Logical or a list. Its default value is
 	\code{FALSE}. If it is \code{TRUE} or a list, a simple axis is
@@ -89,19 +89,18 @@
     the RAT table should be used.}
   
   \item{xlab, ylab, main}{A character string or expression describing
-    the axis and title labels. These arguments are used by the underlying
-    \code{lattice::\link[lattice]{xyplot}} function, which provides this
-    information in its help page:
+    the axis and title labels. These arguments are used by the
+    underlying \code{lattice::\link[lattice]{xyplot}} function, which
+    provides this information in its help page:
     
     \dQuote{\code{main}, \code{xlab} and \code{ylab} are usually a
-      character string or an expression that gets used as the
-      label, but can also be a list that controls further
-      details.  Expressions are treated as specification of
-      LaTeX-like markup as described in \code{\link{plotmath}}.  The label
-      can be a vector, in which case the components will be
-      spaced out horizontally (or vertically for \code{ylab}).  This
-      feature can be used to provide column or row labels rather
-      than a single axis label.
+      character string or an expression that gets used as the label, but
+      can also be a list that controls further details.  Expressions are
+      treated as specification of LaTeX-like markup as described in
+      \code{\link{plotmath}}.  The label can be a vector, in which case
+      the components will be spaced out horizontally (or vertically for
+      \code{ylab}).  This feature can be used to provide column or row
+      labels rather than a single axis label.
       
       When \code{main} (etc.) is a list, the actual label should
       be specified as the \code{xlab} component (which may be
@@ -117,22 +116,31 @@
   }
   
   
-  \item{names.attr}{Character or expression, names to use in each panel. If missing its
-    default value is the result of \code{names(x)} (after subsetting
-    the layers to be displayed).}
+  \item{names.attr}{Character or expression, names to use in each
+    panel. If missing its default value is the result of \code{names(x)}
+    (after subsetting the layers to be displayed).}
   
   \item{xscale.components, yscale.components}{See
     \code{\link{xscale.raster}} and \code{\link{yscale.raster}}.}
+
+  \item{colorkey}{logical specifying whether a color key is to be drawn
+    alongside the plot (default is \code{TRUE}), or a list describing
+    the color key (see the \code{colorkey} section of the help page of
+    \code{lattice::levelplot} for details). As an additional feature not
+    included in \code{lattice::levelplot}, it accepts the \code{title}
+    argument, a \code{character}, and \code{title.gpar}, a list of
+    graphical parameters (see \code{\link{gpar}} for details) to be
+    applied to the \code{title} text.}
   
-  \item{between, as.table, par.settings, scales, panel}{Graphical parameters used by
-    \code{lattice::\link[lattice]{xyplot}}. Adapted from the help page
-    of this function: \itemize{
+  \item{between, as.table, par.settings, scales, panel}{Graphical
+    parameters used by \code{lattice::\link[lattice]{xyplot}}. Adapted
+    from the help page of this function: \itemize{
       
-      \item{between: }{A list with components \code{code} and \code{code} (both usually 0 by
-        default), numeric vectors specifying the space between the
-        panels (units are character heights). \code{x} and \code{y} are
-        repeated to account for all panels in a page and any extra
-        components are ignored.}
+      \item{between: }{A list with components \code{code} and
+        \code{code} (both usually 0 by default), numeric vectors
+        specifying the space between the panels (units are character
+        heights). \code{x} and \code{y} are repeated to account for all
+        panels in a page and any extra components are ignored.}
       
       \item{as.table: }{A logical flag that controls the order in which
         panels should be displayed: if \code{TRUE} (the default), left
@@ -159,16 +167,15 @@
 	define your own theme (see examples for details).
       }
 
-      \item{scales: }{A list determining how the x- and y-axes
-          (tick marks and labels) are drawn.  The list contains
-          parameters in \code{name=value} form, and may also contain two
-          other lists called \code{x} and \code{y} of the same
-          form. Components of \code{x} and \code{y} affect the
-          respective axes only, while those in \code{scales} affect both.
-          When parameters are specified in both lists, the values in \code{x}
-          or \code{y} are used. For example, use
-          \code{scales=list(draw=FALSE)} to suppress ticks and labels in
-          both axis. Read the help page of
+      \item{scales: }{A list determining how the x- and y-axes (tick
+          marks and labels) are drawn.  The list contains parameters in
+          \code{name=value} form, and may also contain two other lists
+          called \code{x} and \code{y} of the same form. Components of
+          \code{x} and \code{y} affect the respective axes only, while
+          those in \code{scales} affect both.  When parameters are
+          specified in both lists, the values in \code{x} or \code{y}
+          are used. For example, use \code{scales=list(draw=FALSE)} to
+          suppress ticks and labels in both axis. Read the help page of
           \code{lattice::\link[lattice]{xyplot}} to know about the
           possible components of \code{scales}.}
 
@@ -177,16 +184,12 @@
           \code{\link{panel.levelplot}}. Another useful option is
           \code{\link{panel.levelplot.raster}}.}
 
-      }}
-
-      \item{colorkey, pretty, contour, region, labels}{Graphical
-	parameters supplied to
-	\code{lattice::\link[lattice]{levelplot}}.  Adapted from its
-	help page: \itemize{
-	
-	\item{colorkey: }{logical specifying whether a color key is to
-          be drawn alongside the plot (default is \code{TRUE}), or a
-          list describing the color key.}
+    }}
+    
+         
+      \item{pretty, contour, region, labels}{Graphical parameters
+	supplied to \code{lattice::\link[lattice]{levelplot}}.  Adapted
+	from its help page: \itemize{
 
 	\item{pretty: }{A logical flag, indicating whether to use pretty
           cut locations and labels. It is \code{FALSE} for
@@ -196,9 +199,10 @@
 	contour lines. It is \code{TRUE} for \code{contourplot} and
 	\code{FALSE} for \code{levelplot}.}
 	
-	\item{region: }{A logical flag, indicating whether regions between contour
-          lines should be filled as in a level plot. It is \code{FALSE} for \code{contourplot} and
-	\code{TRUE} for \code{levelplot}.}
+	\item{region: }{A logical flag, indicating whether regions
+          between contour lines should be filled as in a level plot. It
+          is \code{FALSE} for \code{contourplot} and \code{TRUE} for
+          \code{levelplot}.}
 	
 	\item{labels: }{Tipically a logical indicating whether the
           labels are to be drawn (default is \code{TRUE} for
@@ -206,16 +210,15 @@
           the labels associated with the \code{at} values, or a list
           whose components define the labels and their graphical
           parameters. Read the help page of
-          \code{\link{panel.levelplot}} for details.}
-      }}
+          \code{\link{panel.levelplot}} for details.}  }}
     
   \item{zscaleLog}{Controls whether the Raster* will be log transformed
-    before being passed to the panel function.  Defaults to \code{NULL}, in
-    which case the \code{Raster*} is not transformed.  Other possible values
-    are any number that works as a base for taking logarithm, \code{TRUE}
-    (which is equivalent to 10), \code{"e"} (for the natural logarithm), and
-    \code{FALSE} (that is equivalent to \code{NULL}).  As a side effect,
-    the colorkey is labeled differently.  }
+    before being passed to the panel function.  Defaults to \code{NULL},
+    in which case the \code{Raster*} is not transformed.  Other possible
+    values are any number that works as a base for taking logarithm,
+    \code{TRUE} (which is equivalent to 10), \code{"e"} (for the natural
+    logarithm), and \code{FALSE} (that is equivalent to \code{NULL}).
+    As a side effect, the colorkey is labeled differently.  }
 
   \item{\dots}{Additional arguments for
     \code{lattice::\link[lattice]{levelplot}},

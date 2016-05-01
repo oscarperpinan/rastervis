@@ -327,7 +327,24 @@ setMethod('levelplot',
                              labels = labels,
                              strip = strip.custom(factor.levels = names.attr),
                              panel = panel, pretty = pretty, ...)
-
+              
+              ## Colorkey Title
+              if (has.colorkey && !is.null(colorkey$title))
+              {
+                  space <- colorkey$space
+                  title <- colorkey$title
+                  title.gpar <- if (is.null(colorkey$title.gpar)) list()
+                                else colorkey$title.gpar
+                  ## Modify the legend field constructed by levelplot,
+                  ## replacing draw.colorkey by drawCK, and adding the
+                  ## title and title.gpar components.
+                  p$legend[[space]] <- list(fun = drawCK,
+                                            args = list(key = modifyList(
+                                                            p$legend[[space]]$args$key,
+                                                            list(title = title,
+                                                                 title.gpar = title.gpar)),
+                                                        space = space))
+              }
 
               ## panel.levelplot uses level.colors to encode values
               ## with colors. It does not work properly with
