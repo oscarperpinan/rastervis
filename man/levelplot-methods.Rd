@@ -321,6 +321,16 @@ myColorkey <- list(at=my.at, ## where the colors change
                      ))
 levelplot(r, at=my.at, colorkey=myColorkey)
 
+## Define the units of the color key
+levelplot(r, colorkey = list(title = "[m]"))
+
+levelplot(r, margin = FALSE,
+             colorkey = list(title = "[m]",
+                             title.gpar = list(cex = 1,
+                                               font = 2,
+                                               col = 'red')
+                             ))
+
 ## shrink and border color
 rCenter <- (maxValue(r) + minValue(r)) / 2
 levelplot(r - rCenter, par.settings=RdBuTheme(), shrink=c(.8, 15), border='black')
