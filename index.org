@@ -13,6 +13,9 @@
 #+BIND: org-html-postamble "<p><a href=\"http://oscarperpinan.github.io/rastervis/FAQ.html\">FAQs</a></p><p><a href=\"https://github.com/oscarperpinan/rastervis\">View the Project on GitHub</a></p><p>Maintained by <a href=\"http://oscarperpinan.github.io/\">Oscar Perpiñán</a>.</script></p>"
 
 * Introduction
+  :PROPERTIES:
+  :CUSTOM_ID: intro
+  :END:
 The =rasterVis= package complements the [[http://cran.r-project.org/web/packages/raster][=raster=]] package, providing a
 set of methods for enhanced visualization and interaction. 
 It defines visualization methods for [[#levelplot][quantitative data]] and categorical
@@ -41,6 +44,9 @@ text, its website offers access to the [[https://github.com/oscarperpinan/spacet
 as well as the [[https://github.com/oscarperpinan/spacetime-vis][full R code]].
 
 ** Installation 
+   :PROPERTIES:
+   :CUSTOM_ID: installation
+   :END:
 
 The stable release of =rasterVis= can be found at [[http://cran.r-project.org/web/packages/rasterVis/][CRAN]].  The
 development version is at [[https://github.com/oscarperpinan/rastervis][GitHub]].

@@ -20,6 +20,9 @@ library(rasterVis)
 #+end_src
 
 * How to define the breaks
+  :PROPERTIES:
+  :CUSTOM_ID: breaks
+  :END:
 
 Use the =at= argument to define the breaks.
 
@@ -64,6 +67,9 @@ levelplot(r, at=my.at, colorkey=myColorkey)
 
 
 * How to suppress axis labels and ticks
+  :PROPERTIES:
+  :CUSTOM_ID: axis_labels
+  :END:
 
 Use =xlab=NULL=, =ylab=NULL= and =draw=FALSE= inside =scale=.
 
@@ -93,6 +99,9 @@ Use =xlab=NULL=, =ylab=NULL= and =draw=FALSE= inside =scale=.
 
 
 * How to rotate the axis label or use a different color
+  :PROPERTIES:
+  :CUSTOM_ID: rotate_axis_label
+  :END:
 
 Define =main=, =xlab= and =ylab= as vectors or lists with
 arguments to be passed to =grid::gpar=.
@@ -113,6 +122,9 @@ arguments to be passed to =grid::gpar=.
 
 
 * How to add an arrow
+  :PROPERTIES:
+  :CUSTOM_ID: arrow
+  :END:
 Use =sp::layout.north.arrow= with =latticeExtra::layer=.
 #+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_arrow.png" 
   f <- system.file("external/test.grd", package="raster")
@@ -132,6 +144,9 @@ Use =sp::layout.north.arrow= with =latticeExtra::layer=.
 
 
 * How to add an scale
+  :PROPERTIES:
+  :CUSTOM_ID: scalebar
+  :END:
 Use =grid.rect=, =grid.text= and =latticeExtra::layer=.
 
 #+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_scale.png" 
@@ -157,6 +172,9 @@ Use =grid.rect=, =grid.text= and =latticeExtra::layer=.
 
 
 * How to overlay a shapefile
+  :PROPERTIES:
+  :CUSTOM_ID: overlay
+  :END:
 
 Several layers can be combined using the =+.trellis= and =layer=
 functions from the =latticeExtra= package (which is automatically
@@ -203,6 +221,9 @@ options.
 
 
 * How to print several Rasters with different legends in the same page
+  :PROPERTIES:
+  :CUSTOM_ID: several_rasters
+  :END:
 
 Use =print.trellis= and its argument =split=. 
 
@@ -244,6 +265,9 @@ A more sophisticated solution to print more than two layers.
 
 
 * How to label each panel with a different label from the layer name
+  :PROPERTIES:
+  :CUSTOM_ID: panel_labels
+  :END:
 Use =names.attr=.
 
 #+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_namesattr.png" 

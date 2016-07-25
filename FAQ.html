@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-04-16 sáb 19:17 -->
+<!-- 2016-07-25 lun 18:54 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>FAQs</title>
@@ -152,21 +152,21 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgheadline1">How to define the breaks</a></li>
-<li><a href="#orgheadline2">How to suppress axis labels and ticks</a></li>
-<li><a href="#orgheadline3">How to rotate the axis label or use a different color</a></li>
-<li><a href="#orgheadline4">How to add an arrow</a></li>
-<li><a href="#orgheadline5">How to add an scale</a></li>
-<li><a href="#orgheadline6">How to overlay a shapefile</a></li>
-<li><a href="#orgheadline7">How to print several Rasters with different legends in the same page</a></li>
-<li><a href="#orgheadline8">How to label each panel with a different label from the layer name</a></li>
+<li><a href="#breaks">How to define the breaks</a></li>
+<li><a href="#axis_labels">How to suppress axis labels and ticks</a></li>
+<li><a href="#rotate_axis_label">How to rotate the axis label or use a different color</a></li>
+<li><a href="#arrow">How to add an arrow</a></li>
+<li><a href="#scalebar">How to add an scale</a></li>
+<li><a href="#overlay">How to overlay a shapefile</a></li>
+<li><a href="#several_rasters">How to print several Rasters with different legends in the same page</a></li>
+<li><a href="#panel_labels">How to label each panel with a different label from the layer name</a></li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="orgheadline1">How to define the breaks</h2>
-<div class="outline-text-2" id="text-orgheadline1">
+<h2 id="breaks"><a id="orgheadline1"></a>How to define the breaks</h2>
+<div class="outline-text-2" id="text-breaks">
 <p>
 Use the <code>at</code> argument to define the breaks.
 </p>
@@ -233,8 +233,8 @@ levelplot(r, at=my.at, colorkey=myColorkey)
 
 
 <div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="orgheadline2">How to suppress axis labels and ticks</h2>
-<div class="outline-text-2" id="text-orgheadline2">
+<h2 id="axis_labels"><a id="orgheadline2"></a>How to suppress axis labels and ticks</h2>
+<div class="outline-text-2" id="text-axis_labels">
 <p>
 Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> inside <code>scale</code>.
 </p>
@@ -282,8 +282,8 @@ Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> i
 
 
 <div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="orgheadline3">How to rotate the axis label or use a different color</h2>
-<div class="outline-text-2" id="text-orgheadline3">
+<h2 id="rotate_axis_label"><a id="orgheadline3"></a>How to rotate the axis label or use a different color</h2>
+<div class="outline-text-2" id="text-rotate_axis_label">
 <p>
 Define <code>main</code>, <code>xlab</code> and <code>ylab</code> as vectors or lists with
 arguments to be passed to <code>grid::gpar</code>.
@@ -312,8 +312,8 @@ arguments to be passed to <code>grid::gpar</code>.
 
 
 <div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="orgheadline4">How to add an arrow</h2>
-<div class="outline-text-2" id="text-orgheadline4">
+<h2 id="arrow"><a id="orgheadline4"></a>How to add an arrow</h2>
+<div class="outline-text-2" id="text-arrow">
 <p>
 Use <code>sp::layout.north.arrow</code> with <code>latticeExtra::layer</code>.
 </p>
@@ -341,8 +341,8 @@ Use <code>sp::layout.north.arrow</code> with <code>latticeExtra::layer</code>.
 
 
 <div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="orgheadline5">How to add an scale</h2>
-<div class="outline-text-2" id="text-orgheadline5">
+<h2 id="scalebar"><a id="orgheadline5"></a>How to add an scale</h2>
+<div class="outline-text-2" id="text-scalebar">
 <p>
 Use <code>grid.rect</code>, <code>grid.text</code> and <code>latticeExtra::layer</code>.
 </p>
@@ -376,8 +376,8 @@ Use <code>grid.rect</code>, <code>grid.text</code> and <code>latticeExtra::layer
 
 
 <div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="orgheadline6">How to overlay a shapefile</h2>
-<div class="outline-text-2" id="text-orgheadline6">
+<h2 id="overlay"><a id="orgheadline6"></a>How to overlay a shapefile</h2>
+<div class="outline-text-2" id="text-overlay">
 <p>
 Several layers can be combined using the <code>+.trellis</code> and <code>layer</code>
 functions from the <code>latticeExtra</code> package (which is automatically
@@ -438,8 +438,8 @@ options.
 
 
 <div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="orgheadline7">How to print several Rasters with different legends in the same page</h2>
-<div class="outline-text-2" id="text-orgheadline7">
+<h2 id="several_rasters"><a id="orgheadline7"></a>How to print several Rasters with different legends in the same page</h2>
+<div class="outline-text-2" id="text-several_rasters">
 <p>
 Use <code>print.trellis</code> and its argument <code>split</code>. 
 </p>
@@ -497,8 +497,8 @@ A more sophisticated solution to print more than two layers.
 
 
 <div id="outline-container-orgheadline8" class="outline-2">
-<h2 id="orgheadline8">How to label each panel with a different label from the layer name</h2>
-<div class="outline-text-2" id="text-orgheadline8">
+<h2 id="panel_labels"><a id="orgheadline8"></a>How to label each panel with a different label from the layer name</h2>
+<div class="outline-text-2" id="text-panel_labels">
 <p>
 Use <code>names.attr</code>.
 </p>
@@ -525,7 +525,7 @@ Use <code>names.attr</code>.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Oscar Perpiñán Lamigueiro</p>
-<p class="date">Created: 2016-04-16 sáb 19:17</p>
+<p class="date">Created: 2016-07-25 lun 18:54</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
