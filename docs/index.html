@@ -3,13 +3,13 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-07-25 lun 18:55 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2016-12-05 lun 11:03 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>rasterVis</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Oscar Perpiñán Lamigueiro" />
-<meta  name="description" content="rasterVis"
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Oscar Perpiñán Lamigueiro" />
+<meta name="description" content="rasterVis"
  />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
@@ -55,13 +55,97 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -94,6 +178,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="styles.css" />
@@ -164,8 +249,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="intro"><a id="orgheadline2"></a>Introduction</h2>
+<div id="outline-container-orgf5601be" class="outline-2">
+<h2 id="intro"><a id="orgf5601be"></a>Introduction</h2>
 <div class="outline-text-2" id="text-intro">
 <p>
 The <code>rasterVis</code> package complements the <a href="http://cran.r-project.org/web/packages/raster"><code>raster</code></a> package, providing a
@@ -205,8 +290,8 @@ as well as the <a href="https://github.com/oscarperpinan/spacetime-vis">full R c
 </p>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-3">
-<h3 id="installation"><a id="orgheadline1"></a>Installation</h3>
+<div id="outline-container-org9e7d08e" class="outline-3">
+<h3 id="installation"><a id="org9e7d08e"></a>Installation</h3>
 <div class="outline-text-3" id="text-installation">
 <p>
 The stable release of <code>rasterVis</code> can be found at <a href="http://cran.r-project.org/web/packages/rasterVis/">CRAN</a>.  The
@@ -218,7 +303,6 @@ Install the stable version with:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">install.packages(<span class="org-string">'rasterVis'</span>)
 </pre>
 </div>
@@ -228,7 +312,6 @@ You can install the development version with the <a href="https://github.com/Man
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">remotes::install_github(<span class="org-string">'oscarperpinan/rasterVis'</span>)
 </pre>
 </div>
@@ -238,7 +321,6 @@ or with the <a href="https://github.com/hadley/devtools">devtools</a> package:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">devtools::install_github(<span class="org-string">'oscarperpinan/rasterVis'</span>)
 </pre>
 </div>
@@ -246,8 +328,8 @@ or with the <a href="https://github.com/hadley/devtools">devtools</a> package:
 </div>
 </div>
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="levelplot"><a id="orgheadline4"></a>Level plots</h2>
+<div id="outline-container-orgfcdb0be" class="outline-2">
+<h2 id="levelplot"><a id="orgfcdb0be"></a>Level plots</h2>
 <div class="outline-text-2" id="text-levelplot">
 <p>
 This section discusses how to display quantitative data with
@@ -256,7 +338,6 @@ described <a href="http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-sol
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R"><span class="org-constant">library</span>(raster)
 <span class="org-constant">library</span>(rasterVis)
 
@@ -287,7 +368,6 @@ technique</a>.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">levelplot(SISmm)
 </pre>
 </div>
@@ -305,7 +385,6 @@ function defined by the component <code>FUN</code> of the list <code>margin</cod
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">levelplot(SISmm, layers = 1, margin = list(FUN = <span class="org-string">'median'</span>), contour=<span class="org-type">TRUE</span>)
 </pre>
 </div>
@@ -315,15 +394,18 @@ function defined by the component <code>FUN</code> of the list <code>margin</cod
 <p><img src="figs/levelplot_layer1.png" alt="levelplot_layer1.png" />
 </p>
 </div>
+</div>
 
+<div id="outline-container-orgdba23d9" class="outline-3">
+<h3 id="orgdba23d9">Overlay plots</h3>
+<div class="outline-text-3" id="text-orgdba23d9">
 <p>
-The result of this call is a <code>trellis</code> object. The <a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a> package
+The result of the last call is a <code>trellis</code> object. The <a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a> package
 provides the <code>layer</code> function to add contents. For example, let&rsquo;s add the administrative borders. 
 This information is available at the <a href="http://www.gadm.org/data/shp/ESP_adm.zip">GADM service</a>.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R"><span class="org-constant">library</span>(maptools)
 proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=longlat +ellps=WGS84'</span>)
 <span class="org-comment-delimiter">##</span><span class="org-comment">Modify next line to your folder</span>
@@ -339,10 +421,64 @@ p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span class="org-string">'darkgray'</sp
 <p><img src="figs/levelplot_layer_borders.png" alt="levelplot_layer_borders.png" />
 </p>
 </div>
+
+<p>
+A similar approach can be used to overlay several level plots. The solution uses the <code>+.trellis</code> mechanism implemented in <code>latticeExtra</code>. Let&rsquo;s create two different <code>RasterLayer</code> objects:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
+r <span class="org-constant">&lt;-</span> raster(f)
+r0 <span class="org-constant">&lt;-</span> init(r, fun = rnorm)
+</pre>
 </div>
 
-<div id="outline-container-orgheadline3" class="outline-3">
-<h3 id="levelplot_logscale"><a id="orgheadline3"></a>Log scale</h3>
+<p>
+&#x2026; and create two levelplots with different color palettes:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">p0 <span class="org-constant">&lt;-</span> levelplot(r0, par.settings = GrTheme)
+p1 <span class="org-constant">&lt;-</span> levelplot(r, par.settings = magmaTheme)
+</pre>
+</div>
+
+<p>
+These plots can be easily combined using <code>+</code> (the first plot sets the color scale):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">p0 + p1
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="figs/levelplot_overlay.png" alt="levelplot_overlay.png" />
+</p>
+</div>
+
+
+<p>
+The function <code>as.layer</code> with <code>under = TRUE</code> must be used in order to show the other color scale:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">p1 + as.layer(p0, under = <span class="org-type">TRUE</span>)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="figs/levelplot_overlay_under.png" alt="levelplot_overlay_under.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org1cf6462" class="outline-3">
+<h3 id="levelplot_logscale"><a id="org1cf6462"></a>Log scale</h3>
 <div class="outline-text-3" id="text-levelplot_logscale">
 <p>
 The <code>zscaleLog</code> argument controls whether the object will be log
@@ -354,7 +490,6 @@ logarithm).  As a side effect, the colorkey is labeled differently.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
 r <span class="org-constant">&lt;-</span> raster(f)
 levelplot(r^2, zscaleLog=<span class="org-type">TRUE</span>, contour=<span class="org-type">TRUE</span>)
@@ -370,8 +505,8 @@ levelplot(r^2, zscaleLog=<span class="org-type">TRUE</span>, contour=<span class
 </div>
 </div>
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="themes"><a id="orgheadline5"></a>Themes</h2>
+<div id="outline-container-org067dad1" class="outline-2">
+<h2 id="themes"><a id="org067dad1"></a>Themes</h2>
 <div class="outline-text-2" id="text-themes">
 <p>
 The previous plots used the default theme of rasterVis,
@@ -385,7 +520,6 @@ The irradiation of August is:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">Aug <span class="org-constant">&lt;-</span> raster(SISmm, 8)
 </pre>
 </div>
@@ -395,7 +529,6 @@ and its overall mean is calculated with cellStats:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">meanAug <span class="org-constant">&lt;-</span> cellStats(Aug, mean)
 </pre>
 </div>
@@ -405,7 +538,6 @@ The <code>RdBuTheme</code> diverging palette is specially well suited to this da
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">levelplot(Aug - meanAug, par.settings = RdBuTheme)
 </pre>
 </div>
@@ -423,7 +555,6 @@ palette. For example, using a sequential palette from
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R"><span class="org-constant">library</span>(colorspace)
 myTheme <span class="org-constant">&lt;-</span> rasterTheme(region=sequential_hcl(10, power=2.2))
 levelplot(Aug, par.settings = myTheme, contour = <span class="org-type">TRUE</span>)
@@ -441,7 +572,6 @@ or with the colour-blindness corrections from the <a href="http://cran.r-project
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R"><span class="org-constant">library</span>(dichromat)
 myTheme <span class="org-constant">&lt;-</span> rasterTheme(region = dichromat(terrain.colors(15)))
 levelplot(Aug, par.settings = myTheme)
@@ -457,14 +587,13 @@ levelplot(Aug, par.settings = myTheme)
 </div>
 
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="factor"><a id="orgheadline6"></a>Categorical data</h2>
+<div id="outline-container-orge2e3b6c" class="outline-2">
+<h2 id="factor"><a id="orge2e3b6c"></a>Categorical data</h2>
 <div class="outline-text-2" id="text-factor">
 <p>
 A raster that contains categorical data can be defined with the <code>ratify</code> function.
 </p>
 <div class="org-src-container">
-
 <pre class="src src-R">r <span class="org-constant">&lt;-</span> raster(nrow=10, ncol=10)
 r[] = 1
 r[51:100] = 3
@@ -477,7 +606,6 @@ r <span class="org-constant">&lt;-</span> ratify(r)
 The levels are stored in the &ldquo;Raster Attribute Table&rdquo; (RAT) that can be manipulated with the <code>levels</code> function:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-R">rat <span class="org-constant">&lt;-</span> levels(r)[[1]]
 rat$landcover <span class="org-constant">&lt;-</span> c(<span class="org-string">'Pine'</span>, <span class="org-string">'Oak'</span>, <span class="org-string">'Meadow'</span>)
 rat$class <span class="org-constant">&lt;-</span> c(<span class="org-string">'A1'</span>, <span class="org-string">'B2'</span>, <span class="org-string">'C3'</span>)
@@ -489,7 +617,6 @@ levels(r) <span class="org-constant">&lt;-</span> rat
 Such type of rasters are easily displayed with <code>levelplot</code>:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-R">levelplot(r, col.regions=c(<span class="org-string">'palegreen'</span>, <span class="org-string">'midnightblue'</span>, <span class="org-string">'indianred1'</span>))
 </pre>
 </div>
@@ -504,7 +631,6 @@ Such type of rasters are easily displayed with <code>levelplot</code>:
 You can choose the variable (column) from the RAT with the <code>att</code> argument:
 </p>
 <div class="org-src-container">
-
 <pre class="src src-R">levelplot(r, att=<span class="org-string">'class'</span>, col.regions=c(<span class="org-string">'palegreen'</span>, <span class="org-string">'midnightblue'</span>, <span class="org-string">'indianred1'</span>))
 </pre>
 </div>
@@ -517,8 +643,8 @@ You can choose the variable (column) from the RAT with the <code>att</code> argu
 </div>
 </div>
 
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="scatterplot"><a id="orgheadline7"></a>Scatterplots and histograms</h2>
+<div id="outline-container-org3bb6aab" class="outline-2">
+<h2 id="scatterplot"><a id="org3bb6aab"></a>Scatterplots and histograms</h2>
 <div class="outline-text-2" id="text-scatterplot">
 <p>
 There are methods to show scatter plots and hexbin plots of the layers
@@ -526,7 +652,6 @@ and coordinates of a <code>Raster</code> object:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">  <span class="org-comment-delimiter">##</span><span class="org-comment">Relation between the January &amp; February versus July radiation for four</span>
   <span class="org-comment-delimiter">##</span><span class="org-comment">differents longitude regions.</span>
   xyplot(Jan+Feb~Jul|cut(x, 4), data = SISmm, auto.key = list(space=<span class="org-string">'right'</span>))
@@ -540,7 +665,6 @@ and coordinates of a <code>Raster</code> object:
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-R">  <span class="org-comment-delimiter">##</span><span class="org-comment">Faster with hexbinplot</span>
   hexbinplot(Jan~Jul|cut(x, 6), data = SISmm)
 </pre>
@@ -558,7 +682,6 @@ and coordinates of a <code>Raster</code> object:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">splom(SISmm)
 </pre>
 </div>
@@ -574,7 +697,6 @@ and coordinates of a <code>Raster</code> object:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">histogram(SISmm)
 </pre>
 </div>
@@ -586,7 +708,6 @@ and coordinates of a <code>Raster</code> object:
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-R">densityplot(SISmm)
 </pre>
 </div>
@@ -598,7 +719,6 @@ and coordinates of a <code>Raster</code> object:
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-R">bwplot(SISmm)
 </pre>
 </div>
@@ -616,7 +736,6 @@ variable of the plot:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">histogram(SISmm, FUN = as.yearqtr)
 </pre>
 </div>
@@ -629,8 +748,8 @@ variable of the plot:
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-2">
-<h2 id="spacetime"><a id="orgheadline8"></a>Space-time plots</h2>
+<div id="outline-container-org3175ce7" class="outline-2">
+<h2 id="spacetime"><a id="org3175ce7"></a>Space-time plots</h2>
 <div class="outline-text-2" id="text-spacetime">
 <p>
 The <code>z</code> slot of this <code>Raster</code> object stores a time index. This 3D
@@ -643,7 +762,6 @@ The <code>hovmoller</code> method uses the function <code>xyLayer</code>, which 
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package = <span class="org-string">"raster"</span>)
 r <span class="org-constant">&lt;-</span> raster(f)
 dirXY <span class="org-constant">&lt;-</span> xyLayer(r, sqrt(x^2 + y^2))
@@ -656,7 +774,6 @@ For example, the next code builds a hovmoller diagram showing the time evolution
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R"><span class="org-constant">library</span>(zoo)
 
 old <span class="org-constant">&lt;-</span> setwd(tempdir())
@@ -688,7 +805,6 @@ setwd(old)
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-R"><span class="org-comment-delimiter">## </span><span class="org-comment">Ok, let's see the result</span>
 hovmoller(SSTanom,
           at = seq(-3, 3, .25),
@@ -710,7 +826,6 @@ The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">horizonplot(SSTanom,
             col.regions = rev(brewer.pal(n = 10, <span class="org-string">'RdBu'</span>)))
 </pre>
@@ -724,8 +839,8 @@ The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for
 </div>
 </div>
 
-<div id="outline-container-orgheadline9" class="outline-2">
-<h2 id="vectorplot"><a id="orgheadline9"></a>Vector field plots</h2>
+<div id="outline-container-org09e768c" class="outline-2">
+<h2 id="vectorplot"><a id="org09e768c"></a>Vector field plots</h2>
 <div class="outline-text-2" id="text-vectorplot">
 <p>
 The function <code>terrain</code> from <code>raster</code> provides the vector field
@@ -740,7 +855,6 @@ this vector field.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">proj <span class="org-constant">&lt;-</span> CRS(<span class="org-string">'+proj=longlat +datum=WGS84'</span>)
 df <span class="org-constant">&lt;-</span> expand.grid(x = seq(-2, 2, .01), y = seq(-2, 2, .01))
   
@@ -750,7 +864,6 @@ r <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
 </div>
 
 <div class="org-src-container">
-
 <pre class="src src-R">vectorplot(r, par.settings=RdBuTheme())
 </pre>
 </div>
@@ -784,7 +897,6 @@ positions and color degradation encode the local vector direction
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">streamplot(r)
 </pre>
 </div>
@@ -805,7 +917,6 @@ options can be changed easily:
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">df$z <span class="org-constant">&lt;-</span> with(df, sqrt(x^2 + y^2))
 df$phi <span class="org-constant">&lt;-</span> with(df, atan2(-y, x))
 r2 <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
@@ -823,8 +934,8 @@ streamplot(r2, isField=<span class="org-type">TRUE</span>, streamlet=list(L=30),
 </div>
 </div>
 
-<div id="outline-container-orgheadline10" class="outline-2">
-<h2 id="interaction"><a id="orgheadline10"></a>Interaction</h2>
+<div id="outline-container-org0b7d49d" class="outline-2">
+<h2 id="interaction"><a id="org0b7d49d"></a>Interaction</h2>
 <div class="outline-text-2" id="text-interaction">
 <p>
 This package includes two functions to interact with the <code>trellis</code> objects. 
@@ -837,7 +948,6 @@ although it can be also used after <code>xyplot</code>, <code>hexbinplot</code> 
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">levelplot(SISmm)
 
 <span class="org-comment-delimiter">## </span><span class="org-comment">Do not close the last graphical window.  Use the left button of the</span>
@@ -856,7 +966,6 @@ be highlighted and returned as a SpatialPoints object.
 </p>
 
 <div class="org-src-container">
-
 <pre class="src src-R">reg <span class="org-constant">&lt;-</span> chooseRegion()
 </pre>
 </div>

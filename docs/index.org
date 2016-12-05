@@ -1,9 +1,6 @@
 #+DESCRIPTION: rasterVis
 #+TITLE: rasterVis
-#+PROPERTY:  session *R*
-#+PROPERTY:  tangle yes
-#+PROPERTY: eval no-export
-#+PROPERTY:  comments org
+#+PROPERTY: header-args :session *R* :eval no-export :tangle yes :comments org
 #+LANGUAGE:  en
 #+AUTHOR: Oscar Perpiñán Lamigueiro
 #+OPTIONS:   num:nil toc:1 ^:nil
@@ -123,7 +120,8 @@ levelplot(SISmm, layers = 1, margin = list(FUN = 'median'), contour=TRUE)
 #+RESULTS:
 [[file:figs/levelplot_layer1.png]]
 
-The result of this call is a =trellis= object. The [[http://latticeextra.r-forge.r-project.org/][latticeExtra]] package
+** Overlay plots
+The result of the last call is a =trellis= object. The [[http://latticeextra.r-forge.r-project.org/][latticeExtra]] package
 provides the =layer= function to add contents. For example, let's add the administrative borders. 
 This information is available at the [[http://www.gadm.org/data/shp/ESP_adm.zip][GADM service]].
 
@@ -139,6 +137,41 @@ p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
 
 #+RESULTS:
 [[file:figs/levelplot_layer_borders.png]]
+
+A similar approach can be used to overlay several level plots. The solution uses the =+.trellis= mechanism implemented in =latticeExtra=. Let's create two different =RasterLayer= objects:
+
+#+begin_src R
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+r0 <- init(r, fun = rnorm)
+#+end_src
+
+... and create two levelplots with different color palettes:
+
+#+begin_src R
+p0 <- levelplot(r0, par.settings = GrTheme)
+p1 <- levelplot(r, par.settings = magmaTheme)
+#+end_src
+
+These plots can be easily combined using =+= (the first plot sets the color scale):
+
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/levelplot_overlay.png"
+p0 + p1
+#+end_src
+
+#+RESULTS:
+[[file:figs/levelplot_overlay.png]]
+
+
+The function =as.layer= with =under = TRUE= must be used in order to show the other color scale:
+
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/levelplot_overlay_under.png"
+p1 + as.layer(p0, under = TRUE)
+#+end_src
+
+#+RESULTS:
+[[file:figs/levelplot_overlay_under.png]]
+
 
 ** Log scale
    :PROPERTIES:

@@ -1,4 +1,7 @@
 ## Installation 
+##    :PROPERTIES:
+##    :CUSTOM_ID: installation
+##    :END:
 
 ## The stable release of =rasterVis= can be found at [[http://cran.r-project.org/web/packages/rasterVis/][CRAN]].  The
 ## development version is at [[https://github.com/oscarperpinan/rastervis][GitHub]].
@@ -13,14 +16,14 @@ install.packages('rasterVis')
 ## You can install the development version with the [[https://github.com/MangoTheCat/remotes#installation][remotes]] package:
 
 
-remotes::install_github('oscarperpinan/rasterVis') 
+remotes::install_github('oscarperpinan/rasterVis')
 
 
 
 ## or with the [[https://github.com/hadley/devtools][devtools]] package:
 
 
-devtools::install_github('oscarperpinan/rasterVis') 
+devtools::install_github('oscarperpinan/rasterVis')
 
 ## Level plots
 ##   :PROPERTIES:
@@ -74,12 +77,8 @@ levelplot(SISmm)
 
 levelplot(SISmm, layers = 1, margin = list(FUN = 'median'), contour=TRUE)
 
-
-
-## #+RESULTS:
-## [[file:figs/levelplot_layer1.png]]
-
-## The result of this call is a =trellis= object. The [[http://latticeextra.r-forge.r-project.org/][latticeExtra]] package
+## Overlay plots
+## The result of the last call is a =trellis= object. The [[http://latticeextra.r-forge.r-project.org/][latticeExtra]] package
 ## provides the =layer= function to add contents. For example, let's add the administrative borders. 
 ## This information is available at the [[http://www.gadm.org/data/shp/ESP_adm.zip][GADM service]].
 
@@ -91,6 +90,44 @@ mapaSHP <- readShapeLines('/home/datos/ESP_adm/ESP_adm2.shp', proj4string=proj)
 
 p <- levelplot(SISmm, layers=1, margin = list(FUN = median))
 p + layer(sp.lines(mapaSHP, lwd=0.8, col='darkgray'))
+
+
+
+## #+RESULTS:
+## [[file:figs/levelplot_layer_borders.png]]
+
+## A similar approach can be used to overlay several level plots. The solution uses the =+.trellis= mechanism implemented in =latticeExtra=. Let's create two different =RasterLayer= objects:
+
+
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+r0 <- init(r, fun = rnorm)
+
+
+
+## ... and create two levelplots with different color palettes:
+
+
+p0 <- levelplot(r0, par.settings = GrTheme)
+p1 <- levelplot(r, par.settings = magmaTheme)
+
+
+
+## These plots can be easily combined using =+= (the first plot sets the color scale):
+
+
+p0 + p1
+
+
+
+## #+RESULTS:
+## [[file:figs/levelplot_overlay.png]]
+
+
+## The function =as.layer= with =under = TRUE= must be used in order to show the other color scale:
+
+
+p1 + as.layer(p0, under = TRUE)
 
 ## Log scale
 ##    :PROPERTIES:
@@ -426,7 +463,6 @@ r2 <- rasterFromXYZ(df, crs=proj)
   
 streamplot(r2, isField=TRUE, streamlet=list(L=30), droplet=list(pc=.3),
            par.settings=streamTheme(symbol=brewer.pal(n=5, name='Reds')))
-  
 
 ## Interaction
 ##   :PROPERTIES:

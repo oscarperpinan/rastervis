@@ -1,0 +1,1 @@
+mogrify -trim figs/*.png
