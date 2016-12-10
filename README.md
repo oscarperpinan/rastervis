@@ -7,7 +7,7 @@ rasterVis
 =========
 
 The
-[`raster`](http://cran.r-project.org/package=raster)
+[`raster`](https://cran.r-project.org/package=raster)
 package defines classes and methods for spatial raster data access and
 manipulation. The `rasterVis` package complements raster providing a
 set of methods for enhanced visualization and interaction.
