@@ -149,7 +149,7 @@ setMethod('streamplot',
             streamList <- streamList[order(slopeVals)]
 
             p <- levelplot(object, layers=1,
-                           margin=FALSE, colorkey=FALSE,
+                           margin=FALSE, #colorkey=FALSE,
                            par.settings=par.settings, ...) + 
                              layer(lapply(streamList, function(streamlet){
                                panel.points(streamlet$x, streamlet$y,
