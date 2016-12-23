@@ -46,16 +46,18 @@
 
 \S4method{streamplot}{Raster}(object, layers,
             droplet = list(), streamlet = list(),
-            par.settings=streamTheme(),
-            isField = FALSE, reverse=FALSE, 
-            parallel=TRUE, mc.cores=detectCores(), cl=NULL,
+            par.settings = streamTheme(),
+            colorkey = FALSE,
+            isField = FALSE, reverse = FALSE, 
+            parallel = TRUE, mc.cores = detectCores(), cl = NULL,
             ...)
 
 \S4method{streamplot}{RasterStack}(object, layers,
             droplet = list(), streamlet = list(),
             par.settings=streamTheme(),
-            isField = FALSE, reverse=FALSE, 
-            parallel=TRUE, mc.cores=detectCores(), cl=NULL,
+            colorkey = FALSE,
+            isField = FALSE, reverse = FALSE, 
+            parallel = TRUE, mc.cores = detectCores(), cl = NULL,
             ...)
 }
 
@@ -118,6 +120,11 @@ produce 324 droplets.}}}
 \item{par.settings}{A list to define the graphical parameters. For
   \code{streamplot} there is an specific theme, \code{streamTheme}.}
 
+\item{colorkey}{A logical specifying whether a color key is to be drawn
+    alongside the plot (default is \code{FALSE}), or a list describing
+    the color key (see the \code{colorkey} section of the help page of
+    \code{levelplot} for details).}
+  
 \item{parallel}{Logical, TRUE (default) to use \code{\link{parallel}}
   package.}
 \item{cl}{a cluster object. Read the help page of
