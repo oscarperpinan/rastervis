@@ -10,7 +10,7 @@ extractSA <- function(s, skip, dXY = FALSE,
             ## (aspect)
             slope <- subset(s, 1)
             aspect <- subset(s, 2)
-            
+
             if (unit=='degrees') {
                 aspect <- aspect/180*pi
             }
@@ -41,8 +41,8 @@ sa2xy <- function(sa, dXY = FALSE,
             }
         }
         ##sin due to the angular definition of aspect
-        dx <- slope * sin(aspect) 
-        dy <- slope * cos(aspect)
+        dx <- slope * cos(aspect)
+        dy <- slope * sin(aspect)
     } else {
         dx <- subset(sa, 1)
         dy <- subset(sa, 2)
@@ -64,7 +64,7 @@ fooSlopeAspect <- function(s, skip, dXY = FALSE,
           scaleSlope = scaleSlope,
           aspX = aspX, aspY = aspY)
 }
-    
+
 setGeneric('vectorplot',
            function(object, ...){
                standardGeneric('vectorplot')
@@ -83,11 +83,11 @@ setMethod('vectorplot',
               aspX=0.08, aspY=aspX,
               key.arrow = NULL,
               ...){
-              
+
               if (!missing(layers)) {
                   object <- subset(object, subset=layers)
               }
-              
+
               dat <- sampleRegular(object, size=narrows, asRaster=TRUE)
 
               if (isField=='dXY') {
@@ -96,7 +96,7 @@ setMethod('vectorplot',
                   } else {
                       dXY=FALSE
                       }
-              
+
 
               if (nlayers(object)>1 && !isField){ ##slopeAspect works
                   ## only for RasterLayer
@@ -111,7 +111,7 @@ setMethod('vectorplot',
                                        scaleSlope = scaleSlope,
                                        aspX = aspX, aspY = aspY)
               }
-              
+
               ## If 'region' is a Raster, it is used as the background
               if (is(region, 'Raster')) {
                   compareRaster(object, region, rowcol=FALSE)
@@ -131,7 +131,7 @@ setMethod('vectorplot',
 
               ## Ready to plot
               p <- levelplot(object,
-                             maxpixels = maxpixels, 
+                             maxpixels = maxpixels,
                              region = region,
                              margin = margin,
                              ...) +
@@ -196,7 +196,7 @@ setMethod('vectorplot',
                                  aspX = aspX, aspY = aspY,
                                  key.arrow = key.arrow,
                                  ...)
-                  
+
               } else {## RasterStack with dXY
                   ## nlayers must be even
                   ## Maybe it should not be compulsory...
