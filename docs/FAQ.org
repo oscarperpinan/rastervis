@@ -3,11 +3,7 @@
 #+DESCRIPTION: FAQ rasterVis
 #+TITLE: FAQs
 #+AUTHOR: Oscar Perpiñán Lamigueiro
-#+PROPERTY:  session *R-FAQs*
-#+PROPERTY:  tangle yes
-#+PROPERTY:  eval no
-#+PROPERTY:  comments org
-#+PROPERTY:  exports both 
+#+PROPERTY:  header-args :session *R-FAQs* :tangle yes :eval no-export :comments org :exports both
 #+LANGUAGE:  en
 #+OPTIONS:   num:nil toc:1 ^:nil
 #+OPTIONS: org-html-preamble nil org-html-postamble nil

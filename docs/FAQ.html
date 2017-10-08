@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-10-08 dom 17:34 -->
+<!-- 2017-10-08 dom 17:40 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>FAQs</title>
@@ -244,15 +244,15 @@ for the JavaScript code in this tag.
 <li><a href="#arrow">How to add an arrow</a></li>
 <li><a href="#scalebar">How to add an scale</a></li>
 <li><a href="#overlay">How to overlay a shapefile</a></li>
-<li><a href="#org743dcc9">How to overlay graticules (longitude - latitude lines)</a></li>
+<li><a href="#org20515cf">How to overlay graticules (longitude - latitude lines)</a></li>
 <li><a href="#several_rasters">How to print several Rasters with different legends in the same page</a></li>
 <li><a href="#panel_labels">How to label each panel with a different label from the layer name</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orge36b7d3" class="outline-2">
-<h2 id="breaks"><a id="orge36b7d3"></a>How to define the breaks</h2>
+<div id="outline-container-org686bb91" class="outline-2">
+<h2 id="breaks"><a id="org686bb91"></a>How to define the breaks</h2>
 <div class="outline-text-2" id="text-breaks">
 <p>
 Use the <code>at</code> argument to define the breaks.
@@ -316,8 +316,8 @@ levelplot(r, at=my.at, colorkey=myColorkey)
 </div>
 
 
-<div id="outline-container-orga2d8f0d" class="outline-2">
-<h2 id="axis_labels"><a id="orga2d8f0d"></a>How to suppress axis labels and ticks</h2>
+<div id="outline-container-org92b5b54" class="outline-2">
+<h2 id="axis_labels"><a id="org92b5b54"></a>How to suppress axis labels and ticks</h2>
 <div class="outline-text-2" id="text-axis_labels">
 <p>
 Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> inside <code>scale</code>.
@@ -362,8 +362,8 @@ Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> i
 </div>
 
 
-<div id="outline-container-org0df13ee" class="outline-2">
-<h2 id="rotate_axis_label"><a id="org0df13ee"></a>How to rotate the axis label or use a different color</h2>
+<div id="outline-container-orgb72eeab" class="outline-2">
+<h2 id="rotate_axis_label"><a id="orgb72eeab"></a>How to rotate the axis label or use a different color</h2>
 <div class="outline-text-2" id="text-rotate_axis_label">
 <p>
 Define <code>main</code>, <code>xlab</code> and <code>ylab</code> as vectors or lists with
@@ -391,8 +391,8 @@ arguments to be passed to <code>grid::gpar</code>.
 </div>
 
 
-<div id="outline-container-org90e1c18" class="outline-2">
-<h2 id="arrow"><a id="org90e1c18"></a>How to add an arrow</h2>
+<div id="outline-container-org9c5fd04" class="outline-2">
+<h2 id="arrow"><a id="org9c5fd04"></a>How to add an arrow</h2>
 <div class="outline-text-2" id="text-arrow">
 <p>
 Use <code>sp::layout.north.arrow</code> with <code>latticeExtra::layer</code>.
@@ -420,8 +420,8 @@ Use <code>sp::layout.north.arrow</code> with <code>latticeExtra::layer</code>.
 </div>
 
 
-<div id="outline-container-orgfe190ba" class="outline-2">
-<h2 id="scalebar"><a id="orgfe190ba"></a>How to add an scale</h2>
+<div id="outline-container-orgf5184a9" class="outline-2">
+<h2 id="scalebar"><a id="orgf5184a9"></a>How to add an scale</h2>
 <div class="outline-text-2" id="text-scalebar">
 <p>
 Use <code>grid.rect</code>, <code>grid.text</code> and <code>latticeExtra::layer</code>.
@@ -455,8 +455,8 @@ Use <code>grid.rect</code>, <code>grid.text</code> and <code>latticeExtra::layer
 </div>
 
 
-<div id="outline-container-org0365b3c" class="outline-2">
-<h2 id="overlay"><a id="org0365b3c"></a>How to overlay a shapefile</h2>
+<div id="outline-container-org2858043" class="outline-2">
+<h2 id="overlay"><a id="org2858043"></a>How to overlay a shapefile</h2>
 <div class="outline-text-2" id="text-overlay">
 <p>
 Several layers can be combined using the <code>+.trellis</code> and <code>layer</code>
@@ -515,9 +515,9 @@ options.
 </div>
 
 
-<div id="outline-container-org743dcc9" class="outline-2">
-<h2 id="org743dcc9">How to overlay graticules (longitude - latitude lines)</h2>
-<div class="outline-text-2" id="text-org743dcc9">
+<div id="outline-container-org20515cf" class="outline-2">
+<h2 id="org20515cf">How to overlay graticules (longitude - latitude lines)</h2>
+<div class="outline-text-2" id="text-org20515cf">
 <p>
 The <code>graticule</code> <a href="http://mdsumner.github.io/graticule/">package</a> defines and draws graticules (longitude and latitude lines). The result can be combined with the levelplot output as shown in this <a href="https://gist.github.com/oscarperpinan/5d5bb51ff419621d5f63429b8f88d679">gist</a>.
 </p>
@@ -525,8 +525,8 @@ The <code>graticule</code> <a href="http://mdsumner.github.io/graticule/">packag
 </div>
 
 
-<div id="outline-container-org30f1fe5" class="outline-2">
-<h2 id="several_rasters"><a id="org30f1fe5"></a>How to print several Rasters with different legends in the same page</h2>
+<div id="outline-container-orgb25658f" class="outline-2">
+<h2 id="several_rasters"><a id="orgb25658f"></a>How to print several Rasters with different legends in the same page</h2>
 <div class="outline-text-2" id="text-several_rasters">
 <p>
 Use <code>print.trellis</code> and its argument <code>split</code>. 
@@ -583,8 +583,8 @@ A more sophisticated solution to print more than two layers.
 
 
 
-<div id="outline-container-org26c5c7e" class="outline-2">
-<h2 id="panel_labels"><a id="org26c5c7e"></a>How to label each panel with a different label from the layer name</h2>
+<div id="outline-container-org0297fd9" class="outline-2">
+<h2 id="panel_labels"><a id="org0297fd9"></a>How to label each panel with a different label from the layer name</h2>
 <div class="outline-text-2" id="text-panel_labels">
 <p>
 Use <code>names.attr</code>.
@@ -612,7 +612,7 @@ Use <code>names.attr</code>.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Oscar Perpiñán Lamigueiro</p>
-<p class="date">Created: 2017-10-08 dom 17:34</p>
+<p class="date">Created: 2017-10-08 dom 17:40</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
