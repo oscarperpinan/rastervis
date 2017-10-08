@@ -3,13 +3,13 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-07-25 lun 18:54 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 2017-10-08 dom 17:34 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>FAQs</title>
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="Oscar Perpiñán Lamigueiro" />
-<meta  name="description" content="FAQ rasterVis"
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Oscar Perpiñán Lamigueiro" />
+<meta name="description" content="FAQ rasterVis"
  />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
@@ -55,13 +55,98 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
@@ -94,6 +179,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css" href="styles.css" />
@@ -103,7 +189,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -158,27 +244,27 @@ for the JavaScript code in this tag.
 <li><a href="#arrow">How to add an arrow</a></li>
 <li><a href="#scalebar">How to add an scale</a></li>
 <li><a href="#overlay">How to overlay a shapefile</a></li>
+<li><a href="#org743dcc9">How to overlay graticules (longitude - latitude lines)</a></li>
 <li><a href="#several_rasters">How to print several Rasters with different legends in the same page</a></li>
 <li><a href="#panel_labels">How to label each panel with a different label from the layer name</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgheadline1" class="outline-2">
-<h2 id="breaks"><a id="orgheadline1"></a>How to define the breaks</h2>
+<div id="outline-container-orge36b7d3" class="outline-2">
+<h2 id="breaks"><a id="orge36b7d3"></a>How to define the breaks</h2>
 <div class="outline-text-2" id="text-breaks">
 <p>
 Use the <code>at</code> argument to define the breaks.
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
+<pre><code class="src src-R">f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
 r <span class="org-constant">&lt;-</span> raster(f)
 
 my.at <span class="org-constant">&lt;-</span> seq(100, 1850, by = 250)
 levelplot(r, at=my.at)
-</pre>
+</code></pre>
 </div>
 
 
@@ -193,13 +279,12 @@ define the components of <code>colorkey</code>:
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-R">myColorkey <span class="org-constant">&lt;-</span> list(at=my.at, <span class="org-comment-delimiter">## </span><span class="org-comment">where the colors change</span>
+<pre><code class="src src-R">myColorkey <span class="org-constant">&lt;-</span> list(at=my.at, <span class="org-comment-delimiter">## </span><span class="org-comment">where the colors change</span>
                    labels=list(
                        at=my.at <span class="org-comment-delimiter">## </span><span class="org-comment">where to print labels</span>
                      ))
 levelplot(r, at=my.at, colorkey=myColorkey)
-</pre>
+</code></pre>
 </div>
 
 
@@ -213,14 +298,13 @@ Last, you can even define the contents of the labels:
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-R">myColorkey <span class="org-constant">&lt;-</span> list(at=my.at, <span class="org-comment-delimiter">## </span><span class="org-comment">where the colors change</span>
+<pre><code class="src src-R">myColorkey <span class="org-constant">&lt;-</span> list(at=my.at, <span class="org-comment-delimiter">## </span><span class="org-comment">where the colors change</span>
                    labels=list(
                      labels=letters[seq_along(my.at)], <span class="org-comment-delimiter">## </span><span class="org-comment">labels</span>
                      at=my.at <span class="org-comment-delimiter">## </span><span class="org-comment">where to print labels</span>
                      ))
 levelplot(r, at=my.at, colorkey=myColorkey)
-</pre>
+</code></pre>
 </div>
 
 
@@ -232,20 +316,19 @@ levelplot(r, at=my.at, colorkey=myColorkey)
 </div>
 
 
-<div id="outline-container-orgheadline2" class="outline-2">
-<h2 id="axis_labels"><a id="orgheadline2"></a>How to suppress axis labels and ticks</h2>
+<div id="outline-container-orga2d8f0d" class="outline-2">
+<h2 id="axis_labels"><a id="orga2d8f0d"></a>How to suppress axis labels and ticks</h2>
 <div class="outline-text-2" id="text-axis_labels">
 <p>
 Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> inside <code>scale</code>.
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-R">  r <span class="org-constant">&lt;-</span> raster()
+<pre><code class="src src-R">  r <span class="org-constant">&lt;-</span> raster()
   r <span class="org-constant">&lt;-</span> init(r, runif)
   
   levelplot(r, xlab=<span class="org-type">NULL</span>, ylab=<span class="org-type">NULL</span>, scales=list(draw=<span class="org-type">FALSE</span>))
-</pre>
+</code></pre>
 </div>
 
 
@@ -255,9 +338,8 @@ Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> i
 </div>
 
 <div class="org-src-container">
-
-<pre class="src src-R">  levelplot(r, xlab=<span class="org-type">NULL</span>, scales=list(x=list(draw=<span class="org-type">FALSE</span>)))
-</pre>
+<pre><code class="src src-R">  levelplot(r, xlab=<span class="org-type">NULL</span>, scales=list(x=list(draw=<span class="org-type">FALSE</span>)))
+</code></pre>
 </div>
 
 
@@ -267,9 +349,8 @@ Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> i
 </div>
 
 <div class="org-src-container">
-
-<pre class="src src-R">  levelplot(r, ylab=<span class="org-type">NULL</span>, scales=list(y=list(draw=<span class="org-type">FALSE</span>)))
-</pre>
+<pre><code class="src src-R">  levelplot(r, ylab=<span class="org-type">NULL</span>, scales=list(y=list(draw=<span class="org-type">FALSE</span>)))
+</code></pre>
 </div>
 
 
@@ -281,8 +362,8 @@ Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> i
 </div>
 
 
-<div id="outline-container-orgheadline3" class="outline-2">
-<h2 id="rotate_axis_label"><a id="orgheadline3"></a>How to rotate the axis label or use a different color</h2>
+<div id="outline-container-org0df13ee" class="outline-2">
+<h2 id="rotate_axis_label"><a id="org0df13ee"></a>How to rotate the axis label or use a different color</h2>
 <div class="outline-text-2" id="text-rotate_axis_label">
 <p>
 Define <code>main</code>, <code>xlab</code> and <code>ylab</code> as vectors or lists with
@@ -290,8 +371,7 @@ arguments to be passed to <code>grid::gpar</code>.
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-R">  r <span class="org-constant">&lt;-</span> raster(nrow=10, ncol=10)
+<pre><code class="src src-R">  r <span class="org-constant">&lt;-</span> raster(nrow=10, ncol=10)
   r[] <span class="org-constant">&lt;-</span> runif(100)
   
   levelplot(r, margin=<span class="org-type">FALSE</span>,
@@ -299,7 +379,7 @@ arguments to be passed to <code>grid::gpar</code>.
             xlab=c(<span class="org-string">'Longitude'</span>, <span class="org-string">'X-Axis'</span>),
             ylab=list(<span class="org-string">'Latitude'</span>, rot=30, fontface=<span class="org-string">'bold'</span>)
             )
-</pre>
+</code></pre>
 </div>
 
 
@@ -311,15 +391,14 @@ arguments to be passed to <code>grid::gpar</code>.
 </div>
 
 
-<div id="outline-container-orgheadline4" class="outline-2">
-<h2 id="arrow"><a id="orgheadline4"></a>How to add an arrow</h2>
+<div id="outline-container-org90e1c18" class="outline-2">
+<h2 id="arrow"><a id="org90e1c18"></a>How to add an arrow</h2>
 <div class="outline-text-2" id="text-arrow">
 <p>
 Use <code>sp::layout.north.arrow</code> with <code>latticeExtra::layer</code>.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-R">  f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
+<pre><code class="src src-R">  f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
   r <span class="org-constant">&lt;-</span> raster(f)
   
   levelplot(r, margin=<span class="org-type">FALSE</span>, auto.key=<span class="org-type">FALSE</span>, scales=list(draw=<span class="org-type">FALSE</span>)) + 
@@ -328,7 +407,8 @@ Use <code>sp::layout.north.arrow</code> with <code>latticeExtra::layer</code>.
                                  offset = c(179000,332500),
                                  scale = 400)
       })
-</pre>
+  
+</code></pre>
 </div>
 
 
@@ -340,16 +420,15 @@ Use <code>sp::layout.north.arrow</code> with <code>latticeExtra::layer</code>.
 </div>
 
 
-<div id="outline-container-orgheadline5" class="outline-2">
-<h2 id="scalebar"><a id="orgheadline5"></a>How to add an scale</h2>
+<div id="outline-container-orgfe190ba" class="outline-2">
+<h2 id="scalebar"><a id="orgfe190ba"></a>How to add an scale</h2>
 <div class="outline-text-2" id="text-scalebar">
 <p>
 Use <code>grid.rect</code>, <code>grid.text</code> and <code>latticeExtra::layer</code>.
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-R">  f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
+<pre><code class="src src-R">  f <span class="org-constant">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package=<span class="org-string">"raster"</span>)
   r <span class="org-constant">&lt;-</span> raster(f)
 
   levelplot(r) +
@@ -363,7 +442,8 @@ Use <code>grid.rect</code>, <code>grid.text</code> and <code>latticeExtra::layer
                 gp=gpar(cex=0.5), rot=30,
                 default.units=<span class="org-string">'native'</span>)
       })
-</pre>
+  
+</code></pre>
 </div>
 
 
@@ -375,8 +455,8 @@ Use <code>grid.rect</code>, <code>grid.text</code> and <code>latticeExtra::layer
 </div>
 
 
-<div id="outline-container-orgheadline6" class="outline-2">
-<h2 id="overlay"><a id="orgheadline6"></a>How to overlay a shapefile</h2>
+<div id="outline-container-org0365b3c" class="outline-2">
+<h2 id="overlay"><a id="org0365b3c"></a>How to overlay a shapefile</h2>
 <div class="outline-text-2" id="text-overlay">
 <p>
 Several layers can be combined using the <code>+.trellis</code> and <code>layer</code>
@@ -389,8 +469,7 @@ Let&rsquo;s build some data to play. You can skip this part if you already have 
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-R"><span class="org-constant">library</span>(maps)
+<pre><code class="src src-R"><span class="org-constant">library</span>(maps)
 <span class="org-constant">library</span>(mapdata)
 <span class="org-constant">library</span>(maptools)
 
@@ -409,7 +488,7 @@ boundaries <span class="org-constant">&lt;-</span> map(<span class="org-string">
 IDs <span class="org-constant">&lt;-</span> sapply(strsplit(boundaries$names, <span class="org-string">":"</span>), <span class="org-keyword">function</span>(x) x[1])
 bPols <span class="org-constant">&lt;-</span> map2SpatialPolygons(boundaries, IDs=IDs,
                               proj4string=CRS(projection(myRaster)))
-</pre>
+</code></pre>
 </div>
 
 <p>
@@ -418,9 +497,8 @@ The polygons are printed with <code>sp::sp.polygons</code> using <code>+.trellis
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-R">levelplot(myRaster) + layer(sp.polygons(bPols))
-</pre>
+<pre><code class="src src-R">levelplot(myRaster) + layer(sp.polygons(bPols))
+</code></pre>
 </div>
 
 
@@ -437,8 +515,18 @@ options.
 </div>
 
 
-<div id="outline-container-orgheadline7" class="outline-2">
-<h2 id="several_rasters"><a id="orgheadline7"></a>How to print several Rasters with different legends in the same page</h2>
+<div id="outline-container-org743dcc9" class="outline-2">
+<h2 id="org743dcc9">How to overlay graticules (longitude - latitude lines)</h2>
+<div class="outline-text-2" id="text-org743dcc9">
+<p>
+The <code>graticule</code> <a href="http://mdsumner.github.io/graticule/">package</a> defines and draws graticules (longitude and latitude lines). The result can be combined with the levelplot output as shown in this <a href="https://gist.github.com/oscarperpinan/5d5bb51ff419621d5f63429b8f88d679">gist</a>.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org30f1fe5" class="outline-2">
+<h2 id="several_rasters"><a id="org30f1fe5"></a>How to print several Rasters with different legends in the same page</h2>
 <div class="outline-text-2" id="text-several_rasters">
 <p>
 Use <code>print.trellis</code> and its argument <code>split</code>. 
@@ -448,8 +536,7 @@ Use <code>print.trellis</code> and its argument <code>split</code>.
 For two different <code>RasterLayer</code>.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-R">  r <span class="org-constant">&lt;-</span> r2 <span class="org-constant">&lt;-</span> raster()
+<pre><code class="src src-R">  r <span class="org-constant">&lt;-</span> r2 <span class="org-constant">&lt;-</span> raster()
   r[] <span class="org-constant">&lt;-</span> runif(ncell(r))
   r2[] <span class="org-constant">&lt;-</span> 1:10
   
@@ -459,7 +546,8 @@ For two different <code>RasterLayer</code>.
   
   print(p, split=c(1, 1, 1, 2), more=<span class="org-type">TRUE</span>)
   print(p2, split=c(1, 2, 1, 2))
-</pre>
+  
+</code></pre>
 </div>
 
 
@@ -472,8 +560,7 @@ For two different <code>RasterLayer</code>.
 A more sophisticated solution to print more than two layers.
 </p>
 <div class="org-src-container">
-
-<pre class="src src-R">  s <span class="org-constant">&lt;-</span> stack(r, r2, 10*r+r2, 10*r-r2)
+<pre><code class="src src-R">  s <span class="org-constant">&lt;-</span> stack(r, r2, 10*r+r2, 10*r-r2)
   nl <span class="org-constant">&lt;-</span> nlayers(s)
   m <span class="org-constant">&lt;-</span> matrix(1:nl, nrow=2)
   themes <span class="org-constant">&lt;-</span> list(RdBuTheme(), BTCTheme(), GrTheme(), PuOrTheme())
@@ -483,7 +570,7 @@ A more sophisticated solution to print more than two layers.
                      margin=<span class="org-type">FALSE</span>)
       print(p, split=c(col(m)[i], row(m)[i], ncol(m), nrow(m)), more=(i&lt;nl))
   }
-</pre>
+</code></pre>
 </div>
 
 
@@ -496,23 +583,23 @@ A more sophisticated solution to print more than two layers.
 
 
 
-<div id="outline-container-orgheadline8" class="outline-2">
-<h2 id="panel_labels"><a id="orgheadline8"></a>How to label each panel with a different label from the layer name</h2>
+<div id="outline-container-org26c5c7e" class="outline-2">
+<h2 id="panel_labels"><a id="org26c5c7e"></a>How to label each panel with a different label from the layer name</h2>
 <div class="outline-text-2" id="text-panel_labels">
 <p>
 Use <code>names.attr</code>.
 </p>
 
 <div class="org-src-container">
-
-<pre class="src src-R">  r <span class="org-constant">&lt;-</span> raster(nrow=10, ncol=10)
+<pre><code class="src src-R">  r <span class="org-constant">&lt;-</span> raster(nrow=10, ncol=10)
   r[] <span class="org-constant">&lt;-</span> runif(100)
   s <span class="org-constant">&lt;-</span> stack(lapply(1:8, <span class="org-keyword">function</span>(i)r))
   
   levelplot(s, scales=list(draw=<span class="org-type">FALSE</span>), colorkey=<span class="org-type">FALSE</span>,
             par.settings=GrTheme(),
             names.attr=paste0(<span class="org-string">'MNF-'</span>, 1:8))
-</pre>
+  
+</code></pre>
 </div>
 
 
@@ -525,7 +612,7 @@ Use <code>names.attr</code>.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Oscar Perpiñán Lamigueiro</p>
-<p class="date">Created: 2016-07-25 lun 18:54</p>
+<p class="date">Created: 2017-10-08 dom 17:34</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
