@@ -52,25 +52,18 @@ setMethod('levelplot',
                       stop('all the layers must share the same RAT.')
                   } else {
                       rat <- as.data.frame(rat[[1]])
-                      ratID <- rat$ID
                       ## choose which level to use for the legend
                       if (is.numeric(att)) att = att + 1
-                      ratLevels <- factor(rat[, att])
+                      ratLevels <- rat[, att]
+                      ratID <- rat$ID
+                      objectSample <- subs(objectSample,
+                                           data.frame(ratID, seq_along(ratID)))
+                      names(objectSample) <- names(object)
                   }
-                  ## Use factor index (position) instead of code (ratID)
-                  idxLevels <- as.numeric(ratLevels)
-                  idxRaster <- subs(objectSample,
-                                    data.frame(ratID, idxLevels))
-                  dat <- as.data.frame(idxRaster)
-                  names(dat) <- names(object)
-
-                  xy <- xyFromCell(objectSample, 1:ncell(objectSample))
-                  df <- cbind(xy, dat)
-              } else {
-                  ## Convert to a data.frame for conventional levelplot
-                  df <- as.data.frame(objectSample, xy=TRUE)
-                  dat <- df[, -c(1, 2)]
               }
+              ## Convert to a data.frame for conventional levelplot
+              df <- as.data.frame(objectSample, xy=TRUE)
+              dat <- df[, -c(1, 2)]
 
               ## If zscaleLog is not NULL, transform the values and
               ## choose a function to calculate the labels
@@ -160,8 +153,8 @@ setMethod('levelplot',
               }
               ## Factor variables need special colorkey
               if (isFactor) {
-                  labs <- levels(ratLevels)
-                  nLabs <- nlevels(ratLevels)
+                  labs <- ratLevels
+                  nLabs <- length(ratLevels)
                   ## define the breaks
                   my.at <- seq(0.5, nLabs + 0.5,
                                length = nLabs + 1)
