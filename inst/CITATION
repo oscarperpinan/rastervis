@@ -10,7 +10,7 @@ citEntry(entry="Manual",
          url ="http://oscarperpinan.github.io/rastervis/",
          note = vers,
          textVersion = paste0("Oscar Perpinan Lamigueiro and Robert Hijmans (",
-                              year, "), meteoForecast. ", vers, ".")
+                              year, "), rasterVis. ", vers, ".")
          )
 
 
