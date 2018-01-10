@@ -143,10 +143,11 @@ produce 324 droplets.}}}
 
 \item{isField}{If \code{TRUE} the object is a vector field. Thus,
   \code{object} must be a Raster* with two layers, slope (local vector
-  magnitude) and aspect (local vector direction), in
-  this order, following the philosophy of \code{\link{terrain}}. The
-  slope layer will be used as the background if \code{region} is
-  \code{TRUE}. 
+  magnitude) and aspect (local vector direction), in this order. The
+  aspect angle, following the conventions of
+  \code{raster::\link{terrain}}, must be computed clockwise from 0 (due
+  north). The slope layer will be used as the background if \code{region}
+  is \code{TRUE}.
 
   If \code{isField='dXY'} \code{object} must be a Raster* with two
   layers representing the horizontal and the vertical components,
