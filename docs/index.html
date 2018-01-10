@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2016-12-05 lun 11:03 -->
+<!-- 2018-01-10 mié 23:17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>rasterVis</title>
@@ -70,6 +70,7 @@
   pre.src-fortran:before { content: 'Fortran'; }
   pre.src-gnuplot:before { content: 'gnuplot'; }
   pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
   pre.src-java:before { content: 'Java'; }
   pre.src-js:before { content: 'Javascript'; }
   pre.src-latex:before { content: 'LaTeX'; }
@@ -188,7 +189,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -249,14 +250,14 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgf5601be" class="outline-2">
-<h2 id="intro"><a id="orgf5601be"></a>Introduction</h2>
+<div id="outline-container-orgc8f3855" class="outline-2">
+<h2 id="intro"><a id="orgc8f3855"></a>Introduction</h2>
 <div class="outline-text-2" id="text-intro">
 <p>
 The <code>rasterVis</code> package complements the <a href="http://cran.r-project.org/web/packages/raster"><code>raster</code></a> package, providing a
-set of methods for enhanced visualization and interaction. 
-It defines visualization methods for <a href="#levelplot">quantitative data</a> and categorical
-data, with <code>levelplot</code>, both for univariate and multivariate rasters.
+set of methods for enhanced visualization and interaction.  It defines
+visualization methods for <a href="#levelplot">quantitative data</a> and <a href="#factor">categorical data</a>, with
+<code>levelplot</code>, both for univariate and multivariate rasters.
 </p>
 
 <p>
@@ -290,8 +291,8 @@ as well as the <a href="https://github.com/oscarperpinan/spacetime-vis">full R c
 </p>
 </div>
 
-<div id="outline-container-org9e7d08e" class="outline-3">
-<h3 id="installation"><a id="org9e7d08e"></a>Installation</h3>
+<div id="outline-container-orgd26f028" class="outline-3">
+<h3 id="installation"><a id="orgd26f028"></a>Installation</h3>
 <div class="outline-text-3" id="text-installation">
 <p>
 The stable release of <code>rasterVis</code> can be found at <a href="http://cran.r-project.org/web/packages/rasterVis/">CRAN</a>.  The
@@ -312,7 +313,7 @@ You can install the development version with the <a href="https://github.com/Man
 </p>
 
 <div class="org-src-container">
-<pre class="src src-R">remotes::install_github(<span class="org-string">'oscarperpinan/rasterVis'</span>)
+<pre class="src src-R">remotes::install_github(<span class="org-string">'oscarperpinan/rasterVis'</span>) 
 </pre>
 </div>
 
@@ -321,15 +322,15 @@ or with the <a href="https://github.com/hadley/devtools">devtools</a> package:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-R">devtools::install_github(<span class="org-string">'oscarperpinan/rasterVis'</span>)
+<pre class="src src-R">devtools::install_github(<span class="org-string">'oscarperpinan/rasterVis'</span>) 
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgfcdb0be" class="outline-2">
-<h2 id="levelplot"><a id="orgfcdb0be"></a>Level plots</h2>
+<div id="outline-container-orgab02de4" class="outline-2">
+<h2 id="levelplot"><a id="orgab02de4"></a>Level plots</h2>
 <div class="outline-text-2" id="text-levelplot">
 <p>
 This section discusses how to display quantitative data with
@@ -396,9 +397,9 @@ function defined by the component <code>FUN</code> of the list <code>margin</cod
 </div>
 </div>
 
-<div id="outline-container-orgdba23d9" class="outline-3">
-<h3 id="orgdba23d9">Overlay plots</h3>
-<div class="outline-text-3" id="text-orgdba23d9">
+<div id="outline-container-org5975140" class="outline-3">
+<h3 id="org5975140">Overlay plots</h3>
+<div class="outline-text-3" id="text-org5975140">
 <p>
 The result of the last call is a <code>trellis</code> object. The <a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a> package
 provides the <code>layer</code> function to add contents. For example, let&rsquo;s add the administrative borders. 
@@ -477,8 +478,8 @@ The function <code>as.layer</code> with <code>under = TRUE</code> must be used i
 </div>
 
 
-<div id="outline-container-org1cf6462" class="outline-3">
-<h3 id="levelplot_logscale"><a id="org1cf6462"></a>Log scale</h3>
+<div id="outline-container-org1f5a33f" class="outline-3">
+<h3 id="levelplot_logscale"><a id="org1f5a33f"></a>Log scale</h3>
 <div class="outline-text-3" id="text-levelplot_logscale">
 <p>
 The <code>zscaleLog</code> argument controls whether the object will be log
@@ -505,8 +506,8 @@ levelplot(r^2, zscaleLog=<span class="org-type">TRUE</span>, contour=<span class
 </div>
 </div>
 
-<div id="outline-container-org067dad1" class="outline-2">
-<h2 id="themes"><a id="org067dad1"></a>Themes</h2>
+<div id="outline-container-org2f00bff" class="outline-2">
+<h2 id="themes"><a id="org2f00bff"></a>Themes</h2>
 <div class="outline-text-2" id="text-themes">
 <p>
 The previous plots used the default theme of rasterVis,
@@ -587,8 +588,8 @@ levelplot(Aug, par.settings = myTheme)
 </div>
 
 
-<div id="outline-container-orge2e3b6c" class="outline-2">
-<h2 id="factor"><a id="orge2e3b6c"></a>Categorical data</h2>
+<div id="outline-container-org7f1be08" class="outline-2">
+<h2 id="factor"><a id="org7f1be08"></a>Categorical data</h2>
 <div class="outline-text-2" id="text-factor">
 <p>
 A raster that contains categorical data can be defined with the <code>ratify</code> function.
@@ -643,8 +644,8 @@ You can choose the variable (column) from the RAT with the <code>att</code> argu
 </div>
 </div>
 
-<div id="outline-container-org3bb6aab" class="outline-2">
-<h2 id="scatterplot"><a id="org3bb6aab"></a>Scatterplots and histograms</h2>
+<div id="outline-container-org8ba2c9a" class="outline-2">
+<h2 id="scatterplot"><a id="org8ba2c9a"></a>Scatterplots and histograms</h2>
 <div class="outline-text-2" id="text-scatterplot">
 <p>
 There are methods to show scatter plots and hexbin plots of the layers
@@ -748,8 +749,8 @@ variable of the plot:
 </div>
 </div>
 
-<div id="outline-container-org3175ce7" class="outline-2">
-<h2 id="spacetime"><a id="org3175ce7"></a>Space-time plots</h2>
+<div id="outline-container-org53d2a66" class="outline-2">
+<h2 id="spacetime"><a id="org53d2a66"></a>Space-time plots</h2>
 <div class="outline-text-2" id="text-spacetime">
 <p>
 The <code>z</code> slot of this <code>Raster</code> object stores a time index. This 3D
@@ -839,8 +840,8 @@ The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for
 </div>
 </div>
 
-<div id="outline-container-org09e768c" class="outline-2">
-<h2 id="vectorplot"><a id="org09e768c"></a>Vector field plots</h2>
+<div id="outline-container-org9227335" class="outline-2">
+<h2 id="vectorplot"><a id="org9227335"></a>Vector field plots</h2>
 <div class="outline-text-2" id="text-vectorplot">
 <p>
 The function <code>terrain</code> from <code>raster</code> provides the vector field
@@ -923,6 +924,7 @@ r2 <span class="org-constant">&lt;-</span> rasterFromXYZ(df, crs=proj)
   
 streamplot(r2, isField=<span class="org-type">TRUE</span>, streamlet=list(L=30), droplet=list(pc=.3),
            par.settings=streamTheme(symbol=brewer.pal(n=5, name=<span class="org-string">'Reds'</span>)))
+  
 </pre>
 </div>
 
@@ -934,8 +936,8 @@ streamplot(r2, isField=<span class="org-type">TRUE</span>, streamlet=list(L=30),
 </div>
 </div>
 
-<div id="outline-container-org0b7d49d" class="outline-2">
-<h2 id="interaction"><a id="org0b7d49d"></a>Interaction</h2>
+<div id="outline-container-org1a5c319" class="outline-2">
+<h2 id="interaction"><a id="org1a5c319"></a>Interaction</h2>
 <div class="outline-text-2" id="text-interaction">
 <p>
 This package includes two functions to interact with the <code>trellis</code> objects. 

@@ -14,9 +14,9 @@
   :CUSTOM_ID: intro
   :END:
 The =rasterVis= package complements the [[http://cran.r-project.org/web/packages/raster][=raster=]] package, providing a
-set of methods for enhanced visualization and interaction. 
-It defines visualization methods for [[#levelplot][quantitative data]] and categorical
-data, with =levelplot=, both for univariate and multivariate rasters.
+set of methods for enhanced visualization and interaction.  It defines
+visualization methods for [[#levelplot][quantitative data]] and [[#factor][categorical data]], with
+=levelplot=, both for univariate and multivariate rasters.
 
 It also includes several methods in the frame of the [[#scatterplot][Exploratory Data
 Analysis]] approach: scatterplots with =xyplot=, histograms and density
