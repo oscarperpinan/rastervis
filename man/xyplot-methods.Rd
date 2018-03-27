@@ -8,11 +8,12 @@
 \usage{
 \S4method{xyplot}{RasterStackBrick,missing}(x, data=NULL, dirXY=y,
        stat='mean', xlab='Time', ylab='',
-       digits=0, par.settings=rasterTheme(),...)
+       digits=0, par.settings=rasterTheme(),
+       auto.key = FALSE, ...)
 }
-
 \arguments{
-\item{x}{A \code{RasterStackBrick} object whose \code{z} slot is not \code{NULL}.}
+\item{x}{A \code{RasterStackBrick} object whose \code{z} slot is not
+  \code{NULL}.}
 \item{data}{Not used.}
 \item{dirXY}{A direction as a function of the coordinates (see
   \code{\link{xyLayer}}).}
@@ -22,6 +23,10 @@
 \item{par.settings}{Customization of \code{lattice}. See \code{xyplot}
 for details.}
 \item{digits}{An integer, number of digits for \code{\link{zonal}}.}
+\item{auto.key}{A logical or a list. If it is FALSE (default) a label
+  with the value of the direction (as defined by \code{dirXY})will be
+  printed next to each line. You should read the help page of
+  \code{xyplot} for details about the usage of \code{auto.key} as a list.}
 \item{\dots}{Additional arguments for the \code{xyplot} function.}
 }
 
@@ -47,12 +52,6 @@ SISmm <- setZ(stackSIS, idx)
 names(SISmm) <- month.abb
 
 xyplot(SISmm)
-## Formula interface 
-xyplot(Jan ~ Jul, data=SISmm)
-## Different scatterplots for each latitude zone
-xyplot(Jan ~ Dec|cut(y, 4), data=SISmm)
-## More sophisticated bands can be defined using the dirXY argument 
-xyplot(Jan ~ Dec|cut(dirXY, 4), dirXY=x^2 + y^2, data=SISmm)
 }
 
 \dontrun{

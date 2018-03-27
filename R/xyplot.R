@@ -6,22 +6,28 @@ setGeneric('xyplot')
 setMethod('xyplot',
           signature(x='RasterStackBrick', data='missing'),
           definition=function(x, data=NULL, dirXY=y, stat='mean',
-            xlab='Time', ylab='', digits=0,
-            par.settings=rasterTheme(),...){
+                              xlab='Time', ylab='', digits=0,
+                              par.settings=rasterTheme(),
+                              auto.key = FALSE, ...){
 
-            idx=getZ(x)
-            if (is.null(idx)) stop('z slot of the object is NULL.')
+              idx <- getZ(x)
+              if (is.null(idx)) stop('z slot of the object is NULL.')
 
-            dirLayer <- xyLayer(x, dirXY=substitute(dirXY))
-            z <- zonal(x, dirLayer, stat, digits=digits)
-            nRows <- nrow(z)
-            zz <- as.data.frame(t(z[,-1]), row.names='')
-            names(zz) <- z[,1]
-            zz <- zoo(zz, order.by=idx)
-            p <- xyplot(zz, xlab=xlab, ylab=ylab,
-                        superpose=TRUE, auto.key=FALSE,
-                        par.settings=par.settings, ...)
-            p + glayer(panel.text(x[1], y[1], group.value, cex=0.7))
+              dirLayer <- xyLayer(x, dirXY=substitute(dirXY))
+              z <- zonal(x, dirLayer, stat, digits=digits)
+              nRows <- nrow(z)
+              zz <- as.data.frame(t(z[,-1]), row.names='')
+              names(zz) <- z[,1]
+              zz <- zoo(zz, order.by=idx)
+              p <- xyplot(zz, xlab=xlab, ylab=ylab,
+                          superpose=TRUE, auto.key = auto.key,
+                          par.settings=par.settings, ...)
+              if (is.list(auto.key) | isTRUE(auto.key))
+                  p
+              else
+                  p +
+                      glayer(panel.text(x[1], y[1],
+                                        group.value, cex = 0.7))
           }
           )
 
