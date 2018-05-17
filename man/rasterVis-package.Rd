@@ -2,33 +2,25 @@
 \alias{rasterVis-package}
 \alias{rasterVis}
 \docType{package}
-\title{Visualization methods for \code{raster}}
-\description{The raster package defines classes and methods for spatial raster data access and manipulation. The rasterVis package complements raster providing a set of methods for enhanced visualization and interaction.
-}
-\details{
-\tabular{ll}{
-Package: \tab rasterVis\cr
-Type: \tab Package\cr
-Version: \tab 0.10\cr
-Date: \tab 2011-06-17\cr
-License: \tab GPL-3\cr
-LazyLoad: \tab yes\cr
-Depends: \tab methods, raster, sp, grid, lattice, latticeExtra, zoo, hexbin, mgcv\cr
-}
-% ~~ An overview of how to use the package, including the most important ~~
-% ~~ functions ~~
-}
-\author{
-Oscar Perpiñán Lamigueiro and Robert Hijmans
 
-Maintainer: Oscar Perpiñán Lamigueiro <oscar.perpinan@upm.es>
+\title{
+  \packageTitle{rasterVis}
 }
-% \references{
-% ~~ Literature or other references for background information ~~
-% }
-% ~~ Optionally other standard keywords, one per line, from file KEYWORDS in ~~
-% ~~ the R documentation directory ~~
+
+\details{
+
+The \code{rasterVis} package complements the \code{raster} package,
+providing a set of methods for enhanced visualization and
+interaction. This package defines visualization methods with \code{levelplot} for quantitative data and categorical data, both for univariate and multivariate rasters.
+
+It also includes several methods in the frame of the Exploratory Data Analysis approach: scatterplots with \code{xyplot}, histograms and density plots with \code{histogram} and \code{densityplot}, violin and boxplots with \code{bwplot}, and a matrix of scatterplots with \code{splom}.
+
+On the other hand, this package is able to display vector fields using arrows, \code{vectorplot}, or with streamlines, \code{streamplot}. 
+
+
+\packageIndices{rasterVis}
+}
+
 \keyword{ package }
 \keyword{spatial}
 
-%\examples{}
