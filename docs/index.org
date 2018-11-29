@@ -34,11 +34,11 @@ Finally, this package is able to display [[#vectorplot][vector fields]] using ar
 
 This webpage illustrates some its functionalities with examples. If
 you need more information, you may be interested in my book
-"[[http://oscarperpinan.github.io/spacetime-vis/][*Displaying Time Series, Spatial, and Space-Time Data with R*]]". It
+"[[http://oscarperpinan.github.io/bookvis/][*Displaying Time Series, Spatial, and Space-Time Data with R*]]". It
 includes four chapters devoted to the visualization of spatial and
-spatiotemporal raster data. Along with the [[https://github.com/oscarperpinan/spacetime-vis/tree/gh-pages/images][main graphics]] from the
-text, its website offers access to the [[https://github.com/oscarperpinan/spacetime-vis/tree/master/data][datasets]] used in the examples
-as well as the [[https://github.com/oscarperpinan/spacetime-vis][full R code]].
+spatiotemporal raster data. Along with the [[https://github.com/oscarperpinan/bookvis/tree/master/docs/images][main graphics]] from the
+text, its website offers access to the [[https://github.com/oscarperpinan/bookvis/tree/master/data][datasets]] used in the examples
+as well as the [[https://github.com/oscarperpinan/bookvis][full R code]].
 
 ** Installation 
    :PROPERTIES:
