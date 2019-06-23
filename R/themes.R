@@ -88,3 +88,19 @@ streamTheme <- function(region='black',
                          ...)
     theme
 }
+
+bwTheme <- function(box.rectangle = list(col='black', fill = 'gray'),
+                    box.umbrella = list(col = 'black', lty = 1),
+                    plot.polygon = list(col = 'lightblue', alpha = 0.5),
+                    plot.symbol = list(cex = 0.5, alpha = 0.2),
+                    ...)
+{
+    theme <- rasterTheme(box.rectangle = box.rectangle,
+                         box.umbrella = box.umbrella,
+                         plot.polygon = plot.polygon,
+                         plot.symbol = plot.symbol,
+                         ...)
+    theme
+}
+
+

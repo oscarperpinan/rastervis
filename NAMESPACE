@@ -84,6 +84,7 @@ export(
   'infernoTheme',
   'plasmaTheme',
   'streamTheme',
+  'bwTheme',
   'xscale.raster',
   'yscale.raster',
   'xscale.raster.subticks',

@@ -11,6 +11,7 @@
 \alias{PuOrTheme}
 \alias{GrTheme}
 \alias{streamTheme}
+\alias{bwTheme}
 \alias{xscale.raster}
 \alias{yscale.raster}
 \alias{xscale.raster.subticks}
@@ -39,6 +40,9 @@ of the \code{RColorBrewer} and \code{hexbin} packages.
 
 \code{streamTheme} is a variation of \code{rasterTheme} using black for
 the region, gray for the panel background and a sequential palette for points.
+
+\code{bwTheme} is a variation of \code{rasterTheme} for the
+\code{bwplot} methods.
 }
 
 \usage{
@@ -72,6 +76,12 @@ streamTheme(region = 'black',
             alpha = 0.6,
             panel.background = list(col='gray20'),
             ...)
+
+bwTheme(box.rectangle = list(col='black', fill = 'gray'),
+        box.umbrella = list(col = 'black', lty = 1),
+        plot.polygon = list(col = 'lightblue', alpha = 0.5),
+        plot.symbol = list(cex = 0.5, alpha = 0.2),
+        ...)
 }
 
 \arguments{
@@ -91,7 +101,15 @@ streamTheme(region = 'black',
   \item{strip.background, strip.shingle, strip.border}{List whose
   components define the configuration of the strip areas. Read the help page of \code{\link{trellis.par.get}} for details.}
   \item{add.lines}{List whose components define the lines superposed on
-  the graphic. Read the help page of \code{\link{trellis.par.get}} for details.}
+  the graphic. Read the help page of \code{\link{trellis.par.get}} for
+  details.}
+\item{box.rectangle}{List whose components define the box of the
+  boxplot.}
+\item{box.umbrella}{List whose components define the whiskers of the
+  boxplot.}
+\item{plot.polygon}{List whose components define the violin plot.}
+\item{plot.symbol}{List whose components define the raw points when
+  \code{draw.points = TRUE}.}
 }
 \author{Oscar Perpiñán Lamigueiro}
 \seealso{\code{custom.theme}, \code{custom.theme.2}, \code{BTC},

@@ -7,6 +7,8 @@
   \packageTitle{rasterVis}
 }
 
+\description{Methods for enhanced visualization and interaction with raster data.}
+
 \details{
 
 The \code{rasterVis} package complements the \code{raster} package,
