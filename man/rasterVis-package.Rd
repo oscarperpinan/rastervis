@@ -7,7 +7,10 @@
   \packageTitle{rasterVis}
 }
 
-\description{Methods for enhanced visualization and interaction with raster data.}
+
+\description{
+  \packageDescription{rasterVis}
+}
 
 \details{
 
