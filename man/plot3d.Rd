@@ -73,10 +73,10 @@ levelplot(r, col.regions=terrain.colors)
 
 plot3D(r)
 ## Use different colors with a predefined function
-plot3D(r, col=rainbow)
+plot3D(r, col = rainbow)
 ## or with a custom function using colorRampPalette
-myPal <- colorRampPalette(brewer.pal(11, 'PuOr'))
-plot3D(r, col=myPal)
+myPal <- colorRampPalette(RColorBrewer::brewer.pal(11, 'PuOr'))
+plot3D(r, col = myPal)
 
 ## With at you can define an homogeneus color table for different Rasters
 

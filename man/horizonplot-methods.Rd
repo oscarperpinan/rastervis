@@ -126,7 +126,8 @@ horizonplot(SST, origin=mean)
 horizonplot(SST, origin=0)
 
 ## A different color palette
-horizonplot(SST, origin=0, col.regions=brewer.pal(n=6, 'PuOr'))
+pal <- RColorBrewer::brewer.pal(n=6, 'PuOr')
+horizonplot(SST, origin = 0, col.regions = pal)
 
 ## The width of each color segment can be defined with horizonscale
 horizonplot(SST, horizonscale=1, origin=0)

@@ -254,15 +254,15 @@ streamplot(r1)
 ## With a cluster
 hosts <- rep('localhost', 4)
 cl <- parallel::makeCluster(hosts)
+palRed <- RColorBrewer::brewer.pal(n = 5, name = 'Reds')
 streamplot(r2, cl=cl,
-           par.settings=streamTheme(symbol=brewer.pal(n=5,
-                                                      name='Reds')))
+           par.settings=streamTheme(symbol= palRed))
 parallel::stopCluster(cl)
 
 ## Without parallel
+palRed <- RColorBrewer::brewer.pal(n = 5, name = 'Greens')
 streamplot(r3, parallel=FALSE,
-           par.settings=streamTheme(symbol=brewer.pal(n=5,
-                                                      name='Greens')))
+           par.settings=streamTheme(symbol = palRed))
 
 ## Configuration of droplets and streamlets
 streamplot(s, layout=c(1, 3), droplet=list(pc=.2), streamlet=list(L=20),

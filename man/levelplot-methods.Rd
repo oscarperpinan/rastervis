@@ -301,8 +301,9 @@ levelplot(r)
 levelplot(r, par.settings=GrTheme())
 levelplot(r, par.settings=PuOrTheme())
 
-myTheme=rasterTheme(region=brewer.pal('Blues', n=9))
-levelplot(r, par.settings=myTheme)
+myPal <- RColorBrewer::brewer.pal('Blues', n=9)
+myTheme <- rasterTheme(region = myPal)
+levelplot(r, par.settings = myTheme)
 
 ## Define the legend breaks
 my.at <- seq(100, 1850, 500)
@@ -380,8 +381,10 @@ levelplot(r, margin=list(axis = TRUE, scales = list(x=c(100, 1000))))
 pts <- sampleRandom(r, size=20, sp=TRUE)
 
 ## Using +.trellis and layer from latticeExtra
-levelplot(r, par.settings = BTCTheme) + layer(sp.points(pts, col = 'red'))
-contourplot(r, labels = FALSE) + layer(sp.points(pts, col = 'red'))
+levelplot(r, par.settings = BTCTheme) +
+   layer(sp.points(pts, col = 'red'))
+contourplot(r, labels = FALSE) +
+   layer(sp.points(pts, col = 'red'))
 
 ## or with a custom panel function
 levelplot(r, par.settings=BTCTheme,
