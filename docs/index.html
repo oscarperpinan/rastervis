@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2018-11-29 jue 11:30 -->
+<!-- 2020-04-12 dom 09:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>rasterVis</title>
@@ -163,6 +163,19 @@
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -189,7 +202,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2018 Free Software Foundation, Inc.
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -250,8 +263,8 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgc7605a1" class="outline-2">
-<h2 id="intro"><a id="orgc7605a1"></a>Introduction</h2>
+<div id="outline-container-org73c82ee" class="outline-2">
+<h2 id="intro">Introduction</h2>
 <div class="outline-text-2" id="text-intro">
 <p>
 The <code>rasterVis</code> package complements the <a href="http://cran.r-project.org/web/packages/raster"><code>raster</code></a> package, providing a
@@ -269,8 +282,8 @@ plots with <code>histogram</code> and <code>densityplot</code>, violin and boxpl
 
 <p>
 On the other hand, <code>rasterVis</code> provides three methods to display
-<a href="#spacetime">spatiotemporal rasters</a>: <code>hovmoller</code> produces <a href="http://en.wikipedia.org/wiki/Hovm%C3%B6ller_diagram">Hovmöller diagrams</a>,
-<code>horizonplot</code> creates <a href="http://www.perceptualedge.com/blog/?p=390">horizon graphs</a>, with many time series displayed
+<a href="#spacetime">spatiotemporal rasters</a>: <code>hovmoller</code> produces <a href="http://en.wikipedia.org/wiki/Hovm%25C3%25B6ller_diagram">Hovmöller diagrams</a>,
+<code>horizonplot</code> creates <a href="http://www.perceptualedge.com/blog/?p%3D390">horizon graphs</a>, with many time series displayed
 in parallel, and <code>xyplot</code> displays conventional time series plots
 extracted from a multilayer raster.
 </p>
@@ -281,7 +294,7 @@ Finally, this package is able to display <a href="#vectorplot">vector fields</a>
 </p>
 
 <p>
-This webpage illustrates some its functionalities with examples. If
+This webpage illustrates some functionalities with examples. If
 you need more information, you may be interested in my book
 &ldquo;<a href="http://oscarperpinan.github.io/bookvis/"><b>Displaying Time Series, Spatial, and Space-Time Data with R</b></a>&rdquo;. It
 includes four chapters devoted to the visualization of spatial and
@@ -291,8 +304,8 @@ as well as the <a href="https://github.com/oscarperpinan/bookvis">full R code</a
 </p>
 </div>
 
-<div id="outline-container-org784672a" class="outline-3">
-<h3 id="installation"><a id="org784672a"></a>Installation</h3>
+<div id="outline-container-orga051c0c" class="outline-3">
+<h3 id="installation">Installation</h3>
 <div class="outline-text-3" id="text-installation">
 <p>
 The stable release of <code>rasterVis</code> can be found at <a href="http://cran.r-project.org/web/packages/rasterVis/">CRAN</a>.  The
@@ -329,8 +342,8 @@ or with the <a href="https://github.com/hadley/devtools">devtools</a> package:
 </div>
 </div>
 
-<div id="outline-container-org2d07e98" class="outline-2">
-<h2 id="levelplot"><a id="org2d07e98"></a>Level plots</h2>
+<div id="outline-container-orgf476a7f" class="outline-2">
+<h2 id="levelplot">Level plots</h2>
 <div class="outline-text-2" id="text-levelplot">
 <p>
 This section discusses how to display quantitative data with
@@ -343,7 +356,7 @@ described <a href="http://procomun.wordpress.com/2011/06/17/raster-cmsaf-and-sol
 <span class="org-ess-modifiers">library</span>(rasterVis)
 
 <span class="org-comment-delimiter">##</span><span class="org-comment">Solar irradiation data from CMSAF </span>
-old <span class="org-ess-assignment">&lt;-</span> setwd(tempdir())
+old <span class="org-ess-assignment">&lt;-</span> <span class="org-ess-modifiers">setwd</span>(tempdir())
 download.file(<span class="org-string">'https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip'</span>,
               <span class="org-string">'SISmm2008_CMSAF.zip'</span>, method=<span class="org-string">'wget'</span>)
 unzip(<span class="org-string">'SISmm2008_CMSAF.zip'</span>)
@@ -357,7 +370,7 @@ idx <span class="org-ess-assignment">&lt;-</span> seq(as.Date(<span class="org-s
 SISmm <span class="org-ess-assignment">&lt;-</span> setZ(stackSIS, idx)
 names(SISmm) <span class="org-ess-assignment">&lt;-</span> month.abb
 
-setwd(old)
+<span class="org-ess-modifiers">setwd</span>(old)
 </pre>
 </div>
 
@@ -397,9 +410,9 @@ function defined by the component <code>FUN</code> of the list <code>margin</cod
 </div>
 </div>
 
-<div id="outline-container-org1913bae" class="outline-3">
-<h3 id="org1913bae">Overlay plots</h3>
-<div class="outline-text-3" id="text-org1913bae">
+<div id="outline-container-orgd5eac39" class="outline-3">
+<h3 id="orgd5eac39">Overlay plots</h3>
+<div class="outline-text-3" id="text-orgd5eac39">
 <p>
 The result of the last call is a <code>trellis</code> object. The <a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a> package
 provides the <code>layer</code> function to add contents. For example, let&rsquo;s add the administrative borders. 
@@ -478,8 +491,8 @@ The function <code>as.layer</code> with <code>under = TRUE</code> must be used i
 </div>
 
 
-<div id="outline-container-org9925360" class="outline-3">
-<h3 id="levelplot_logscale"><a id="org9925360"></a>Log scale</h3>
+<div id="outline-container-orgbb10f6f" class="outline-3">
+<h3 id="levelplot_logscale">Log scale</h3>
 <div class="outline-text-3" id="text-levelplot_logscale">
 <p>
 The <code>zscaleLog</code> argument controls whether the object will be log
@@ -506,8 +519,8 @@ levelplot(r^2, zscaleLog=<span class="org-ess-constant">TRUE</span>, contour=<sp
 </div>
 </div>
 
-<div id="outline-container-org6a5674f" class="outline-2">
-<h2 id="themes"><a id="org6a5674f"></a>Themes</h2>
+<div id="outline-container-org6dc84d5" class="outline-2">
+<h2 id="themes">Themes</h2>
 <div class="outline-text-2" id="text-themes">
 <p>
 The previous plots used the default theme of rasterVis,
@@ -588,8 +601,8 @@ levelplot(Aug, par.settings = myTheme)
 </div>
 
 
-<div id="outline-container-org3da5daf" class="outline-2">
-<h2 id="factor"><a id="org3da5daf"></a>Categorical data</h2>
+<div id="outline-container-orgb24ea3a" class="outline-2">
+<h2 id="factor">Categorical data</h2>
 <div class="outline-text-2" id="text-factor">
 <p>
 A raster that contains categorical data can be defined with the <code>ratify</code> function.
@@ -644,8 +657,8 @@ You can choose the variable (column) from the RAT with the <code>att</code> argu
 </div>
 </div>
 
-<div id="outline-container-org5d08521" class="outline-2">
-<h2 id="scatterplot"><a id="org5d08521"></a>Scatterplots and histograms</h2>
+<div id="outline-container-orge227440" class="outline-2">
+<h2 id="scatterplot">Scatterplots and histograms</h2>
 <div class="outline-text-2" id="text-scatterplot">
 <p>
 There are methods to show scatter plots and hexbin plots of the layers
@@ -749,8 +762,8 @@ variable of the plot:
 </div>
 </div>
 
-<div id="outline-container-orgc2c6cb8" class="outline-2">
-<h2 id="spacetime"><a id="orgc2c6cb8"></a>Space-time plots</h2>
+<div id="outline-container-orgfce4b07" class="outline-2">
+<h2 id="spacetime">Space-time plots</h2>
 <div class="outline-text-2" id="text-spacetime">
 <p>
 The <code>z</code> slot of this <code>Raster</code> object stores a time index. This 3D
@@ -777,7 +790,7 @@ For example, the next code builds a hovmoller diagram showing the time evolution
 <div class="org-src-container">
 <pre class="src src-R"><span class="org-ess-modifiers">library</span>(zoo)
 
-old <span class="org-ess-assignment">&lt;-</span> setwd(tempdir())
+old <span class="org-ess-assignment">&lt;-</span> <span class="org-ess-modifiers">setwd</span>(tempdir())
 download.file(<span class="org-string">'http://iridl.ldeo.columbia.edu/SOURCES/.CAC/.sst/data.nc'</span>, 
 destfile = <span class="org-string">'SST.nc'</span>)
 SST <span class="org-ess-assignment">&lt;-</span> stack(<span class="org-string">'SST.nc'</span>)
@@ -801,7 +814,7 @@ names(SST) <span class="org-ess-assignment">&lt;-</span> as.character(tt)
 <span class="org-comment-delimiter">## </span><span class="org-comment">Use anomaly with calc</span>
 SSTanom <span class="org-ess-assignment">&lt;-</span> calc(SST, anomaly)
 SSTanom <span class="org-ess-assignment">&lt;-</span> setZ(SSTanom, tt)
-setwd(old)
+<span class="org-ess-modifiers">setwd</span>(old)
 </pre>
 </div>
 
@@ -840,8 +853,8 @@ The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for
 </div>
 </div>
 
-<div id="outline-container-org6c925c4" class="outline-2">
-<h2 id="vectorplot"><a id="org6c925c4"></a>Vector field plots</h2>
+<div id="outline-container-org23ac6c2" class="outline-2">
+<h2 id="vectorplot">Vector field plots</h2>
 <div class="outline-text-2" id="text-vectorplot">
 <p>
 The function <code>terrain</code> from <code>raster</code> provides the vector field
@@ -936,8 +949,8 @@ streamplot(r2, isField=<span class="org-ess-constant">TRUE</span>, streamlet=lis
 </div>
 </div>
 
-<div id="outline-container-orgccecdf6" class="outline-2">
-<h2 id="interaction"><a id="orgccecdf6"></a>Interaction</h2>
+<div id="outline-container-org8561de3" class="outline-2">
+<h2 id="interaction">Interaction</h2>
 <div class="outline-text-2" id="text-interaction">
 <p>
 This package includes two functions to interact with the <code>trellis</code> objects. 
