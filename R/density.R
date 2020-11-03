@@ -21,39 +21,52 @@ setMethod('densityplot',
           definition=function (x, data=NULL, layers, FUN,
             maxpixels = 1e+05,
             xlab = '', ylab = '', main = '',
-            par.settings=rasterTheme(),...){
+            par.settings=rasterTheme(),
+            draw.labels = TRUE,
+            auto.key = list(space = "right"),
+            ...){
             if (!missing(layers)) x <- subset(x, layers)
             nl=nlayers(x)
             if (nl > 1) {
-              dat <- raster2dat(x, FUN, maxpixels)
-              p <- densityplot(~values,
-                               data = dat, groups = ind,
-                               ## scales=list(x=list(relation='free'),
-                               ##   y=list(relation='free', draw=FALSE)),
-                               breaks = 100,
-                               par.settings = par.settings, pch = '.',
-                               xlab = xlab, ylab = ylab, main = main,
-                               panel = panel.superpose,
-                               panel.groups = function(x, group.value, col.line,...){
-                                   panel.densityplot(x,
-                                                     col.line = col.line,
-                                                     plot.points = FALSE,
-                                                     ...)
-                                 d <- density(x, na.rm = TRUE)
-                                 i <- which.max(d$y)
-                                 ltext(d$x[i],d$y[i],
-                                       group.value,
-                                       adj = c(0.3,0),
-                                       col = col.line,
-                                       cex = 0.7)
-                               }
-                               )
-            } else {
-                p <- densityplot(x,
-                                 maxpixels = maxpixels,
-                                 main = main, xlab=xlab, ylab=ylab,
-                                 ...)
+                dat <- raster2dat(x, FUN, maxpixels)
+                if (draw.labels == TRUE)
+                    p <- densityplot(~values,
+                                     data = dat, groups = ind,
+                                     breaks = 100,
+                                     par.settings = par.settings, pch = '.',
+                                     xlab = xlab, ylab = ylab, main = main,
+                                     panel = panel.superpose,
+                                     panel.groups = function(x, group.value, col.line,...){
+                                         panel.densityplot(x,
+                                                           col.line = col.line,
+                                                           plot.points = FALSE,
+                                                           ...)
+                                         d <- density(x, na.rm = TRUE)
+                                         i <- which.max(d$y)
+                                         ltext(d$x[i],d$y[i],
+                                               group.value,
+                                               adj = c(0.3,0),
+                                               col = col.line,
+                                               cex = 0.7)
+                                         
+
+                                     })
+                
+                else
+                    p <- densityplot(~values,
+                                     data = dat, groups = ind,
+                                     breaks = 100,
+                                     par.settings = par.settings, pch = '.',
+                                     xlab = xlab, ylab = ylab, main = main,
+                                     auto.key = auto.key, ...)                
             }
+            else
+                {
+                    p <- densityplot(x,
+                                     maxpixels = maxpixels,
+                                     main = main, xlab=xlab, ylab=ylab,
+                                     ...)
+                }
             p
           }
           )

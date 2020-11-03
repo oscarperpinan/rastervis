@@ -80,7 +80,7 @@
 }
 
 \references{
-  \url{http://www.perceptualedge.com/articles/visual_business_intelligence/time_on_the_horizon.pdf}
+  \url{http://vis.berkeley.edu/papers/horizon/2009-TimeSeries-CHI.pdf}
 }
 
 \details{(Extracted from the reference): "The horizon graph allows to

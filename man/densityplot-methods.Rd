@@ -19,6 +19,8 @@
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
             par.settings=rasterTheme(),
+            draw.labels = TRUE,
+            auto.key = list(space = "right"),
             ...)
 
 \S4method{densityplot}{formula,Raster}(x, data, dirXY,
@@ -40,6 +42,9 @@
             \code{RasterStackBrick} object. The result of this function
             is used as the grouping variable of the plot.}
   \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
+  \item{draw.labels}{Logical. If TRUE (default), labels are displayed
+    over the maximum value of each layer. If FALSE, a key is displayed
+    according to the \code{auto.key} argument.}
   \item{xlab, ylab, main, col, xscale.components, yscale.components,
     par.settings, auto.key}{Arguments for \code{\link{densityplot}}.}
   \item{\dots}{Additional arguments for \code{\link{densityplot}}}
@@ -53,7 +58,10 @@ f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 densityplot(r)
 s <- stack(r, r+500, r-500)
+## With labels
 densityplot(s)
+## With a key
+densityplot(s, draw.labels = FALSE)
 
 \dontrun{
 
