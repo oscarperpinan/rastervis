@@ -1,7 +1,6 @@
-[![CRAN](http://www.r-pkg.org/badges/version/rasterVis)](http://www.r-pkg.org/pkg/rasterVis)
-[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/rasterVis)](http://www.r-pkg.org/pkg/rasterVis)
+[![CRAN](http://www.r-pkg.org/badges/version/rasterVis)](https://www.r-pkg.org/pkg/rasterVis)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/rasterVis)](https://cran.r-project.org/package=rasterVis)
 [![Build Status](https://travis-ci.org/oscarperpinan/rastervis.svg?branch=master)](https://travis-ci.org/oscarperpinan/rastervis)
-[![Research software impact](http://depsy.org/api/package/cran/rasterVis/badge.svg)](http://depsy.org/package/r/rasterVis)
 
 rasterVis
 =========
@@ -13,5 +12,5 @@ manipulation. The `rasterVis` package complements raster providing a
 set of methods for enhanced visualization and interaction.
 
 There is a collection of examples in the
-[webpage](http://oscarperpinan.github.io/rastervis) and a
-[FAQ section](http://oscarperpinan.github.io/rastervis/FAQ.html).
+[webpage](https://oscarperpinan.github.io/rastervis/) and a
+[FAQ section](https://oscarperpinan.github.io/rastervis/FAQ.html).

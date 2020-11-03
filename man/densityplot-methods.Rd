@@ -50,7 +50,7 @@
   \item{\dots}{Additional arguments for \code{\link{densityplot}}}
 }
 \author{Oscar Perpiñán Lamigueiro}
-\seealso{\code{\link[lattice]{densityplot}},\code{\link{xscale.raster}},
+\seealso{\code{\link[lattice:histogram]{lattice:densityplot()}},\code{\link{xscale.raster}},
             \code{\link{yscale.raster}}, \code{\link{rasterTheme}}}
 
 \examples{
