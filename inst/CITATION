@@ -7,7 +7,7 @@ citEntry(entry="Manual",
          title ="{rasterVis}",
          author = personList(as.person("Oscar Perpi{\\~n}{\\'a}n"), as.person("Robert Hijmans")),
          year = year,
-         url ="http://oscarperpinan.github.io/rastervis/",
+         url ="https://oscarperpinan.github.io/rastervis/",
          note = vers,
          textVersion = paste0("Oscar Perpinan Lamigueiro and Robert Hijmans (",
                               year, "), rasterVis. ", vers, ".")
