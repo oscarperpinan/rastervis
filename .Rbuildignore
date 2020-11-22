@@ -1,3 +1,4 @@
 LICENSE
 docs
 ^\.travis\.yml$
+.github
