@@ -1,6 +1,6 @@
 [![CRAN](http://www.r-pkg.org/badges/version/rasterVis)](https://www.r-pkg.org/pkg/rasterVis)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/rasterVis)](https://cran.r-project.org/package=rasterVis)
-[![Build Status](https://travis-ci.org/oscarperpinan/rastervis.svg?branch=master)](https://travis-ci.org/oscarperpinan/rastervis)
+[![Build Status](https://github.com/oscarperpinan/rastervis/workflows/R-CMD-check/badge.svg)](https://github.com/oscarperpinan/rastervis/actions)
 
 rasterVis
 =========
