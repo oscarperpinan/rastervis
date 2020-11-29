@@ -10,22 +10,38 @@ if (!isGeneric("gplot")) {
 		standardGeneric("gplot"))
 }	
 
+
+.gplot <- function(x, ...)  {
+	coords <- xyFromCell(x, seq_len(ncell(x)))
+	dat <- stack(as.data.frame(values(x)))
+	names(dat) <- c('value', 'variable')
+	dat <- cbind(coords, dat)
+	ggplot2::ggplot(ggplot2::aes(x=x, y=y),
+                                  data=dat, ...)
+}
+
+
 setMethod("gplot", signature(x='Raster'), 
           function(x, maxpixels=50000, ...)  {
-              if (requireNamespace("ggplot2", quietly = TRUE))
-              {
-                  nl <- nlayers(x)
-                  x <- sampleRegular(x, maxpixels, asRaster=TRUE)
-                  coords <- xyFromCell(x, seq_len(ncell(x)))
-                  ## Extract values 
-                  dat <- stack(as.data.frame(getValues(x)))
-                  names(dat) <- c('value', 'variable')
-                  
-                  dat <- cbind(coords, dat)
+              if (!requireNamespace("ggplot2", quietly = TRUE))
+			  {
+				stop("ggplot2 is required for the gplot method.")
+			  }
+              x <- raster::sampleRegular(x, maxpixels, asRaster=TRUE)
+			  .gplot(x, ...)
+          }
+          )
 
-                  ggplot2::ggplot(ggplot2::aes(x=x, y=y),
-                                  data=dat, ...)
-              } else stop("ggplot2 is required for the gplot method.")
+
+
+setMethod("gplot", signature(x='SpatRaster'), 
+          function(x, maxpixels=50000, ...)  {
+              if (!requireNamespace("ggplot2", quietly = TRUE))
+			  {
+				stop("ggplot2 is required for the gplot method.")
+			  }
+              x <- terra::spatSample(x, maxpixels, "regular", as.raster=TRUE)
+			  .gplot(x, ...)
           }
           )
 
