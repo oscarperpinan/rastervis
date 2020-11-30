@@ -1,10 +1,3 @@
-# Author: Robert J. Hijmans, based on an example by Paul Hiemstra
-# Date :  June 2011
-# Version 1.1
-# Updated: Oscar Perpiñán January 2012 (melt is not used anymore)
-# Licence GPL v3
-
-
 if (!isGeneric("gplot")) {
 	setGeneric("gplot", function(x, ...)
 		standardGeneric("gplot"))
@@ -21,24 +14,24 @@ if (!isGeneric("gplot")) {
 	dat <- stack(as.data.frame(values(x)))
 	names(dat) <- c('value', 'variable')
 	dat <- cbind(coords, dat)
-	ggplot2::ggplot(ggplot2::aes(x=x, y=y),
+	ggplot2::ggplot(ggplot2::aes(x = x, y = y),
                                   data=dat, ...)
 }
 
 
 setMethod("gplot", signature(x='Raster'), 
-          function(x, maxpixels=50000, ...)  {
-              x <- raster::sampleRegular(x, maxpixels, asRaster=TRUE)
-			  .gplot(x, ...)
+          function(x, maxpixels = 50000, ...)  {
+              x <- raster::sampleRegular(x, maxpixels, asRaster = TRUE)
+              .gplot(x, ...)
           }
           )
 
 
 
 setMethod("gplot", signature(x='SpatRaster'), 
-          function(x, maxpixels=50000, ...)  {
-              x <- terra::spatSample(x, maxpixels, "regular", as.raster=TRUE)
-			  .gplot(x, ...)
+          function(x, maxpixels = 50000, ...)  {
+              x <- terra::spatSample(x, maxpixels, "regular", as.raster = TRUE)
+              .gplot(x, ...)
           }
           )
 

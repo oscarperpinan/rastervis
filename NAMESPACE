@@ -69,6 +69,8 @@ importFrom("zoo",
 
 import("raster")
 
+import("terra")
+
 export(
   'chooseRegion',
   'xyLayer',
