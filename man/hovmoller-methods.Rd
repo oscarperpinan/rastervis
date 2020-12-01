@@ -2,16 +2,24 @@
 \docType{methods}
 \alias{hovmoller}
 \alias{hovmoller,RasterStackBrick-method}
+\alias{hovmoller,SpatRaster-method}
 \title{Hovmoller plots}
 \description{
 Hovmoller plots of Raster objects.}
-\usage{\S4method{hovmoller}{RasterStackBrick}(object, dirXY=y, FUN=mean, 
+\usage{
+\S4method{hovmoller}{RasterStackBrick}(object, dirXY=y, FUN=mean, 
+digits=2, xlab='Direction', ylab='Time',
+par.settings=rasterTheme(), xscale.components=xscale.raster,
+add.contour=FALSE, labels=FALSE, region=TRUE, ...)
+
+\S4method{hovmoller}{SpatRaster}(object, dirXY=y, FUN=mean, 
 digits=2, xlab='Direction', ylab='Time',
 par.settings=rasterTheme(), xscale.components=xscale.raster,
 add.contour=FALSE, labels=FALSE, region=TRUE, ...)
 }
 \arguments{
-  \item{object}{A RasterStackBrick with a non-empty \code{z} slot.}
+  \item{object}{A RasterStackBrick with a non-empty \code{z} slot, or a
+    SpatRaster with a time index.}
   \item{dirXY}{A direction as a function of the coordinates (see
     \code{\link{xyLayer}}).}
   \item{FUN}{A function to be applied to the zones calculated with
