@@ -1,16 +1,22 @@
 setGeneric('splom')
 
 setMethod('splom',
-          signature(x='RasterStackBrick', data='missing'),
+          signature(x='RoT', data='missing'),
           definition=function(x, data=NULL, maxpixels=1e5,
             plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...){
 
             nms <- names(x)
 
             if (maxpixels < ncell(x)) {
-              dat <- sampleRandom(x, maxpixels)
+                if (is(x, "Raster"))
+                    dat <- sampleRandom(x, maxpixels)
+                else if (is(x, "SpatRaster"))
+                    dat <- spatSample(x, maxpixels, "random")
             } else {
-              dat <- getValues(x)
+                if (is(x, "Raster"))
+                    dat <- getValues(x)
+                else if (is(x, "SpatRaster"))
+                    dat <- values(x)
             }
             colnames(dat) <- nms
             diag.panel = function(x,...){
