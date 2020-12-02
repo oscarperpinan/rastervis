@@ -2,8 +2,8 @@ globalVariables('y')
 
 ##Create a Layer from a custom function of the coordinates
 xyLayer <- function(object, dirXY=y){
-  y <- init(object, v='y')
-  x <- init(object, v='x')
+  y <- init(object, fun='y')
+  x <- init(object, fun='x')
   isLanguage <- try(is.language(dirXY), silent=TRUE)
   if (class(isLanguage)=='try-error' || !isLanguage) dirXY <- substitute(dirXY)
   dirLayer <- eval(dirXY)
@@ -12,7 +12,7 @@ xyLayer <- function(object, dirXY=y){
 ##Hovmoller diagram
 ##http://en.wikipedia.org/wiki/Hovm%C3%B6ller_diagram
 
-.hovmoller <- function(object, dirXY, tt,
+.hovmoller <- function(object, dirLayer, tt,
                        FUN, digits,
                        xlab, ylab,
                        par.settings,
@@ -21,8 +21,10 @@ xyLayer <- function(object, dirXY=y){
                        labels, region, ...){
 
     ##Calculate the matrix with the zonal function
-    dirLayer <- xyLayer(object, dirXY=substitute(dirXY))
     z <- zonal(object, dirLayer, FUN, digits = digits)
+    ## zonal returns a data.frame with terra objects and a matrix with
+    ## raster objects.
+    z <- as.matrix(z)
     dat <- expand.grid(x = z[,1], y = tt)
     dat$z <- as.vector(as.numeric(z[,-1]))
 
@@ -83,12 +85,12 @@ setMethod('hovmoller', signature='RasterStackBrick',
                               add.contour=FALSE,
                               labels=FALSE, region=TRUE, ...)
           {
-              
+              dirLayer <- xyLayer(object, substitute(dirXY))
               tt <- getZ(object)
               if (is.null(tt))
                   stop('z slot of the object is NULL. Use setZ.')
 
-              .hovmoller(object, dirXY, tt,
+              .hovmoller(object, dirLayer, tt,
                          FUN, digits,
                          xlab, ylab,
                          par.settings,
@@ -108,11 +110,12 @@ setMethod('hovmoller', signature='SpatRaster',
                               labels=FALSE, region=TRUE, ...)
           {
               
+              dirLayer <- xyLayer(object, dirXY=substitute(dirXY))
               tt <- time(object)
               if (is.null(tt))
                   stop('time index of the object is NULL. Use time().')
 
-              .hovmoller(object, dirXY, tt,
+              .hovmoller(object, dirLayer, tt,
                          FUN, digits,
                          xlab, ylab,
                          par.settings,
