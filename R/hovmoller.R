@@ -12,14 +12,31 @@ xyLayer <- function(object, dirXY=y){
 ##Hovmoller diagram
 ##http://en.wikipedia.org/wiki/Hovm%C3%B6ller_diagram
 
-.hovmoller <- function(object, dirLayer, tt,
-                       FUN, digits,
-                       xlab, ylab,
-                       par.settings,
-                       xscale.components,
-                       add.contour,
-                       labels, region, ...){
 
+setGeneric('hovmoller', function(object, ...){standardGeneric('hovmoller')})
+
+setMethod('hovmoller', signature='RSBoT',
+          definition=function(object, dirXY=y,
+                              FUN='mean', digits=2,
+                              xlab='Direction', ylab='Time',
+                              par.settings=rasterTheme(),
+                              xscale.components=xscale.raster,
+                              add.contour=FALSE,
+                              labels=FALSE, region=TRUE, ...)
+{
+    
+    dirLayer <- xyLayer(object, substitute(dirXY))
+    if (is(object, "Raster"))
+    {
+        tt <- getZ(object)
+        if (is.null(tt))
+            stop('z slot of the object is NULL. Use setZ.')
+    } else
+    {
+        tt <- time(object)
+        if (is.null(tt))
+            stop('time index of the object is NULL. Use time().')
+    }
     ##Calculate the matrix with the zonal function
     z <- zonal(object, dirLayer, FUN, digits = digits)
     ## zonal returns a data.frame with terra objects and a matrix with
@@ -42,20 +59,22 @@ xyLayer <- function(object, dirXY=y){
         }
         ## which xscale.components?
         if (direction=='x'){## Longitude
-            xscale.components <- if (identical(xscale.components, xscale.raster))
-                                     xscale.raster.EW
-                                 else if (identical(xscale.components, xscale.raster.subticks))
-                                     xscale.raster.EWsubticks
-                                 else xscale.components
+            xscale.components <-
+                if (identical(xscale.components, xscale.raster))
+                    xscale.raster.EW
+                else if (identical(xscale.components, xscale.raster.subticks))
+                    xscale.raster.EWsubticks
+                else xscale.components
         } else {
             if (direction=='y'){## Latitude
-                xscale.components <- if (identical(xscale.components, xscale.raster))
-                                         xscale.raster.NS
-                                     else if (identical(xscale.components, xscale.raster.subticks))
-                                         xscale.raster.NSsubticks
-                                     else xscale.components
+                xscale.components <-
+                    if (identical(xscale.components, xscale.raster))
+                        xscale.raster.NS
+                    else if (identical(xscale.components, xscale.raster.subticks))
+                        xscale.raster.NSsubticks
+                    else xscale.components
             }}}
-
+    
     ##Create the trellis object
     if (add.contour){
         p <- contourplot(z~x*y, data = dat,
@@ -72,58 +91,6 @@ xyLayer <- function(object, dirXY=y){
                        ...)
     }
     p
-}
-
-setGeneric('hovmoller', function(object, ...){standardGeneric('hovmoller')})
-
-setMethod('hovmoller', signature='RasterStackBrick',
-          definition=function(object, dirXY=y,
-                              FUN='mean', digits=2,
-                              xlab='Direction', ylab='Time',
-                              par.settings=rasterTheme(),
-                              xscale.components=xscale.raster,
-                              add.contour=FALSE,
-                              labels=FALSE, region=TRUE, ...)
-          {
-              dirLayer <- xyLayer(object, substitute(dirXY))
-              tt <- getZ(object)
-              if (is.null(tt))
-                  stop('z slot of the object is NULL. Use setZ.')
-
-              .hovmoller(object, dirLayer, tt,
-                         FUN, digits,
-                         xlab, ylab,
-                         par.settings,
-                         xscale.components,
-                         add.contour,
-                         labels, region,
-                         ...)
-          })
-
-setMethod('hovmoller', signature='SpatRaster',
-          definition=function(object, dirXY=y,
-                              FUN='mean', digits=2,
-                              xlab='Direction', ylab='Time',
-                              par.settings=rasterTheme(),
-                              xscale.components=xscale.raster,
-                              add.contour=FALSE,
-                              labels=FALSE, region=TRUE, ...)
-          {
-              
-              dirLayer <- xyLayer(object, dirXY=substitute(dirXY))
-              tt <- time(object)
-              if (is.null(tt))
-                  stop('time index of the object is NULL. Use time().')
-
-              .hovmoller(object, dirLayer, tt,
-                         FUN, digits,
-                         xlab, ylab,
-                         par.settings,
-                         xscale.components,
-                         add.contour,
-                         labels, region,
-                         ...)
-          })
-
+})
 
 

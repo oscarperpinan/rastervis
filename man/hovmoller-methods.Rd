@@ -74,8 +74,12 @@ idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 SISmm <- setZ(stackSIS, idx)
 names(SISmm) <- month.abb
 
+SISmmt <- SISmm
+time(SISmmt) <- getZ(SISmm)
+
 ## Latitude as default
 hovmoller(SISmm, xlab='Latitude')
+hovmoller(SISmmt, xlab = 'Latitude')
 
 ## With contour lines and labels
 hovmoller(SISmm, labels=TRUE, add.contour=TRUE,
