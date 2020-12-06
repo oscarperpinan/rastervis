@@ -1,40 +1,95 @@
 setGeneric('levelplot')
 
-.levelplot <- function(df,
-                       nly, ## Number of layers
-                       bb, ## Bounding box
-                       isll, ## Is Lon-Lat?
-                       nms, ## Names of the layers
-                       rat, ##Raster Attribute Table
-                       anyFactor, ## TRUE if any layer is factor
-                       isFactor, ## TRUE if all layers are factor
-                       margin = list(), 
-                       maxpixels = 1e5,
-                       par.settings = rasterTheme(),
-                       between = list(x = 0.5, y = 0.2),
-                       as.table = TRUE,
-                       xlab, ylab,
-                       main = NULL,
-                       names.attr,
-                       scales = list(),
-                       xscale.components = xscale.raster,
-                       yscale.components = yscale.raster,
-                       zscaleLog = NULL,
-                       colorkey = list(space = 'right'),
-                       panel = panel.levelplot, pretty = FALSE, 
-                       contour = FALSE, region = TRUE, labels = FALSE,
-                       FUN.margin = NULL,
-                       scales.margin = NULL, axis.margin = NULL,
-                       ..., att = 1L)
+setMethod('levelplot',
+          signature(x = 'RoT', data = 'missing'),
+          definition = function(x, data = NULL, layers,
+              margin = list(), 
+              maxpixels = 1e5,
+              par.settings = rasterTheme(),
+              between = list(x = 0.5, y = 0.2),
+              as.table = TRUE,
+              xlab = if(isLonLat(x)) 'Longitude' else NULL,
+              ylab = if(isLonLat(x)) 'Latitude' else NULL,
+              main = NULL,
+              names.attr,
+              scales = list(),
+              xscale.components = xscale.raster,
+              yscale.components = yscale.raster,
+              zscaleLog = NULL,
+              colorkey = list(space = 'right'),
+              panel = panel.levelplot, pretty = FALSE, 
+              contour = FALSE, region = TRUE, labels = FALSE,
+              FUN.margin = NULL,
+              scales.margin = NULL, axis.margin = NULL,
+              ..., att = 1L)
 {
+              
+    ## Subset the object if layers are defined
+    if (!missing(layers)) {
+        object <- subset(x, subset=layers)
+    } else {
+        object <- x
+    }
+              
+    ## The plot display a sample of the whole object defined
+    ## with maxpixels
+    if (is(object, "Raster"))
+        objectSample <- sampleRegular(object,
+                                      size = maxpixels,
+                                      asRaster = TRUE)
+    else 
+        objectSample <- spatSample(object,
+                                   size = maxpixels,
+                                   as.raster = TRUE)
+    
+    ## Is factor?
+    factorLayers <- is.factor(object)
+    isFactor <- all(factorLayers)
+    anyFactor <- any(factorLayers)
+    
+    if (anyFactor & !isFactor) {
+        stop('Raster* with factor and numeric layers cannot be displayed.')
+    }
+    
+    if (isFactor) {
+        rat <- levels(object)
+        ## It works correctly only if all the layers
+        ## share the same RAT
+        if (length(rat)>1 && any(!duplicated(rat)[-1])){
+            stop('all the layers must share the same RAT.')
+        }
+        else
+        {
+            rat <- as.data.frame(rat[[1]])
+            ## choose which level to use for the legend
+            if (is.numeric(att)) att = att + 1
+            ratID <- rat$ID
+            objectSample <- subs(objectSample,
+                                 data.frame(ratID, seq_along(ratID)))
+            names(objectSample) <- names(object)
+        }
+    }
+    else rat <- NULL
+    
+    ## Convert to a data.frame for conventional levelplot
+    df <- as.data.frame(objectSample, xy=TRUE)
+    ## Number of layers
+    if (is(object, "Raster"))
+        nly  <- nlayers(object)
+    else
+        nly  <- nlyr(object)
+    ## Names of layers
+    nms <- names(object)
+    ## Ensure valid names
+    nms <- make.names(nms, unique = TRUE)
+    
+
     
     ## Extract components from par.settings              
     if (is.function(par.settings))
         par.settings <- par.settings()
     ## The first two columns store coordinates.     
     dat <- df[, -c(1, 2)]
-    ## Ensure valid names
-    nms <- make.names(nms, unique = TRUE)
     names(dat) <- nms
 
     ## If zscaleLog is not NULL, transform the values and
@@ -74,13 +129,18 @@ setGeneric('levelplot')
 
     ##aspect and scales(from sp::spplot.grid,
     ##sp::longlat.scales, sp::mapasp)
-    xlim=c(xmin(bb), xmax(bb))
-    ylim=c(ymin(bb), ymax(bb))
+    if (is(object, "Raster"))
+        bb <- extent(object)
+    else
+        bb <- ext(object)
 
-    if (isTRUE(isLonLat)){
+    xlim <- c(xmin(bb), xmax(bb))
+    ylim <- c(ymin(bb), ymax(bb))
 
+    if (isTRUE(isLonLat(object))){
+        
         aspect=(diff(ylim)/diff(xlim))/cos((mean(ylim) * pi)/180)
-
+        
         xscale.components <-
             if (identical(xscale.components,
                           xscale.raster))
@@ -342,175 +402,4 @@ setGeneric('levelplot')
     ## Here is the result!
     p
 }
-
-setMethod('levelplot',
-          signature(x = 'Raster', data = 'missing'),
-          definition = function(x, data = NULL, layers,
-              margin = list(), 
-              maxpixels = 1e5,
-              par.settings = rasterTheme(),
-              between = list(x = 0.5, y = 0.2),
-              as.table = TRUE,
-              xlab = if(isLonLat(x)) 'Longitude' else NULL,
-              ylab = if(isLonLat(x)) 'Latitude' else NULL,
-              main = NULL,
-              names.attr,
-              scales = list(),
-              xscale.components = xscale.raster,
-              yscale.components = yscale.raster,
-              zscaleLog = NULL,
-              colorkey = list(space = 'right'),
-              panel = panel.levelplot, pretty = FALSE, 
-              contour = FALSE, region = TRUE, labels = FALSE,
-              FUN.margin = NULL,
-              scales.margin = NULL, axis.margin = NULL,
-              ..., att = 1L) {
-              
-              ## Subset the object if layers are defined
-              if (!missing(layers)) {
-                  object <- subset(x, subset=layers)
-              } else {
-                  object <- x
-              }
-              
-              ## The plot display a sample of the whole object defined
-              ## with maxpixels
-              objectSample <- sampleRegular(object, size = maxpixels,
-                                            asRaster = TRUE)
-              
-              ## Is factor?
-              factorLayers <- is.factor(object)
-              isFactor <- all(factorLayers)
-              anyFactor <- any(factorLayers)
-
-              if (anyFactor & !isFactor) {
-                  stop('Raster* with factor and numeric layers cannot be displayed.')
-              }
-
-              if (isFactor) {
-                  rat <- levels(object)
-                  ## It works correctly only if all the layers
-                  ## share the same RAT
-                  if (length(rat)>1 && any(!duplicated(rat)[-1])){
-                      stop('all the layers must share the same RAT.')
-                  } else {
-                      rat <- as.data.frame(rat[[1]])
-                      ## choose which level to use for the legend
-                      if (is.numeric(att)) att = att + 1
-                      ratID <- rat$ID
-                      objectSample <- subs(objectSample,
-                                           data.frame(ratID, seq_along(ratID)))
-                      names(objectSample) <- names(object)
-                  }
-              } else rat <- NULL
-              
-              ## Convert to a data.frame for conventional levelplot
-              df <- as.data.frame(objectSample, xy=TRUE)
-              ## Number of layers
-              nly  <- nlayers(object)
-              ## Names of layers
-              nms <- names(object)
-
-              ##aspect and scales(from sp::spplot.grid,
-              ##sp::longlat.scales, sp::mapasp)
-              bb <- extent(object)
-              isll  <- isLonLat(object)
-
-              p <- .levelplot(df, nly, bb, isll, nms, rat, anyFactor,
-                              isFactor, margin, maxpixels,
-                              par.settings, between, as.table, xlab,
-                              ylab, main, names.attr, scales,
-                              xscale.components, yscale.components,
-                              zscaleLog, colorkey, panel, pretty,
-                              contour, region, labels, FUN.margin,
-                              scales.margin, axis.margin, ...,
-                              att = 1L)
-              p
-          }
-          )
-
-setMethod('levelplot',
-          signature(x = 'SpatRaster', data = 'missing'),
-          definition = function(x, data = NULL, layers,
-              margin = list(), 
-              maxpixels = 1e5,
-              par.settings = rasterTheme(),
-              between = list(x = 0.5, y = 0.2),
-              as.table = TRUE,
-              xlab = if(isLonLat(x)) 'Longitude' else NULL,
-              ylab = if(isLonLat(x)) 'Latitude' else NULL,
-              main = NULL,
-              names.attr,
-              scales = list(),
-              xscale.components = xscale.raster,
-              yscale.components = yscale.raster,
-              zscaleLog = NULL,
-              colorkey = list(space = 'right'),
-              panel = panel.levelplot, pretty = FALSE, 
-              contour = FALSE, region = TRUE, labels = FALSE,
-              FUN.margin = NULL,
-              scales.margin = NULL, axis.margin = NULL,
-              ..., att = 1L) {
-              
-              ## Subset the object if layers are defined
-              if (!missing(layers)) {
-                  object <- subset(x, subset=layers)
-              } else {
-                  object <- x
-              }
-              
-              ## The plot display a sample of the whole object defined
-              ## with maxpixels
-              objectSample <- spatSample(object, size = maxpixels,
-                                            as.raster = TRUE)
-              
-              ## Is factor?
-              factorLayers <- is.factor(object)
-              isFactor <- all(factorLayers)
-              anyFactor <- any(factorLayers)
-
-              if (anyFactor & !isFactor) {
-                  stop('Raster* with factor and numeric layers cannot be displayed.')
-              }
-
-              if (isFactor) {
-                  rat <- levels(object)
-                  ## It works correctly only if all the layers
-                  ## share the same RAT
-                  if (length(rat)>1 && any(!duplicated(rat)[-1])){
-                      stop('all the layers must share the same RAT.')
-                  } else {
-                      rat <- as.data.frame(rat[[1]])
-                      ## choose which level to use for the legend
-                      if (is.numeric(att)) att = att + 1
-                      ratID <- rat$ID
-                      objectSample <- subs(objectSample,
-                                           data.frame(ratID, seq_along(ratID)))
-                      names(objectSample) <- names(object)
-                  }
-              } else rat <- NULL
-              
-              ## Convert to a data.frame for conventional levelplot
-              df <- as.data.frame(objectSample, xy=TRUE)
-              ## Number of layers
-              nly  <- nlyr(object)
-              ## Names of layers
-              nms <- names(object)
-              
-              ##aspect and scales(from sp::spplot.grid,
-              ##sp::longlat.scales, sp::mapasp)
-              bb <- ext(object)
-              isll  <- isLonLat(object)
-
-              p <- .levelplot(df, nly, bb, isll, nms, rat, anyFactor,
-                              isFactor, margin, maxpixels,
-                              par.settings, between, as.table, xlab,
-                              ylab, main, names.attr, scales,
-                              xscale.components, yscale.components,
-                              zscaleLog, colorkey, panel, pretty,
-                              contour, region, labels, FUN.margin,
-                              scales.margin, axis.margin, ...,
-                              att = 1L)
-              p
-          }
-          )
+)
