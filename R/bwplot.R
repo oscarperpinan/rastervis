@@ -153,6 +153,3 @@ setMethod('bwplot', signature(x='formula', data='RoT'),
                           par.settings=par.settings, ...)
               p
           })
-
-
-
