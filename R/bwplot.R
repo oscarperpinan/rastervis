@@ -2,7 +2,7 @@ setGeneric("bwplot", function(x, data, ...)
            standardGeneric("bwplot"))
 
 setMethod('bwplot',
-          signature(x='RSBoT', data='missing'),
+          signature(x = 'RSBoT', data = 'missing'),
           definition=function(x, data = NULL, layers, FUN,
             maxpixels = 1e+05,
             xlab = '', ylab = '', main = '',
@@ -86,6 +86,9 @@ setMethod('bwplot', signature(x='formula', data='RoT'),
                   dataSample <- spatSample(data,
                                            size = maxpixels,
                                            as.raster = TRUE)
+                  xLayer <- init(dataSample, fun='x')
+                  yLayer <- init(dataSample, fun='y')
+
                   df <- values(dataSample)
                   xLayer <- values(xLayer)
                   yLayer <- values(yLayer)
@@ -95,6 +98,9 @@ setMethod('bwplot', signature(x='formula', data='RoT'),
                     dataSample <- sampleRegular(data,
                                                 size = maxpixels,
                                                 asRaster = TRUE)
+                    xLayer <- init(dataSample, fun='x')
+                    yLayer <- init(dataSample, fun='y')
+
                     df <- getValues(dataSample)
                     xLayer <- getValues(xLayer)
                     yLayer <- getValues(yLayer)
