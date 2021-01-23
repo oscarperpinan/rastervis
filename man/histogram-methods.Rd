@@ -3,7 +3,8 @@
 \alias{histogram}
 \alias{histogram,RasterLayer,missing-method}
 \alias{histogram,RasterStackBrick,missing-method}
-\alias{histogram,formula,Raster-method}
+\alias{histogram,formula,SpatRaster-method}
+\alias{histogram,SpatRaster,missing-method}
 
 \title{
 Histogram of Raster objects.
@@ -12,20 +13,7 @@ Histogram of Raster objects.
 }
 
 \usage{
-\S4method{histogram}{RasterLayer,missing}(x, data=NULL,
-            maxpixels = 1e+05, nint=100, 
-            xlab='', ylab='', main='', col='gray',
-            between = list(x=0.5, y=0.2),
-            as.table = TRUE,
-            scales=list(x = list(relation = 'free'),
-              y=list(relation = 'free',
-                     draw = FALSE)),
-            names.attr,
-            par.settings = rasterTheme(),
-            att = 1,
-            ...)
-
-\S4method{histogram}{RasterStackBrick,missing}(x, data=NULL, layers, FUN,
+\S4method{histogram}{Raster, missing}(x, data=NULL, layers, FUN,
             maxpixels = 1e+05, nint=100,
             xlab='', ylab='', main='', col='gray',
             between=list(x=0.5, y=0.2),
@@ -38,7 +26,27 @@ Histogram of Raster objects.
             att = 1,
             ...)
 
-\S4method{histogram}{formula,Raster}(x, data, dirXY,
+\S4method{histogram}{formula, Raster}(x, data, dirXY,
+            maxpixels = 1e+05,
+            strip=TRUE,
+            par.settings=rasterTheme(),
+            att = 1,
+            ...)
+
+\S4method{histogram}{SpatRaster, missing}(x, data=NULL, layers, FUN,
+            maxpixels = 1e+05, nint=100,
+            xlab='', ylab='', main='', col='gray',
+            between=list(x=0.5, y=0.2),
+            as.table=TRUE,
+            scales=list(x=list(relation='free'),
+              y=list(relation='free',
+                draw=FALSE)),
+            names.attr,
+            par.settings=rasterTheme(),
+            att = 1,
+            ...)
+
+\S4method{histogram}{formula, Raster}(x, data, dirXY,
             maxpixels = 1e+05,
             strip=TRUE,
             par.settings=rasterTheme(),
@@ -47,18 +55,19 @@ Histogram of Raster objects.
 
 }
 \arguments{
-  \item{x}{A \code{Raster*} object or a \code{formula}.}
-  \item{data}{\code{NULL} or a \code{Raster} object.}
+  \item{x}{A \code{Raster*} object, a \code{SpatRaster} object or a \code{formula}.}
+  \item{data}{\code{NULL}, a \code{Raster} object, or \code{SpatRaster} object.}
   \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
   \item{dirXY}{A direction as a function of the coordinates (see
     \code{\link{xyLayer}}).}
   \item{FUN}{A function to applied to the \code{z} slot of a
-            \code{RasterStackBrick} object. The result of this function
+            \code{RasterStackBrick} object or to the time index of the
+	    \code{SpatRaster} object. The result of this function
             is used as the grouping variable of the plot.}
   \item{nint}{Number of breaks for the histogram. See the documentation of
             \code{lattice::\link[lattice]{histogram}} at lattice for details.}
-  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
+  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}} or \code{spatSample}.}
   \item{att}{If \code{x} is a factor, integer or character to choose
     which variable (column) in the RAT table should be used.}
   \item{xlab, ylab, main, col}{Arguments for \code{\link{histogram}}.}

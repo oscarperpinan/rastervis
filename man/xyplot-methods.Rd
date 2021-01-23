@@ -2,6 +2,7 @@
 \docType{methods}
 \alias{xyplot}
 \alias{xyplot,RasterStackBrick,missing-method}
+\alias{xyplot,SpatRaster,missing-method}
 \title{xyplot for Raster objects}
 \description{Scatter plots of space-time Raster objects for directions defined by \code{xyLayer}
 }
@@ -10,10 +11,14 @@
        stat='mean', xlab='Time', ylab='',
        digits=0, par.settings=rasterTheme(),
        auto.key = FALSE, ...)
+\S4method{xyplot}{SpatRaster,missing}(x, data=NULL, dirXY=y,
+       stat='mean', xlab='Time', ylab='',
+       digits=0, par.settings=rasterTheme(),
+       auto.key = FALSE, ...)
 }
 \arguments{
-\item{x}{A \code{RasterStackBrick} object whose \code{z} slot is not
-  \code{NULL}.}
+\item{x}{A \code{RasterStackBrick} object or a \code{SpatRaster} object
+  whose \code{z} slot or time index are not \code{NULL}.}
 \item{data}{Not used.}
 \item{dirXY}{A direction as a function of the coordinates (see
   \code{\link{xyLayer}}).}

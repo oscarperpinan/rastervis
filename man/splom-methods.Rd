@@ -2,14 +2,20 @@
 \docType{methods}
 \alias{splom}
 \alias{splom,RasterStackBrick,missing-method}
+\alias{splom,SpatRaster,missing-method}
 \title{Scatter plot matrices of Raster objects.}
 \description{
 Draw conditional scatter plot matrices with hexagonally binning.}
-\usage{\S4method{splom}{RasterStackBrick,missing}(x, data=NULL,maxpixels=1e5, plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...)}
+
+\usage{
+\S4method{splom}{RasterStackBrick,missing}(x, data=NULL,maxpixels=1e5,
+plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...)
+\S4method{splom}{SpatRaster,missing}(x, data=NULL,maxpixels=1e5, plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...)}
+
 \arguments{
-  \item{x}{A \code{RasterStackBrick} object.}
+  \item{x}{A \code{RasterStackBrick} object or a \code{SpatRaster} object.}
   \item{data}{Not used.}
-  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
+  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}} or \code{spatSample}.}
   \item{plot.loess}{Logical, should a loess fit be drawn?.}
   \item{colramp}{A function accepting an integer \code{n} as argument
     and returning \code{n} colors (for \code{\link{hexbinplot}}).}
@@ -17,6 +23,7 @@ Draw conditional scatter plot matrices with hexagonally binning.}
     variables names.}
   \item{...}{Additional arguments for splom.}
 }
+
 \author{Oscar Perpiñán Lamigueiro}
 
 \note{While the hexagonal binning is quite fast for large datasets, the

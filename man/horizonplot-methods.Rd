@@ -32,7 +32,7 @@
 }
 
 \arguments{
-\item{x}{A \code{RasterStackBrick} object.}
+\item{x}{A \code{RasterStackBrick} object or a \code{SpatRaster} object.}
 
 \item{data}{Not used.}
 

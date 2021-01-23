@@ -2,6 +2,8 @@
 \alias{hexbinplot}
 \alias{hexbinplot,formula,Raster-method}
 \alias{xyplot,formula,Raster-method}
+\alias{hexbinplot,formula,SpatRaster-method}
+\alias{xyplot,formula,SpatRaster-method}
 \title{Formula methods}
 \description{Formula methods
 }
@@ -13,7 +15,13 @@
 \S4method{hexbinplot}{formula,Raster}(x, data, dirXY,
             xscale.components=xscale.raster, yscale.components=yscale.raster,
             par.settings=rasterTheme(),...)
-
+\S4method{xyplot}{formula,SpatRaster}(x, data, dirXY, maxpixels=1e5,
+            alpha=0.05,
+            xscale.components=xscale.raster, yscale.components=yscale.raster,
+            par.settings=rasterTheme(),...)
+\S4method{hexbinplot}{formula,SpatRaster}(x, data, dirXY,
+            xscale.components=xscale.raster, yscale.components=yscale.raster,
+            par.settings=rasterTheme(),...)
 }
 \arguments{
 \item{x}{A \code{formula} describing the variables to be related. It may
@@ -23,10 +31,10 @@
   is not missing, the variable \code{dirXY} can also be included in the
   \code{formula}.
   }
-\item{data}{A \code{Raster} object.}
+\item{data}{A \code{Raster} object or a \code{SpatRaster} object.}
 \item{dirXY}{A direction as a function of the coordinates (see
   \code{\link{xyLayer}}).}
-\item{maxpixels}{A numeric, for \code{\link{sampleRegular}}.}
+\item{maxpixels}{A numeric, for \code{\link{sampleRegular}} or \code{spatSample}.}
 \item{alpha}{A numeric, transparency of the points.}
 \item{xscale.components, yscale.components,par.settings}{Customization of \code{lattice}. See \code{xyplot}
 for details.}

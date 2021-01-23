@@ -4,14 +4,15 @@
 \alias{densityplot}
 \alias{densityplot,RasterLayer,missing-method}
 \alias{densityplot,RasterStackBrick,missing-method}
-\alias{densityplot,formula,Raster-method}
+\alias{densityplot,formula,SpatRaster-method}
+\alias{densityplot,SpatRaster,missing-method}
 \title{Density plots for Raster objects.}
 
 \description{Draw kernel density plots (with \code{lattice}) of Raster objects.
 }
 
 \usage{
-\S4method{densityplot}{RasterLayer,missing}(x, data=NULL, maxpixels = 1e+05,
+\S4method{densityplot}{RasterLayer, missing}(x, data=NULL, maxpixels = 1e+05,
             xlab='', ylab='', main='', col='black', ...)
 
 
@@ -30,18 +31,39 @@
             auto.key = list(space = 'right'), 
             par.settings=rasterTheme(),...)
 
+\S4method{densityplot}{SpatRaster, missing}(x, data=NULL, maxpixels = 1e+05,
+            xlab='', ylab='', main='', col='black', ...)
+
+
+\S4method{densityplot}{SpatRaster,missing}(x, data=NULL, layers, FUN,
+            maxpixels = 1e+05,
+            xlab='', ylab='', main='',
+            par.settings=rasterTheme(),
+            draw.labels = TRUE,
+            auto.key = list(space = "right"),
+            ...)
+
+\S4method{densityplot}{formula,SpatRaster}(x, data, dirXY,
+            maxpixels = 1e+05,
+            xscale.components=xscale.raster,
+            yscale.components=yscale.raster,
+            auto.key = list(space = 'right'), 
+            par.settings=rasterTheme(),...)
+
 }
 \arguments{
-  \item{x}{A \code{Raster*} object or a \code{formula}.}
-  \item{data}{\code{NULL} or a \code{Raster} object.}
+  \item{x}{A \code{Raster*} object, a \code{SpatRaster} object, or a \code{formula}.}
+  \item{data}{\code{NULL}, a \code{Raster} object, or a
+    \code{SpatRaster} object.}
   \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
   \item{dirXY}{A direction as a function of the coordinates (see
     \code{\link{xyLayer}}).}
   \item{FUN}{A function to applied to the \code{z} slot of a
-            \code{RasterStackBrick} object. The result of this function
+            \code{RasterStackBrick} object or to the time index of a
+	    \code{SpatRaster} object. The result of this function
             is used as the grouping variable of the plot.}
-  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
+  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}} or \code{spatSample}.}
   \item{draw.labels}{Logical. If TRUE (default), labels are displayed
     over the maximum value of each layer. If FALSE, a key is displayed
     according to the \code{auto.key} argument.}
