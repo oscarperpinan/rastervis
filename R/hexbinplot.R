@@ -12,13 +12,11 @@ setMethod('hexbinplot', signature(x='formula', data='RoT'),
               yLayer <- init(data, fun='y')
               
               nms <- names(data)
+              nms <- make.names(nms)
               
-              if (is(object, "Raster"))
+              if (is(data, "Raster"))
               {
                   nl <- nlayers(data)
-                  idx <- getZ(object)
-                  if (is.null(idx))
-                      stop('z slot of the object is NULL. Use setZ.')
                   df <- getValues(data)
                   xLayer <- getValues(xLayer)
                   yLayer <- getValues(yLayer)
@@ -26,10 +24,6 @@ setMethod('hexbinplot', signature(x='formula', data='RoT'),
               } else
               {
                   nl <- nlyr(data)
-                  idx <- time(object)
-                  if (is.null(idx))
-                      stop('time index of the object is NULL. Use time().')
-                  
                   df <- values(data)
                   xLayer <- values(xLayer)
                   yLayer <- values(yLayer)
@@ -37,10 +31,10 @@ setMethod('hexbinplot', signature(x='formula', data='RoT'),
               }
               
               df <- as.data.frame(df)
-              names(df) <- make.names(nms)
 
               df <- cbind(data.frame(x=xLayer, y=yLayer), df)
-              
+              names(df) <- c("x", "y", nms)              
+
               if (!missing(dirXY))
               {
                   dirXY <- xyLayer(dataSample,

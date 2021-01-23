@@ -57,7 +57,12 @@ setMethod('xyplot', signature(x = 'formula', data = 'RoT'),
             yscale.components = yscale.raster,
             par.settings = rasterTheme(), ...)
           {
-                            
+              
+              ## Names of layers
+              nms <- names(data)
+              ## Ensure valid names
+              nms <- make.names(nms, unique = TRUE)
+              
               if (is(data, "SpatRaster"))
               {
                   dataSample <- spatSample(data,
@@ -84,10 +89,10 @@ setMethod('xyplot', signature(x = 'formula', data = 'RoT'),
                 }
                   
               df <- as.data.frame(df)
-              names(df) <- nms
-              
+                            
               df <- cbind(data.frame(x = xLayer, y = yLayer), df)
-              
+              names(df) <- c("x", "y", nms)
+
               if (!missing(dirXY))
               {
                   dirXY <- xyLayer(dataSample,
@@ -102,10 +107,10 @@ setMethod('xyplot', signature(x = 'formula', data = 'RoT'),
               }
 
               isFactor <- which(is.factor(data))
-              levelsData <- levels(data)[[isFactor]][[1]][,2]
               
               if (any(isFactor))
               {
+                  levelsData <- levels(data)[[isFactor]][[1]][,2]
                   df[, isFactor + 2] <- as.factor(
                       levelsData[df[, isFactor + 2]])
               }
