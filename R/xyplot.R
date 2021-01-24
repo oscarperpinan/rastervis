@@ -6,7 +6,7 @@ setGeneric('xyplot')
 ##xyplot for directions created with xyLayer
 ########################################################################
 
-xyplotTime <- function(x, dirXY = y, tt,
+xyplotTime <- function(x, dirLayer, tt,
                        stat,
                        xlab, ylab,
                        digits,
@@ -14,7 +14,6 @@ xyplotTime <- function(x, dirXY = y, tt,
                        auto.key, ...)
 {
     ## zonal calculations defined by the direction
-    dirLayer <- xyLayer(x, dirXY = substitute(dirXY), vector = FALSE)
     z <- zonal(x, dirLayer, fun = stat, digits = digits)
     ## zonal returns a data.frame with terra objects and a matrix with
     ## raster objects.
@@ -50,7 +49,11 @@ setMethod('xyplot',
               if (is.null(tt))
                   stop('z slot of the object is NULL. Use setZ.')
 
-              xyplotTime(x, dirXY = y, tt,
+              dirLayer <- xyLayer(x,
+                                  dirXY = substitute(dirXY),
+                                  vector = FALSE)
+              
+              xyplotTime(x, dirLayer, tt,
                          stat,
                          xlab, ylab,
                          digits,
@@ -71,7 +74,11 @@ setMethod('xyplot',
               if (is.null(tt))
                   stop('time index of the object is NULL. Use time().')
 
-              xyplotTime(x, dirXY = y, tt,
+              dirLayer <- xyLayer(x,
+                                  dirXY = substitute(dirXY),
+                                  vector = FALSE)
+              
+              xyplotTime(x, dirLayer, tt,
                          stat,
                          xlab, ylab,
                          digits,
