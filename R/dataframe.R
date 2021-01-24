@@ -16,5 +16,6 @@ dfRegular <- function(data, maxpixels)
         xy <- xyFromCell(data, idx)
         df <- cbind(xy, vals)
     }
+
     df
 }

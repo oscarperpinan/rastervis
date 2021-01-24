@@ -159,8 +159,9 @@ histogramFormula <- function(x, data,
               
               if (!missing(dirXY))
               {
-                  dirXY <- xyLayer(dataSample,
-                                   dirXY = substitute(dirXY))
+                  dirXY <- xyLayer(data,
+                                   dirXY = substitute(dirXY),
+                                   maxpixels = maxpixels)
 
                   df <- cbind(df, dirXY)
               }
