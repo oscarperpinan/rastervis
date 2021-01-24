@@ -1,10 +1,11 @@
 \name{histogram-methods}
 \docType{methods}
 \alias{histogram}
-\alias{histogram,RasterLayer,missing-method}
-\alias{histogram,RasterStackBrick,missing-method}
-\alias{histogram,formula,SpatRaster-method}
+\alias{histogram,Raster,missing-method}
 \alias{histogram,SpatRaster,missing-method}
+\alias{histogram,formula,Raster-method}
+\alias{histogram,formula,SpatRaster-method}
+
 
 \title{
 Histogram of Raster objects.
@@ -26,13 +27,6 @@ Histogram of Raster objects.
             att = 1,
             ...)
 
-\S4method{histogram}{formula, Raster}(x, data, dirXY,
-            maxpixels = 1e+05,
-            strip=TRUE,
-            par.settings=rasterTheme(),
-            att = 1,
-            ...)
-
 \S4method{histogram}{SpatRaster, missing}(x, data=NULL, layers, FUN,
             maxpixels = 1e+05, nint=100,
             xlab='', ylab='', main='', col='gray',
@@ -47,6 +41,13 @@ Histogram of Raster objects.
             ...)
 
 \S4method{histogram}{formula, Raster}(x, data, dirXY,
+            maxpixels = 1e+05,
+            strip=TRUE,
+            par.settings=rasterTheme(),
+            att = 1,
+            ...)
+
+\S4method{histogram}{formula, SpatRaster}(x, data, dirXY,
             maxpixels = 1e+05,
             strip=TRUE,
             par.settings=rasterTheme(),
