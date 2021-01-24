@@ -5,14 +5,10 @@ dfRegular <- function(data, maxpixels)
     ## Ensure valid names
     nms <- make.names(nms, unique = TRUE)
     
-    ## Number of layers
-    if (is(data, "SpatRaster"))
-        nly  <- nlyr(data)
-    else
-        nly  <- nlayers(data)
     
     if (is(data, "SpatRaster"))
     {
+        nly  <- nlyr(data)
         dataSample <- spatSample(data,
                                  size = maxpixels,
                                  as.raster = TRUE)
@@ -25,6 +21,7 @@ dfRegular <- function(data, maxpixels)
     }
     else 
     {
+        nly  <- nlayers(data)
         dataSample <- sampleRegular(data,
                                     size = maxpixels,
                                     asRaster = TRUE)
@@ -37,9 +34,9 @@ dfRegular <- function(data, maxpixels)
     }
     
     df <- as.data.frame(df)
-    names(df) <- nms
     
     df <- cbind(data.frame(x=xLayer, y=yLayer), df)
+    names(df) <- c("x", "y", nms)
     
     df
 }

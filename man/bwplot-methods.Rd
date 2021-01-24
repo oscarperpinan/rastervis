@@ -1,11 +1,14 @@
 \name{bwplot-methods}
 \docType{methods}
+
 \alias{bwplot}
 \alias{bwplot,RasterStackBrick,missing-method}
 \alias{bwplot,formula,Raster-method}
 \alias{bwplot,SpatRaster,missing-method}
 \alias{bwplot,formula,SpatRaster-method}
+
 \title{Box and whisker plots of Raster objects.}
+
 \description{
 Methods for \code{bwplot} and \code{RasterStackBrick} objects using
 a combination of \code{\link{panel.violin}} and
