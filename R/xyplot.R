@@ -6,7 +6,7 @@ setGeneric('xyplot')
 ##xyplot for directions created with xyLayer
 ########################################################################
 
-xyplotData <- function(x, dirXY = y, tt,
+xyplotTime <- function(x, dirXY = y, tt,
                        stat,
                        xlab, ylab,
                        digits,
@@ -50,7 +50,7 @@ setMethod('xyplot',
               if (is.null(tt))
                   stop('z slot of the object is NULL. Use setZ.')
 
-              xyplotData(x, dirXY = y, tt,
+              xyplotTime(x, dirXY = y, tt,
                          stat,
                          xlab, ylab,
                          digits,
@@ -71,7 +71,7 @@ setMethod('xyplot',
               if (is.null(tt))
                   stop('time index of the object is NULL. Use time().')
 
-              xyplotData(x, dirXY = y, tt,
+              xyplotTime(x, dirXY = y, tt,
                          stat,
                          xlab, ylab,
                          digits,

@@ -12,14 +12,14 @@
             alpha=0.05,
             xscale.components=xscale.raster, yscale.components=yscale.raster,
             par.settings=rasterTheme(),...)
-\S4method{hexbinplot}{formula,Raster}(x, data, dirXY,
+\S4method{hexbinplot}{formula,Raster}(x, data, dirXY, maxpixels=1e6,
             xscale.components=xscale.raster, yscale.components=yscale.raster,
             par.settings=rasterTheme(),...)
 \S4method{xyplot}{formula,SpatRaster}(x, data, dirXY, maxpixels=1e5,
             alpha=0.05,
             xscale.components=xscale.raster, yscale.components=yscale.raster,
             par.settings=rasterTheme(),...)
-\S4method{hexbinplot}{formula,SpatRaster}(x, data, dirXY,
+\S4method{hexbinplot}{formula,SpatRaster}(x, data, dirXY, maxpixels=1e6,
             xscale.components=xscale.raster, yscale.components=yscale.raster,
             par.settings=rasterTheme(),...)
 }
