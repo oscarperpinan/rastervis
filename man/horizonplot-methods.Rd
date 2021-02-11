@@ -149,11 +149,15 @@ horizonplot(SST, horizonscale=1, origin=0)
 
 \dontrun{
 
+dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
 
-old <- getwd()
-##change to your folder...
-setwd('CMSAF')
-listFich <- dir(pattern='2008')
+##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
+old <- setwd(tempdir())
+download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
+   "SISmm2008_CMSAF.zip", method='wget')
+unzip("SISmm2008_CMSAF.zip")
+
+listFich <- dir(pattern='\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 setwd(old)

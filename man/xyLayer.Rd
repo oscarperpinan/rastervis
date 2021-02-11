@@ -3,7 +3,7 @@
 \title{xyLayer
 }
 \description{
-Create a RasterLayer from a function of the coordinates.
+Create a numeric vector from a function of the coordinates.
 }
 \usage{
 xyLayer(object, dirXY = y)
@@ -16,7 +16,7 @@ xyLayer(object, dirXY = y)
 }
 }
 \value{
-A RasterLayer object.
+A numeric vector.
 }
 \author{
 Oscar Perpiñán Lamigueiro.
@@ -30,6 +30,5 @@ f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 dirX <- xyLayer(r, x)
 dirXY <-xyLayer(r, sqrt(x^2 + y^2))
-levelplot(dirXY, margin=FALSE)
 }
 \keyword{spatial}
