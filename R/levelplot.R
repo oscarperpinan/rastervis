@@ -437,8 +437,8 @@ setMethod('levelplot',
               par.settings = rasterTheme(),
               between = list(x = 0.5, y = 0.2),
               as.table = TRUE,
-              xlab = if(isLonLat(x)) 'Longitude' else NULL,
-              ylab = if(isLonLat(x)) 'Latitude' else NULL,
+              xlab = if(is.lonlat(x)) 'Longitude' else NULL,
+              ylab = if(is.lonlat(x)) 'Latitude' else NULL,
               main = NULL,
               names.attr,
               scales = list(),
@@ -500,7 +500,7 @@ setMethod('levelplot',
               ##aspect and scales(from sp::spplot.grid,
               ##sp::longlat.scales, sp::mapasp)
               bb <- ext(object)
-              isll  <- isLonLat(object)
+              isll  <- is.lonlat(object)
 
               p <- .levelplot(df, nly, bb, isll, nms, rat, anyFactor,
                               isFactor, margin, maxpixels,
