@@ -41,13 +41,15 @@ for details.}
 
 \examples{
 \dontrun{
+dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())
-download.file('https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip',
-   'SISmm2008_CMSAF.zip', method='wget')
-unzip('SISmm2008_CMSAF.zip')
+download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
+   "SISmm2008_CMSAF.zip", method='wget')
+unzip("SISmm2008_CMSAF.zip")
 
-listFich <- dir(pattern='\\.nc')
+listFich <- dir(pattern='\\\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 

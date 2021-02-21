@@ -5,6 +5,7 @@ setGeneric('hovmoller', function(object, ...){standardGeneric('hovmoller')})
 
 .hovmoller <- function(object,
                        dirLayer, direction, tt,
+                       FUN, digits,
                        xlab, ylab,
                        par.settings,
                        xscale.components,
@@ -12,7 +13,7 @@ setGeneric('hovmoller', function(object, ...){standardGeneric('hovmoller')})
                        ...)
 {
     ##Calculate the matrix with the zonal function
-    z <- zonal(object, dirLayer, fun = stat, digits = digits)
+    z <- zonal(object, dirLayer, fun = FUN, digits = digits)
     ## zonal returns a data.frame with terra objects and a matrix with
     ## raster objects.
     z <- as.matrix(z)
@@ -84,6 +85,7 @@ setMethod('hovmoller', signature='RasterStackBrick',
 
     .hovmoller(object,
                dirLayer, direction, tt,
+               FUN, digits,
                xlab, ylab,
                par.settings,
                xscale.components,
@@ -110,6 +112,7 @@ setMethod('hovmoller', signature='SpatRaster',
 
     .hovmoller(object,
                dirLayer, direction, tt,
+               FUN, digits,
                xlab, ylab,
                par.settings,
                xscale.components,

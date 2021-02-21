@@ -70,6 +70,10 @@ densityMLayer <- function(x,
     p
 }
 
+##################################################################
+##Methods for data
+##################################################################
+
 setMethod('densityplot',
           signature(x='Raster', data='missing'),
           definition=function (x, data = NULL, layers, FUN,

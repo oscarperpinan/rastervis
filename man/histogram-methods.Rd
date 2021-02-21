@@ -14,7 +14,7 @@ Histogram of Raster objects.
 }
 
 \usage{
-\S4method{histogram}{Raster, missing}(x, data=NULL, layers, FUN,
+\S4method{histogram}{Raster,missing}(x, data=NULL, layers, FUN,
             maxpixels = 1e+05, nint=100,
             xlab='', ylab='', main='', col='gray',
             between=list(x=0.5, y=0.2),
@@ -27,7 +27,7 @@ Histogram of Raster objects.
             att = 1,
             ...)
 
-\S4method{histogram}{SpatRaster, missing}(x, data=NULL, layers, FUN,
+\S4method{histogram}{SpatRaster,missing}(x, data=NULL, layers, FUN,
             maxpixels = 1e+05, nint=100,
             xlab='', ylab='', main='', col='gray',
             between=list(x=0.5, y=0.2),
@@ -40,14 +40,14 @@ Histogram of Raster objects.
             att = 1,
             ...)
 
-\S4method{histogram}{formula, Raster}(x, data, dirXY,
+\S4method{histogram}{formula,Raster}(x, data, dirXY,
             maxpixels = 1e+05,
             strip=TRUE,
             par.settings=rasterTheme(),
             att = 1,
             ...)
 
-\S4method{histogram}{formula, SpatRaster}(x, data, dirXY,
+\S4method{histogram}{formula,SpatRaster}(x, data, dirXY,
             maxpixels = 1e+05,
             strip=TRUE,
             par.settings=rasterTheme(),
@@ -120,13 +120,15 @@ histogram(r, att = "class")
 \dontrun{
 library(zoo)
 
+dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())
-download.file('https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip',
-   'SISmm2008_CMSAF.zip', method='wget')
-unzip('SISmm2008_CMSAF.zip')
+download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
+   "SISmm2008_CMSAF.zip", method='wget')
+unzip("SISmm2008_CMSAF.zip")
 
-listFich <- dir(pattern='\\.nc$')
+listFich <- dir(pattern='\\\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 

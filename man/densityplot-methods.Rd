@@ -2,26 +2,24 @@
 \docType{methods}
 
 \alias{densityplot}
-\alias{densityplot,RasterLayer,missing-method}
-\alias{densityplot,RasterStackBrick,missing-method}
-\alias{densityplot,formula,SpatRaster-method}
+\alias{densityplot,Raster,missing-method}
 \alias{densityplot,SpatRaster,missing-method}
+\alias{densityplot,formula,Raster-method}
+\alias{densityplot,formula,SpatRaster-method}
+
 \title{Density plots for Raster objects.}
 
 \description{Draw kernel density plots (with \code{lattice}) of Raster objects.
 }
 
 \usage{
-\S4method{densityplot}{RasterLayer, missing}(x, data=NULL, maxpixels = 1e+05,
-            xlab='', ylab='', main='', col='black', ...)
-
-
-\S4method{densityplot}{RasterStackBrick,missing}(x, data=NULL, layers, FUN,
+\S4method{densityplot}{Raster,missing}(x, data=NULL, layers, FUN,
             maxpixels = 1e+05,
             xlab='', ylab='', main='',
             par.settings=rasterTheme(),
             draw.labels = TRUE,
             auto.key = list(space = "right"),
+            att = 1,
             ...)
 
 \S4method{densityplot}{formula,Raster}(x, data, dirXY,
@@ -31,9 +29,6 @@
             auto.key = list(space = 'right'), 
             par.settings=rasterTheme(),...)
 
-\S4method{densityplot}{SpatRaster, missing}(x, data=NULL, maxpixels = 1e+05,
-            xlab='', ylab='', main='', col='black', ...)
-
 
 \S4method{densityplot}{SpatRaster,missing}(x, data=NULL, layers, FUN,
             maxpixels = 1e+05,
@@ -41,6 +36,7 @@
             par.settings=rasterTheme(),
             draw.labels = TRUE,
             auto.key = list(space = "right"),
+            att = 1,
             ...)
 
 \S4method{densityplot}{formula,SpatRaster}(x, data, dirXY,
@@ -67,8 +63,10 @@
   \item{draw.labels}{Logical. If TRUE (default), labels are displayed
     over the maximum value of each layer. If FALSE, a key is displayed
     according to the \code{auto.key} argument.}
-  \item{xlab, ylab, main, col, xscale.components, yscale.components,
+  \item{xlab, ylab, main, xscale.components, yscale.components,
     par.settings, auto.key}{Arguments for \code{\link{densityplot}}.}
+  \item{att}{Integer or character to choose which variable (column) in
+    the RAT table should be used.}
   \item{\dots}{Additional arguments for \code{\link{densityplot}}}
 }
 \author{Oscar Perpiñán Lamigueiro}
@@ -95,7 +93,7 @@ download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
    "SISmm2008_CMSAF.zip", method='wget')
 unzip("SISmm2008_CMSAF.zip")
 
-listFich <- dir(pattern='\\.nc')
+listFich <- dir(pattern='\\\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 setwd(old)
