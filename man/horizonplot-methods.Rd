@@ -1,14 +1,28 @@
 \name{horizonplot-methods}
 \docType{methods}
+
 \alias{horizonplot}
 \alias{horizonplot,RasterStackBrick-method}
 \alias{horizonplot,RasterStackBrick,missing-method}
+\alias{horizonplot,SpatRaster-method}
+\alias{horizonplot,SpatRaster,missing-method}
+
 \title{Horizon plots of Raster objects.}
 \description{This method draws horizon graphs for each zone as
   calculated with \code{zonal} from the directions defined by
   \code{xyLayer}}
 
-\usage{\S4method{horizonplot}{RasterStackBrick,missing}(x, data = NULL,
+\usage{
+
+\S4method{horizonplot}{RasterStackBrick,missing}(x, data = NULL,
+    dirXY = y, stat = 'mean', digits = 0,
+    origin = mean, 
+    xlab = 'Time', ylab = 'direction',
+    colorkey = TRUE, colorkey.digits = 1,
+    scales=list(y = list(relation = "same")),
+    ...)
+
+\S4method{horizonplot}{SpatRaster,missing}(x, data = NULL,
     dirXY = y, stat = 'mean', digits = 0,
     origin = mean, 
     xlab = 'Time', ylab = 'direction',
@@ -18,7 +32,7 @@
 }
 
 \arguments{
-\item{x}{A \code{RasterStackBrick} object.}
+\item{x}{A \code{RasterStackBrick} object or a \code{SpatRaster} object.}
 
 \item{data}{Not used.}
 
@@ -135,11 +149,15 @@ horizonplot(SST, horizonscale=1, origin=0)
 
 \dontrun{
 
+dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
 
-old <- getwd()
-##change to your folder...
-setwd('CMSAF')
-listFich <- dir(pattern='2008')
+##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
+old <- setwd(tempdir())
+download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
+   "SISmm2008_CMSAF.zip", method='wget')
+unzip("SISmm2008_CMSAF.zip")
+
+listFich <- dir(pattern='\\\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 setwd(old)

@@ -1,9 +1,14 @@
 \name{bwplot-methods}
 \docType{methods}
+
 \alias{bwplot}
 \alias{bwplot,RasterStackBrick,missing-method}
 \alias{bwplot,formula,Raster-method}
+\alias{bwplot,SpatRaster,missing-method}
+\alias{bwplot,formula,SpatRaster-method}
+
 \title{Box and whisker plots of Raster objects.}
+
 \description{
 Methods for \code{bwplot} and \code{RasterStackBrick} objects using
 a combination of \code{\link{panel.violin}} and
@@ -27,19 +32,37 @@ a combination of \code{\link{panel.violin}} and
             violin.ratio = 1, box.ratio = 0.5,
             par.settings = bwTheme(),
             ...)
+\S4method{bwplot}{SpatRaster,missing}(x, data=NULL, layers, FUN,
+            maxpixels = 1e+05,
+            xlab='', ylab='', main='',
+            violin = TRUE, draw.points = FALSE, do.out = FALSE,
+            par.settings = bwTheme(),
+            violin.ratio = 1, box.ratio = 0.5,
+            scales=list(x=list(rot=45, cex=0.8)),
+            ...)
+\S4method{bwplot}{formula,SpatRaster}(x, data, dirXY, 
+            maxpixels = 1e+05,
+            xscale.components=xscale.raster,
+            yscale.components=yscale.raster,
+            horizontal=FALSE,
+            violin = TRUE, draw.points = FALSE, do.out = FALSE,
+            violin.ratio = 1, box.ratio = 0.5,
+            par.settings = bwTheme(),
+            ...)
 }
 
 \arguments{
-  \item{x}{A \code{RasterStackBrick} object or a \code{formula}.}
-  \item{data}{\code{NULL} or a \code{Raster} object.}
+  \item{x}{A \code{RasterStackBrick} object, a \code{SpatRaster} object, or a \code{formula}.}
+  \item{data}{\code{NULL}, a \code{Raster} object, or a \code{SpatRaster} object.}
   \item{layers}{A numeric or character which should indicate the layers
     to be displayed.}
   \item{dirXY}{A direction as a function of the coordinates (see
     \code{\link{xyLayer}}).}
   \item{FUN}{A function to applied to the \code{z} slot of a
-            \code{RasterStackBrick} object. The result of this function
+            \code{RasterStackBrick} object, or the time index of a
+  \code{SpatRaster} object. The result of this function
             is used as the grouping variable of the plot.}
-  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
+  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}} or \code{spatSample}.}
   \item{xscale.components, yscale.components}{Graphical
 	    parameters of \code{lattice}. See \code{\link{xyplot}} for
 	    details.}
@@ -90,7 +113,7 @@ download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
    "SISmm2008_CMSAF.zip", method='wget')
 unzip("SISmm2008_CMSAF.zip")
 
-listFich <- dir(pattern='\\.nc')
+listFich <- dir(pattern='\\\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 setwd(old)

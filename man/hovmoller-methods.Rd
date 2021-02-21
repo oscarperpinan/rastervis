@@ -2,16 +2,24 @@
 \docType{methods}
 \alias{hovmoller}
 \alias{hovmoller,RasterStackBrick-method}
+\alias{hovmoller,SpatRaster-method}
 \title{Hovmoller plots}
 \description{
 Hovmoller plots of Raster objects.}
-\usage{\S4method{hovmoller}{RasterStackBrick}(object, dirXY=y, FUN=mean, 
+\usage{
+\S4method{hovmoller}{RasterStackBrick}(object, dirXY=y, FUN=mean, 
+digits=2, xlab='Direction', ylab='Time',
+par.settings=rasterTheme(), xscale.components=xscale.raster,
+add.contour=FALSE, labels=FALSE, region=TRUE, ...)
+
+\S4method{hovmoller}{SpatRaster}(object, dirXY=y, FUN=mean, 
 digits=2, xlab='Direction', ylab='Time',
 par.settings=rasterTheme(), xscale.components=xscale.raster,
 add.contour=FALSE, labels=FALSE, region=TRUE, ...)
 }
 \arguments{
-  \item{object}{A RasterStackBrick with a non-empty \code{z} slot.}
+  \item{object}{A RasterStackBrick with a non-empty \code{z} slot, or a
+    SpatRaster with a time index.}
   \item{dirXY}{A direction as a function of the coordinates (see
     \code{\link{xyLayer}}).}
   \item{FUN}{A function to be applied to the zones calculated with
@@ -51,11 +59,13 @@ for a variety of diagrams with this method.
 
 \examples{
 \dontrun{
+dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())
-download.file('https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip',
-   'SISmm2008_CMSAF.zip', method='wget')
-unzip('SISmm2008_CMSAF.zip')
+download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
+   "SISmm2008_CMSAF.zip", method='wget')
+unzip("SISmm2008_CMSAF.zip")
 
 listFich <- dir(pattern='\\\\.nc')
 stackSIS <- stack(listFich)
@@ -66,8 +76,12 @@ idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 SISmm <- setZ(stackSIS, idx)
 names(SISmm) <- month.abb
 
+SISmmt <- SISmm
+time(SISmmt) <- getZ(SISmm)
+
 ## Latitude as default
 hovmoller(SISmm, xlab='Latitude')
+hovmoller(SISmmt, xlab = 'Latitude')
 
 ## With contour lines and labels
 hovmoller(SISmm, labels=TRUE, add.contour=TRUE,

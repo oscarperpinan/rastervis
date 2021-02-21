@@ -76,7 +76,7 @@ setMethod('vectorplot',
               narrows = 2e3,
               lwd.arrows = 0.6,
               col.arrows = 'black',
-              length=unit(5e-2, 'npc'),
+              length=unit(1e-2, 'npc'),
               maxpixels=1e5, region=TRUE, margin=FALSE,
               isField=FALSE, reverse=FALSE,
               unit='radians', scaleSlope=TRUE,
@@ -173,7 +173,7 @@ setMethod('vectorplot',
           signature(object='RasterStack'),
           definition = function(object, layers,
               narrows=2e3, lwd.arrows=0.6, col.arrows = 'black',
-              length=unit(5e-2, 'npc'),
+              length=unit(1e-2, 'npc'),
               maxpixels=1e5, region=TRUE, margin=FALSE,
               isField=FALSE, reverse=FALSE,
               unit='radians', scaleSlope=TRUE,
@@ -250,3 +250,4 @@ setMethod('vectorplot',
                   } else p
               }
               })
+

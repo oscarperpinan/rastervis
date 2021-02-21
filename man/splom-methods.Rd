@@ -1,15 +1,21 @@
 \name{splom-methods}
 \docType{methods}
 \alias{splom}
-\alias{splom,RasterStackBrick,missing-method}
+\alias{splom,Raster,missing-method}
+\alias{splom,SpatRaster,missing-method}
 \title{Scatter plot matrices of Raster objects.}
 \description{
 Draw conditional scatter plot matrices with hexagonally binning.}
-\usage{\S4method{splom}{RasterStackBrick,missing}(x, data=NULL,maxpixels=1e5, plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...)}
+
+\usage{
+\S4method{splom}{Raster,missing}(x, data=NULL,maxpixels=1e5,
+plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...)
+\S4method{splom}{SpatRaster,missing}(x, data=NULL,maxpixels=1e5, plot.loess=FALSE, colramp=BTC, varname.cex=0.6,...)}
+
 \arguments{
-  \item{x}{A \code{RasterStackBrick} object.}
+  \item{x}{A \code{Raster} or a \code{SpatRaster} object.}
   \item{data}{Not used.}
-  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}}.}
+  \item{maxpixels}{A numeric, for \code{\link{sampleRandom}} or \code{spatSample}.}
   \item{plot.loess}{Logical, should a loess fit be drawn?.}
   \item{colramp}{A function accepting an integer \code{n} as argument
     and returning \code{n} colors (for \code{\link{hexbinplot}}).}
@@ -17,6 +23,7 @@ Draw conditional scatter plot matrices with hexagonally binning.}
     variables names.}
   \item{...}{Additional arguments for splom.}
 }
+
 \author{Oscar Perpiñán Lamigueiro}
 
 \note{While the hexagonal binning is quite fast for large datasets, the
@@ -27,13 +34,15 @@ Draw conditional scatter plot matrices with hexagonally binning.}
 
   \examples{
 \dontrun{
-##Solar irradiation data from CMSAF
-##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
 
-old <- getwd()
-##change to your folder...
-setwd('CMSAF')
-listFich <- dir(pattern='2008')
+##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
+old <- setwd(tempdir())
+download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
+   "SISmm2008_CMSAF.zip", method='wget')
+unzip("SISmm2008_CMSAF.zip")
+
+listFich <- dir(pattern='\\\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 setwd(old)

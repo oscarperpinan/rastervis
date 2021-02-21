@@ -2,6 +2,7 @@
 \docType{methods}
 \alias{xyplot}
 \alias{xyplot,RasterStackBrick,missing-method}
+\alias{xyplot,SpatRaster,missing-method}
 \title{xyplot for Raster objects}
 \description{Scatter plots of space-time Raster objects for directions defined by \code{xyLayer}
 }
@@ -10,10 +11,14 @@
        stat='mean', xlab='Time', ylab='',
        digits=0, par.settings=rasterTheme(),
        auto.key = FALSE, ...)
+\S4method{xyplot}{SpatRaster,missing}(x, data=NULL, dirXY=y,
+       stat='mean', xlab='Time', ylab='',
+       digits=0, par.settings=rasterTheme(),
+       auto.key = FALSE, ...)
 }
 \arguments{
-\item{x}{A \code{RasterStackBrick} object whose \code{z} slot is not
-  \code{NULL}.}
+\item{x}{A \code{RasterStackBrick} object or a \code{SpatRaster} object
+  whose \code{z} slot or time index are not \code{NULL}.}
 \item{data}{Not used.}
 \item{dirXY}{A direction as a function of the coordinates (see
   \code{\link{xyLayer}}).}
@@ -36,13 +41,15 @@ for details.}
 
 \examples{
 \dontrun{
+dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())
-download.file('https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip',
-   'SISmm2008_CMSAF.zip', method='wget')
-unzip('SISmm2008_CMSAF.zip')
+download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
+   "SISmm2008_CMSAF.zip", method='wget')
+unzip("SISmm2008_CMSAF.zip")
 
-listFich <- dir(pattern='\\.nc')
+listFich <- dir(pattern='\\\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 

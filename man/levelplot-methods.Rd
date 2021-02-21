@@ -4,7 +4,10 @@
 \alias{levelplot}
 \alias{contourplot}
 \alias{levelplot,Raster,missing-method}
+\alias{levelplot,SpatRaster,missing-method}
 \alias{contourplot,Raster,missing-method}
+\alias{contourplot,SpatRaster,missing-method}
+
 \title{Level and contour plots of Raster objects.}
 \description{Level and contour plots of Raster objects with \code{lattice} methods
   and marginal plots with \code{grid} objects.
@@ -32,12 +35,34 @@
             scales.margin = NULL, axis.margin = NULL,
             ..., att=1L)
 
+\S4method{levelplot}{SpatRaster,missing}(x, data = NULL, layers,
+            margin = list(), 
+            maxpixels = 1e5, 
+            par.settings = rasterTheme(),
+            between = list(x=0.5, y=0.2),
+            as.table = TRUE,
+            xlab=if(is.lonlat(x)) 'Longitude' else NULL,
+            ylab=if(is.lonlat(x)) 'Latitude' else NULL,
+            main=NULL,
+            names.attr,
+            scales  =list(),
+            xscale.components = xscale.raster,
+            yscale.components = yscale.raster,
+            zscaleLog = NULL,
+            colorkey = list(space='right'),
+            panel = panel.levelplot,
+            pretty = FALSE, 
+            contour = FALSE, region = TRUE, labels = FALSE,
+            FUN.margin = NULL, 
+            scales.margin = NULL, axis.margin = NULL,
+            ..., att=1L)
+
 \S4method{contourplot}{Raster,missing}(x, data=NULL, layers, ...)
 }
 
 \arguments{
   
-  \item{x}{A Raster object.}
+  \item{x}{A Raster or SpatRaster object.}
 
   \item{data}{Not used.}
 
@@ -59,8 +84,8 @@
       \item{draw: A logical. If TRUE (default) the marginal graphics are
       drawn.}
 
-      \item{FUN: A function to summarise the \code{Raster*} by rows and
-	columns (default: \code{mean}).}
+      \item{FUN: A function to summarise the \code{Raster*} or
+	\code{SpatRaster} by rows and columns (default: \code{mean}).}
 
       \item{scales: A list with components \code{x} (columns) and
 	\code{y} (rows). Each of these components must be a numeric
@@ -294,12 +319,17 @@
 
 \examples{
 f <- system.file("external/test.grd", package="raster")
+
+## raster
 r <- raster(f)
 levelplot(r)
+## terra
+rt <- rast(f)
+levelplot(rt)
 
 ## Change the color theme
 levelplot(r, par.settings=GrTheme())
-levelplot(r, par.settings=PuOrTheme())
+levelplot(rt, par.settings=PuOrTheme())
 
 myPal <- RColorBrewer::brewer.pal('Blues', n=9)
 myTheme <- rasterTheme(region = myPal)
@@ -307,7 +337,7 @@ levelplot(r, par.settings = myTheme)
 
 ## Define the legend breaks
 my.at <- seq(100, 1850, 500)
-levelplot(r, at=my.at)
+levelplot(rt, at=my.at)
 
 myColorkey <- list(at=my.at, ## where the colors change
                    labels=list(
@@ -320,12 +350,12 @@ myColorkey <- list(at=my.at, ## where the colors change
                      labels=letters[seq_along(my.at)], ## labels
                      at=my.at ## where to print labels
                      ))
-levelplot(r, at=my.at, colorkey=myColorkey)
+levelplot(rt, at=my.at, colorkey=myColorkey)
 
 ## Define the units of the color key
 levelplot(r, colorkey = list(title = "[m]"))
 
-levelplot(r, margin = FALSE,
+levelplot(rt, margin = FALSE,
              colorkey = list(title = "[m]",
                              title.gpar = list(cex = 1,
                                                font = 2,
@@ -333,14 +363,18 @@ levelplot(r, margin = FALSE,
                              ))
 
 ## shrink and border color
+## raster
 rCenter <- (maxValue(r) + minValue(r)) / 2
 levelplot(r - rCenter, par.settings=RdBuTheme(), shrink=c(.8, 15), border='black')
+## terra
+tCenter <- mean(minmax(rt))
+levelplot(rt - tCenter, par.settings=RdBuTheme(), shrink=c(.8, 15), border='black')
 
 ## With subticks
 levelplot(r, xscale.components=xscale.raster.subticks,
              yscale.components=yscale.raster.subticks)
 
-levelplot(r, xscale.components=xscale.raster.subticks,
+levelplot(rt, xscale.components=xscale.raster.subticks,
              yscale.components=yscale.raster.subticks,
              scales=list(x=list(rot=30, cex=0.8)))
 
@@ -348,7 +382,7 @@ levelplot(r, xscale.components=xscale.raster.subticks,
 levelplot(r^2, zscaleLog=TRUE, contour=TRUE)
 
 ## Customizing axis and title labels
-levelplot(r, margin=FALSE,
+levelplot(rt, margin=FALSE,
           main=list('My plot', col='red'),
           xlab=c('This is the', 'X-Axis'),
           ylab=list('Y-Axis', rot=30, fontface='bold')
@@ -362,9 +396,14 @@ s <- stack(r, r+500, r-500)
 levelplot(s, contour=TRUE)
 contourplot(s, labels=list(cex=0.4), cuts=12)
 
+## SpatRaster with several layers
+st <- c(rt, rt + 500, rt - 500)
+levelplot(st, contour=TRUE)
+contourplot(st, labels=list(cex=0.4), cuts=12)
+
 ## Use of layout
 levelplot(s, layout=c(1, 3))
-levelplot(s, layout=c(1, 1))
+levelplot(st, layout=c(1, 1)) # useful for animations
 
 ## names.attr to change the labels of each panel
 levelplot(s, names.attr=c('R', 'R + 500', 'R - 500'))
@@ -374,7 +413,7 @@ levelplot(r, margin = list(axis = TRUE,
                            scales = list(x=c(100, 600),
                                          y=c(100, 1000))))
 ## if a component of the list is null, it is internally calculated
-levelplot(r, margin=list(axis = TRUE, scales = list(x=c(100, 1000))))
+levelplot(rt, margin=list(axis = TRUE, scales = list(x=c(100, 1000))))
 
 ## Add a layer of sampling points
 ## and change the theme
@@ -430,13 +469,15 @@ levelplot(s)
 levelplot(s, att=2)
 
 \dontrun{
+dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 old <- setwd(tempdir())
-download.file('https://raw.github.com/oscarperpinan/spacetime-vis/master/data/SISmm2008_CMSAF.zip',
-   'SISmm2008_CMSAF.zip', method='wget')
-unzip('SISmm2008_CMSAF.zip')
+download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
+   "SISmm2008_CMSAF.zip", method='wget')
+unzip("SISmm2008_CMSAF.zip")
 
-listFich <- dir(pattern='\\.nc')
+listFich <- dir(pattern='\\\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 

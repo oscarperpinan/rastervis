@@ -26,7 +26,7 @@
 \usage{
 \S4method{vectorplot}{Raster}(object, layers,
             narrows=2e3, lwd.arrows=0.6, col.arrows='black',
-            length=unit(5e-2, 'npc'),
+            length=unit(1e-2, 'npc'),
             maxpixels=1e5, region=TRUE, margin=FALSE,  
             isField=FALSE, reverse=FALSE,
             unit='radians', scaleSlope=TRUE,
@@ -36,7 +36,7 @@
 
 \S4method{vectorplot}{RasterStack}(object, layers,
             narrows=2e3, lwd.arrows=0.6, col.arrows='black',
-            length=unit(5e-2, 'npc'),
+            length=unit(1e-2, 'npc'),
             maxpixels=1e5, region=TRUE, margin=FALSE,
             isField=FALSE, reverse=FALSE,
             unit='radians', scaleSlope=TRUE,
@@ -260,9 +260,9 @@ streamplot(r2, cl=cl,
 parallel::stopCluster(cl)
 
 ## Without parallel
-palRed <- RColorBrewer::brewer.pal(n = 5, name = 'Greens')
+palGreen <- RColorBrewer::brewer.pal(n = 5, name = 'Greens')
 streamplot(r3, parallel=FALSE,
-           par.settings=streamTheme(symbol = palRed))
+           par.settings=streamTheme(symbol = palGreen))
 
 ## Configuration of droplets and streamlets
 streamplot(s, layout=c(1, 3), droplet=list(pc=.2), streamlet=list(L=20),
