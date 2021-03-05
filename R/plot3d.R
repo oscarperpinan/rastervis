@@ -1,7 +1,5 @@
-if (!isGeneric("plot3D")) {
-	setGeneric("plot3D", function(x,...)
+setGeneric("plot3D", function(x,...)
 		standardGeneric("plot3D"))
-}	
 
 setMethod("plot3D", signature(x='RasterLayer'), 
           function(x, maxpixels=1e5, zfac=1, drape=NULL,
