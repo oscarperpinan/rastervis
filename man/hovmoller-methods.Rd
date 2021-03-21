@@ -76,7 +76,7 @@ idx <- seq(as.Date('2008-01-15'), as.Date('2008-12-15'), 'month')
 SISmm <- setZ(stackSIS, idx)
 names(SISmm) <- month.abb
 
-SISmmt <- SISmm
+SISmmt <- rast(SISmm)
 time(SISmmt) <- getZ(SISmm)
 
 ## Latitude as default

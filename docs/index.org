@@ -13,10 +13,11 @@
   :PROPERTIES:
   :CUSTOM_ID: intro
   :END:
-The =rasterVis= package complements the [[http://cran.r-project.org/web/packages/raster][=raster=]] package, providing a
-set of methods for enhanced visualization and interaction.  It defines
-visualization methods for [[#levelplot][quantitative data]] and [[#factor][categorical data]], with
-=levelplot=, both for univariate and multivariate rasters.
+The =rasterVis= package complements the [[http://cran.r-project.org/web/packages/raster][=raster=]] and the [[https://github.com/rspatial/terra][=terra=]]
+packages, providing a set of methods for enhanced visualization and
+interaction.  It defines visualization methods for [[#levelplot][quantitative data]]
+and [[#factor][categorical data]], with =levelplot=, both for univariate and
+multivariate rasters.
 
 It also includes several methods in the frame of the [[#scatterplot][Exploratory Data
 Analysis]] approach: scatterplots with =xyplot=, histograms and density
@@ -382,7 +383,7 @@ The =hovmoller= method uses the function =xyLayer=, which creates a
 #+begin_src R
 f <- system.file("external/test.grd", package = "raster")
 r <- raster(f)
-dirXY <- xyLayer(r, sqrt(x^2 + y^2))
+dirXY <- xyLayer(r, sqrt(x^2 + y^2), vector = FALSE)
 dirXY
 #+end_src
 

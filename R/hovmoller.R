@@ -20,8 +20,12 @@ setGeneric('hovmoller', function(object, ...){standardGeneric('hovmoller')})
     dat <- expand.grid(x = z[,1], y = tt)
     dat$z <- as.vector(as.numeric(z[,-1]))
 
+    isLL <- if(is(object, "SpatRaster"))
+                is.lonlat(object)
+            else isLonLat(object)
     ##Labels of x-axis when isLonLat(object)==TRUE
-    if (isLonLat(object)){
+    if (isLL)
+    {
         if (missing(xlab)){
             if (direction=='x'){
                 xlab='Longitude'
@@ -47,7 +51,8 @@ setGeneric('hovmoller', function(object, ...){standardGeneric('hovmoller')})
                     else if (identical(xscale.components, xscale.raster.subticks))
                         xscale.raster.NSsubticks
                     else xscale.components
-            }}}
+            }}
+    }
     
     ##Create the trellis object
     if (add.contour){
@@ -77,7 +82,7 @@ setMethod('hovmoller', signature='RasterStackBrick',
                               labels=FALSE, region=TRUE, ...)
 {
     
-    dirLayer <- xyLayer(object, substitute(dirXY))
+    dirLayer <- xyLayer(object, substitute(dirXY), vector = FALSE)
     direction <- deparse(substitute(dirXY))
     tt <- getZ(object)
     if (is.null(tt))
@@ -104,7 +109,7 @@ setMethod('hovmoller', signature='SpatRaster',
                               labels=FALSE, region=TRUE, ...)
 {
     
-    dirLayer <- xyLayer(object, substitute(dirXY))
+    dirLayer <- xyLayer(object, substitute(dirXY), vector = FALSE)
     direction <- deparse(substitute(dirXY))
     tt <- time(object)
     if (is.null(tt))

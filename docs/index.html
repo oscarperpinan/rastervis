@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-04-12 dom 09:42 -->
+<!-- 2021-03-21 dom 10:23 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>rasterVis</title>
@@ -263,14 +263,15 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-org73c82ee" class="outline-2">
+<div id="outline-container-orgc31492f" class="outline-2">
 <h2 id="intro">Introduction</h2>
 <div class="outline-text-2" id="text-intro">
 <p>
-The <code>rasterVis</code> package complements the <a href="http://cran.r-project.org/web/packages/raster"><code>raster</code></a> package, providing a
-set of methods for enhanced visualization and interaction.  It defines
-visualization methods for <a href="#levelplot">quantitative data</a> and <a href="#factor">categorical data</a>, with
-<code>levelplot</code>, both for univariate and multivariate rasters.
+The <code>rasterVis</code> package complements the <a href="http://cran.r-project.org/web/packages/raster"><code>raster</code></a> and the <a href="https://github.com/rspatial/terra"><code>terra</code></a>
+packages, providing a set of methods for enhanced visualization and
+interaction.  It defines visualization methods for <a href="#levelplot">quantitative data</a>
+and <a href="#factor">categorical data</a>, with <code>levelplot</code>, both for univariate and
+multivariate rasters.
 </p>
 
 <p>
@@ -304,7 +305,7 @@ as well as the <a href="https://github.com/oscarperpinan/bookvis">full R code</a
 </p>
 </div>
 
-<div id="outline-container-orga051c0c" class="outline-3">
+<div id="outline-container-orgd8f70da" class="outline-3">
 <h3 id="installation">Installation</h3>
 <div class="outline-text-3" id="text-installation">
 <p>
@@ -342,7 +343,7 @@ or with the <a href="https://github.com/hadley/devtools">devtools</a> package:
 </div>
 </div>
 
-<div id="outline-container-orgf476a7f" class="outline-2">
+<div id="outline-container-org53806cd" class="outline-2">
 <h2 id="levelplot">Level plots</h2>
 <div class="outline-text-2" id="text-levelplot">
 <p>
@@ -410,9 +411,9 @@ function defined by the component <code>FUN</code> of the list <code>margin</cod
 </div>
 </div>
 
-<div id="outline-container-orgd5eac39" class="outline-3">
-<h3 id="orgd5eac39">Overlay plots</h3>
-<div class="outline-text-3" id="text-orgd5eac39">
+<div id="outline-container-orgb389f16" class="outline-3">
+<h3 id="orgb389f16">Overlay plots</h3>
+<div class="outline-text-3" id="text-orgb389f16">
 <p>
 The result of the last call is a <code>trellis</code> object. The <a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a> package
 provides the <code>layer</code> function to add contents. For example, let&rsquo;s add the administrative borders. 
@@ -491,7 +492,7 @@ The function <code>as.layer</code> with <code>under = TRUE</code> must be used i
 </div>
 
 
-<div id="outline-container-orgbb10f6f" class="outline-3">
+<div id="outline-container-orgf90bec9" class="outline-3">
 <h3 id="levelplot_logscale">Log scale</h3>
 <div class="outline-text-3" id="text-levelplot_logscale">
 <p>
@@ -519,7 +520,7 @@ levelplot(r^2, zscaleLog=<span class="org-ess-constant">TRUE</span>, contour=<sp
 </div>
 </div>
 
-<div id="outline-container-org6dc84d5" class="outline-2">
+<div id="outline-container-org9be8a3f" class="outline-2">
 <h2 id="themes">Themes</h2>
 <div class="outline-text-2" id="text-themes">
 <p>
@@ -601,7 +602,7 @@ levelplot(Aug, par.settings = myTheme)
 </div>
 
 
-<div id="outline-container-orgb24ea3a" class="outline-2">
+<div id="outline-container-org4184465" class="outline-2">
 <h2 id="factor">Categorical data</h2>
 <div class="outline-text-2" id="text-factor">
 <p>
@@ -657,7 +658,7 @@ You can choose the variable (column) from the RAT with the <code>att</code> argu
 </div>
 </div>
 
-<div id="outline-container-orge227440" class="outline-2">
+<div id="outline-container-orge349719" class="outline-2">
 <h2 id="scatterplot">Scatterplots and histograms</h2>
 <div class="outline-text-2" id="text-scatterplot">
 <p>
@@ -762,7 +763,7 @@ variable of the plot:
 </div>
 </div>
 
-<div id="outline-container-orgfce4b07" class="outline-2">
+<div id="outline-container-org04e97a5" class="outline-2">
 <h2 id="spacetime">Space-time plots</h2>
 <div class="outline-text-2" id="text-spacetime">
 <p>
@@ -778,7 +779,7 @@ The <code>hovmoller</code> method uses the function <code>xyLayer</code>, which 
 <div class="org-src-container">
 <pre class="src src-R">f <span class="org-ess-assignment">&lt;-</span> system.file(<span class="org-string">"external/test.grd"</span>, package = <span class="org-string">"raster"</span>)
 r <span class="org-ess-assignment">&lt;-</span> raster(f)
-dirXY <span class="org-ess-assignment">&lt;-</span> xyLayer(r, sqrt(x^2 + y^2))
+dirXY <span class="org-ess-assignment">&lt;-</span> xyLayer(r, sqrt(x^2 + y^2), vector = <span class="org-ess-constant">FALSE</span>)
 dirXY
 </pre>
 </div>
@@ -853,7 +854,7 @@ The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for
 </div>
 </div>
 
-<div id="outline-container-org23ac6c2" class="outline-2">
+<div id="outline-container-org32f26bf" class="outline-2">
 <h2 id="vectorplot">Vector field plots</h2>
 <div class="outline-text-2" id="text-vectorplot">
 <p>
@@ -949,7 +950,7 @@ streamplot(r2, isField=<span class="org-ess-constant">TRUE</span>, streamlet=lis
 </div>
 </div>
 
-<div id="outline-container-org8561de3" class="outline-2">
+<div id="outline-container-org34303c9" class="outline-2">
 <h2 id="interaction">Interaction</h2>
 <div class="outline-text-2" id="text-interaction">
 <p>
