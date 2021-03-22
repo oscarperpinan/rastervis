@@ -329,12 +329,12 @@ levelplot(rt)
 
 ## Change the color theme
 levelplot(r, par.settings=GrTheme())
-levelplot(rt, par.settings=PuOrTheme())
 
+\dontrun{
 myPal <- RColorBrewer::brewer.pal('Blues', n=9)
 myTheme <- rasterTheme(region = myPal)
 levelplot(r, par.settings = myTheme)
-
+}
 ## Define the legend breaks
 my.at <- seq(100, 1850, 500)
 levelplot(rt, at=my.at)
@@ -345,16 +345,7 @@ myColorkey <- list(at=my.at, ## where the colors change
                      ))
 levelplot(r, at=my.at, colorkey=myColorkey)
 
-myColorkey <- list(at=my.at, ## where the colors change
-                   labels=list(
-                     labels=letters[seq_along(my.at)], ## labels
-                     at=my.at ## where to print labels
-                     ))
-levelplot(rt, at=my.at, colorkey=myColorkey)
-
 ## Define the units of the color key
-levelplot(r, colorkey = list(title = "[m]"))
-
 levelplot(rt, margin = FALSE,
              colorkey = list(title = "[m]",
                              title.gpar = list(cex = 1,
@@ -366,18 +357,21 @@ levelplot(rt, margin = FALSE,
 ## raster
 rCenter <- (maxValue(r) + minValue(r)) / 2
 levelplot(r - rCenter, par.settings=RdBuTheme(), shrink=c(.8, 15), border='black')
+\dontrun{
 ## terra
 tCenter <- mean(minmax(rt))
 levelplot(rt - tCenter, par.settings=RdBuTheme(), shrink=c(.8, 15), border='black')
+}
 
 ## With subticks
 levelplot(r, xscale.components=xscale.raster.subticks,
              yscale.components=yscale.raster.subticks)
 
+\dontrun{
 levelplot(rt, xscale.components=xscale.raster.subticks,
              yscale.components=yscale.raster.subticks,
              scales=list(x=list(rot=30, cex=0.8)))
-
+}
 ## log-scale
 levelplot(r^2, zscaleLog=TRUE, contour=TRUE)
 
@@ -396,14 +390,17 @@ s <- stack(r, r+500, r-500)
 levelplot(s, contour=TRUE)
 contourplot(s, labels=list(cex=0.4), cuts=12)
 
+\dontrun{
+## Use of layout
+levelplot(s, layout=c(1, 3))
+
 ## SpatRaster with several layers
 st <- c(rt, rt + 500, rt - 500)
 levelplot(st, contour=TRUE)
 contourplot(st, labels=list(cex=0.4), cuts=12)
 
-## Use of layout
-levelplot(s, layout=c(1, 3))
 levelplot(st, layout=c(1, 1)) # useful for animations
+}
 
 ## names.attr to change the labels of each panel
 levelplot(s, names.attr=c('R', 'R + 500', 'R - 500'))
