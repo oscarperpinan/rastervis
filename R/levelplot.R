@@ -25,7 +25,7 @@ setGeneric('levelplot')
                        contour = FALSE, region = TRUE, labels = FALSE,
                        FUN.margin = NULL,
                        scales.margin = NULL, axis.margin = NULL,
-                       ..., att = 1L)
+                       ..., att)
 {
     
     ## Extract components from par.settings              
@@ -424,7 +424,7 @@ setMethod('levelplot',
                               zscaleLog, colorkey, panel, pretty,
                               contour, region, labels, FUN.margin,
                               scales.margin, axis.margin, ...,
-                              att = 1L)
+                              att = att)
               p
           }
           )
@@ -510,7 +510,7 @@ setMethod('levelplot',
                               zscaleLog, colorkey, panel, pretty,
                               contour, region, labels, FUN.margin,
                               scales.margin, axis.margin, ...,
-                              att = 1L)
+                              att = att)
               p
           }
           )
