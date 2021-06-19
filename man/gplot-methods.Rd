@@ -36,7 +36,7 @@ with a single 'g'.  }
 r <- raster(system.file("external/test.grd", package="raster"))
 
 s1 <- stack(r, r*2)
-names(s2) <- c('meuse', 'meuse x 2')
+names(s1) <- c('meuse', 'meuse x 2')
 
 library(ggplot2)
 
@@ -50,7 +50,7 @@ gplot(s1) + geom_tile(aes(fill = value)) +
 
 ## With terra
 s2 <- rast(s1)
-gplot(s) + geom_tile(aes(fill = value)) +
+gplot(s2) + geom_tile(aes(fill = value)) +
           facet_wrap(~ variable) +
           scale_fill_gradient(low = 'white', high = 'blue') +
           coord_equal()
