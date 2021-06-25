@@ -65,7 +65,7 @@ setMethod('splom',
               nms <- names(x)
               
               if (maxpixels < ncell(x)) 
-                  dat <- spatSample(x, maxpixels, "random")
+                  dat <- spatSample(x, maxpixels, method = "random")
               else 
                   dat <- values(x)
               

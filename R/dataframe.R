@@ -11,6 +11,7 @@ dfRegular <- function(data, maxpixels)
     {
         idx <- spatSample(data,
                           size = maxpixels,
+                          method = "regular",
                           cells = TRUE)
         vals <- data[idx]
         xy <- xyFromCell(data, idx)

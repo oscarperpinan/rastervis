@@ -11,7 +11,7 @@ xyLayer <- function(object, dirXY=y, vector = TRUE, maxpixels){
         
         else
             object <- spatSample(object,
-								method = "regular",
+		  		 method = "regular",
                                  size = maxpixels,
                                  as.raster = TRUE)
     }
