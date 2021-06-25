@@ -36,7 +36,7 @@ setGeneric('levelplot')
     ## Ensure valid names
     nms <- make.names(nms, unique = TRUE)
     names(dat) <- nms
-
+
     ## If zscaleLog is not NULL, transform the values and
     ## choose a function to calculate the labels
     if (identical(FALSE, zscaleLog)) zscaleLog <- NULL
@@ -71,7 +71,7 @@ setGeneric('levelplot')
     zlim <- extendrange(dat,
                         r = rangeZ,
                         f = lattice.getOption("axis.padding")$numeric)
-
+
     ##aspect and scales(from sp::spplot.grid,
     ##sp::longlat.scales, sp::mapasp)
     xlim=c(xmin(bb), xmax(bb))
@@ -101,7 +101,7 @@ setGeneric('levelplot')
     } else { ## !isLonLat
         aspect='iso'
     }
-
+
     ## Colorkey 
     if (region==FALSE) colorkey <- FALSE
 
@@ -151,7 +151,7 @@ setGeneric('levelplot')
             colorkey = modifyList(colorkey.default, colorkey)
         }
     }
-
+
     ## Construct the margins
     if (is.logical(margin))
         margin <- drawMargin(margin)
@@ -197,7 +197,7 @@ setGeneric('levelplot')
                                right.padding = 10))
                        )
     }
-
+
     ## Which panel did the user requested? (panel.levelplot
     ## or panel.levelplot.raster)
     requestedPanel <- panel
@@ -249,7 +249,7 @@ setGeneric('levelplot')
              } else {
                  requestedPanel
              }
-
+
     ## Names of each panel
     if (missing(names.attr)){
         names.attr <- nms
@@ -263,7 +263,7 @@ setGeneric('levelplot')
                                    collapse='+'),
                              'x*y', sep='~'))
 
-
+
     ## For each layer: is the raster completely filled with
     ## NA?  If the object is a multilayer Raster and there
     ## is at least one layer that with non-missing values,
@@ -276,7 +276,7 @@ setGeneric('levelplot')
         margin <- drawMargin(FALSE)
         pretty <-  TRUE
     }
-
+
     ## And finally, the levelplot call
     p <- levelplot(form, data = df,
                    scales = scales,
@@ -292,7 +292,7 @@ setGeneric('levelplot')
                    labels = labels,
                    strip = strip.custom(factor.levels = names.attr),
                    panel = panel, pretty = pretty, ...)
-
+
     ## Colorkey Title
     if (has.colorkey && !is.null(colorkey$title))
     {
@@ -310,12 +310,12 @@ setGeneric('levelplot')
                                                        title.gpar = title.gpar)),
                                               space = space))
     }
-
+
     ## panel.levelplot uses level.colors to encode values
     ## with colors. It does not work properly with
     ## categorical data and col.regions
     if (isFactor) p <- update(p, at = my.at)
-
+
     ## Plot the margins if required
     if (is.null(p$legend)) p$legend <- list()
     if (isTRUE(margin$y$draw)) {
@@ -461,7 +461,7 @@ setMethod('levelplot',
               
               ## The plot display a sample of the whole object defined
               ## with maxpixels
-              objectSample <- spatSample(object, size = maxpixels,
+              objectSample <- spatSample(object, method="regular", size = maxpixels,
                                             as.raster = TRUE)
               
               ## Is factor?

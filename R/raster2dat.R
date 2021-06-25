@@ -5,7 +5,7 @@ raster2dat <- function(x, FUN, maxpixels, att){
         nl <- nlyr(x)
         
         if (maxpixels < ncell(x))
-            dat <- spatSample(x, maxpixels, method = "sample")
+            dat <- spatSample(x, maxpixels, method = "random")
         else
             dat <- values(x)
 
