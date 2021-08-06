@@ -229,7 +229,7 @@
           is \code{FALSE} for \code{contourplot} and \code{TRUE} for
           \code{levelplot}.}
 	
-	\item{labels: }{Tipically a logical indicating whether the
+	\item{labels: }{Typically a logical indicating whether the
           labels are to be drawn (default is \code{TRUE} for
           \code{contourplot}), a character or expression vector giving
           the labels associated with the \code{at} values, or a list
