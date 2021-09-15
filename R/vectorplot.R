@@ -50,8 +50,8 @@ sa2xy <- function(sa, dXY = FALSE,
     ## Returns a data.frame for panel.arrows
     dx <- getValues(dx) * aspX
     dy <- getValues(dy) * aspY
-    x <- getValues(init(sa, v='x'))
-    y <- getValues(init(sa, v='y'))
+    x <- getValues(raster::init(sa, fun='x'))
+    y <- getValues(raster::init(sa, fun='y'))
     data.frame(x, y, dx, dy)
 }
 
