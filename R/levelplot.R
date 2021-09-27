@@ -74,9 +74,13 @@ setGeneric('levelplot')
 
     ##aspect and scales(from sp::spplot.grid,
     ##sp::longlat.scales, sp::mapasp)
-    xlim=c(xmin(bb), xmax(bb))
-    ylim=c(ymin(bb), ymax(bb))
-
+    if (inherits(bb, "Extent")) {
+		xlim=c(raster::xmin(bb), raster::xmax(bb))
+		ylim=c(raster::ymin(bb), raster::ymax(bb))
+	} else {
+		xlim=c(terra::xmin(bb), terra::xmax(bb))
+		ylim=c(terra::ymin(bb), terra::ymax(bb))	
+	}
     if (isTRUE(isLonLat)){
 
         aspect=(diff(ylim)/diff(xlim))/cos((mean(ylim) * pi)/180)

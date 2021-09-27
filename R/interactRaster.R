@@ -33,7 +33,7 @@ setMethod('identifyRaster', signature(object='Raster'),
                                       pch = pch, cex = cex, col = col,...)
             }
             trellis.unfocus()
-            if (values) return(suppressWarnings(extract(object, idx))) else return(idx)
+            if (values) return(suppressWarnings(raster::extract(object, idx))) else return(idx)
           }
           )
 

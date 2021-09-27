@@ -107,7 +107,7 @@ setMethod('streamplot',
               crdsNoise <- cbind(jitter(crds[,1]), jitter(crds[,2]))
               ## "Grid" of droplets
               texture <- SpatialPointsDataFrame(crdsNoise,
-                                                data.frame(extract(field, crdsNoise)))
+                                                data.frame(raster::extract(field, crdsNoise)))
               pts <- data.frame(t(coordinates(texture)))
               npts <- length(texture)
 

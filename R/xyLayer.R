@@ -15,8 +15,8 @@ xyLayer <- function(object, dirXY=y, vector = TRUE, maxpixels){
                                  size = maxpixels,
                                  as.raster = TRUE)
     }
-    y <- init(object, fun='y')
-    x <- init(object, fun='x')
+    y <- raster::init(object, fun='y')
+    x <- raster::init(object, fun='x')
     isLanguage <- try(is.language(dirXY), silent=TRUE)
     if (class(isLanguage)=='try-error' || !isLanguage)
         dirXY <- substitute(dirXY)

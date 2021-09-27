@@ -454,7 +454,7 @@ r2[] = 3
 r2[51:100] = 1
 r2[3:6, 1:5] = 5
 
-r3 <- init(r, function(n)sample(c(1, 3, 5), n, replace=TRUE))
+r3 <- raster::init(r, function(n)sample(c(1, 3, 5), n, replace=TRUE))
 
 ## Multilayer categorical Raster* are displayed only if their RATs are the same
 levels(r2) <- levels(r3) <- levels(r)
