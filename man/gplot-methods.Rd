@@ -33,6 +33,9 @@ with a single 'g'.  }
 
 \examples{ 
 \dontrun{
+library(raster)
+library(terra)
+
 r <- raster(system.file("external/test.grd", package="raster"))
 
 s1 <- stack(r, r*2)

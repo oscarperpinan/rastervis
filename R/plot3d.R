@@ -10,9 +10,9 @@ setMethod("plot3D", signature(x='RasterLayer'),
               if (requireNamespace("rgl", quietly = TRUE)){
 
                   x <- sampleRegular(x, size=maxpixels, asRaster=TRUE)
-                  X <- xFromCol(x,1:ncol(x))
-                  Y <- yFromRow(x, nrow(x):1)
-                  Z <- t((getValues(x, format='matrix'))[nrow(x):1,])
+                  X <- raster::xFromCol(x,1:ncol(x))
+                  Y <- raster::yFromRow(x, nrow(x):1)
+                  Z <- t((raster::values(x, format='matrix'))[nrow(x):1,])
                   
                   background <- min(Z, na.rm=TRUE) - 1
                   Z[is.na(Z)] <- background
@@ -29,7 +29,7 @@ setMethod("plot3D", signature(x='RasterLayer'),
                   
                   if (!is.null(drape)){
                       x <- sampleRegular(drape, size=maxpixels, asRaster=TRUE)
-                      Zcol <- t((getValues(x, format='matrix'))[nrow(x):1,])
+                      Zcol <- t((raster::values(x, format='matrix'))[nrow(x):1,])
                       background <- min(Zcol, na.rm=TRUE) - 1
                       Zcol[is.na(Zcol)] <- background
                       zlim <- range(Zcol)

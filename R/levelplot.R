@@ -81,7 +81,7 @@ setGeneric('levelplot')
 		xlim=c(terra::xmin(bb), terra::xmax(bb))
 		ylim=c(terra::ymin(bb), terra::ymax(bb))	
 	}
-    if (isTRUE(isLonLat)){
+    if (isTRUE(isll)){
 
         aspect=(diff(ylim)/diff(xlim))/cos((mean(ylim) * pi)/180)
 
@@ -372,7 +372,7 @@ setMethod('levelplot',
               
               ## Subset the object if layers are defined
               if (!missing(layers)) {
-                  object <- subset(x, subset=layers)
+                  object <- raster::subset(x, subset=layers)
               } else {
                   object <- x
               }
@@ -383,7 +383,7 @@ setMethod('levelplot',
                                             asRaster = TRUE)
               
               ## Is factor?
-              factorLayers <- is.factor(object)
+              factorLayers <- raster::is.factor(object)
               isFactor <- all(factorLayers)
               anyFactor <- any(factorLayers)
 
@@ -392,7 +392,7 @@ setMethod('levelplot',
               }
 
               if (isFactor) {
-                  rat <- levels(object)
+                  rat <- raster::levels(object)
                   ## It works correctly only if all the layers
                   ## share the same RAT
                   if (length(rat)>1 && any(!duplicated(rat)[-1])){
@@ -409,7 +409,7 @@ setMethod('levelplot',
               } else rat <- NULL
               
               ## Convert to a data.frame for conventional levelplot
-              df <- as.data.frame(objectSample, xy=TRUE)
+              df <- raster::as.data.frame(objectSample, xy=TRUE)
               ## Number of layers
               nly  <- nlayers(object)
               ## Names of layers
@@ -458,7 +458,7 @@ setMethod('levelplot',
               
               ## Subset the object if layers are defined
               if (!missing(layers)) {
-                  object <- subset(x, subset=layers)
+                  object <- terra::subset(x, subset=layers)
               } else {
                   object <- x
               }
@@ -469,7 +469,7 @@ setMethod('levelplot',
                                             as.raster = TRUE)
               
               ## Is factor?
-              factorLayers <- is.factor(object)
+              factorLayers <- terra::is.factor(object)
               isFactor <- all(factorLayers)
               anyFactor <- any(factorLayers)
 
@@ -478,7 +478,7 @@ setMethod('levelplot',
               }
 
               if (isFactor) {
-                  rat <- levels(object)
+                  rat <- terra::levels(object)
                   ## It works correctly only if all the layers
                   ## share the same RAT
                   if (length(rat)>1 && any(!duplicated(rat)[-1])){
@@ -488,14 +488,14 @@ setMethod('levelplot',
                       ## choose which level to use for the legend
                       if (is.numeric(att)) att = att + 1
                       ratID <- rat$ID
-                      objectSample <- subs(objectSample,
-                                           data.frame(ratID, seq_along(ratID)))
+                      objectSample <- subst(objectSample,
+                                           ratID, seq_along(ratID))
                       names(objectSample) <- names(object)
                   }
               } else rat <- NULL
               
               ## Convert to a data.frame for conventional levelplot
-              df <- as.data.frame(objectSample, xy=TRUE)
+              df <- terra::as.data.frame(objectSample, xy=TRUE)
               ## Number of layers
               nly  <- nlyr(object)
               ## Names of layers

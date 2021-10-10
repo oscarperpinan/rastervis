@@ -3,8 +3,8 @@
 
 setGeneric('hovmoller', function(object, ...){standardGeneric('hovmoller')})
 
-.hovmoller <- function(object,
-                       dirLayer, direction, tt,
+.hovmoller <- function(dat, direction,
+                       isLL,
                        FUN, digits,
                        xlab, ylab,
                        par.settings,
@@ -12,17 +12,6 @@ setGeneric('hovmoller', function(object, ...){standardGeneric('hovmoller')})
                        add.contour, labels, region,
                        ...)
 {
-    ##Calculate the matrix with the zonal function
-    z <- zonal(object, dirLayer, fun = FUN, digits = digits)
-    ## zonal returns a data.frame with terra objects and a matrix with
-    ## raster objects.
-    z <- as.matrix(z)
-    dat <- expand.grid(x = z[,1], y = tt)
-    dat$z <- as.vector(as.numeric(z[,-1]))
-
-    isLL <- if(is(object, "SpatRaster"))
-                is.lonlat(object)
-            else isLonLat(object)
     ##Labels of x-axis when isLonLat(object)==TRUE
     if (isLL)
     {
@@ -88,8 +77,15 @@ setMethod('hovmoller', signature='RasterStackBrick',
     if (is.null(tt))
         stop('z slot of the object is NULL. Use setZ.')
 
-    .hovmoller(object,
-               dirLayer, direction, tt,
+    ##Calculate the matrix with the zonal function
+    z <- raster::zonal(object, dirLayer, fun = FUN, digits = digits)
+    dat <- expand.grid(x = z[,1], y = tt)
+    dat$z <- as.vector(as.numeric(z[,-1]))
+
+    isLL <- isLonLat(object)
+
+    .hovmoller(dat, direction,
+               isLL,
                FUN, digits,
                xlab, ylab,
                par.settings,
@@ -115,8 +111,17 @@ setMethod('hovmoller', signature='SpatRaster',
     if (is.null(tt))
         stop('time index of the object is NULL. Use time().')
 
-    .hovmoller(object,
-               dirLayer, direction, tt,
+    ##Calculate the matrix with the zonal function
+    z <- terra::zonal(object, dirLayer, fun = FUN, digits = digits)
+    ## zonal returns a data.frame with terra objects
+    z <- as.matrix(z)
+    dat <- expand.grid(x = z[,1], y = tt)
+    dat$z <- as.vector(as.numeric(z[,-1]))
+
+    isLL <- is.lonlat(object)
+
+    .hovmoller(dat, direction,
+               isLL,
                FUN, digits,
                xlab, ylab,
                par.settings,

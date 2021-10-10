@@ -61,6 +61,8 @@ if you need to display a new scene without modifying the current one.}
 \author{ Robert J. Hijmans and Oscar Perpiñán}
 
 \examples{ \dontrun{
+library(raster)
+
 ## rgl is needed to use plot3D
 library(rgl)
 

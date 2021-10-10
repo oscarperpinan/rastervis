@@ -41,6 +41,9 @@ for details.}
 
 \examples{
 \dontrun{
+library(raster)
+library(terra)
+
 dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
 
 ##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001

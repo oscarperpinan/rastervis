@@ -4,28 +4,34 @@ raster2dat <- function(x, FUN, maxpixels, att){
     {
         nl <- nlyr(x)
         
-        if (maxpixels < ncell(x))
+        if (maxpixels < terra::ncell(x))
             dat <- spatSample(x, maxpixels, method = "random")
         else
-            dat <- values(x)
+            dat <- terra::values(x)
 
         z <- time(x)
+
+        ## Is factor?
+        factorLayers <- terra::is.factor(x)
+        rat <- terra::levels(x)
+
     }
     else
     {
         nl <- nlayers(x)
 
-        if (maxpixels < ncell(x))
+        if (maxpixels < raster::ncell(x))
             dat <- sampleRandom(x, maxpixels)
         else
-            dat <- getValues(x)
+            dat <- raster::values(x)
 
         z <- getZ(x)
+
+        ## Is factor?
+        factorLayers <- raster::is.factor(x)
+        rat <- raster::levels(x)
+
      }
-
-
-    ## Is factor?
-    factorLayers <- is.factor(x)
     isFactor <- all(factorLayers)
     anyFactor <- any(factorLayers)
     
@@ -52,7 +58,6 @@ raster2dat <- function(x, FUN, maxpixels, att){
 
     if (isFactor)
     {
-        rat <- levels(x)
         ## It works correctly only if all the layers
         ## share the same RAT
         if (length(rat)>1 && any(!duplicated(rat)[-1])){

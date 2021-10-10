@@ -2,10 +2,14 @@ import("methods")
 
 importFrom("stats",
            "as.formula",
-           "reorder")
+           "reorder",
+           "density",
+           "aggregate",
+           "update") ##needed for update.trellis
 
 importFrom("utils",
-           "modifyList")
+           "modifyList",
+           "stack")
 
 importFrom("parallel",
            "mclapply",
@@ -67,9 +71,26 @@ importFrom("zoo",
            "zoo")##,
            ##xyplot)
 
-import("raster")
+importFrom("terra",
+           "spatSample",
+           "is.lonlat",
+           "subst",
+           "nlyr",
+           "ext",
+           "time"
+           )
 
-import("terra")
+importFrom("raster",
+           "sampleRegular",
+           "sampleRandom",
+           "isLonLat",
+           "subs",
+           "nlayers",
+           "extent",
+           "getZ",
+           "compareRaster"
+           )
+
 
 export(
   'chooseRegion',

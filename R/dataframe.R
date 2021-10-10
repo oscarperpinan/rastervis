@@ -5,7 +5,7 @@ dfRegular <- function(data, maxpixels)
         dataSample <- sampleRegular(data,
                                     size = maxpixels,
                                     asRaster = TRUE)
-        df <- as.data.frame(dataSample, xy = TRUE)
+        df <- raster::as.data.frame(dataSample, xy = TRUE)
         
     } else
     {
@@ -14,7 +14,7 @@ dfRegular <- function(data, maxpixels)
                           method = "regular",
                           cells = TRUE)
         vals <- data[idx]
-        xy <- xyFromCell(data, idx)
+        xy <- terra::xyFromCell(data, idx)
         df <- cbind(xy, vals)
     }
 

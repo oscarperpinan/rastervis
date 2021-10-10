@@ -318,6 +318,9 @@
 }
 
 \examples{
+library(raster)
+library(terra)
+
 f <- system.file("external/test.grd", package="raster")
 
 ## raster
@@ -416,7 +419,11 @@ levelplot(rt, margin=list(axis = TRUE, scales = list(x=c(100, 1000))))
 ## and change the theme
 pts <- sampleRandom(r, size=20, sp=TRUE)
 
+
+
 ## Using +.trellis and layer from latticeExtra
+library(latticeExtra)
+
 levelplot(r, par.settings = BTCTheme) +
    layer(sp.points(pts, col = 'red'))
 contourplot(r, labels = FALSE) +

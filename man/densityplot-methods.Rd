@@ -74,6 +74,9 @@
             \code{\link{yscale.raster}}, \code{\link{rasterTheme}}}
 
 \examples{
+library(raster)
+library(terra)
+
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 densityplot(r)

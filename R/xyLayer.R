@@ -1,22 +1,31 @@
 globalVariables('y')
 
 ##Create a Layer from a custom function of the coordinates
-xyLayer <- function(object, dirXY=y, vector = TRUE, maxpixels){
-    if (!missing(maxpixels))
+xyLayer <- function(object, dirXY=y, vector = TRUE, maxpixels)
+{
+    if (is(object, "Raster"))
     {
-        if (is(object, "Raster"))
+        if (!missing(maxpixels))
+        {
             object <- sampleRegular(object,
                                     size = maxpixels,
                                     asRaster = TRUE)
-        
-        else
+        }
+        y <- raster::init(object, fun='y')
+        x <- raster::init(object, fun='x')
+    }        
+    else
+    {
+        if (!missing(maxpixels))
+        {
             object <- spatSample(object,
 		  		 method = "regular",
                                  size = maxpixels,
                                  as.raster = TRUE)
+        }
+        y <- terra::init(object, fun='y')
+        x <- terra::init(object, fun='x')
     }
-    y <- raster::init(object, fun='y')
-    x <- raster::init(object, fun='x')
     isLanguage <- try(is.language(dirXY), silent=TRUE)
     if (class(isLanguage)=='try-error' || !isLanguage)
         dirXY <- substitute(dirXY)
@@ -25,9 +34,9 @@ xyLayer <- function(object, dirXY=y, vector = TRUE, maxpixels){
     if (isTRUE(vector))
     {
         if (is(object, "Raster"))
-            getValues(dirLayer)
+            raster::values(dirLayer)
         else
-            values(dirLayer, mat = FALSE)
+            terra::values(dirLayer, mat = FALSE)
     }
     else 
         dirLayer

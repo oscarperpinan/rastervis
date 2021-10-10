@@ -38,10 +38,10 @@ setMethod('splom',
           {
               nms <- names(x)
               
-              if (maxpixels < ncell(x)) 
+              if (maxpixels < raster::ncell(x)) 
                   dat <- sampleRandom(x, maxpixels)
               else 
-                  dat <- getValues(x)
+                  dat <- raster::values(x)
               
               colnames(dat) <- nms
               
@@ -64,10 +64,10 @@ setMethod('splom',
               
               nms <- names(x)
               
-              if (maxpixels < ncell(x)) 
+              if (maxpixels < terra::ncell(x)) 
                   dat <- spatSample(x, maxpixels, method = "random")
               else 
-                  dat <- values(x)
+                  dat <- terra::values(x)
               
               colnames(dat) <- nms
               

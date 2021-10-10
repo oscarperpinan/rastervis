@@ -2,7 +2,7 @@
 extractSA <- function(s, skip, dXY = FALSE,
                       unit, reverse){
     if (!skip){
-        sa <- terrain(s, opt=c('slope', 'aspect'))
+        sa <- raster::terrain(s, opt=c('slope', 'aspect'))
     } else {
         if (!dXY) {
             ## If s is a vector field, the first layer is the
@@ -17,7 +17,7 @@ extractSA <- function(s, skip, dXY = FALSE,
             if (isTRUE(reverse)) {
                 aspect <- aspect + pi
             }
-            sa <- stack(slope, aspect)
+            sa <- raster::stack(slope, aspect)
         } else {
             sa <- s
         }
@@ -48,10 +48,10 @@ sa2xy <- function(sa, dXY = FALSE,
         dy <- subset(sa, 2)
     }
     ## Returns a data.frame for panel.arrows
-    dx <- getValues(dx) * aspX
-    dy <- getValues(dy) * aspY
-    x <- getValues(raster::init(sa, fun='x'))
-    y <- getValues(raster::init(sa, fun='y'))
+    dx <- raster::values(dx) * aspX
+    dy <- raster::values(dy) * aspY
+    x <- raster::values(raster::init(sa, fun='x'))
+    y <- raster::values(raster::init(sa, fun='y'))
     data.frame(x, y, dx, dy)
 }
 
@@ -100,7 +100,7 @@ setMethod('vectorplot',
 
               if (nlayers(object)>1 && !isField){ ##slopeAspect works
                   ## only for RasterLayer
-                  sa <- lapply(unstack(dat), fooSlopeAspect,
+                  sa <- lapply(raster::unstack(dat), fooSlopeAspect,
                                skip=FALSE, unit=unit, reverse=reverse,
                                scaleSlope = scaleSlope,
                                aspX = aspX, aspY = aspY)
@@ -154,7 +154,7 @@ setMethod('vectorplot',
                   rgAxis <- diff(p$x.limits)
                   if (isField && !dXY){
                       if (isTRUE(scaleSlope)) {
-                          scaleSlope <- cellStats(subset(object, 1), 'rms')
+                          scaleSlope <- raster::cellStats(subset(object, 1), 'rms')
                       } else {}
                   } else {
                       scaleSlope <- 1
@@ -216,13 +216,13 @@ setMethod('vectorplot',
                               uLayers <- setdiff(seq_len(nlayers(object)), vLayers)
                           }
                   ## Convert the original RasterStack into a list
-                  layList <- unstack(object)
+                  layList <- raster::unstack(object)
                   ## Build a list of RasterStacks. Each element of the
                   ## list is a pair u,v according to uLayers and vLayers
                   uvIdx <- cbind(uLayers, vLayers)
-                  objectList <- apply(uvIdx, 1, FUN=function(idx)stack(layList[idx]))
+                  objectList <- apply(uvIdx, 1, FUN=function(idx) raster::stack(layList[idx]))
                   names(objectList) <- sapply(objectList,
-                                              FUN=function(s)paste(names(s), collapse='.'))
+                                              FUN=function(s) paste(names(s), collapse='.'))
                   ## Now use xyplot.list with FUN=vectorplot to
                   ## display each element of the list with the method
                   ## vectorplot for a RasterStack with dXY and only

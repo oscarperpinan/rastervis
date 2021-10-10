@@ -22,13 +22,13 @@ setMethod('identifyRaster', signature(object='Raster'),
             if (trellisType=='splom'){
               idx <- panel.link.splom(pch=pch, cex=cex, col=col,...)
             } else {
-              vals <- round(getValues(object), 2)
+              vals <- round(raster::values(object), 2)
               if (nl==1) {
                 lbl <- vals
               } else {
                 lbl <- vals[,lay]
               }
-              subs <- seq_len(ncell(object))
+              subs <- seq_len(raster::ncell(object))
                 idx <- panel.identify(subscripts = subs, labels = lbl,
                                       pch = pch, cex = cex, col = col,...)
             }

@@ -45,6 +45,9 @@ for details.}
 \author{Oscar Perpiñán Lamigueiro}
 
 \examples{
+library(raster)
+library(terra)
+
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 names(r)

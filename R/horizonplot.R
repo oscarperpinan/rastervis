@@ -1,6 +1,6 @@
 setGeneric('horizonplot')
 
-horizon <- function(x, dirLayer, tt,
+horizon <- function(z, dirLayer, tt,
                     stat, digits,
                     origin,
                     xlab, ylab,
@@ -8,11 +8,6 @@ horizon <- function(x, dirLayer, tt,
                     scales,
                     ...)
 {
-    ## zonal calculations defined by the direction
-    z <- zonal(x, dirLayer, fun = stat, digits = digits)
-    ## zonal returns a data.frame with terra objects and a matrix with
-    ## raster objects.
-    z <- as.matrix(z)
     nRows <- nrow(z)
     ## A time series is defined with the result of zonal and
     ## the z-slot of x
@@ -44,6 +39,8 @@ setMethod('horizonplot',
                               scales = list(y = list(relation = "same")),
                               ...)
           {
+              ## zonal calculations defined by the direction
+              z <- raster::zonal(x, dirLayer, fun = stat, digits = digits)
               
               tt <- getZ(x)
               if (is.null(tt))
@@ -53,7 +50,7 @@ setMethod('horizonplot',
                                   dirXY = substitute(dirXY),
                                   vector = FALSE)
 
-              horizon(x, dirLayer, tt,
+              horizon(z, dirLayer, tt,
                     stat, digits,
                     origin,
                     xlab, ylab,
@@ -74,6 +71,11 @@ setMethod('horizonplot',
                               ...)
           {
               
+              ## zonal calculations defined by the direction
+              z <- terra::zonal(x, dirLayer, fun = stat, digits = digits)
+              ## zonal returns a data.frame with terra objects
+              z <- as.matrix(z)
+
               tt <- time(x)
               if (is.null(tt))
                   stop('time index of the object is NULL. Use time().')
@@ -82,7 +84,7 @@ setMethod('horizonplot',
                                   dirXY = substitute(dirXY),
                                   vector = FALSE)
 
-              horizon(x, dirLayer, tt,
+              horizon(z, dirLayer, tt,
                     stat, digits,
                     origin,
                     xlab, ylab,

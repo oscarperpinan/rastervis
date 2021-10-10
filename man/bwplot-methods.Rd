@@ -86,6 +86,9 @@ a combination of \code{\link{panel.violin}} and
   \code{\link{bwTheme}}
 }
 \examples{
+library(raster)
+library(terra)
+
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 s <- stack(r, r-500, r+500)

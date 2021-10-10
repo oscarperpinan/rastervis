@@ -1,4 +1,4 @@
-globalVariables('group.value')
+globalVariables(c('group.value', 'x', 'y'))
 
 
 setGeneric('xyplot')
@@ -6,18 +6,11 @@ setGeneric('xyplot')
 ##xyplot for directions created with xyLayer
 ########################################################################
 
-xyplotTime <- function(x, dirLayer, tt,
-                       stat,
+xyplotTime <- function(z, tt,
                        xlab, ylab,
-                       digits,
                        par.settings,
                        auto.key, ...)
 {
-    ## zonal calculations defined by the direction
-    z <- zonal(x, dirLayer, fun = stat, digits = digits)
-    ## zonal returns a data.frame with terra objects and a matrix with
-    ## raster objects.
-    z <- as.matrix(z)
     nRows <- nrow(z)
     ## A time series is defined with the result of zonal and
     ## the z-slot of x
@@ -45,6 +38,7 @@ setMethod('xyplot',
                                 par.settings = rasterTheme(),
                                 auto.key = FALSE, ...)
           {
+              ## Time variable
               tt <- getZ(x)
               if (is.null(tt))
                   stop('z slot of the object is NULL. Use setZ.')
@@ -52,11 +46,12 @@ setMethod('xyplot',
               dirLayer <- xyLayer(x,
                                   dirXY = substitute(dirXY),
                                   vector = FALSE)
+
+              ## zonal calculations defined by the direction
+              z <- raster::zonal(x, dirLayer, fun = stat, digits = digits)
               
-              xyplotTime(x, dirLayer, tt,
-                         stat,
+              xyplotTime(z, tt,
                          xlab, ylab,
-                         digits,
                          par.settings,
                          auto.key, ...)
           })
@@ -70,18 +65,21 @@ setMethod('xyplot',
                                 par.settings = rasterTheme(),
                                 auto.key = FALSE, ...)
           {
+              ## zonal calculations defined by the direction
+              z <- terra::zonal(x, dirLayer, fun = stat, digits = digits)
+              ## zonal returns a data.frame with terra objects
+              z <- as.matrix(z)
+              ## Time variable
               tt <- time(x)
               if (is.null(tt))
                   stop('time index of the object is NULL. Use time().')
 
               dirLayer <- xyLayer(x,
-                                  dirXY = substitute(dirXY),
+                                  dirXY = dirXY,
                                   vector = FALSE)
               
-              xyplotTime(x, dirLayer, tt,
-                         stat,
+              xyplotTime(z, tt,
                          xlab, ylab,
-                         digits,
                          par.settings,
                          auto.key, ...)
           })

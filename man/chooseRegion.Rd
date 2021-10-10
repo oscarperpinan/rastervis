@@ -52,6 +52,8 @@ Oscar Perpiñán Lamigueiro
 \code{panel.identify},\code{panel.link.splom}, \code{trellis.focus}, \code{grid.locator}
 }
 \examples{
+library(raster)
+
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
 levelplot(r)
@@ -74,13 +76,16 @@ summary(reg)
 }
 
 \dontrun{
-##Solar irradiation data from CMSAF
-##Data available from http://www.box.net/shared/rl51y1t9sldxk54ogd44
+##Solar irradiation data from CMSAF http://dx.doi.org/10.5676/EUM_SAF_CM/RAD_MVIRI/V001
 
-old <- getwd()
-##change to your folder...
-setwd('CMSAF')
-listFich <- dir(pattern='2008')
+dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
+
+old <- setwd(tempdir())
+download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
+   "SISmm2008_CMSAF.zip", method='wget')
+unzip("SISmm2008_CMSAF.zip")
+
+listFich <- dir(pattern='\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 setwd(old)

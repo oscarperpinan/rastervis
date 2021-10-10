@@ -177,6 +177,8 @@ produce 324 droplets.}}}
 
 \examples{
 \dontrun{
+library(raster)
+
 proj <- CRS('+proj=longlat +datum=WGS84')
 
 df <- expand.grid(x=seq(-2, 2, .01), y=seq(-2, 2, .01))

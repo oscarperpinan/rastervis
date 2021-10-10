@@ -79,11 +79,11 @@ setMethod('streamplot',
               if (isField) {
                   field <- object
               } else {
-                  field <- terrain(object, opt = c("slope", "aspect"))##, unit=unit)
+                  field <- raster::terrain(object, opt = c("slope", "aspect"))##, unit=unit)
               }
               ## Values to be used by uniVector
-              xrange <- xFromCol(field, 1:ncol(field))
-              yrange <- yFromRow(field, 1:nrow(field))
+              xrange <- raster::xFromCol(field, 1:ncol(field))
+              yrange <- raster::yFromRow(field, 1:nrow(field))
               aspectVals <- as.matrix(subset(field, 2))
               ## Should streamlets go from sinks to sources?
               if (reverse) aspectVals <- aspectVals + pi
@@ -92,12 +92,12 @@ setMethod('streamplot',
               default.droplet <- list(cropExtent = .97, pc = .5)
               droplet <- modifyList(default.droplet, droplet)
 
-              default.streamlet <- list(L=10, h = mean(res(object)))
+              default.streamlet <- list(L=10, h = mean(raster::res(object)))
               streamlet <- modifyList(default.streamlet, streamlet)
 
               ## Crop original object to avoid droplets at boundaries
-              cropField <- crop(field, extent(field)*droplet$cropExtent)
-              nDroplets <- ncell(cropField) * droplet$pc/100
+              cropField <- raster::crop(field, extent(field)*droplet$cropExtent)
+              nDroplets <- raster::ncell(cropField) * droplet$pc/100
               ## Build a regular grid ...
               texture <- sampleRegular(cropField, nDroplets, sp=TRUE)
               ## but only with coordinates where slope (texture[[1]]
@@ -180,7 +180,7 @@ setMethod('streamplot',
                   slope <- sqrt(u^2 + v^2)
                   aspect <- atan2(v, u)
                   aspect <- (pi/2 - aspect) %% (2 * pi)
-                  object <- stack(slope, aspect)
+                  object <- raster::stack(slope, aspect)
               }
               
               if (isTRUE(isField))
@@ -196,7 +196,7 @@ setMethod('streamplot',
                   if (!missing(layers)) {
                       object <- subset(object, subset=layers)
                   }
-                  objectList <- unstack(object)
+                  objectList <- raster::unstack(object)
                   names(objectList) <- names(object)
                   p <- xyplot.list(objectList, FUN = streamplot,
                                    droplet = droplet, streamlet = streamlet,

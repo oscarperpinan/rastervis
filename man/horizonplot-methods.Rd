@@ -110,6 +110,8 @@
 
 \examples{
 \dontrun{
+library(raster)
+library(terra)
 library(zoo)
 
 url <- "ftp://ftp.wiley.com/public/sci_tech_med/spatio_temporal_data/"
