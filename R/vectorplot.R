@@ -8,8 +8,8 @@ extractSA <- function(s, skip, dXY = FALSE,
             ## If s is a vector field, the first layer is the
             ## magnitude (slope) and the second is the angle
             ## (aspect)
-            slope <- subset(s, 1)
-            aspect <- subset(s, 2)
+            slope <- raster::subset(s, 1)
+            aspect <- raster::subset(s, 2)
             
             if (unit=='degrees') {
                 aspect <- aspect/180*pi
@@ -29,12 +29,12 @@ extractSA <- function(s, skip, dXY = FALSE,
 sa2xy <- function(sa, dXY = FALSE,
                   scaleSlope, aspX, aspY){
     if (!dXY) {
-        slope <- subset(sa, 1)
-        aspect <- subset(sa, 2)
+        slope <- raster::subset(sa, 1)
+        aspect <- raster::subset(sa, 2)
         ##center=FALSE to get only positive values of
         ##slope
         if (is.logical(scaleSlope) & isTRUE(scaleSlope)){
-            slope <- scale(slope, center = FALSE)
+            slope <- raster::scale(slope, center = FALSE)
         } else {
             if (is.numeric(scaleSlope)) {
                 slope <- slope/scaleSlope
@@ -44,8 +44,8 @@ sa2xy <- function(sa, dXY = FALSE,
         dx <- slope * sin(aspect) 
         dy <- slope * cos(aspect)
     } else {
-        dx <- subset(sa, 1)
-        dy <- subset(sa, 2)
+        dx <- raster::subset(sa, 1)
+        dy <- raster::subset(sa, 2)
     }
     ## Returns a data.frame for panel.arrows
     dx <- raster::values(dx) * aspX
@@ -85,7 +85,7 @@ setMethod('vectorplot',
               ...){
               
               if (!missing(layers)) {
-                  object <- subset(object, subset=layers)
+                  object <- raster::subset(object, layers)
               }
               
               dat <- sampleRegular(object, size=narrows, asRaster=TRUE)
@@ -120,12 +120,12 @@ setMethod('vectorplot',
               } else if (isTRUE(isField)) {
                   if (isTRUE(dXY)) {
                       ## Computes slope and uses it as the background
-                      u <- subset(object, 1)
-                      v <- subset(object, 2)
+                      u <- raster::subset(object, 1)
+                      v <- raster::subset(object, 2)
                       object <- sqrt(u^2 + v^2)
                   } else {
                       ##only uses the magnitude for the region
-                      object <- subset(object, 1)
+                      object <- raster::subset(object, 1)
               }
               }
 

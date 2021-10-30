@@ -84,7 +84,9 @@ setMethod('streamplot',
               ## Values to be used by uniVector
               xrange <- raster::xFromCol(field, 1:ncol(field))
               yrange <- raster::yFromRow(field, 1:nrow(field))
-              aspectVals <- as.matrix(subset(field, 2))
+              aspect <- raster::subset(field, 2)
+              aspectVals <- raster::as.matrix(aspect)
+              
               ## Should streamlets go from sinks to sources?
               if (reverse) aspectVals <- aspectVals + pi
 
@@ -175,8 +177,8 @@ setMethod('streamplot',
 
               if (isField == 'dXY'){
                   isField <- TRUE
-                  u <- subset(object, 1)
-                  v <- subset(object, 2)
+                  u <- raster::subset(object, 1)
+                  v <- raster::subset(object, 2)
                   slope <- sqrt(u^2 + v^2)
                   aspect <- atan2(v, u)
                   aspect <- (pi/2 - aspect) %% (2 * pi)
@@ -194,7 +196,7 @@ setMethod('streamplot',
                                  mc.cores, cl, ...)
               else {
                   if (!missing(layers)) {
-                      object <- subset(object, subset=layers)
+                      object <- raster::subset(object, layers)
                   }
                   objectList <- raster::unstack(object)
                   names(objectList) <- names(object)
