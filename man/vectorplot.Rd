@@ -138,9 +138,6 @@ produce 324 droplets.}}}
   background  using \code{levelplot}. It can be a \code{Raster*} with
   the same extent and resolution as \code{object}.}
 
-\item{reverse}{Logical, TRUE if arrows or streamlets go against the direction
-  of the gradient.}
-
 \item{isField}{If \code{TRUE} the object is a vector field. Thus,
   \code{object} must be a Raster* with two layers, slope (local vector
   magnitude) and aspect (local vector direction), in this order. The
@@ -157,6 +154,9 @@ produce 324 droplets.}}}
 
 \item{unit}{Character, angle units of the \code{aspect} layer if
   \code{isField=TRUE}: 'radians' or 'degrees'.}
+
+\item{reverse}{Logical, if \code{isField=TRUE} and \code{reverse=TRUE},
+  arrows or streamlets go against the direction of the gradient.}
 
 \item{\dots}{Additional arguments for \code{\link{levelplot}}}
 }
