@@ -10,7 +10,7 @@ setMethod("gplot", signature(x='Raster'),
               {
                   stop("ggplot2 is required for the gplot method.")
               }
-              x <- raster::sampleRegular(x, maxpixels, asRaster = TRUE)
+              x <- sampleRegular(x, maxpixels, asRaster = TRUE)
               coords <- raster::xyFromCell(x, seq_len(raster::ncell(x)))
               dat <- stack(as.data.frame(raster::values(x)))
               names(dat) <- c('value', 'variable')
@@ -25,12 +25,11 @@ setMethod("gplot", signature(x='Raster'),
 
 setMethod("gplot", signature(x='SpatRaster'), 
           function(x, maxpixels = 50000, ...)  {
-              x <- terra::spatSample(x, maxpixels, "regular", as.raster = TRUE)
               if (!requireNamespace("ggplot2", quietly = TRUE))
               {
                   stop("ggplot2 is required for the gplot method.")
               }
-              x <- terra::sampleRegular(x, maxpixels, asRaster = TRUE)
+              x <- spatSample(x, maxpixels, "regular", as.raster = TRUE)
               coords <- terra::xyFromCell(x, seq_len(terra::ncell(x)))
               dat <- stack(as.data.frame(terra::values(x)))
               names(dat) <- c('value', 'variable')
