@@ -39,16 +39,15 @@ setMethod('horizonplot',
                               scales = list(y = list(relation = "same")),
                               ...)
           {
-              ## zonal calculations defined by the direction
+              dirLayer <- xyLayer(x, substitute(dirXY), vector = FALSE)
+              
+              ##Calculate the matrix with the zonal function
               z <- raster::zonal(x, dirLayer, fun = stat, digits = digits)
               
               tt <- getZ(x)
               if (is.null(tt))
                   stop('z slot of the object is NULL. Use setZ.')
 
-              dirLayer <- xyLayer(x,
-                                  dirXY = substitute(dirXY),
-                                  vector = FALSE)
 
               horizon(z, dirLayer, tt,
                     stat, digits,
@@ -70,6 +69,7 @@ setMethod('horizonplot',
                               scales = list(y = list(relation = "same")),
                               ...)
           {
+              dirLayer <- xyLayer(x, substitute(dirXY), vector = FALSE)
               
               ## zonal calculations defined by the direction
               z <- terra::zonal(x, dirLayer, fun = stat, digits = digits)
@@ -79,10 +79,6 @@ setMethod('horizonplot',
               tt <- time(x)
               if (is.null(tt))
                   stop('time index of the object is NULL. Use time().')
-
-              dirLayer <- xyLayer(x,
-                                  dirXY = substitute(dirXY),
-                                  vector = FALSE)
 
               horizon(z, dirLayer, tt,
                     stat, digits,

@@ -155,6 +155,16 @@ histogramFormula <- function(x, data,
                              att,
                              ...)
 {
+}
+setMethod('histogram', signature(x='formula', data='Raster'),
+          definition = function(x, data,
+                                dirXY,
+                                maxpixels = 1e+05,
+                                strip = TRUE,
+                                par.settings = rasterTheme(),
+                                att = 1,
+                                ...)
+          {
               df <- dfRegular(data, maxpixels)
               
               if (!missing(dirXY))
@@ -172,21 +182,6 @@ histogramFormula <- function(x, data,
                              att = att,
                              ...)
               p
-}
-setMethod('histogram', signature(x='formula', data='Raster'),
-          definition = function(x, data,
-                                dirXY,
-                                maxpixels = 1e+05,
-                                strip = TRUE,
-                                par.settings = rasterTheme(),
-                                att = 1,
-                                ...)
-          {
-              histogramFormula(x = x, data = data,
-                               maxpixels = maxpixels,
-                               strip = strip,
-                               att = att,
-                               ...)
           }
           )
 
@@ -200,9 +195,21 @@ setMethod('histogram', signature(x='formula', data='SpatRaster'),
                                 att = 1,
                                 ...)
           {
-              histogramFormula(x = x, data = data,
-                               maxpixels = maxpixels,
-                               strip = strip,
-                               att = att,
-                               ...)
+              df <- dfRegular(data, maxpixels)
+              
+              if (!missing(dirXY))
+              {
+                  dirXY <- xyLayer(data,
+                                   dirXY = substitute(dirXY),
+                                   maxpixels = maxpixels)
+
+                  df <- cbind(df, dirXY)
+              }
+
+              p <- histogram(x = x, data = df,
+                             strip = strip,
+                             par.settings = par.settings,
+                             att = att,
+                             ...)
+              p
           })

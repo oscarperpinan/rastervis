@@ -87,6 +87,7 @@ densityplot(s)
 densityplot(s, draw.labels = FALSE)
 
 \dontrun{
+library(zoo)
 
 dataURL <- "https://raw.github.com/oscarperpinan/bookvis/master/data/"
 

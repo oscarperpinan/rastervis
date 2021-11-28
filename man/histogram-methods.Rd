@@ -147,7 +147,7 @@ histogram(SISmm, FUN=as.yearqtr)
 histogram(~ Jan + Dec, data=SISmm)
 ## Or use the coordinates for generating zonal histograms.
 ## For example, five histograms for each latitude zone  
-histogram(~ Jan | cut(dirXY, 5), dirXY = y, data=SISmm)
+histogram(~ Jan | cut(y, 5), data=SISmm)
 ## More sophisticated bands can be defined using the dirXY argument 
 histogram(~ Jan | cut(dirXY, 5), dirXY = x^2 + y^2, data=SISmm)
  

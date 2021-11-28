@@ -85,7 +85,7 @@ download.file(paste0(dataURL, "SISmm2008_CMSAF.zip"),
    "SISmm2008_CMSAF.zip", method='wget')
 unzip("SISmm2008_CMSAF.zip")
 
-listFich <- dir(pattern='\\.nc')
+listFich <- dir(pattern='\\\\.nc')
 stackSIS <- stack(listFich)
 stackSIS <- stackSIS*24 ##from irradiance (W/m2) to irradiation Wh/m2
 setwd(old)

@@ -96,13 +96,7 @@ xyplotFormula <- function(x, data,
     df <- dfRegular(data, maxpixels)
     
     if (!missing(dirXY))
-    {
-        dirXY <- xyLayer(data,
-                         dirXY = substitute(dirXY),
-                         maxpixels = maxpixels)
-        
         df <- cbind(df, dirXY)
-    }
     
     isFactor <- which(is.factor(data))
     
@@ -128,6 +122,13 @@ setMethod('xyplot', signature(x = 'formula', data = 'Raster'),
             par.settings = rasterTheme(), ...)
           {
 
+              if (!missing(dirXY))
+              {
+                  dirXY <- xyLayer(data,
+                                   dirXY = substitute(dirXY),
+                                   maxpixels = maxpixels)
+                  
+              }
               xyplotFormula(x, data,
                             dirXY, maxpixels,
                             alpha,
@@ -143,6 +144,12 @@ setMethod('xyplot', signature(x = 'formula', data = 'SpatRaster'),
             yscale.components = yscale.raster,
             par.settings = rasterTheme(), ...)
           {
+              if (!missing(dirXY))
+              {
+                  dirXY <- xyLayer(data,
+                                   dirXY = substitute(dirXY),
+                                   maxpixels = maxpixels)
+              }
 
               xyplotFormula(x, data,
                             dirXY, maxpixels,

@@ -91,6 +91,8 @@ hovmoller(SISmm, labels=TRUE, add.contour=TRUE,
           xlab='Latitude')
 
 ## Smooth color regions with latticeExtra::panel.2dsmoother
+library(latticeExtra)
+
 hovmoller(SISmm, panel=panel.2dsmoother, n=1000,
           labels=FALSE, add.contour=TRUE,
           xlab='Latitude')
@@ -101,7 +103,6 @@ hovmoller(SISmm, dirXY=sqrt(x^2+y^2))
 
 \dontrun{
 library(zoo)
-library(rasterVis)
 
 ## DESCRIPTION: http://iridl.ldeo.columbia.edu/SOURCES/.CAC/.sst/
 setwd(tempdir())
