@@ -478,7 +478,7 @@ setMethod('levelplot',
               }
 
               if (isFactor) {
-                  rat <- terra::levels(object)
+                  rat <- terra::cats(object)
                   ## It works correctly only if all the layers
                   ## share the same RAT
                   if (length(rat)>1 && any(!duplicated(rat)[-1])){
