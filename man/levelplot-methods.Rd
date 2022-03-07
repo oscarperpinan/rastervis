@@ -155,7 +155,10 @@
     included in \code{lattice::levelplot}, it accepts the \code{title}
     argument, a \code{character}, and \code{title.gpar}, a list of
     graphical parameters (see \code{\link{gpar}} for details) to be
-    applied to the \code{title} text.}
+    applied to the \code{title} text.
+    The color key will always be drawn at the bottom if the marginal graphics
+    are also displayed. If you need to change the location of the color
+    key, disable the marginal graphics with \code{margin = FALSE}.}
   
   \item{between, as.table, par.settings, scales, panel}{Graphical
     parameters used by \code{lattice::\link[lattice]{xyplot}}. Adapted
