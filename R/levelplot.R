@@ -145,16 +145,6 @@ setGeneric('levelplot')
                                                          at=my.labs.at))
                                        )
     }
-    ## Finally construct colorkey with user definition
-    ## (colorkey) and defaults defined by zscale, and
-    ## isFactor
-    if (has.colorkey) {
-        if (is.logical(colorkey)){
-            colorkey = colorkey.default
-        } else {
-            colorkey = modifyList(colorkey.default, colorkey)
-        }
-    }
 
     ## Construct the margins
     if (is.logical(margin))
@@ -281,7 +271,33 @@ setGeneric('levelplot')
         pretty <-  TRUE
     }
 
-    ## And finally, the levelplot call
+    ## Finally construct colorkey with user definition
+    ## (colorkey) and defaults defined by zscale, and
+    ## isFactor
+    if (has.colorkey) {
+        if (is.null(colorkey$space))
+            colorkey$space = "right"
+        
+        if (!is.null(colorkey$title)) #Define title of the colorkey
+        {
+            ## Modify the location strategy implemented in lattice::draw.colorkey
+            side <- switch(colorkey$space,
+                           right = "top",
+                           left = "top",
+                           bottom = "left",
+                           top = "left")
+
+            if (is.null(colorkey$title.control))
+                colorkey$title.control  <- list()
+            
+            colorkey$title.control  <- modifyList(colorkey$title.control,
+                                         list(side = side))
+                
+            colorkey = modifyList(colorkey.default, colorkey)
+        }
+    }
+
+    ## And the levelplot call
     p <- levelplot(form, data = df,
                    scales = scales,
                    aspect = aspect,
@@ -296,24 +312,6 @@ setGeneric('levelplot')
                    labels = labels,
                    strip = strip.custom(factor.levels = names.attr),
                    panel = panel, pretty = pretty, ...)
-
-    ## Colorkey Title
-    if (has.colorkey && !is.null(colorkey$title))
-    {
-        space <- colorkey$space
-        title <- colorkey$title
-        title.gpar <- if (is.null(colorkey$title.gpar)) list()
-                      else colorkey$title.gpar
-        ## Modify the legend field constructed by levelplot,
-        ## replacing draw.colorkey by drawCK, and adding the
-        ## title and title.gpar components.
-        p$legend[[space]] <- list(fun = drawCK,
-                                  args = list(key = modifyList(
-                                                  p$legend[[space]]$args$key,
-                                                  list(title = title,
-                                                       title.gpar = title.gpar)),
-                                              space = space))
-    }
 
     ## panel.levelplot uses level.colors to encode values
     ## with colors. It does not work properly with
