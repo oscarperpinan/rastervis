@@ -280,19 +280,19 @@ setGeneric('levelplot')
         
         if (!is.null(colorkey$title)) #Define title of the colorkey
         {
-            ## Modify the location strategy implemented in lattice::draw.colorkey
-            side <- switch(colorkey$space,
-                           right = "top",
-                           left = "top",
-                           bottom = "left",
-                           top = "left")
 
             if (is.null(colorkey$title.control))
                 colorkey$title.control  <- list()
             
-            colorkey$title.control  <- modifyList(colorkey$title.control,
-                                         list(side = side))
-                
+            if (is.null(colorkey$title.control$side))
+                ## Modify the default location strategy implemented in lattice::draw.colorkey
+                colorkey$title.control$side <- 
+                    switch(colorkey$space,
+                           right = "top",
+                           left = "top",
+                           bottom = "left",
+                           top = "left")
+            
             colorkey = modifyList(colorkey.default, colorkey)
         }
     }
@@ -516,3 +516,4 @@ setMethod('levelplot',
               p
           }
           )
+
