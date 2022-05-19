@@ -162,13 +162,13 @@
     \code{grid::\link{gpar}} function (for example, \code{col},
     \code{fontfamily}, \code{fontface}, etc.). Besides, it may include a
     component named \code{title.control}: (extracted from
-    \link{lattice::levelplot}): A list providing control over the
-    placement of a title, if specified. Currently two components are
-    honoured: \code{side} can take values "top", "bottom", "left", and
-    "right", and specifies the side of the colorkey on which the title
-    is to be placed. Defaults to the value of the "space" component;
-    \code{padding} is a multiplier for the default amount of padding
-    between the title and the colorkey.
+    \code{lattice::\link[lattice]{levelplot}}: A list providing control
+    over the placement of a title, if specified. Currently two
+    components are honoured: \code{side} can take values "top",
+    "bottom", "left", and "right", and specifies the side of the
+    colorkey on which the title is to be placed. Defaults to the value
+    of the "space" component; \code{padding} is a multiplier for the
+    default amount of padding between the title and the colorkey.
 
     The color key will always be drawn at the bottom if the marginal
     graphics are also displayed. If you need to change the location of
