@@ -162,7 +162,7 @@
     \code{grid::\link{gpar}} function (for example, \code{col},
     \code{fontfamily}, \code{fontface}, etc.). Besides, it may include a
     component named \code{title.control}: (extracted from
-    \code{lattice::\link[lattice]{levelplot}}: A list providing control
+    \code{lattice::\link[lattice]{levelplot}}): A list providing control
     over the placement of a title, if specified. Currently two
     components are honoured: \code{side} can take values "top",
     "bottom", "left", and "right", and specifies the side of the
