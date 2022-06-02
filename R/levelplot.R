@@ -493,7 +493,7 @@ setMethod('levelplot',
               } else rat <- NULL
               
               ## Convert to a data.frame for conventional levelplot
-              df <- terra::as.data.frame(objectSample, xy=TRUE)
+              df <- terra::as.data.frame(objectSample, xy=TRUE, na.rm = FALSE)
               ## Number of layers
               nly  <- nlyr(object)
               ## Names of layers
