@@ -399,7 +399,15 @@ setMethod('levelplot',
                       rat <- as.data.frame(rat[[1]])
                       ## choose which level to use for the legend
                       if (is.numeric(att)) att = att + 1
-                      ratID <- rat$ID
+                      if ("ID" %in% names(rat))
+                          ratID <- rat$ID
+                      else
+                      {## If there is no ID column use the first one 
+                          if (is.numeric(rat[,1]))
+                              ratID <- rat[,1]
+                          else ## but if this is not numeric, build a simple ID sequence
+                              ratID <- seq_len(nrow(rat))
+                      }
                       objectSample <- subs(objectSample,
                                            data.frame(ratID, seq_along(ratID)))
                       names(objectSample) <- names(object)
@@ -485,9 +493,17 @@ setMethod('levelplot',
                       rat <- as.data.frame(rat[[1]])
                       ## choose which level to use for the legend
                       if (is.numeric(att)) att = att + 1
-                      ratID <- rat$ID
+                      if ("ID" %in% names(rat))
+                          ratID <- rat$ID
+                      else
+                      {## If there is no ID column use the first one 
+                          if (is.numeric(rat[,1]))
+                              ratID <- rat[,1]
+                          else ## but if this is not numeric, build a simple ID sequence
+                              ratID <- seq_len(nrow(rat))
+                      }
                       objectSample <- subst(objectSample,
-                                           ratID, seq_along(ratID))
+                                            ratID, seq_along(ratID))
                       names(objectSample) <- names(object)
                   }
               } else rat <- NULL
