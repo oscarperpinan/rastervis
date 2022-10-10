@@ -502,8 +502,8 @@ setMethod('levelplot',
                           else ## but if this is not numeric, build a simple ID sequence
                               ratID <- seq_len(nrow(rat))
                       }
-                      objectSample <- subst(objectSample,
-                                            ratID, seq_along(ratID))
+                      objectSample <- classify(objectSample,
+                                               cbind(ratID, seq_along(ratID)))
                       names(objectSample) <- names(object)
                   }
               } else rat <- NULL
