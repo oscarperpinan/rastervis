@@ -154,7 +154,7 @@ setMethod('vectorplot',
                   rgAxis <- diff(p$x.limits)
                   if (isField && !dXY){
                       if (isTRUE(scaleSlope)) {
-                          scaleSlope <- raster::cellStats(subset(object, 1), 'rms')
+                          scaleSlope <- raster::cellStats(raster::subset(object, 1), 'rms')
                       } else {}
                   } else {
                       scaleSlope <- 1
