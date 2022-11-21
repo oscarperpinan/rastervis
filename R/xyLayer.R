@@ -27,7 +27,7 @@ xyLayer <- function(object, dirXY=y, vector = TRUE, maxpixels)
         x <- terra::init(object, fun='x')
     }
     isLanguage <- try(is.language(dirXY), silent=TRUE)
-    if (class(isLanguage)=='try-error' || !isLanguage)
+    if (inherits(isLanguage, "try-error") || !isLanguage)
         dirXY <- substitute(dirXY)
     dirLayer <- eval(dirXY)
     ## Return a numeric vector is vector = TRUE
