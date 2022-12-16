@@ -293,8 +293,9 @@ setGeneric('levelplot')
                            bottom = "left",
                            top = "left")
             
-            colorkey = modifyList(colorkey.default, colorkey)
         }
+
+        colorkey = modifyList(colorkey.default, colorkey)
     }
 
     ## And the levelplot call
