@@ -51,7 +51,7 @@ setMethod("plot3D", signature(x='RasterLayer'),
                       color <- level.colors(Zcol, at=at, col.regions=col)
                   }
                   ## Open a device only if there is none active
-                  if (rgl::rgl.cur() == 0) rgl::open3d()
+                  if (rgl::cur3d() == 0) rgl::open3d()
                   
                   if (background==min(Zcol)) {
                       trans <- Zcol
