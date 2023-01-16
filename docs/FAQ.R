@@ -1,4 +1,22 @@
+## #+DESCRIPTION: FAQ rasterVis
+## #+TITLE: FAQs
+## #+AUTHOR: Oscar Perpiñán Lamigueiro
+## #+EMAIL:     oscar.perpinan@upm.es
+## #+OPTIONS:   H:1 num:nil toc:1 \n:nil @:t ::t |:t ^:t -:t f:t *:t TeX:t LaTeX:nil skip:nil d:t tags:not-in-toc
+## #+PROPERTY:  header-args :session *R-FAQs* :tangle yes :eval no-export :comments org :exports both
+## #+LANGUAGE:  en
+## #+SETUPFILE: setup.org
+
+
 library(rasterVis)
+
+
+##   :PROPERTIES:
+##   :CUSTOM_ID: breaks
+##   :END:
+
+## Use the =at= argument to define the breaks.
+
 
 f <- system.file("external/test.grd", package="raster")
 r <- raster(f)
@@ -6,11 +24,28 @@ r <- raster(f)
 my.at <- seq(100, 1850, by = 250)
 levelplot(r, at=my.at)
 
+
+
+## #+RESULTS:
+## [[file:figs/FAQ_at.png]]
+
+## Moreover, if you want to define where the labels are located
+## define the components of =colorkey=:
+
+
 myColorkey <- list(at=my.at, ## where the colors change
                    labels=list(
                        at=my.at ## where to print labels
                      ))
 levelplot(r, at=my.at, colorkey=myColorkey)
+
+
+
+## #+RESULTS:
+## [[file:figs/FAQ_at2.png]]
+
+## Last, you can even define the contents of the labels:
+
 
 myColorkey <- list(at=my.at, ## where the colors change
                    labels=list(
@@ -19,14 +54,43 @@ myColorkey <- list(at=my.at, ## where the colors change
                      ))
 levelplot(r, at=my.at, colorkey=myColorkey)
 
+
+##   :PROPERTIES:
+##   :CUSTOM_ID: axis_labels
+##   :END:
+
+## Use =xlab=NULL=, =ylab=NULL= and =draw=FALSE= inside =scale=.
+
+
   r <- raster()
   r <- init(r, runif)
   
   levelplot(r, xlab=NULL, ylab=NULL, scales=list(draw=FALSE))
 
+
+
+## #+RESULTS:
+## [[file:figs/FAQ_axis_labels.png]]
+
+
   levelplot(r, xlab=NULL, scales=list(x=list(draw=FALSE)))
 
+
+
+## #+RESULTS:
+## [[file:figs/FAQ_axis_labelsX.png]]
+
+
   levelplot(r, ylab=NULL, scales=list(y=list(draw=FALSE)))
+
+
+##   :PROPERTIES:
+##   :CUSTOM_ID: rotate_axis_label
+##   :END:
+
+## Define =main=, =xlab= and =ylab= as vectors or lists with
+## arguments to be passed to =grid::gpar=.
+
 
   r <- raster(nrow=10, ncol=10)
   r[] <- runif(100)
@@ -37,15 +101,30 @@ levelplot(r, at=my.at, colorkey=myColorkey)
             ylab=list('Latitude', rot=30, fontface='bold')
             )
 
-  f <- system.file("external/test.grd", package="raster")
-  r <- raster(f)
-  
-  levelplot(r, margin=FALSE, auto.key=FALSE, scales=list(draw=FALSE)) + 
-      layer({
-          SpatialPolygonsRescale(layout.north.arrow(),
-                                 offset = c(179000,332500),
-                                 scale = 400)
-      })
+
+##   :PROPERTIES:
+##   :CUSTOM_ID: arrow
+##   :END:
+## Use =sp::layout.north.arrow= with =latticeExtra::layer=.
+
+library(sp)
+
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+
+levelplot(r, margin=FALSE, auto.key=FALSE, scales=list(draw=FALSE)) + 
+  layer({
+    SpatialPolygonsRescale(layout.north.arrow(),
+                           offset = c(179000,332500),
+                           scale = 400)
+  })
+
+
+##   :PROPERTIES:
+##   :CUSTOM_ID: scalebar
+##   :END:
+## Use =grid.rect=, =grid.text= and =latticeExtra::layer=.
+
 
   f <- system.file("external/test.grd", package="raster")
   r <- raster(f)
@@ -61,6 +140,18 @@ levelplot(r, at=my.at, colorkey=myColorkey)
                 gp=gpar(cex=0.5), rot=30,
                 default.units='native')
       })
+
+
+##   :PROPERTIES:
+##   :CUSTOM_ID: overlay
+##   :END:
+
+## Several layers can be combined using the =+.trellis= and =layer=
+## functions from the =latticeExtra= package (which is automatically
+## loaded with =rasterVis=).
+
+## Let's build some data to play. You can skip this part if you already have a raster file and a shapefile.
+
 
 library(maps)
 library(mapdata)
@@ -82,7 +173,24 @@ IDs <- sapply(strsplit(boundaries$names, ":"), function(x) x[1])
 bPols <- map2SpatialPolygons(boundaries, IDs=IDs,
                               proj4string=CRS(projection(myRaster)))
 
+
+
+## #+RESULTS:
+
+## The polygons are printed with =sp::sp.polygons= using =+.trellis= and
+## =layer= to display them over the result of =levelplot=.
+
+
 levelplot(myRaster) + layer(sp.polygons(bPols))
+
+
+##   :PROPERTIES:
+##   :CUSTOM_ID: several_rasters
+##   :END:
+
+## Use =print.trellis= and its argument =split=. 
+
+## For two different =RasterLayer=.
 
   r <- r2 <- raster()
   r[] <- runif(ncell(r))
@@ -95,6 +203,13 @@ levelplot(myRaster) + layer(sp.polygons(bPols))
   print(p, split=c(1, 1, 1, 2), more=TRUE)
   print(p2, split=c(1, 2, 1, 2))
 
+
+
+## #+RESULTS:
+## [[file:figs/FAQ_print_split.png]]
+
+## A more sophisticated solution to print more than two layers.
+
   s <- stack(r, r2, 10*r+r2, 10*r-r2)
   nl <- nlayers(s)
   m <- matrix(1:nl, nrow=2)
@@ -105,6 +220,13 @@ levelplot(myRaster) + layer(sp.polygons(bPols))
                      margin=FALSE)
       print(p, split=c(col(m)[i], row(m)[i], ncol(m), nrow(m)), more=(i<nl))
   }
+
+
+##   :PROPERTIES:
+##   :CUSTOM_ID: panel_labels
+##   :END:
+## Use =names.attr=.
+
 
   r <- raster(nrow=10, ncol=10)
   r[] <- runif(100)

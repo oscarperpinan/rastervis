@@ -4,9 +4,7 @@
 #+LANGUAGE:  en
 #+AUTHOR: Oscar Perpiñán Lamigueiro
 #+OPTIONS:   num:nil toc:1 ^:nil
-#+OPTIONS: org-html-preamble:nil org-html-postamble:nil
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="styles.css" />
-#+HTML_HEAD: <META NAME="viewport" CONTENT="width=device-width, initial-scale=1">
+#+SETUPFILE: setup.org
 #+BIND: org-html-postamble "<p><a href=\"http://oscarperpinan.github.io/rastervis/FAQ.html\">FAQs</a></p><p><a href=\"https://github.com/oscarperpinan/rastervis\">View the Project on GitHub</a></p><p>Maintained by <a href=\"http://oscarperpinan.github.io/\">Oscar Perpiñán</a>.</script></p>"
 
 * Introduction

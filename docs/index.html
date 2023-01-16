@@ -3,16 +3,15 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-03-21 dom 10:23 -->
+<!-- 2023-01-16 lun 23:30 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>rasterVis</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Oscar Perpiñán Lamigueiro" />
-<meta name="description" content="rasterVis"
- />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
+<meta name="description" content="rasterVis" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
   .subtitle { text-align: center;
@@ -33,8 +32,9 @@
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
   pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
     padding: 8pt;
     font-family: monospace;
     overflow: auto;
@@ -42,22 +42,22 @@
   }
   pre.src {
     position: relative;
-    overflow: visible;
-    padding-top: 1.2em;
+    overflow: auto;
   }
   pre.src:before {
     display: none;
     position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
+    top: -8px;
+    right: 12px;
     padding: 3px;
-    border: 1px solid black;
+    color: #555;
+    background-color: #f2f2f299;
   }
-  pre.src:hover:before { display: inline;}
+  pre.src:hover:before { display: inline; margin-top: 14px;}
   /* Languages per Org manual */
   pre.src-asymptote:before { content: 'Asymptote'; }
   pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
   pre.src-C:before { content: 'C'; }
   /* pre.src-C++ doesn't work in CSS */
   pre.src-clojure:before { content: 'Clojure'; }
@@ -192,67 +192,36 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
-  /*]]>*/-->
+  .org-svg { }
 </style>
-<link rel="stylesheet" type="text/css" href="styles.css" />
-<META NAME="viewport" CONTENT="width=device-width, initial-scale=1">
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
-</script>
+<link rel="stylesheet" type="text/css" href="stylesheets/styles.css" />
+<link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/colorbox.css" />
+<script src="js/jquery.colorbox.js"></script>
+<script src="js/colorbox.js"></script>
 </head>
 <body>
-<div id="content">
+<div id="content" class="content">
 <h1 class="title">rasterVis</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#intro">Introduction</a></li>
-<li><a href="#levelplot">Level plots</a></li>
+<li><a href="#intro">Introduction</a>
+<ul>
+<li><a href="#installation">Installation</a></li>
+</ul>
+</li>
+<li><a href="#levelplot">Level plots</a>
+<ul>
+<li><a href="#org1d0975e">Overlay plots</a></li>
+<li><a href="#levelplot_logscale">Log scale</a></li>
+</ul>
+</li>
 <li><a href="#themes">Themes</a></li>
 <li><a href="#factor">Categorical data</a></li>
 <li><a href="#scatterplot">Scatterplots and histograms</a></li>
@@ -263,7 +232,7 @@ for the JavaScript code in this tag.
 </div>
 </div>
 
-<div id="outline-container-orgc31492f" class="outline-2">
+<div id="outline-container-intro" class="outline-2">
 <h2 id="intro">Introduction</h2>
 <div class="outline-text-2" id="text-intro">
 <p>
@@ -305,7 +274,7 @@ as well as the <a href="https://github.com/oscarperpinan/bookvis">full R code</a
 </p>
 </div>
 
-<div id="outline-container-orgd8f70da" class="outline-3">
+<div id="outline-container-installation" class="outline-3">
 <h3 id="installation">Installation</h3>
 <div class="outline-text-3" id="text-installation">
 <p>
@@ -343,7 +312,7 @@ or with the <a href="https://github.com/hadley/devtools">devtools</a> package:
 </div>
 </div>
 
-<div id="outline-container-org53806cd" class="outline-2">
+<div id="outline-container-levelplot" class="outline-2">
 <h2 id="levelplot">Level plots</h2>
 <div class="outline-text-2" id="text-levelplot">
 <p>
@@ -388,7 +357,7 @@ technique</a>.
 </div>
 
 
-<div class="figure">
+<div id="orgb6155b1" class="figure">
 <p><img src="figs/levelplot.png" alt="levelplot.png" />
 </p>
 </div>
@@ -405,15 +374,15 @@ function defined by the component <code>FUN</code> of the list <code>margin</cod
 </div>
 
 
-<div class="figure">
+<div id="orgcfbb5c6" class="figure">
 <p><img src="figs/levelplot_layer1.png" alt="levelplot_layer1.png" />
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgb389f16" class="outline-3">
-<h3 id="orgb389f16">Overlay plots</h3>
-<div class="outline-text-3" id="text-orgb389f16">
+<div id="outline-container-org1d0975e" class="outline-3">
+<h3 id="org1d0975e">Overlay plots</h3>
+<div class="outline-text-3" id="text-org1d0975e">
 <p>
 The result of the last call is a <code>trellis</code> object. The <a href="http://latticeextra.r-forge.r-project.org/">latticeExtra</a> package
 provides the <code>layer</code> function to add contents. For example, let&rsquo;s add the administrative borders. 
@@ -432,7 +401,7 @@ p + layer(sp.lines(mapaSHP, lwd=0.8, col=<span class="org-string">'darkgray'</sp
 </div>
 
 
-<div class="figure">
+<div id="orgd12a0cc" class="figure">
 <p><img src="figs/levelplot_layer_borders.png" alt="levelplot_layer_borders.png" />
 </p>
 </div>
@@ -468,7 +437,7 @@ These plots can be easily combined using <code>+</code> (the first plot sets the
 </div>
 
 
-<div class="figure">
+<div id="org38e0925" class="figure">
 <p><img src="figs/levelplot_overlay.png" alt="levelplot_overlay.png" />
 </p>
 </div>
@@ -484,7 +453,7 @@ The function <code>as.layer</code> with <code>under = TRUE</code> must be used i
 </div>
 
 
-<div class="figure">
+<div id="orgbf7f7a9" class="figure">
 <p><img src="figs/levelplot_overlay_under.png" alt="levelplot_overlay_under.png" />
 </p>
 </div>
@@ -492,7 +461,7 @@ The function <code>as.layer</code> with <code>under = TRUE</code> must be used i
 </div>
 
 
-<div id="outline-container-orgf90bec9" class="outline-3">
+<div id="outline-container-levelplot_logscale" class="outline-3">
 <h3 id="levelplot_logscale">Log scale</h3>
 <div class="outline-text-3" id="text-levelplot_logscale">
 <p>
@@ -512,7 +481,7 @@ levelplot(r^2, zscaleLog=<span class="org-ess-constant">TRUE</span>, contour=<sp
 </div>
 
 
-<div class="figure">
+<div id="orgfb1085f" class="figure">
 <p><img src="figs/levelplot_logscale.png" alt="levelplot_logscale.png" />
 </p>
 </div>
@@ -520,7 +489,7 @@ levelplot(r^2, zscaleLog=<span class="org-ess-constant">TRUE</span>, contour=<sp
 </div>
 </div>
 
-<div id="outline-container-org9be8a3f" class="outline-2">
+<div id="outline-container-themes" class="outline-2">
 <h2 id="themes">Themes</h2>
 <div class="outline-text-2" id="text-themes">
 <p>
@@ -558,7 +527,7 @@ The <code>RdBuTheme</code> diverging palette is specially well suited to this da
 </div>
 
 
-<div class="figure">
+<div id="org36f9e1c" class="figure">
 <p><img src="figs/levelplotAug.png" alt="levelplotAug.png" />
 </p>
 </div>
@@ -577,7 +546,7 @@ levelplot(Aug, par.settings = myTheme, contour = <span class="org-ess-constant">
 </div>
 
 
-<div class="figure">
+<div id="org518b087" class="figure">
 <p><img src="figs/levelplot_colorspace.png" alt="levelplot_colorspace.png" />
 </p>
 </div>
@@ -594,7 +563,7 @@ levelplot(Aug, par.settings = myTheme)
 </div>
 
 
-<div class="figure">
+<div id="org4c009e7" class="figure">
 <p><img src="figs/levelplot_dichromat.png" alt="levelplot_dichromat.png" />
 </p>
 </div>
@@ -602,7 +571,7 @@ levelplot(Aug, par.settings = myTheme)
 </div>
 
 
-<div id="outline-container-org4184465" class="outline-2">
+<div id="outline-container-factor" class="outline-2">
 <h2 id="factor">Categorical data</h2>
 <div class="outline-text-2" id="text-factor">
 <p>
@@ -637,7 +606,7 @@ Such type of rasters are easily displayed with <code>levelplot</code>:
 </div>
 
 
-<div class="figure">
+<div id="org7f98c37" class="figure">
 <p><img src="figs/levels.png" alt="levels.png" />
 </p>
 </div>
@@ -651,14 +620,14 @@ You can choose the variable (column) from the RAT with the <code>att</code> argu
 </div>
 
 
-<div class="figure">
+<div id="org1ffcb6d" class="figure">
 <p><img src="figs/levelsAtt.png" alt="levelsAtt.png" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orge349719" class="outline-2">
+<div id="outline-container-scatterplot" class="outline-2">
 <h2 id="scatterplot">Scatterplots and histograms</h2>
 <div class="outline-text-2" id="text-scatterplot">
 <p>
@@ -674,7 +643,7 @@ and coordinates of a <code>Raster</code> object:
 </div>
 
 
-<div class="figure">
+<div id="orgb9793e5" class="figure">
 <p><img src="figs/xyplot_formula.png" alt="xyplot_formula.png" />
 </p>
 </div>
@@ -686,7 +655,7 @@ and coordinates of a <code>Raster</code> object:
 </div>
 
 
-<div class="figure">
+<div id="orge658408" class="figure">
 <p><img src="figs/hexbinplot_formula.png" alt="hexbinplot_formula.png" />
 </p>
 </div>
@@ -702,7 +671,7 @@ and coordinates of a <code>Raster</code> object:
 </div>
 
 
-<div class="figure">
+<div id="orgd2dc4b8" class="figure">
 <p><img src="figs/splom.png" alt="splom.png" />
 </p>
 </div>
@@ -717,7 +686,7 @@ and coordinates of a <code>Raster</code> object:
 </div>
 
 
-<div class="figure">
+<div id="org77b0335" class="figure">
 <p><img src="figs/histogram.png" alt="histogram.png" />
 </p>
 </div>
@@ -728,7 +697,7 @@ and coordinates of a <code>Raster</code> object:
 </div>
 
 
-<div class="figure">
+<div id="org6ae87ed" class="figure">
 <p><img src="figs/density.png" alt="density.png" />
 </p>
 </div>
@@ -739,7 +708,7 @@ and coordinates of a <code>Raster</code> object:
 </div>
 
 
-<div class="figure">
+<div id="orge78537c" class="figure">
 <p><img src="figs/bwplot.png" alt="bwplot.png" />
 </p>
 </div>
@@ -756,14 +725,14 @@ variable of the plot:
 </div>
 
 
-<div class="figure">
+<div id="org6c4d1dd" class="figure">
 <p><img src="figs/histogram_FUN.png" alt="histogram_FUN.png" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org04e97a5" class="outline-2">
+<div id="outline-container-spacetime" class="outline-2">
 <h2 id="spacetime">Space-time plots</h2>
 <div class="outline-text-2" id="text-spacetime">
 <p>
@@ -831,7 +800,7 @@ hovmoller(SSTanom,
 </div>
 
 
-<div class="figure">
+<div id="orgbef0237" class="figure">
 <p><img src="figs/hovmoller.png" alt="hovmoller.png" />
 </p>
 </div>
@@ -847,14 +816,14 @@ The <code>horizonplot</code> and <code>xyplot</code> methods also are useful for
 </div>
 
 
-<div class="figure">
+<div id="orgbe4b013" class="figure">
 <p><img src="figs/horizon.png" alt="horizon.png" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org32f26bf" class="outline-2">
+<div id="outline-container-vectorplot" class="outline-2">
 <h2 id="vectorplot">Vector field plots</h2>
 <div class="outline-text-2" id="text-vectorplot">
 <p>
@@ -884,7 +853,7 @@ r <span class="org-ess-assignment">&lt;-</span> rasterFromXYZ(df, crs=proj)
 </div>
 
 
-<div class="figure">
+<div id="org1d9d351" class="figure">
 <p><img src="figs/vectorplot.png" alt="vectorplot.png" />
 </p>
 </div>
@@ -917,7 +886,7 @@ positions and color degradation encode the local vector direction
 </div>
 
 
-<div class="figure">
+<div id="orgf5f9079" class="figure">
 <p><img src="figs/streamplot.png" alt="streamplot.png" />
 </p>
 </div>
@@ -943,14 +912,14 @@ streamplot(r2, isField=<span class="org-ess-constant">TRUE</span>, streamlet=lis
 </div>
 
 
-<div class="figure">
+<div id="orged341d5" class="figure">
 <p><img src="figs/streamplotReds.png" alt="streamplotReds.png" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org34303c9" class="outline-2">
+<div id="outline-container-interaction" class="outline-2">
 <h2 id="interaction">Interaction</h2>
 <div class="outline-text-2" id="text-interaction">
 <p>

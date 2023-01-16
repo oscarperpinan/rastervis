@@ -1,15 +1,12 @@
-#+CATEGORY: R
-#+TAGS: 
 #+DESCRIPTION: FAQ rasterVis
 #+TITLE: FAQs
 #+AUTHOR: Oscar Perpiñán Lamigueiro
+#+EMAIL:     oscar.perpinan@upm.es
+#+OPTIONS:   H:1 num:nil toc:1 \n:nil @:t ::t |:t ^:t -:t f:t *:t TeX:t LaTeX:nil skip:nil d:t tags:not-in-toc
 #+PROPERTY:  header-args :session *R-FAQs* :tangle yes :eval no-export :comments org :exports both
 #+LANGUAGE:  en
-#+OPTIONS:   num:nil toc:1 ^:nil
-#+OPTIONS: org-html-preamble nil org-html-postamble nil
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="styles.css" />
-#+HTML_HEAD: <META NAME="viewport" CONTENT="width=device-width, initial-scale=1">
-#+BIND: org-export-html-postamble "<p><a href=\"http://oscarperpinan.github.io/rastervis\">HOME</a></p>"
+#+SETUPFILE: setup.org
+#+BIND: org-html-postamble "<p><a href=\"https://oscarperpinan.github.io/rastervis\">HOME</a> <p>Maintained by <a href=\"https://oscarperpinan.github.io/\">Oscar Perpiñán</a>.</p>"
 
 #+begin_src R :exports none
 library(rasterVis)
@@ -122,17 +119,18 @@ arguments to be passed to =grid::gpar=.
   :CUSTOM_ID: arrow
   :END:
 Use =sp::layout.north.arrow= with =latticeExtra::layer=.
-#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_arrow.png" 
-  f <- system.file("external/test.grd", package="raster")
-  r <- raster(f)
-  
-  levelplot(r, margin=FALSE, auto.key=FALSE, scales=list(draw=FALSE)) + 
-      layer({
-          SpatialPolygonsRescale(layout.north.arrow(),
-                                 offset = c(179000,332500),
-                                 scale = 400)
-      })
-  
+#+begin_src R :results output graphics :exports both :width 2000 :height 2000 :res 300 :file "figs/FAQ_arrow.png"
+library(sp)
+
+f <- system.file("external/test.grd", package="raster")
+r <- raster(f)
+
+levelplot(r, margin=FALSE, auto.key=FALSE, scales=list(draw=FALSE)) + 
+  layer({
+    SpatialPolygonsRescale(layout.north.arrow(),
+                           offset = c(179000,332500),
+                           scale = 400)
+  })
 #+end_src
 
 #+RESULTS:
