@@ -216,7 +216,7 @@ options.
 
 * How to overlay graticules (longitude - latitude lines)
 
-The =graticule= [[http://mdsumner.github.io/graticule/][package]] defines and draws graticules (longitude and latitude lines). The result can be combined with the levelplot output as shown in this [[https://gist.github.com/oscarperpinan/5d5bb51ff419621d5f63429b8f88d679][gist]].
+The =graticule= [[https://github.com/hypertidy/graticule][package]] defines and draws graticules (longitude and latitude lines). The result can be combined with the levelplot output as shown in this [[https://gist.github.com/oscarperpinan/5d5bb51ff419621d5f63429b8f88d679][gist]].
 
  
 * How to print several Rasters with different legends in the same page
