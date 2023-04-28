@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-04-28 vie 18:17 -->
+<!-- 2023-04-28 vie 18:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>FAQs</title>
@@ -217,8 +217,8 @@
 <li><a href="#arrow">How to add an arrow</a></li>
 <li><a href="#scalebar">How to add an scale</a></li>
 <li><a href="#overlay">How to overlay a shapefile</a></li>
-<li><a href="#orgef08c96">How to use <code>+.layer</code> inside a function</a></li>
-<li><a href="#orgc9af216">How to overlay graticules (longitude - latitude lines)</a></li>
+<li><a href="#layer_function">How to use <code>+.layer</code> inside a function</a></li>
+<li><a href="#graticules">How to overlay graticules (longitude - latitude lines)</a></li>
 <li><a href="#several_rasters">How to print several Rasters with different legends in the same page</a></li>
 <li><a href="#panel_labels">How to label each panel with a different label from the layer name</a></li>
 </ul>
@@ -242,7 +242,7 @@ levelplot(r, at=my.at)
 </div>
 
 
-<div id="org1678e23" class="figure">
+<div id="org1cfe55a" class="figure">
 <p><img src="figs/FAQ_at.png" alt="FAQ_at.png" />
 </p>
 </div>
@@ -262,7 +262,7 @@ levelplot(r, at=my.at, colorkey=myColorkey)
 </div>
 
 
-<div id="orgdc0e71c" class="figure">
+<div id="org09cd86d" class="figure">
 <p><img src="figs/FAQ_at2.png" alt="FAQ_at2.png" />
 </p>
 </div>
@@ -282,7 +282,7 @@ levelplot(r, at=my.at, colorkey=myColorkey)
 </div>
 
 
-<div id="org8e2cdd0" class="figure">
+<div id="org21c7eac" class="figure">
 <p><img src="figs/FAQ_at3.png" alt="FAQ_at3.png" />
 </p>
 </div>
@@ -306,7 +306,7 @@ Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> i
 </div>
 
 
-<div id="org72f7f98" class="figure">
+<div id="orge28d630" class="figure">
 <p><img src="figs/FAQ_axis_labels.png" alt="FAQ_axis_labels.png" />
 </p>
 </div>
@@ -317,7 +317,7 @@ Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> i
 </div>
 
 
-<div id="org4a303cf" class="figure">
+<div id="org821d191" class="figure">
 <p><img src="figs/FAQ_axis_labelsX.png" alt="FAQ_axis_labelsX.png" />
 </p>
 </div>
@@ -328,7 +328,7 @@ Use <code>xlab=NULL</code>, <code>ylab=NULL</code> and <code>draw=FALSE</code> i
 </div>
 
 
-<div id="org8123e95" class="figure">
+<div id="orga147ff1" class="figure">
 <p><img src="figs/FAQ_axis_labelsY.png" alt="FAQ_axis_labelsY.png" />
 </p>
 </div>
@@ -357,7 +357,7 @@ arguments to be passed to <code>grid::gpar</code>.
 </div>
 
 
-<div id="orge169973" class="figure">
+<div id="org8cbca27" class="figure">
 <p><img src="figs/FAQ_label_color.png" alt="FAQ_label_color.png" />
 </p>
 </div>
@@ -387,7 +387,7 @@ levelplot(r, margin=<span class="org-ess-constant">FALSE</span>, auto.key=<span 
 </div>
 
 
-<div id="orga82462c" class="figure">
+<div id="org69b5962" class="figure">
 <p><img src="figs/FAQ_arrow.png" alt="FAQ_arrow.png" />
 </p>
 </div>
@@ -422,7 +422,7 @@ Use <code>grid.rect</code>, <code>grid.text</code> and <code>latticeExtra::layer
 </div>
 
 
-<div id="org9e2832e" class="figure">
+<div id="org76caef4" class="figure">
 <p><img src="figs/FAQ_scale.png" alt="FAQ_scale.png" />
 </p>
 </div>
@@ -477,7 +477,7 @@ The polygons are printed with <code>sp::sp.polygons</code> using <code>+.trellis
 </div>
 
 
-<div id="org993c083" class="figure">
+<div id="orgb59fdd6" class="figure">
 <p><img src="figs/FAQ_overlay.png" alt="FAQ_overlay.png" />
 </p>
 </div>
@@ -489,9 +489,9 @@ options.
 </div>
 </div>
 
-<div id="outline-container-orgef08c96" class="outline-2">
-<h2 id="orgef08c96">How to use <code>+.layer</code> inside a function</h2>
-<div class="outline-text-2" id="text-orgef08c96">
+<div id="outline-container-layer_function" class="outline-2">
+<h2 id="layer_function">How to use <code>+.layer</code> inside a function</h2>
+<div class="outline-text-2" id="text-layer_function">
 <p>
 The help page of <code>latticeExtra::layer</code> explains that:
 </p>
@@ -503,7 +503,7 @@ the evaluation used in layer is non-standard, and can be confusing at first: you
 </blockquote>
 
 <p>
-When using layer inside a function, you can embed your object in a list and pass it in the data argument:
+When using <code>layer</code> inside a function, you can embed your object in a list and pass it in the data argument:
 </p>
 
 <div class="org-src-container">
@@ -528,9 +528,9 @@ Now the function produces the desired result:
 </div>
 
 
-<div id="outline-container-orgc9af216" class="outline-2">
-<h2 id="orgc9af216">How to overlay graticules (longitude - latitude lines)</h2>
-<div class="outline-text-2" id="text-orgc9af216">
+<div id="outline-container-graticules" class="outline-2">
+<h2 id="graticules">How to overlay graticules (longitude - latitude lines)</h2>
+<div class="outline-text-2" id="text-graticules">
 <p>
 The <code>graticule</code> <a href="https://github.com/hypertidy/graticule">package</a> defines and draws graticules (longitude and latitude lines). The result can be combined with the levelplot output as shown in this <a href="https://gist.github.com/oscarperpinan/5d5bb51ff419621d5f63429b8f88d679">gist</a>.
 </p>
@@ -564,7 +564,7 @@ For two different <code>RasterLayer</code>.
 </div>
 
 
-<div id="org57c994d" class="figure">
+<div id="orgc6464a1" class="figure">
 <p><img src="figs/FAQ_print_split.png" alt="FAQ_print_split.png" />
 </p>
 </div>
@@ -587,7 +587,7 @@ A more sophisticated solution to print more than two layers.
 </div>
 
 
-<div id="orgd4d0fdb" class="figure">
+<div id="org22afb05" class="figure">
 <p><img src="figs/FAQ_print_split4.png" alt="FAQ_print_split4.png" />
 </p>
 </div>
@@ -616,7 +616,7 @@ Use <code>names.attr</code>.
 </div>
 
 
-<div id="orgdbf65ae" class="figure">
+<div id="orgd5161ae" class="figure">
 <p><img src="figs/FAQ_namesattr.png" alt="FAQ_namesattr.png" />
 </p>
 </div>

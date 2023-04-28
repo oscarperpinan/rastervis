@@ -217,6 +217,9 @@ Read the help page of =sp.polygons= for detailed information about its
 options.
 
 * How to use =+.layer= inside a function
+ :PROPERTIES:
+  :CUSTOM_ID: layer_function
+  :END:
 
 The help page of =latticeExtra::layer= explains that:
 
@@ -243,6 +246,9 @@ myplot(myRaster, pol = bPols)
 
 
 * How to overlay graticules (longitude - latitude lines)
+ :PROPERTIES:
+  :CUSTOM_ID: graticules
+  :END:
 
 The =graticule= [[https://github.com/hypertidy/graticule][package]] defines and draws graticules (longitude and latitude lines). The result can be combined with the levelplot output as shown in this [[https://gist.github.com/oscarperpinan/5d5bb51ff419621d5f63429b8f88d679][gist]].
 
