@@ -6,9 +6,13 @@
 ## #+PROPERTY:  header-args :session *R-FAQs* :tangle yes :eval no-export :comments org :exports both
 ## #+LANGUAGE:  en
 ## #+SETUPFILE: setup.org
+## #+BIND: org-html-postamble "<p><a href=\"https://oscarperpinan.github.io/rastervis\">HOME</a> <p>Maintained by <a href=\"https://oscarperpinan.github.io/\">Oscar Perpiñán</a>.</p>"
 
 
+library(raster)
+library(terra)
 library(rasterVis)
+library(latticeExtra)
 
 
 ##   :PROPERTIES:
@@ -182,6 +186,31 @@ bPols <- map2SpatialPolygons(boundaries, IDs=IDs,
 
 
 levelplot(myRaster) + layer(sp.polygons(bPols))
+
+
+
+## The help page of latticeExtra::layer explains that:
+
+## #+begin_example
+## the evaluation used in layer is non-standard, and can be confusing at first: you typically refer to variables as if inside the panel function (x, y, etc); you can usually refer to objects which exist in the global environment (workspace), but it is safer to pass them in by name in the data argument to layer.
+## #+end_example
+
+## When using layer inside a function, you can embed your object in a list and pass it in the data argument:
+
+
+myplot <- function(rast, pol) {
+  rastplot <- levelplot(rast, margin = FALSE)
+  polyplot <- layer(sp.polygons(x), 
+                    data = list(x = pol))
+  print(rastplot + polyplot)
+}
+
+
+
+## Now the function produces the desired result:
+
+
+myplot(myRaster, pol = bPols)
 
 
 ##   :PROPERTIES:

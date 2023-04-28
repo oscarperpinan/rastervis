@@ -9,7 +9,10 @@
 #+BIND: org-html-postamble "<p><a href=\"https://oscarperpinan.github.io/rastervis\">HOME</a> <p>Maintained by <a href=\"https://oscarperpinan.github.io/\">Oscar Perpiñán</a>.</p>"
 
 #+begin_src R :exports none
+library(raster)
+library(terra)
 library(rasterVis)
+library(latticeExtra)
 #+end_src
 
 * How to define the breaks
@@ -212,6 +215,31 @@ levelplot(myRaster) + layer(sp.polygons(bPols))
 
 Read the help page of =sp.polygons= for detailed information about its
 options.
+
+* How to use =+.layer= inside a function
+
+The help page of =latticeExtra::layer= explains that:
+
+#+begin_quote
+the evaluation used in layer is non-standard, and can be confusing at first: you typically refer to variables as if inside the panel function (x, y, etc); you can usually refer to objects which exist in the global environment (workspace), but it is safer to pass them in by name in the data argument to layer.
+#+end_quote
+
+When using =layer= inside a function, you can embed your object in a list and pass it in the data argument:
+
+#+begin_src R
+myplot <- function(rast, pol) {
+  rastplot <- levelplot(rast, margin = FALSE)
+  polyplot <- layer(sp.polygons(x), 
+                    data = list(x = pol))
+  print(rastplot + polyplot)
+}
+#+end_src
+
+Now the function produces the desired result:
+
+#+begin_src R
+myplot(myRaster, pol = bPols)
+#+end_src
 
 
 * How to overlay graticules (longitude - latitude lines)
