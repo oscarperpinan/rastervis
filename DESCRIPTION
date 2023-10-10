@@ -1,14 +1,14 @@
 Package: rasterVis
 Type: Package
 Title: Visualization Methods for Raster Data
-Version: 0.51.5
+Version: 0.51.6
 Encoding: UTF-8
-Authors@R: c(person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@upm.es", role=c('cre', 'aut'), comment = c(ORCID = "0000-0002-4134-7196")), person("Robert", "Hijmans", email= "r.hijmans@gmail.com", role='aut'))
+Authors@R: c(person("Oscar", "Perpinan Lamigueiro", email="oscar.perpinan@upm.es", role=c('cre', 'aut'), comment = c(ORCID = "0000-0002-4134-7196")), person("Robert", "Hijmans", email= "r.hijmans@gmail.com", role='aut'), person("Alexandre", "Courtiol", email= "alexandre.courtiol@gmail.com", role='ctb'))
 Description: Methods for enhanced visualization and interaction with raster data. It implements visualization methods for quantitative data and categorical data, both for univariate and multivariate rasters. It also provides methods to display spatiotemporal rasters, and vector fields. See the website for examples.
 URL: https://oscarperpinan.github.io/rastervis/
 BugReports: https://github.com/oscarperpinan/rastervis/issues
 License: GPL-3
 LazyLoad: yes
-Depends: R (>= 3.0.0), methods, lattice (>= 0.20-41)
-Imports: raster (>= 3.4-13), terra (>= 1.4-9), latticeExtra, stats, utils, parallel, grid, grDevices, RColorBrewer, hexbin, sp (>= 1.0-6), zoo, viridisLite 
+Depends: R (>= 4.0.0), methods, lattice (>= 0.22-1)
+Imports: raster (>= 3.4-13), terra (>= 1.7-17), latticeExtra, stats, utils, parallel, grid, grDevices, RColorBrewer, hexbin, sp (>= 1.0-6), zoo, viridisLite 
 Suggests: rgl, ggplot2, colorspace, dichromat, sf

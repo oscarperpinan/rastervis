@@ -1,3 +1,29 @@
+## Points, lines and polygons with SpatVector
+## Contributed by Alexandre Courtiol
+lpoints.SpatVector <- function(x, ...) {
+  if (is.null(x)) return(NULL)
+  xy <- terra::crds(x, df = TRUE)
+  lattice::lpoints(xy, ...)
+}
+
+llines.SpatVector <- function(x, ...) {
+  if (is.null(x)) return(NULL)
+  xy <- terra::crds(x, list=TRUE)
+  names(xy) <- c("x", "y")
+  lattice::llines(xy, ...)
+}
+
+lpolygon.SpatVector <- function(x, ...) {
+  if (is.null(x)) return(NULL)
+  xy <- terra::crds(x, list=TRUE)
+  for (i in seq_along(xy)) {
+    for (j in seq_along(xy[[i]])) {
+        lattice::lpolygon(x = xy[[i]][[j]][[1]],
+                          y = xy[[i]][[j]][[2]],
+                          ...)
+    }
+  }
+}
 ##Customization of lattice
 xscale.raster <- function(lim, ...){
   ans <- xscale.components.default(lim, ...)

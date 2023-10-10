@@ -114,6 +114,7 @@ export(
   'yscale.raster.subticks'
     )
 
+#S4 methods
 exportMethods(
               "bwplot",
               "densityplot",
@@ -131,3 +132,7 @@ exportMethods(
               "plot3D",
               "gplot"
               )
+#S3 methods
+S3method("llines", "SpatVector")
+S3method("lpoints", "SpatVector")
+S3method("lpolygon", "SpatVector")
