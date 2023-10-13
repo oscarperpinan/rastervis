@@ -20,10 +20,12 @@ lpolygon.SpatVector <- function(x, ...) {
     for (j in seq_along(xy[[i]])) {
         lattice::lpolygon(x = xy[[i]][[j]][[1]],
                           y = xy[[i]][[j]][[2]],
+                          rule = "evenodd",
                           ...)
     }
   }
 }
+
 ##Customization of lattice
 xscale.raster <- function(lim, ...){
   ans <- xscale.components.default(lim, ...)
