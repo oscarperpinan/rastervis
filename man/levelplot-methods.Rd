@@ -423,6 +423,11 @@ levelplot(s, layout=c(1, 3))
 
 ## SpatRaster with several layers
 st <- c(rt, rt + 500, rt - 500)
+
+## c() assign the same name for all the layers,
+## but each layer needs a unique name for levelplot
+set.names(st, c("r0", "rp500", "rm500"))
+
 levelplot(st, contour=TRUE)
 contourplot(st, labels=list(cex=0.4), cuts=12)
 
