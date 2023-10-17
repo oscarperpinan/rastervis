@@ -8,19 +8,19 @@ lpoints.SpatVector <- function(x, ...) {
 
 llines.SpatVector <- function(x, ...) {
   if (is.null(x)) return(NULL)
-  xy <- terra::crds(x, list=TRUE)
+  xy <- terra::crds(x, list = TRUE)
   names(xy) <- c("x", "y")
   lattice::llines(xy, ...)
 }
 
-lpolygon.SpatVector <- function(x, ...) {
+lpolygon.SpatVector <- function(x, rule = "evenodd", ...) {
   if (is.null(x)) return(NULL)
-  xy <- terra::crds(x, list=TRUE)
+  xy <- terra::crds(x, list = TRUE)
   for (i in seq_along(xy)) {
     for (j in seq_along(xy[[i]])) {
         lattice::lpolygon(x = xy[[i]][[j]][[1]],
                           y = xy[[i]][[j]][[2]],
-                          rule = "evenodd",
+                          rule = rule,
                           ...)
     }
   }
