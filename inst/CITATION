@@ -3,9 +3,9 @@ citHeader("To cite package 'rasterVis' in publications use:")
 year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
 vers <- paste("R package version", meta$Version)
 
-citEntry(entry="Manual",
+bibentry(bibtype="Manual",
          title ="{rasterVis}",
-         author = personList(as.person("Oscar Perpi{\\~n}{\\'a}n"), as.person("Robert Hijmans")),
+         author = c(person("Oscar Perpi{\\~n}{\\'a}n"), person("Robert Hijmans")),
          year = year,
          url ="https://oscarperpinan.github.io/rastervis/",
          note = vers,

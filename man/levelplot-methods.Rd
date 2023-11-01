@@ -76,18 +76,18 @@
   \item{margin}{A list or a logical. If it is TRUE, two marginal
     graphics show the column (x) and row (y) summaries of the
     \code{Raster*} object. The summary is computed with the function
-    \code{mean}. If it is a list, it contains parameters in ‘name=value’
+    \code{mean}. If it is a list, it contains parameters in \code{name=value}
     form that define both margins, and may contain two other lists
-    called ‘x’ and ‘y’ whose components affect the respective margins
+    called \code{x} and \code{y} whose components affect the respective margins
     only: \itemize{
 
-      \item{draw: A logical. If TRUE (default) the marginal graphics are
-      drawn.}
+      \item draw: A logical. If TRUE (default) the marginal graphics are
+      drawn.
 
-      \item{FUN: A function to summarise the \code{Raster*} or
-	\code{SpatRaster} by rows and columns (default: \code{mean}).}
+      \item FUN: A function to summarise the \code{Raster*} or
+	\code{SpatRaster} by rows and columns (default: \code{mean}).
 
-      \item{scales: A list with components \code{x} (columns) and
+      \item scales: A list with components \code{x} (columns) and
 	\code{y} (rows). Each of these components must be a numeric
 	vector of length 2 defining the range for each marginal plot.
 	If \code{scales = NULL} (default) the range is internally
@@ -95,14 +95,14 @@
 	the corresponding limit of the range will be calculated
 	internally.  If any of the vectors is of length 1, it is assumed
 	that it defines the lower limit of the range, and the upper
-	limit is calculated internally. }
+	limit is calculated internally. 
 
-      \item{axis: Logical or a list. Its default value is
+      \item axis: Logical or a list. Its default value is
 	\code{FALSE}. If it is \code{TRUE} or a list, a simple axis is
 	drawn with the marginal graphic.  If it is a list, its
 	components define the graphical parameters of the axis using
 	\code{grid::\link{gpar}}.  The default value is \code{gpar(col =
-	  'darkgrey', fontsize = 7)}}
+	  'darkgrey', fontsize = 7)}
 
     }
   }
@@ -137,7 +137,7 @@
       \code{font} (see \code{\link{gpar}} for a full list).
       
       \code{main}, \code{xlab} and \code{ylab} can also be
-      arbitrary ‘"grob"’s (grid graphical objects).}
+      arbitrary "grobs" (grid graphical objects).}
   }
   
   
@@ -179,18 +179,18 @@
     parameters used by \code{lattice::\link[lattice]{xyplot}}. Adapted
     from the help page of this function: \itemize{
       
-      \item{between: }{A list with components \code{code} and
-        \code{code} (both usually 0 by default), numeric vectors
+      \item between: A list with components \code{x} and
+        \code{y} (both usually 0 by default), numeric vectors
         specifying the space between the panels (units are character
         heights). \code{x} and \code{y} are repeated to account for all
-        panels in a page and any extra components are ignored.}
+        panels in a page and any extra components are ignored.
       
-      \item{as.table: }{A logical flag that controls the order in which
+      \item as.table: A logical flag that controls the order in which
         panels should be displayed: if \code{TRUE} (the default), left
         to right, top to bottom (as in a table).  If \code{FALSE}
-        panels are drawn left to right, bottom to top.}
+        panels are drawn left to right, bottom to top.
 
-      \item{par.settings: }{A list to choose some display settings
+      \item par.settings: A list to choose some display settings
         temporarily. This list is supplied to
         \code{\link{trellis.par.set}}. When the resulting object
         is plotted, these options are applied temporarily for the
@@ -208,9 +208,9 @@
 	themes are defined using \code{\link{custom.theme}}. You can use
 	\code{\link{rasterTheme}} or \code{\link{custom.theme}} to
 	define your own theme (see examples for details).
-      }
+      
 
-      \item{scales: }{A list determining how the x- and y-axes (tick
+      \item scales: A list determining how the x- and y-axes (tick
           marks and labels) are drawn.  The list contains parameters in
           \code{name=value} form, and may also contain two other lists
           called \code{x} and \code{y} of the same form. Components of
@@ -220,12 +220,12 @@
           are used. For example, use \code{scales=list(draw=FALSE)} to
           suppress ticks and labels in both axis. Read the help page of
           \code{lattice::\link[lattice]{xyplot}} to know about the
-          possible components of \code{scales}.}
+          possible components of \code{scales}.
 
-      \item{panel: }{A function object or a character string giving the
+      \item panel: A function object or a character string giving the
           name of a predefined function. The default is
           \code{\link{panel.levelplot}}. Another useful option is
-          \code{\link{panel.levelplot.raster}}.}
+          \code{\link{panel.levelplot.raster}}.
 
     }}
     
@@ -234,26 +234,27 @@
 	supplied to \code{lattice::\link[lattice]{levelplot}}.  Adapted
 	from its help page: \itemize{
 
-	\item{pretty: }{A logical flag, indicating whether to use pretty
+	\item pretty: A logical flag, indicating whether to use pretty
           cut locations and labels. It is \code{FALSE} for
-          \code{levelplot} and \code{TRUE} for \code{contourplot}.}
+          \code{levelplot} and \code{TRUE} for \code{contourplot}.
 
-	\item{contour: }{A logical flag, indicating whether to draw
+	\item contour: A logical flag, indicating whether to draw
 	contour lines. It is \code{TRUE} for \code{contourplot} and
-	\code{FALSE} for \code{levelplot}.}
+	\code{FALSE} for \code{levelplot}.
 	
-	\item{region: }{A logical flag, indicating whether regions
+	\item region: A logical flag, indicating whether regions
           between contour lines should be filled as in a level plot. It
           is \code{FALSE} for \code{contourplot} and \code{TRUE} for
-          \code{levelplot}.}
+          \code{levelplot}.
 	
-	\item{labels: }{Typically a logical indicating whether the
+	\item labels: Typically a logical indicating whether the
           labels are to be drawn (default is \code{TRUE} for
           \code{contourplot}), a character or expression vector giving
           the labels associated with the \code{at} values, or a list
           whose components define the labels and their graphical
           parameters. Read the help page of
-          \code{\link{panel.levelplot}} for details.}  }}
+          \code{\link{panel.levelplot}} for details.}
+      }
     
   \item{zscaleLog}{Controls whether the Raster* will be log transformed
     before being passed to the panel function.  Defaults to \code{NULL},
@@ -270,7 +271,7 @@
     \code{\link{panel.levelplot.raster}}. The most important ones are:
     \itemize{
 
-      \item{layout: }{From the help page of
+      \item layout: From the help page of
         \code{lattice::\link[lattice]{xyplot}}: \code{layout} is a
         numeric vector of length 2 or 3 giving the number of
         columns, rows, and pages (optional) in a multipanel
@@ -282,12 +283,14 @@
         (corresponding to a layer of a \code{RasterStackBrick})
         object will be printed in a separate page (which could be
         useful to generate a series of output files to build an
-        animation.)}  \item{xlim, ylim: }{From the help page of
+        animation.)
+
+      \item xlim, ylim: From the help page of
         \code{lattice::\link[lattice]{xyplot}}: A numeric vector
         of length 2 giving left and right limits for x-axis, and
-        lower and upper limits for the y-axis.}
+        lower and upper limits for the y-axis.
       
-      \item{shrink: }{From the help page of
+      \item shrink: From the help page of
         \code{\link{panel.levelplot}}: Either a numeric vector of
         length 2 (meant to work as both x and y components), or a list
         with components x and y which are numeric vectors of length 2.
@@ -295,14 +298,14 @@
         z-value. The specification can be made separately for widths
         (x) and heights (y).  The elements of the length 2 numeric
         vector gives the minimum and maximum proportion of shrinkage
-        (corresponding to min and max of z).}
+        (corresponding to min and max of z).
       
-      \item{border, border.lty, border.lwd: }{Graphical parameters
+      \item border, border.lty, border.lwd: Graphical parameters
 	(color, type of line, width of line, respectively) of each
 	rectangle borders. See the help page of
 	\code{\link{panel.levelplot}} for details.
-      }
-  }}
+    }
+  }
 }
 
 \details{

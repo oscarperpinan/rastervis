@@ -17,6 +17,7 @@ digits=2, xlab='Direction', ylab='Time',
 par.settings=rasterTheme(), xscale.components=xscale.raster,
 add.contour=FALSE, labels=FALSE, region=TRUE, ...)
 }
+
 \arguments{
   \item{object}{A RasterStackBrick with a non-empty \code{z} slot, or a
     SpatRaster with a time index.}
@@ -51,10 +52,10 @@ for a variety of diagrams with this method.
   }
 \keyword{methods}
 \references{\itemize{
-    \item{Hovmoller, E. 1949. The trough and ridge diagram. Tellus 1, 62–66.}
-    \item{\url{https://www2.mmm.ucar.edu/episodes/Hovmoller/noJS/hovm200707.htm}}
-    \item{\url{https://psl.noaa.gov/map/clim/sst.shtml}}
-}
+    \item Hovmoller, E. 1949. The trough and ridge diagram. Tellus 1, 62–66.
+    \item \url{https://www2.mmm.ucar.edu/episodes/Hovmoller/noJS/hovm200707.htm}
+    \item \url{https://psl.noaa.gov/map/clim/sst.shtml}
+  }
 }
 
 \examples{

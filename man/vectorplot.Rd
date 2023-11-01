@@ -103,19 +103,25 @@
   vertical components are the layers of the second half.}
 
 \item{droplet}{A list whose elements define the droplet
-  configuration:\itemize{ \item{cropExtent: Percentage of the object
-  extent to be cropped (default .97) to avoid droplets at boundaries}
-
-\item{pc: A numeric. It is the percentage of cells used to compute
+  configuration:\itemize{
+    \item cropExtent: Percentage of the object
+    extent to be cropped (default .97) to avoid droplets at boundaries
+    \item pc: A numeric. It is the percentage of cells used to compute
 droplets. Its default value is 0.5. Therefore, only the 0.5\% of the
 cells are used. For example, if you use a Raster with 180 rows and 360
 columns (64800 cells), with this default value \code{streamplot} will
-produce 324 droplets.}}}
+produce 324 droplets.}
+}
+
 
 \item{streamlet}{A list whose elements define the streamlet
-  configuration:\itemize{ \item{L: length of the streamlet (number of
-      points, default 10)}
-    \item{h: streamlet calculation step (default \code{mean(res(object))}).}}}
+  configuration:\itemize{
+    \item L: length of the streamlet (number of
+      points, default 10)
+    \item h: streamlet calculation step (default
+    \code{mean(res(object))}).
+  }
+}
 
 \item{par.settings}{A list to define the graphical parameters. For
   \code{streamplot} there is an specific theme, \code{streamTheme}.}
