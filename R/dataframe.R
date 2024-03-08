@@ -6,7 +6,7 @@ dfRegular <- function(data, maxpixels)
                                     size = maxpixels,
                                     asRaster = TRUE)
         df <- raster::as.data.frame(dataSample, xy = TRUE)
-        
+        names(df) <- c("x", "y", names(data))
     } else
     {
         idx <- spatSample(data,
