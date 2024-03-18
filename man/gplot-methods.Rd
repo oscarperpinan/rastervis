@@ -9,18 +9,29 @@
 
 \title{Use ggplot to plot a Raster* or a SpatRaster object.}
 
-\description{ A wrapper function around \link[ggplot2]{ggplot} (ggplot2
-package). Note that the function in the raster package is called gplot
-with a single 'g'.  }
+\description{This function displays \code{Raster*} and \code{SpatRaster}
+  objects with the \code{ggplot2} system. Note that the function in the
+  \code{rasterVis} package is called \code{gplot} with a single 'g'.
+
+  \code{gplot} uses \code{\link[ggplot2]{geom_raster}} to display the
+  data, sets the color map with
+  \code{\link[ggplot2]{scale_fill_viridis_c}}, and sets the coordinate
+  reference system with \code{\link[ggplot2]{coord_sf}}. For multilayer
+  objects, it uses \code{\link[ggplot2]{facet_wrap}} to display a matrix
+  of panels.
+
+}
 
 \usage{
-\S4method{gplot}{Raster}(x, maxpixels=50000,...) 
-\S4method{gplot}{SpatRaster}(x, maxpixels=50000,...) 
+\S4method{gplot}{Raster}(x, maxpixels=50000, palette = "magma", ...) 
+\S4method{gplot}{SpatRaster}(x, maxpixels=50000, palette = "magma", ...) 
 }
 
 \arguments{
   \item{x}{A Raster* or SpatRaster object}
   \item{maxpixels}{Maximum number of pixels to use}
+  \item{palette}{Name of the \code{viridis} color map to use. See
+  \link[ggplot2]{scale_fill_viridis_c} for details.}
   \item{...}{Additional arguments for ggplot}
 }
 
@@ -35,28 +46,27 @@ with a single 'g'.  }
 \dontrun{
 library(raster)
 library(terra)
-
-r <- raster(system.file("external/test.grd", package="raster"))
-
-s1 <- stack(r, r*2)
-names(s1) <- c('meuse', 'meuse x 2')
-
 library(ggplot2)
+library(sf)
 
 theme_set(theme_bw())
 
+r <- raster(system.file("external/test.grd", package="raster"))
+r2 <- stack(r, r*2)
+names(r2) <- c('meuse', 'meuse x 2')
+
 ## With raster
-gplot(s1) + geom_tile(aes(fill = value)) +
-          facet_wrap(~ variable) +
-          scale_fill_gradient(low = 'white', high = 'blue') +
-          coord_equal()
+gplot(r)
+
+gplot(r2)
 
 ## With terra
-s2 <- rast(s1)
-gplot(s2) + geom_tile(aes(fill = value)) +
-          facet_wrap(~ variable) +
-          scale_fill_gradient(low = 'white', high = 'blue') +
-          coord_equal()
+s <- rast(r)
+s2 <- rast(r2)
+
+gplot(s)
+
+gplot(s2)
 }
 }
 
