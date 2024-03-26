@@ -23,15 +23,19 @@
 }
 
 \usage{
-\S4method{gplot}{Raster}(x, maxpixels=50000, palette = "magma", ...) 
-\S4method{gplot}{SpatRaster}(x, maxpixels=50000, palette = "magma", ...) 
+\S4method{gplot}{Raster}(x, maxpixels=50000, palette = "magma",
+show.legend = TRUE, ...) 
+\S4method{gplot}{SpatRaster}(x, maxpixels=50000, palette = "magma",
+show.legend = TRUE, ...) 
 }
 
 \arguments{
   \item{x}{A Raster* or SpatRaster object}
   \item{maxpixels}{Maximum number of pixels to use}
-  \item{palette}{Name of the \code{viridis} color map to use. See
-  \link[ggplot2]{scale_fill_viridis_c} for details.}
+  \item{palette}{If \code{character}, name of the \code{viridis} color map to use. See
+    \link[ggplot2]{scale_fill_viridis_c} for details. Otherwise, a scale
+    defined by a call to a function of the family \code{scale_fill_*}.}
+  \item{show.legend}{logical, if \code{TRUE} a legend is shown.}
   \item{...}{Additional arguments for ggplot}
 }
 
